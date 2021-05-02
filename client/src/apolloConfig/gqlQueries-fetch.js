@@ -1,3 +1,17 @@
+export const IS_THERE_OPEN_SESSION_FETCH = `
+  query {
+    openSession{
+      id
+      firstName
+      lastName
+      userName
+      email
+    }
+  }
+`
+
+
+
 export const fetch_QUERY_APPOINTMENTS = `
 query{
   appointments{

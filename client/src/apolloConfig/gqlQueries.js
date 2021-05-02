@@ -10,6 +10,8 @@ export const IS_USER_LOGGED_IN = gql`
     isUserLoggedIn @client
   }
 `
+
+
 export const IS_THERE_OPEN_SESSION = gql`
   query {
     openSession{
@@ -21,6 +23,7 @@ export const IS_THERE_OPEN_SESSION = gql`
     }
   }
 `
+
 export const ME = gql`
   query  {
     me{

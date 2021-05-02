@@ -23,7 +23,7 @@ export default {
     },
     openSession: (root, args, { req }, info) => {
       // TODO: projection
-      console.log('openSession')
+      console.log('openSession: ',req.session.userId)
       if (req.session.userId) {
         // console.log(User.findById(req.session.userId))
         return User.findById(req.session.userId)
