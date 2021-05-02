@@ -1,0 +1,130 @@
+#CONSULTA
+EncounterType: Tipo de Consulta:
+- Consulta
+- Chequeo Médico
+- Atención Preventiva
+
+PatientType: Tipo de Paciente:
+- Paciente Nuevo
+- Paciente Regular
+
+ServiceType: Tipo de atención:
+- Ambulatoria
+- Internamiento
+
+Sensitivity: Sensibilidad:
+- Normal
+- Urgente
+
+
+- ServicesBundle: Paquete de Servicios:
+- Paquete#1
+- Paquete#2
+- Pawuete#3
+
+Medical Encounter:
+- Chief complaint (Queja Principal)
+- History of Present illness
+- Physical Examination
+- Assesment and Plan (diagnosis, treatment)
+- Order and Prescriptions
+- Progress notes (SOAP notes: subjective, objective, assessment, and plan)
+- Test Results
+- HealthProf
+
+*)Outpatient and inpatients
+-Outpatient-ambolatory Care.
+-inpatient-is admitted to stay
+
+
+#GNU Health
+*)Launch Client:
+$gnuhealth-client&
+-Pass:
+gnusolidario
+
+#OpenEMR
+*)docker-composse up
+$/usr/bin/docker-compose up&
+http://172.20.0.3/interface/login/login.php?site=default
+admin
+db: 'openemr' user: 'openemr' host: '172.20.0.3' (Got timeout reading communication packets)
+
+#docker
+$docker ps -a
+$docker-composse up -d
+*)reinitialization:
+$docker-compose down -v
+$docker-compose up
+
+
+*) Paciente
+- Documento de Indetificaión: DNI, Carné de indetidad, Carnet de Extranjería, Pasaporte
+- Dirección: Av,Jr, calle; distrito, Departamento
+- Grupo Sanguíneo
+-
+
+
+
+
+
+
+
+- Informed consent
+
+*)Tipos de Alergias:
+- Respiratorias
+-dérmicas
+- alimentarias
+- a medicamentos
+
+*) Signos vitales:
+
+Tensión arterial
+Frecuencia cardíaca
+Frecuencia respiratoria
+Saturación de oxígeno
+Temperatura corporal
+
+RAM (SI/NO)
+P.A. SISTÓLICA
+P.A. DIASTÓLICA
+FRECUENCIA CARDIACA
+F. RESPIRATORIA
+SAT 0" (AIRE AMBIENTE)
+TEMPERATURA
+HEMOGLUCOTEST
+INR
+PESO
+TALLA
+IMC
+PERÍMETRO ABDOMINAL
+PERÍMETRO CEFÁLICO
+EVA
+
+*) DIAGNÓSTICO
+
+*) TRATAMIENTOS
+
+*) MEDICACIÓN
+
+*) DIAGNÓSTICOS ACTIVOS
+
+*) EVOLUCIÓN
+
+*)EXAMENES
+- Solicitud de Exámenes
+- Exámenes
+
+* REGISTR CITT
+-Centro
+-Tipo de Contingencia
+-Servicio: ginecología 
+-DIAGNÓSTICO
+-Tipo de Trabajo
+-Observaciones
+-Periodo de Incapacidad
+-Fecha de Inicio
+-Número de días
+*Histórico de Bajas
+

@@ -1,0 +1,200 @@
+#GIT
+
+
+clone a brach from GitHub
+git clone --branch <branchname> <remote-repo-url>
+
+*)git
+Switched to a new branch 'amend-my-name'
+$ git checkout -b amend-my-name
+
+$ git init
+$ git status
+- stage your changes
+$ git add .
+- commit your changes
+$git commit -m "added my github name"
+- Push your changes to github
+$git push
+- Push to new branch
+$ git push origin amend-my-name
+git push -u origin master is used for pushing local content to GitHub.
+In the code, the origin is your default remote repository name and '-u' flag is upstream,
+
+git clone -b mybranch --single-branch git://sub.domain.com/repo.git
+
+*)Git
+- Push MASTER
+$git push -u origin master
+
+$ git checkout -b appo3
+cheackout from current brach and Switched to a new branch <appo3>
+
+- which branch I am
+$git branch
+$git branch --show-current
+$git status
+$git rev-parse --abbrev-ref HEAD
+$git branch | sed -n '/\* /s///p'
+
+- push a branch to GitHub
+$git push origin appo2
+$git push  <REMOTENAME> <LOCAL_BRANCHNAME> 
+
+git clone -b mybranch --single-branch git://sub.domain.com/repo.git
+git init 
+and then use
+
+git fetch url-to-repo branchname:refs/remotes/origin/branchname
+git clone -b branch --single-branch git://github/repository.git
+git clone [url] -b [branch-name] --single-branch
+
+#GIT KEYRING
+$yay -S qtkeychain gnome-keyring
+Verify with the following:
+$ls -l /usr/share/dbus-1/services/ | grep secret
+$cat /usr/share/dbus-1/services/org.freedesktop.secrets.service
+
+<button onClick={(e) => this.deleteRow(id, e)}>Delete Row</button>
+<button onClick={this.deleteRow.bind(this, id)}>Delete Row</button>
+<button onClick={() => this.handleClick(id)} />
+
+ <input type="text" onChange={handleChange} />
+  function handleChange(event) {
+    setText(event.target.value);
+  }
+  
+LINUX:
+$groups dala
+$ cat /etc/group
+- add group:
+$groupadd group
+$gpasswd -a docker dala
+or
+$usermod -aG docker dala
+
+
+#DOCKER
+*)Install archlinux package: docker
+$sudo pacman -S docker
+- Enable docker.service:
+$sudo systemctl enable docker.service
+$reboot
+- verify with:
+$sudo docker info
+-verify that you can run containers:
+$sudo docker run -it --rm archlinux bash -c "echo hello world"
+*)Install Docker Compose:
+$sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+- Apply executable permissions to the binary:
+$sudo chmod +x /usr/local/bin/docker-compose
+-check path:
+$sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+$docker-compose --version
+-uninstallation:
+$sudo rm /usr/local/bin/docker-compose
+
+
+#REACT DEPLOYMENT
+*) on STATIC server 
+- install SERVE
+$ sudo npm install -g serve
+
+
+
+###DEVELOPMENT tools
+*) MORGAN
+- install morgan as project dependency (not as dev dependency) - or move from devdependencies to dependencies
+- use require, instead of import to avoid DEPRECATED message
+var morgan = require('morgan')
+
+
+
+*)SYNCFUSION
+-LIcense Key:
+MzEzODk3QDMxMzgyZTMyMmUzMEkwODZ3NDVTOXBuYjl3eTY1bk9tL05LN1dzSVMwblVrMDV1TkxuUkZIcmc9
+Version: 18.2.0.44
+
+
+
+*)HEROKU
+- Install HEROKU CLI:
+$yay -S heroku-cli 
+
+- Deploy from Heroku (integrated to github)
+https://dashboard.heroku.com/apps/morning-journey-64163/deploy/github
+
+Installation:
+[dala@DALA server]$ sudo pacman -S nodejs-lts-erbium
+[dala@DALA server]$ sudo pacman -S npm
+
+*) MONGO DB
+>sudo pacman -S python
+git clone https://aur.archlinux.org/mongodb-bin.git
+>cd mongodb
+>makepkg -si
+>systemctl enable --now mongodb.service
+
+**)
+install yay
+>yay -S mongodb-bin
+>systemctl enable --now mongodb.service
+>yay -S mongodb-compass
+>mongodb-compass&
+
+Use MongoDB's pre-built binary. 
+Use AUR package mongodb-bin and 
+possibly mongodb-tools-bin
+# systemctl enable --now mongodb
+$ mongo
+> exit
+
+- connect to Mongo via mongo-shell
+$mongo "mongodb+srv://cluster0.pii3g.mongodb.net/chat" --username dala
+>[enter password (berlin2003)]
+*execute script "mongodb_counters.js" from the current file location
+>load("/home/dala/MY_FILES/myWebApp/appo20/mongodb_counters.js")
+>exit
+
+
+
+*) MONGOBD-compass
+$mongodb-compass &
+mongodb+srv://dala:berlin2003@cluster0.pii3g.mongodb.net/chat
+
+
+
+*) CHROME EXTENSIONS:
+EditThisCookie
+
+Installation:
+[dala@DALA server]$ sudo pacman -S nodejs-lts-erbium
+[dala@DALA server]$ sudo pacman -S npm
+
+*) MONGO DB
+$sudo pacman -S python
+$git clone https://aur.archlinux.org/mongodb-bin.git
+$cd mongodb-bin
+$makepkg -si
+$systemctl enable --now mongodb.service
+$mongo
+>exit
+
+**)
+install yay
+>yay -S mongodb-compass
+>mongodb-compass&
+
+$yay -S postman
+$postman&
+crivas333@outlook.com
+123Chiki!
+
+*) GitHub
+crivas333@outlook.com
+123Chiki!
+
+*)Mongodb-cluster
+crivas333@outlook.com
+123Chiki!
+

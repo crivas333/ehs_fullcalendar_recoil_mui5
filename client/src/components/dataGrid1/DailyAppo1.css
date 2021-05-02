@@ -1,0 +1,57 @@
+
+@import url('https://cdn.syncfusion.com/ej2/material.css');
+
+ 
+/* @import "../../../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-calendars/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-dropdowns/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-lists/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-navigations/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-react-schedule/styles/material.css"; */
+
+
+.form-group.col-md-6 {
+    width: 250px;
+}
+#ShipAddress{
+    resize: vertical;
+}
+:-ms-fullscreen, .e-grid .e-dialog
+{
+    max-width: 552px;
+    
+}
+
+
+
+
+
+
+.control-pane .dialog-target {
+    min-height: 350px;
+    /*max-height: 50px;*/
+    /*margin-top:80px;*/
+}
+#defaultDialog {
+    left: 23%;
+    top: 0%! important;
+    
+}
+
+#targetElement {
+    height: 100%;
+    min-height: 500px;
+}
+
+@media screen and (min-width: 150px) and (max-width: 480px) {
+    .control-section {
+        margin-bottom: 30px;
+    }
+    .control-wrapper {
+        margin-bottom: 0px;
+    }
+}

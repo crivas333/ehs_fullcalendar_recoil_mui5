@@ -1,0 +1,159 @@
+
+import React, { useContext, useState, Fragment} from 'react'
+//import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
+import { GlobalContext } from '../../context/GlobalState'
+import ApplicationFieldsTable from './ApplicationFieldsTable'
+import AddForm from './AddForm'
+import EditForm from './EditForm'
+import ReusableControls from '../reusableForms/reusableControls/ReusableControls'
+import {getExamFieldsCollection} from '../../services/configService'
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+	}
+
+}))
+
+//export default function Appointment () {
+export default function EncounterControlCfg (props) { 
+  const classes = useStyles()
+	//const { customData } = useContext(GlobalContext)
+  //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const {applicationFields, addApplicationFieldAPOLLO,updateEncounterFieldsAPOLLO, deleteEncounterFieldsAPOLLO } = useContext(GlobalContext)
+  const initialFormState = { id: null, fieldView: '',fieldType: '', fieldData: '' }
+      // Setting state
+	const [chosenField, setChosenField]=useState('Tipo de Examen')
+	const [fieldType, setFieldType]=useState('examType')
+
+  const [ editingArray, setEditingArray ] = useState(initialFormState)
+  const [ editingFlag, setEditingFlag ] = useState(false)
+  
+	const onViewFieldChange = event => {
+		//console.log('SystemConfig: ',event.target.value)
+    setChosenField(event.target.value)
+    switch (event.target.value) {
+			case 'Tipo de Examen':
+				setFieldType('examType')
+				break
+			case 'Estado de Examen':
+				setFieldType('examStatus')
+				break	
+			
+			default:
+		}
+	}
+
+
+  	// CRUD operations
+	const addFieldData = addedFieldData => {
+		//console.log('customControl1: ',addedFieldData)
+		const fd=addedFieldData.toUpperCase()
+		const data={fieldView: 'examView', fieldType: fieldType, fieldData: fd}
+		addApplicationFieldAPOLLO(data)
+	}
+	const updateFieldData = (updatedValue) => {
+		setEditingFlag(false)
+		//console.log('updatedField: ',updatedField)
+		const fd=updatedValue.toUpperCase()
+		const data={...editingArray, fieldData: fd}
+		updateEncounterFieldsAPOLLO(data)
+	}
+	const deleteFieldData = id => {
+		setEditingFlag(false)
+		//console.log(id)
+		deleteEncounterFieldsAPOLLO(id)
+	}
+	
+	const editRow = data => {
+		setEditingFlag(true)
+		setEditingArray({ id: data.id, fieldView: data.fieldView, fieldType: data.fieldType, fieldData: data.fieldData })
+	}
+
+  return (
+    <div className={classes.root}>
+			<Grid container spacing={3}>
+				<Grid item xs={12}>
+					<ReusableControls.CustomSelect
+							name='cfgCustData'
+							label='Configuración Exámenes'
+							value={chosenField}
+							onChange={onViewFieldChange}
+							options={getExamFieldsCollection()}
+							//error={errors.sex}
+						/>
+				</Grid>
+		
+				<Grid item >
+					<ApplicationFieldsTable 
+						appFields={ applicationFields.filter(item => (item.fieldView ==='examView'&&item.fieldType===fieldType))}
+						editRow={editRow} 
+						deleteUser={deleteFieldData} />
+				</Grid>
+				<Grid item >
+					{editingFlag ? (
+						<Fragment>				
+							<EditForm
+								//editing={editingFlag}
+								setEditingFlag={setEditingFlag}
+								editingValue={editingArray.fieldData}
+								updateField={updateFieldData}
+							/>
+						</Fragment>
+					) : (
+						<Fragment>						
+							<AddForm addField={addFieldData} />
+						</Fragment>
+					)}
+				</Grid>
+			</Grid>
+   </div>
+  )
+}
+
+/*
+return (
+    <div className={classes.root}>
+			<Typography variant="h5">
+				{props.title}
+			</Typography>
+			<Grid container spacing={3}>
+				<Grid item >
+					{editing ? (
+						<Fragment>
+							<Typography variant="h6">
+								Editar Campo
+							</Typography>
+							<EditForm
+								editing={editing}
+								setEditing={setEditing}
+								currentUser={currentUser}
+								updateUser={updateFieldData}
+							/>
+						</Fragment>
+					) : (
+						<Fragment>
+							<Typography variant="h6">
+								Actualizar Campo
+							</Typography>
+							<AddForm addUser={addFieldData} />
+						</Fragment>
+					)}
+				</Grid>
+				<Grid item >
+					<Typography variant="h6">
+						Lista de Campos
+					</Typography>
+					<ApplicationFieldsTable users={props.dataSource} editRow={editRow} deleteUser={deleteFieldData} />
+				</Grid>
+			</Grid>
+   </div>
+  )
+*/

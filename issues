@@ -1,0 +1,37 @@
+#MATERIAL UI
+*) Remove outer scrollbar generated buy GRID due to SPACING
+*) Solutions
+<Container maxWidth={false}>
+  <Grid container spacing={6}>
+    Omit
+  </Grid>
+</Container>
+
+<Box style={{overflow: 'auto'}}>
+<Grid>...</Grid>
+</Box>
+
+<Grid container
+  spacing={0}>
+
+So you have 3 available workarounds:
+1)Not using the spacing feature and implementing it on userland spacing={0}, we could make this the default behavior.
+2)Adding a padding on the parent with, at least, the spacing value: https://codesandbox.io/s/WnpKlQ32n
+    <div style={{ padding: 20 }}>
+      <Grid container spacing={40}>
+3)Adding overflow-x: hidden; on the parent.
+
+<Grid container spacing={3} xs={12}> !!!!!!!!!!!
+
+body { margin: 0; padding: 0; }
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiGrid: {
+      container: {
+        width: "100% !important",
+        margin: "0 !important"
+      }
+    },
+  }
+});
