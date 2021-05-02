@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Notifier from './components/notification/Notifier'; 
 
 //import './App.css'
 
@@ -42,6 +43,7 @@ function App () {
         {!isAuth && (<Route path='/*' element={<LandingPage />} />)}
         {isAuth && (<Route path='/*' element={<Pages />} />)}
       </Routes>
+      <Notifier />
     </BrowserRouter>
   )
 }

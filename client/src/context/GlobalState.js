@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react'
 import AppReducer from './AppReducer'
 //import formatISO from 'date-fns/formatISO'
 //import format from 'date-fns/format';//import axios from 'axios'
-import fetch from 'cross-fetch'
+//import fetch from 'cross-fetch'
 import intervalToDuration from 'date-fns/intervalToDuration'
 import { client } from '../apolloConfig/apolloClient'
 import { SEARCH_PATIENT_BY_ID, 
@@ -133,64 +133,6 @@ export const GlobalProvider = ({ children }) => {
 
 
 
-  async function getPatientsFETCH () {
-    const requestBody = {
-      query: `
-          query{
-            patients{
-              id
-              dni
-              firstName
-              lastName
-              email
-            }
-          }
-        `
-    }
-    await fetch('/graphql', {
-      method: 'POST',
-      credentials: 'same-origin',
-      // credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestBody)
-    })
-      .then(res => {
-        if (res.status !== 200 && res.status !== 201) {
-          throw new Error('Failed!')
-        }
-        return res.json()
-      })
-      .then(resData => {
-        dispatch({
-          type: 'GET_PATIENTSDATA_GQL',
-          payload: resData.data.patients
-        })
-      })
-      .catch(err => {
-        console.log('getPatientsFETCH: ', err)
-        dispatch({
-          type: 'TRANSACTION_ERROR',
-          // payload: err.response.data.error
-        })
-      })
-  }
-  // async function createExamAPOLLO(appointmentId) {
-  //   try {
-  //     const res = await client.query({ query: CREATE_ENCOUNTER, variables: { appointmentId: appointmentId } })
-  //     // console.log('getPatientsAPOLLO- res: ', res)
-  //     dispatch({
-  //       type: 'CREATE_ENCOUNTER',
-  //       payload: res.data.patients
-  //     })
-  //   } catch (err) {
-  //     dispatch({
-  //       type: 'TRANSACTION_ERROR',
-  //       payload: err.res.data.error
-  //     })
-  //   }
-  // }
   async function createEncounterAPOLLO(appointmentId) {
     try {
       const res = await client.query({ query: CREATE_ENCOUNTER, variables: { appointmentId: appointmentId } })
@@ -458,7 +400,7 @@ export const GlobalProvider = ({ children }) => {
         updateEditingRowExam,
         getExamByPatientID_APOLLO,
         addExamDataAPOLLO,
-        getPatientsFETCH,
+        //getPatientsFETCH,
         createEncounterAPOLLO,
         getApplicationFieldsAPOLLO,
         addApplicationFieldAPOLLO,
@@ -470,6 +412,67 @@ export const GlobalProvider = ({ children }) => {
     </GlobalContext.Provider>
   )
 }
+
+
+  // async function getPatientsFETCH () {
+  //   const requestBody = {
+  //     query: `
+  //         query{
+  //           patients{
+  //             id
+  //             dni
+  //             firstName
+  //             lastName
+  //             email
+  //           }
+  //         }
+  //       `
+  //   }
+  //   await fetch('/graphql', {
+  //     method: 'POST',
+  //     credentials: 'same-origin',
+  //     // credentials: 'include',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(requestBody)
+  //   })
+  //     .then(res => {
+  //       if (res.status !== 200 && res.status !== 201) {
+  //         throw new Error('Failed!')
+  //       }
+  //       return res.json()
+  //     })
+  //     .then(resData => {
+  //       dispatch({
+  //         type: 'GET_PATIENTSDATA_GQL',
+  //         payload: resData.data.patients
+  //       })
+  //     })
+  //     .catch(err => {
+  //       console.log('getPatientsFETCH: ', err)
+  //       dispatch({
+  //         type: 'TRANSACTION_ERROR',
+  //         // payload: err.response.data.error
+  //       })
+  //     })
+  // }
+  // async function createExamAPOLLO(appointmentId) {
+  //   try {
+  //     const res = await client.query({ query: CREATE_ENCOUNTER, variables: { appointmentId: appointmentId } })
+  //     // console.log('getPatientsAPOLLO- res: ', res)
+  //     dispatch({
+  //       type: 'CREATE_ENCOUNTER',
+  //       payload: res.data.patients
+  //     })
+  //   } catch (err) {
+  //     dispatch({
+  //       type: 'TRANSACTION_ERROR',
+  //       payload: err.res.data.error
+  //     })
+  //   }
+  // }
+
 
 /*
   async function signInAxiosGQL (patientData) {
