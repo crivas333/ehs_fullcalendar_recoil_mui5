@@ -19,7 +19,7 @@ import {UpdatePatientTab2} from './UpdatePatientTab2'
 import {UpdatePatientTab3} from './UpdatePatientTab3'
 import {useReusableForm} from '../../reusableForms/useReusableForm'
 
-import Notify from '../../notification/Notify';
+//import Notify from '../../notification/Notify';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -181,7 +181,7 @@ const handleSubmit = e => {
         }} })
     
       //resetForm()
-      Notify('Synced');
+      //Notify('Datos de Paciente actualizados');
 
   }
 }

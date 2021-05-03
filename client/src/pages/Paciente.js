@@ -17,7 +17,7 @@ import {DisplayPatientTabForm} from '../components/patient/patientNew/DisplayPat
 import {NewPatientTabForm} from '../components/patient/patientNew/NewPatientTabForm'
 import {UpdatePatientTabForm} from '../components/patient/patientNew/UpdatePatientTabForm'
 import { GlobalContext } from '../context/GlobalState'
-
+import Notify from '../components/notification/Notify';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,16 +61,28 @@ export default function Paciente () {
     }
   )
   const [updatePatient] = useMutation(UPDATE_PATIENT,
+  //const [updatePatient,{loading,error}] = useMutation(UPDATE_PATIENT,
     {
-      onCompleted ({ updatePatient }) {
-        // console.log('updatePatient: ', updatePatient)
-        //setOpenUpdatePatient(false)
+      // onCompleted ({ updatePatient }) {
+      //   // console.log('updatePatient: ', updatePatient)
+      //   setAction(SEARCH)
+      //   reloadCurrentPatient(updatePatient)
+      //   Notify('Datos de Paciente actualizados');
+      // },
+      // onError (...errorUpdatePatient) {
+      //   console.log('updatePatient - onError: ', { errorUpdatePatient })
+      //   Notify('Error - vuelva a ejecutar');
+      // }
+      onCompleted: (data) => {
+        console.log("Data from mutation", data.updatePatient)
         setAction(SEARCH)
-        reloadCurrentPatient(updatePatient)
+        reloadCurrentPatient(data.updatePatient)
+        Notify('Datos de Paciente actualizados');
       },
-      onError (...errorUpdatePatient) {
-        console.log('updatePatient - onError: ', { errorUpdatePatient })
-      }
+      onError: (error) => {
+        console.error("Error creating a post", error)
+        Notify('Error - vuelva a ejecutar');
+    },
     }
   )
   const [deletePatient] = useMutation(DELETE_PATIENT,

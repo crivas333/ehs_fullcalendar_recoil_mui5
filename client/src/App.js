@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Notifier from './components/notification/Notifier'; 
-
+//import Notifier from './components/notification/Notifier'; //!!!!!!!!!this works
+import {Notifier} from './components/notification/Notifier';
 //import './App.css'
 
 import { currSessionVar } from './apolloConfig/apolloClient'

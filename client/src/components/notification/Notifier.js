@@ -1,55 +1,77 @@
 import React from 'react';
+//import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 let openSnackbarFn;
 
-class Notifier extends React.Component {
-  constructor(props) {
-    super(props);
+function openSnackbarExported({ message }) {
+  openSnackbarFn({ message });  
+}
 
-    this.state = {
-      open: false,
-      message: '',
-    };
-  }
+function Notifier(props) {
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState('');
 
-  componentDidMount() {
-    openSnackbarFn = this.openSnackbar;
-  }
+  React.useEffect(() => {
+    openSnackbarFn = openSnackbar;
+    //console.log('openSnackbarFn: ',openSnackbarFn)
+    return () => {
+      //cleanup
+    }
+  }, [])
 
-  handleSnackbarRequestClose = () => {
-    this.setState({
-      open: false,
-      message: '',
-    });
+  const openSnackbar = ({ message }) => {
+    //this.setState({ open: true, message });
+    setOpen(true);
+    setMessage(message)
   };
 
-  openSnackbar = ({ message }) => {
-    this.setState({ open: true, message });
+ 
+  const handleSnackbarRequestClose = () => {
+    // this.setState({
+    //   open: false,
+    //   message: '',
+    // });
+    setOpen(false);
+    setMessage('')
   };
 
-  render() {
-    const message = (
-      <span id="snackbar-message-id" dangerouslySetInnerHTML={{ __html: this.state.message }} />
-    );
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
-    return (
+
+
+  return (
+    <div>
+     
       <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={this.state.open}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        open={open}
+        autoHideDuration={6000}
+        //onClose={handleClose}
         message={message}
-        autoHideDuration={5000}
-        onClose={this.handleSnackbarRequestClose}
+        onClose={handleSnackbarRequestClose}
         ContentProps={{
           'aria-describedby': 'snackbar-message-id',
         }}
+        action={
+          <React.Fragment>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
       />
-    );
-  }
+    </div>
+  );
 }
-
-export function openSnackbarExported({ message }) {
-  openSnackbarFn({ message });
-}
-
-export default Notifier;
+export {Notifier, openSnackbarExported}

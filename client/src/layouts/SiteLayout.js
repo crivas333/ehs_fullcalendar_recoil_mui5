@@ -8,6 +8,8 @@ import MyDrawer from '../components/NavBar/MyDrawer'
 import Container from '@material-ui/core/Container'
 // import Toolbar from '@material-ui/core/Toolbar'
 // import Backdrop from "../components/NavBar/Backdrop";
+//import Notifier from '../components/notification/Notifier'; //!!!!!!!this works
+//import {Notifier} from '../components/notification/Notifier'; 
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -90,6 +92,8 @@ export default function SiteLayout (props) {
           {props.children}
         </div>
       </Container>
+      
+      {/*<Notifier />*/}
     </div>
 
   )
