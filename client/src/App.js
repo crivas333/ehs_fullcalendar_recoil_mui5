@@ -17,8 +17,13 @@ function App () {
   // console.log('APP')
   const { isAuth, updateCurrentUser } = useContext(GlobalContext)
  
-  const session = currSessionVar()
+  //const session = currSessionVar()
+  //const session = JSON.parse(sessionStorage.getItem('currSession')); // An object :
+  //console.log(session)
   useEffect(() => {
+    const session = JSON.parse(sessionStorage.getItem('currSession')); // An object :
+    console.log(session)
+   
     async function fetchData() {
       await updateCurrentUser(session)
       
@@ -27,7 +32,8 @@ function App () {
     return () => {
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session]); // Or [] if effect doesn't need props or state
+}, []); // Or [] if effect doesn't need props or state
+ //}, [session]); // Or [] if effect doesn't need props or state
   // useEffect(() => {
   //   updateCurrentUser(session)
   //   // console.log(session);

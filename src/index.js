@@ -58,6 +58,7 @@ const IN_PROD = (process.env.NODE_ENV ==='production')?true:false;
       saveUninitialized: false,
       cookie: {
         maxAge: parseInt(process.env.SESS_LIFETIME),
+        httpOnly: true, //test
         sameSite: true,
         // sameSite: false, // for axios
         // secure: false // FOR LOCAL DEVELOPMENT

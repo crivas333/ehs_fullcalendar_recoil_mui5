@@ -98,9 +98,16 @@ async function checkLoggedIn () {
 // }
 
 const renderApp = currSession => {
-  console.log('currSession: ', currSession)
+  //console.log('currSession: ', currSession)
   // currSessionVar({session: signIn, loggedIn: true});
-  currSessionVar(currSession)
+  //var myVariable = "Hello World";
+  //sessionStorage['currSession'] = currSession;
+  //var readValue = sessionStorage['currSession'];
+  sessionStorage.setItem('currSession', JSON.stringify(currSession));
+  //var obj = JSON.parse(sessionStorage.getItem('currSession')); // An object :
+  //console.log(obj);
+
+  //currSessionVar(currSession)
 
   const ApolloApp = AppComponent => (
     <ThemeProvider theme={theme}>
