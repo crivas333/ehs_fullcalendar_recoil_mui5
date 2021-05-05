@@ -13,16 +13,7 @@ import { GlobalContext } from '../context/GlobalState'
 
 export default function Pages () {
   const { getApplicationFieldsAPOLLO } = useContext(GlobalContext)
-  //useEffect(getApplicationFieldsAPOLLO(),[])
-  // useEffect(() => {
-  //   const fields =async () => {
-  //   const res = await getApplicationFieldsAPOLLO()
-  //   };
-  // }, [])
 
-  // useEffect(async () => {
-  //    await getApplicationFieldsAPOLLO()
-  // }, [])
   useEffect(() => {
     async function fetchData() {
       await getApplicationFieldsAPOLLO();

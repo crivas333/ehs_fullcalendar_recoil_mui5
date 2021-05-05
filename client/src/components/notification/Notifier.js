@@ -1,41 +1,66 @@
 import React from 'react';
 //import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+//import MuiAlert from '@material-ui/lab/Alert';
+
+import { makeStyles } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles((theme) => ({
+  content_success: {
+    //backgroundColor: theme.palette.success.light
+    backgroundColor: theme.palette.success.main
+  },
+  content_error: {
+    backgroundColor: theme.palette.error.main
+  },
+
+}))
+// function Alert(props) {
+//   return <MuiAlert elevation={6} variant="filled" {...props} />;
+// }
 
 let openSnackbarFn;
 
-function openSnackbarExported({ message }) {
-  openSnackbarFn({ message });  
+// function openSnackbarExported({ message }) {
+//   openSnackbarFn({ message });  
+// }
+// function openSnackbarExported({notificationObj} ) {
+//   console.log('openSnackbarExported: ',{notificationObj})
+//   openSnackbarFn({notificationObj} );  
+// }
+function openSnackbarExported({message,status} ) {
+  console.log('openSnackbarExported: ',{message,status})
+  openSnackbarFn({message,status} );  
 }
 
 function Notifier(props) {
+  const classes = useStyles()
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState('');
+  const [status, setStatus] = React.useState('');
 
   React.useEffect(() => {
     openSnackbarFn = openSnackbar;
-    //console.log('openSnackbarFn: ',openSnackbarFn)
     return () => {
       //cleanup
     }
   }, [])
 
-  const openSnackbar = ({ message }) => {
-    //this.setState({ open: true, message });
+  const openSnackbar = ({ message,status }) => {
     setOpen(true);
-    setMessage(message)
+    setMessage(message);
+    setStatus(status);
   };
 
  
   const handleSnackbarRequestClose = () => {
-    // this.setState({
-    //   open: false,
-    //   message: '',
-    // });
     setOpen(false);
-    setMessage('')
+    setMessage('');
+    setStatus('');
   };
 
   const handleClose = (event, reason) => {
@@ -49,14 +74,53 @@ function Notifier(props) {
 
   return (
     <div>
-     
-      <Snackbar
+       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
         }}
         open={open}
-        autoHideDuration={6000}
+        autoHideDuration={4000}
+        //onClose={handleClose}
+        //message={message}
+        onClose={handleSnackbarRequestClose}
+        >
+          <SnackbarContent 
+            //className={classes.content_success}
+            className={status ==='success'? classes.content_success: classes.content_error}
+            message={message}
+            action={
+                <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+            }
+          
+          
+          />
+        
+        
+        </Snackbar>
+     
+     
+    </div>
+  );
+}
+export {Notifier, openSnackbarExported}
+
+/*
+ <Alert onClose={handleClose} severity="success">
+          This is a success message!
+        </Alert>
+*/
+
+/*
+  <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        open={open}
+        autoHideDuration={5000}
         //onClose={handleClose}
         message={message}
         onClose={handleSnackbarRequestClose}
@@ -71,7 +135,5 @@ function Notifier(props) {
           </React.Fragment>
         }
       />
-    </div>
-  );
-}
-export {Notifier, openSnackbarExported}
+
+*/

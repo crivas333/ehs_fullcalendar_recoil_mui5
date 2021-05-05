@@ -1,10 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { request} from 'graphql-request'
-//import { createMuiTheme } from '@material-ui/core/styles'
-//import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
-import unstable_createMuiStrictModeTheme from '@material-ui/core/styles/createMuiStrictModeTheme';
 
+import unstable_createMuiStrictModeTheme from '@material-ui/core/styles/createMuiStrictModeTheme';
 import {ThemeProvider} from '@material-ui/core/styles'
 //import ThemeProvider from '@material-ui/core/styles/MuiThemeProvider' //it does not work
 //import fetch from 'cross-fetch'
@@ -15,6 +13,7 @@ import { client, currSessionVar } from './apolloConfig/apolloClient'
 // import { currSessionVar } from './apolloConfig/apolloClient'
 import {IS_THERE_OPEN_SESSION } from './apolloConfig/gqlQueries'
 //import {IS_THERE_OPEN_SESSION_FETCH } from './apolloConfig/gqlQueries-fetch'
+//import Notify from './components/notification/Notify';
 //const theme = createMuiTheme({
 const theme = unstable_createMuiStrictModeTheme({  
   // typography:{
@@ -43,6 +42,7 @@ async function checkLoggedIn () {
   catch (err){
     console.log('is there open session 1: ',err.response.error)
     console.log('is there open session 2: ',err.response.status)
+    //Notify({message:'Verifique la conección con el SERVIDOR', status: 'error'});
     //console.log('is there open session 3: ',err.response.data.error)
     //throw new Error('No hay conecciòn con el servidor')
   }

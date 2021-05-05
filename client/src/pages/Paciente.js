@@ -77,11 +77,12 @@ export default function Paciente () {
         console.log("Data from mutation", data.updatePatient)
         setAction(SEARCH)
         reloadCurrentPatient(data.updatePatient)
-        Notify('Datos de Paciente actualizados');
+        //Notify('Datos de Paciente actualizados');
+        Notify({message: 'Datos de Paciente actualizados',status: 'success'});
       },
       onError: (error) => {
         console.error("Error creating a post", error)
-        Notify('Error - vuelva a ejecutar');
+        Notify({message:'Error - vuelva a ejecutar', status: 'error'});
     },
     }
   )
