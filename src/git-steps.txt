@@ -1,0 +1,23 @@
+1) dala@DALA test_usestate]$ git init
+Reinitialized existing Git repository in /home/dala/0_MY_FILES/myWebApp/shortApps/test_usestate/.git/
+
+2)
+
+*) LOCAL MERGE and PUSH to REMOTE MAIN
+> git checkout main
+- git merge "new-branch" (in the local environment)
+>git merge main
+-push local:main into remote:main
+>git push -u origin main
+
+*) Rebasing works by transferring each local commit to the updated master branch one at a time. 
+>git checkout branch
+>git rebase master
+>git checkout master
+>git merge branch
+// git command to merge the branch(feature branch - add-header)
+Ex: git merge add-header
+
+*)Sincronizar remote:main with local:main
+>git checkout main
+>git pull
