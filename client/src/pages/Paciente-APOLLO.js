@@ -2,7 +2,6 @@
 import React, { useState, useContext } from 'react'
 
 import { useMutation } from '@apollo/client'
-//import {useMutation} from 'react-query'
 import { CREATE_PATIENT, UPDATE_PATIENT, DELETE_PATIENT } from '../apolloConfig/gqlQueries'
 
 import Button from '@material-ui/core/Button'

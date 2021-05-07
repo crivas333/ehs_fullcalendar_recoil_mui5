@@ -10,6 +10,8 @@ import App from './App'
 import { ApolloProvider } from '@apollo/client'
 import { GlobalProvider } from './context/GlobalState'
 import { client, currSessionVar } from './apolloConfig/apolloClient'
+
+import {QueryClient, QueryClientProvider,} from 'react-query'
 // import { currSessionVar } from './apolloConfig/apolloClient'
 import {IS_THERE_OPEN_SESSION } from './apolloConfig/gqlQueries'
 //import {IS_THERE_OPEN_SESSION_FETCH } from './apolloConfig/gqlQueries-fetch'
@@ -108,9 +110,11 @@ const renderApp = currSession => {
   //console.log(obj);
 
   //currSessionVar(currSession)
+  const queryClient = new QueryClient();
 
   const ApolloApp = AppComponent => (
     <ThemeProvider theme={theme}>
+      <QueryClientProvider client = {queryClient}>
       <ApolloProvider client={client}>
         <GlobalProvider>
           <React.StrictMode>
@@ -118,6 +122,7 @@ const renderApp = currSession => {
           </React.StrictMode>
         </GlobalProvider>
       </ApolloProvider>
+      </QueryClientProvider>
     </ThemeProvider>
   )
 
