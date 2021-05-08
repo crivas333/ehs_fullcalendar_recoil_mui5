@@ -9,11 +9,12 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import App from "./App";
 import { ApolloProvider } from "@apollo/client";
 import { GlobalProvider } from "./context/GlobalState";
-import { client } from "./apolloConfig/apolloClient";
+import { client } from "./graphqlClient/apolloClient";
+import { QueryClientProvider } from "react-query";
+import { queryClient } from "./graphqlClient/reactQueryClient";
 
-import { QueryClient, QueryClientProvider } from "react-query";
 // import { currSessionVar } from './apolloConfig/apolloClient'
-import { IS_THERE_OPEN_SESSION } from "./apolloConfig/gqlQueries";
+import { IS_THERE_OPEN_SESSION } from "./graphqlClient/gqlQueries";
 //import {IS_THERE_OPEN_SESSION_FETCH } from './apolloConfig/gqlQueries-fetch'
 //import Notify from './components/notification/Notify';
 //const theme = createMuiTheme({
@@ -105,7 +106,7 @@ const renderApp = (currSession) => {
   //console.log(obj);
 
   //currSessionVar(currSession)
-  const queryClient = new QueryClient();
+  //const queryClient = new QueryClient();
 
   const ApolloApp = (AppComponent) => (
     <ThemeProvider theme={theme}>

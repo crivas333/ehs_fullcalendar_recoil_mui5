@@ -7,7 +7,7 @@ import {
   CREATE_PATIENT,
   UPDATE_PATIENT,
   DELETE_PATIENT,
-} from "../apolloConfig/gqlQueries";
+} from "../graphqlClient/gqlQueries";
 
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
