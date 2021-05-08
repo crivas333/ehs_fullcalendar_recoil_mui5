@@ -1,7 +1,7 @@
-import { makeVar, gql } from '@apollo/client'
-import { cache } from './apolloClient'
+import { makeVar, gql } from "@apollo/client";
+//import { cache } from './apolloClient'
 
-export const isAuthVar = makeVar([])
+export const isAuthVar = makeVar([]);
 // export const currSessionVar = makeVar([]);
 
 // export const IS_LOGGED_IN = gql`
@@ -22,4 +22,3 @@ export const isAuthVar = makeVar([])
 //     cartItems @client
 //   }
 // `;
-

@@ -4,7 +4,7 @@ import AppReducer from "./AppReducer";
 //import format from 'date-fns/format';//import axios from 'axios'
 //import fetch from 'cross-fetch'
 import intervalToDuration from "date-fns/intervalToDuration";
-import { client } from "../graphqlClient/apolloClient";
+//import { client } from "../graphqlClient/apolloClient";
 import request from "graphql-request";
 import {
   SEARCH_PATIENT_BY_ID,
@@ -227,23 +227,34 @@ export const GlobalProvider = ({ children }) => {
   async function updateRowExam_APOLLO(row) {
     try {
       console.log("GlobalState - updateRowExam_APOLLO: ", row);
-      const res = await client.mutate({
-        mutation: UPDATE_ROWEXAM,
-        variables: {
-          id: row.id,
-          examInput: {
-            examType: row.examType,
-            examStatus: row.examStatus,
-            examDateTime: row.examDateTime,
-            //patient: row.patient,
-            historyId: row.historyId,
-          },
+      // const res = await client.mutate({
+      //   mutation: UPDATE_ROWEXAM,
+      //   variables: {
+      //     id: row.id,
+      //     examInput: {
+      //       examType: row.examType,
+      //       examStatus: row.examStatus,
+      //       examDateTime: row.examDateTime,
+      //       //patient: row.patient,
+      //       historyId: row.historyId,
+      //     },
+      //   },
+      // });
+      const res = await request("/graphql", UPDATE_ROWEXAM, {
+        id: row.id,
+        examInput: {
+          examType: row.examType,
+          examStatus: row.examStatus,
+          examDateTime: row.examDateTime,
+          //patient: row.patient,
+          historyId: row.historyId,
         },
       });
       //getExamByPatientID_APOLLO(row.patient);
       dispatch({
         type: "UPDATE_ROWEXAM_GQL",
-        payload: res.data.updateRowExam,
+        //payload: res.data.updateRowExam,
+        payload: res.updateRowExam,
       });
     } catch (err) {
       dispatch({
@@ -256,22 +267,31 @@ export const GlobalProvider = ({ children }) => {
     try {
       console.log("GlobalState - addExamDataAPOLLO: ", row);
       //const res = await client.mutate({ mutation: UPDATE_APPLICATIONSFIELDS, variables: { id: data.id, fieldData: data.fieldData} })
-      const res = await client.mutate({
-        mutation: ADD_EXAMDATA,
-        variables: {
-          examInput: {
-            examType: row.examType,
-            examStatus: row.examStatus,
-            examDateTime: row.examDateTime,
-            patient: row.patient,
-            historyId: row.historyId,
-          },
+      // const res = await client.mutate({
+      //   mutation: ADD_EXAMDATA,
+      //   variables: {
+      //     examInput: {
+      //       examType: row.examType,
+      //       examStatus: row.examStatus,
+      //       examDateTime: row.examDateTime,
+      //       patient: row.patient,
+      //       historyId: row.historyId,
+      //     },
+      //   },
+      // });
+      const res = await request("/graphql", ADD_EXAMDATA, {
+        examInput: {
+          examType: row.examType,
+          examStatus: row.examStatus,
+          examDateTime: row.examDateTime,
+          //patient: row.patient,
+          historyId: row.historyId,
         },
       });
       getExamByPatientID_APOLLO(row.patient);
       dispatch({
         type: "ADD_EXAMDATA_GQL",
-        payload: res.data.addExamData,
+        payload: res.addExamData,
       });
     } catch (err) {
       dispatch({
@@ -283,11 +303,12 @@ export const GlobalProvider = ({ children }) => {
 
   async function getPatientsAPOLLO() {
     try {
-      const res = await client.query({ query: GET_PATIENTS });
+      //const res = await client.query({ query: GET_PATIENTS });
+      const res = await request("/graphql", GET_PATIENTS);
       // console.log('getPatientsAPOLLO- res: ', res)
       dispatch({
         type: "GET_PATIENTSDATA_GQL",
-        payload: res.data.patients,
+        payload: res.patients,
       });
     } catch (err) {
       dispatch({
@@ -299,11 +320,13 @@ export const GlobalProvider = ({ children }) => {
 
   async function getApplicationFieldsAPOLLO() {
     try {
-      const res = await client.query({ query: GET_APPLICATIONSFIELDS });
+      //const res = await client.query({ query: GET_APPLICATIONSFIELDS });
+      const res = await request("/graphql", GET_APPLICATIONSFIELDS);
       //console.log('getApplicationFieldsAPOLLO- res: ', res)
       dispatch({
         type: "GET_APPLICATIONFIELDS_GQL",
-        payload: res.data.getApplicationFields,
+        //payload: res.data.getApplicationFields,
+        payload: res.getApplicationFields,
       });
     } catch (err) {
       console.log("GlobalState - getApplicationFieldsAPOLLO: ", err);
@@ -317,19 +340,24 @@ export const GlobalProvider = ({ children }) => {
     try {
       console.log("GlobalState - addApplicationFieldAPOLLO: ", data);
       //const res = await client.mutate({ mutation: UPDATE_APPLICATIONSFIELDS, variables: { id: data.id, fieldData: data.fieldData} })
-      const res = await client.mutate({
-        mutation: ADD_APPLICATIONFIELDS,
-        variables: {
-          fieldView: data.fieldView,
-          fieldType: data.fieldType,
-          fieldData: data.fieldData,
-        },
+      // const res = await client.mutate({
+      //   mutation: ADD_APPLICATIONFIELDS,
+      //   variables: {
+      //     fieldView: data.fieldView,
+      //     fieldType: data.fieldType,
+      //     fieldData: data.fieldData,
+      //   },
+      // });
+      const res = await request("/graphql", ADD_APPLICATIONFIELDS, {
+        fieldView: data.fieldView,
+        fieldType: data.fieldType,
+        fieldData: data.fieldData,
       });
-
       //console.log('updateApplicationFieldsAPOLLO- res: ', res)
       dispatch({
         type: "ADD_APPLICATIONFIELD_GQL",
-        payload: res.data.addApplicationFields,
+        //payload: res.data.addApplicationFields,
+        payload: res.addApplicationFields,
       });
     } catch (err) {
       dispatch({
@@ -338,20 +366,24 @@ export const GlobalProvider = ({ children }) => {
       });
     }
   }
-  async function updateEncounterFieldsAPOLLO(data) {
+  async function updateApplicationFieldAPOLLO(data) {
     try {
       console.log("GlobalState - updateCustomDateAPOLLO: ", data);
 
       //const res = await client.mutate({ mutation: UPDATE_APPLICATIONSFIELDS, variables: {id: data.id, fieldType: data.fieldType, fieldData: data.fieldData} })
-      const res = await client.mutate({
-        mutation: UPDATE_APPLICATIONFIELDS,
-        variables: { id: data.id, fieldData: data.fieldData },
+      // const res = await client.mutate({
+      //   mutation: UPDATE_APPLICATIONFIELDS,
+      //   variables: { id: data.id, fieldData: data.fieldData },
+      // });
+      const res = await request("/graphql", UPDATE_APPLICATIONFIELDS, {
+        id: data.id,
+        fieldData: data.fieldData,
       });
-
       //console.log('updateApplicationFieldsAPOLLO- res: ', res)
       dispatch({
         type: "UPDATE_CUSTOMDATA_GQL",
-        payload: res.data.updateApplicationFields,
+        //payload: res.data.updateApplicationFields,
+        payload: res.updateApplicationFields,
       });
     } catch (err) {
       dispatch({
@@ -360,17 +392,21 @@ export const GlobalProvider = ({ children }) => {
       });
     }
   }
-  async function deleteEncounterFieldsAPOLLO(id) {
+  async function deleteApplicationFieldAPOLLO(id) {
     try {
       //console.log('deleteCustomDateAPOLLO: ',id)
-      const res = await client.mutate({
-        mutation: DELETE_APPLICATIONFIELDS,
-        variables: { id: id },
+      // const res = await client.mutate({
+      //   mutation: DELETE_APPLICATIONFIELDS,
+      //   variables: { id: id },
+      // });
+      const res = await request("/graphql", DELETE_APPLICATIONFIELDS, {
+        id: id,
       });
       //console.log('updateApplicationFieldsAPOLLO- res: ', res)
       dispatch({
         type: "UPDATE_CUSTOMDATA_GQL",
-        payload: res.data.deleteApplicationFields,
+        //payload: res.data.deleteApplicationFields,
+        payload: res.deleteApplicationFields,
       });
     } catch (err) {
       dispatch({
@@ -382,31 +418,31 @@ export const GlobalProvider = ({ children }) => {
 
   async function getPatientByIdAPOLLO(id) {
     try {
-      const res = await client.query({
-        query: SEARCH_PATIENT_BY_ID,
-        variables: { id: id },
+      // const res = await client.query({
+      //   query: SEARCH_PATIENT_BY_ID,
+      //   variables: { id: id },
+      // });
+      const res = await request("/graphql", SEARCH_PATIENT_BY_ID, {
+        id: id,
       });
       //console.log("GlobalState - getPatientByIdAPOLLO - res: ", res);
       let tempPatient = {};
       let dt = null;
-      if (res.data.patient.birthDay) {
-        dt = new Date(parseInt(res.data.patient.birthDay)); //to local time from UTC milliseconds
+      if (res.patient.birthDay) {
+        dt = new Date(parseInt(res.patient.birthDay)); //to local time from UTC milliseconds
         //console.log("getPatientByIdAPOLLO - dob: ",dt);
         const duration = intervalToDuration({
           start: new Date(),
           end: dt, //convert UTC to LocalTime
         });
-        const newPatient = Object.keys(res.data.patient).reduce(
-          (object, key) => {
-            if (key === "birthDay") {
-              object[key] = dt;
-            } else {
-              object[key] = res.data.patient[key];
-            }
-            return object;
-          },
-          {}
-        );
+        const newPatient = Object.keys(res.patient).reduce((object, key) => {
+          if (key === "birthDay") {
+            object[key] = dt;
+          } else {
+            object[key] = res.patient[key];
+          }
+          return object;
+        }, {});
         //tempPatient={...res.data.patient, dt, age_years:duration.years, age_months:duration.months}
         tempPatient = {
           ...newPatient,
@@ -414,7 +450,7 @@ export const GlobalProvider = ({ children }) => {
           age_months: duration.months,
         };
       } else {
-        tempPatient = { ...res.data.patient, age_years: "", age_months: "" };
+        tempPatient = { ...res.patient, age_years: "", age_months: "" };
       }
       dispatch({
         type: "GET_PATIENTDATA",
@@ -461,8 +497,8 @@ export const GlobalProvider = ({ children }) => {
         createEncounterAPOLLO,
         getApplicationFieldsAPOLLO,
         addApplicationFieldAPOLLO,
-        updateEncounterFieldsAPOLLO,
-        deleteEncounterFieldsAPOLLO,
+        updateApplicationFieldAPOLLO,
+        deleteApplicationFieldAPOLLO,
       }}
     >
       {children}

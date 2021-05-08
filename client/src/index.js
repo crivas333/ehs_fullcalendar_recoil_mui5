@@ -7,9 +7,9 @@ import { ThemeProvider } from "@material-ui/core/styles";
 //import ThemeProvider from '@material-ui/core/styles/MuiThemeProvider' //it does not work
 //import fetch from 'cross-fetch'
 import App from "./App";
-import { ApolloProvider } from "@apollo/client";
+//import { ApolloProvider } from "@apollo/client";
 import { GlobalProvider } from "./context/GlobalState";
-import { client } from "./graphqlClient/apolloClient";
+//import { client } from "./graphqlClient/apolloClient";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "./graphqlClient/reactQueryClient";
 
@@ -111,6 +111,26 @@ const renderApp = (currSession) => {
   const ApolloApp = (AppComponent) => (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
+        <GlobalProvider>
+          <React.StrictMode>
+            <AppComponent />
+          </React.StrictMode>
+        </GlobalProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
+
+  ReactDOM.render(ApolloApp(App), document.getElementById("root"));
+};
+
+(async () => renderApp(await checkLoggedIn()))();
+
+//ReactDOM.render(ApolloApp(App), document.getElementById('root'))
+
+/*
+  const ApolloApp = (AppComponent) => (
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
         <ApolloProvider client={client}>
           <GlobalProvider>
             <React.StrictMode>
@@ -122,9 +142,4 @@ const renderApp = (currSession) => {
     </ThemeProvider>
   );
 
-  ReactDOM.render(ApolloApp(App), document.getElementById("root"));
-};
-
-(async () => renderApp(await checkLoggedIn()))();
-
-//ReactDOM.render(ApolloApp(App), document.getElementById('root'))
+*/

@@ -1,129 +1,149 @@
-
-import React, { useContext, useState, Fragment} from 'react'
+import React, { useContext, useState, Fragment } from "react";
 //import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
-import { GlobalContext } from '../../context/GlobalState'
-import ApplicationFieldsTable from './ApplicationFieldsTable'
-import AddForm from './AddForm'
-import EditForm from './EditForm'
-import ReusableControls from '../reusableForms/reusableControls/ReusableControls'
-import {getEncounterFieldsCollection} from '../../services/configService'
-
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import { GlobalContext } from "../../context/GlobalState";
+import ApplicationFieldsTable from "./ApplicationFieldsTable";
+import AddForm from "./AddForm";
+import EditForm from "./EditForm";
+import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
+import { getEncounterFieldsCollection } from "../../services/configService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   container: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
-	}
-
-}))
+  },
+}));
 
 //export default function Appointment () {
-export default function EncounterControlCfg (props) { 
-  const classes = useStyles()
-	//const { customData } = useContext(GlobalContext)
+export default function EncounterControlCfg(props) {
+  const classes = useStyles();
+  //const { customData } = useContext(GlobalContext)
   //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const {applicationFields, addApplicationFieldAPOLLO,updateEncounterFieldsAPOLLO, deleteEncounterFieldsAPOLLO } = useContext(GlobalContext)
-  const initialFormState = { id: null, fieldView: '',fieldType: '', fieldData: '' }
-      // Setting state
-	const [chosenField, setChosenField]=useState('Tipo de Visita')
-	const [fieldType, setFieldType]=useState('encounterType')
+  const {
+    applicationFields,
+    addApplicationFieldAPOLLO,
+    updateApplicationFieldAPOLLO,
+    deleteApplicationFieldAPOLLO,
+  } = useContext(GlobalContext);
+  const initialFormState = {
+    id: null,
+    fieldView: "",
+    fieldType: "",
+    fieldData: "",
+  };
+  // Setting state
+  const [chosenField, setChosenField] = useState("Tipo de Visita");
+  const [fieldType, setFieldType] = useState("encounterType");
 
-  const [ editingArray, setEditingArray ] = useState(initialFormState)
-  const [ editingFlag, setEditingFlag ] = useState(false)
-  
-	const onViewFieldChange = event => {
-		//console.log('SystemConfig: ',event.target.value)
-    setChosenField(event.target.value)
+  const [editingArray, setEditingArray] = useState(initialFormState);
+  const [editingFlag, setEditingFlag] = useState(false);
+
+  const onViewFieldChange = (event) => {
+    //console.log('SystemConfig: ',event.target.value)
+    setChosenField(event.target.value);
     switch (event.target.value) {
-			case 'Tipo de Visita':
-				setFieldType('encounterType')
-				break
-			case 'Tipo de Paciente':
-				setFieldType('patientType')
-				break
-			case 'Tipo de Atención':
-				setFieldType('serviceType')
-        break
-      case 'Sensibilidad':
-				setFieldType('sensibility')
-				break
-			case 'Paquete de Servicios':
-				setFieldType('serviceBundle')
-				break
-			default:
-		}
-	}
+      case "Tipo de Visita":
+        setFieldType("encounterType");
+        break;
+      case "Tipo de Paciente":
+        setFieldType("patientType");
+        break;
+      case "Tipo de Atención":
+        setFieldType("serviceType");
+        break;
+      case "Sensibilidad":
+        setFieldType("sensibility");
+        break;
+      case "Paquete de Servicios":
+        setFieldType("serviceBundle");
+        break;
+      default:
+    }
+  };
 
+  // CRUD operations
+  const addFieldData = (addedFieldData) => {
+    //console.log('customControl1: ',addedFieldData)
+    const fd = addedFieldData.toUpperCase();
+    const data = {
+      fieldView: "encounterView",
+      fieldType: fieldType,
+      fieldData: fd,
+    };
+    addApplicationFieldAPOLLO(data);
+  };
+  const updateFieldData = (updatedValue) => {
+    setEditingFlag(false);
+    //console.log('updatedField: ',updatedField)
+    const fd = updatedValue.toUpperCase();
+    const data = { ...editingArray, fieldData: fd };
+    updateApplicationFieldAPOLLO(data);
+  };
+  const deleteFieldData = (id) => {
+    setEditingFlag(false);
+    //console.log(id)
+    deleteApplicationFieldAPOLLO(id);
+  };
 
-  	// CRUD operations
-	const addFieldData = addedFieldData => {
-		//console.log('customControl1: ',addedFieldData)
-		const fd=addedFieldData.toUpperCase()
-		const data={fieldView: 'encounterView', fieldType: fieldType, fieldData: fd}
-		addApplicationFieldAPOLLO(data)
-	}
-	const updateFieldData = (updatedValue) => {
-		setEditingFlag(false)
-		//console.log('updatedField: ',updatedField)
-		const fd=updatedValue.toUpperCase()
-		const data={...editingArray, fieldData: fd}
-		updateEncounterFieldsAPOLLO(data)
-	}
-	const deleteFieldData = id => {
-		setEditingFlag(false)
-		//console.log(id)
-		deleteEncounterFieldsAPOLLO(id)
-	}
-	
-	const editRow = data => {
-		setEditingFlag(true)
-		setEditingArray({ id: data.id, fieldView: data.fieldView, fieldType: data.fieldType, fieldData: data.fieldData })
-	}
-	//appFields={ applicationFields.filter(item => item.fieldType ===fieldType)}
+  const editRow = (data) => {
+    setEditingFlag(true);
+    setEditingArray({
+      id: data.id,
+      fieldView: data.fieldView,
+      fieldType: data.fieldType,
+      fieldData: data.fieldData,
+    });
+  };
+  //appFields={ applicationFields.filter(item => item.fieldType ===fieldType)}
   return (
     <div className={classes.root}>
-			<Grid container spacing={3}>
-				<Grid item xs={12}>
-					<ReusableControls.CustomSelect
-							name='cfgCustData'
-							label='Configuración de Campos'
-							value={chosenField}
-							onChange={onViewFieldChange}
-							options={getEncounterFieldsCollection()}
-							//error={errors.sex}
-						/>
-				</Grid>
-			
-				<Grid item >
-					<ApplicationFieldsTable 
-						appFields={ applicationFields.filter(item => (item.fieldView ==='encounterView'&&item.fieldType===fieldType))}
-						editRow={editRow} 
-						deleteUser={deleteFieldData} />
-				</Grid>
-				<Grid item >
-					{editingFlag ? (
-						<Fragment>				
-							<EditForm
-								//editing={editingFlag}
-								setEditingFlag={setEditingFlag}
-								editingValue={editingArray.fieldData}
-								updateField={updateFieldData}
-							/>
-						</Fragment>
-					) : (
-						<Fragment>						
-							<AddForm addField={addFieldData} />
-						</Fragment>
-					)}
-				</Grid>
-			</Grid>
-   </div>
-  )
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <ReusableControls.CustomSelect
+            name="cfgCustData"
+            label="Configuración de Campos"
+            value={chosenField}
+            onChange={onViewFieldChange}
+            options={getEncounterFieldsCollection()}
+            //error={errors.sex}
+          />
+        </Grid>
+
+        <Grid item>
+          <ApplicationFieldsTable
+            appFields={applicationFields.filter(
+              (item) =>
+                item.fieldView === "encounterView" &&
+                item.fieldType === fieldType
+            )}
+            editRow={editRow}
+            deleteUser={deleteFieldData}
+          />
+        </Grid>
+        <Grid item>
+          {editingFlag ? (
+            <Fragment>
+              <EditForm
+                //editing={editingFlag}
+                setEditingFlag={setEditingFlag}
+                editingValue={editingArray.fieldData}
+                updateField={updateFieldData}
+              />
+            </Fragment>
+          ) : (
+            <Fragment>
+              <AddForm addField={addFieldData} />
+            </Fragment>
+          )}
+        </Grid>
+      </Grid>
+    </div>
+  );
 }
 
 /*
