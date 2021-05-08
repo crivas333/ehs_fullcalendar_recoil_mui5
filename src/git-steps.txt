@@ -21,3 +21,35 @@ Ex: git merge add-header
 *)Sincronizar remote:main with local:main
 >git checkout main
 >git pull
+
+*)see remote head
+>git remote -v
+origin  https://github.com/crivas333/my-app-new.git (fetch)
+origin  https://github.com/crivas333/my-app-new.git (push)
+The default name (also known as an alias) for that remote repo is origin
+
+*Initialize Git
+>git init
+
+*)Associate a git repor to a Gitgub repo:
+>git remote add origin <URL>
+>git remote add origin https://github.com/crivas333/ehs-reactquery.git
+
+*)change remote repo at github
+>git remote set-url origin <url>
+>git remote set-url origin https://github.com/crivas333/ehs-reactquery.git
+>git push -u origin main
+
+…or create a new repository on the command line
+echo "# ehs-reactquery" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/crivas333/ehs-reactquery.git
+git push -u origin main
+
+…or push an existing repository from the command line
+git remote add origin https://github.com/crivas333/ehs-reactquery.git
+git branch -M main
+git push -u origin main

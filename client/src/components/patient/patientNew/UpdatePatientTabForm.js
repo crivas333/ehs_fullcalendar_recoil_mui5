@@ -1,106 +1,102 @@
+import React, { useContext, useEffect, useState } from "react";
+import AppBar from "@material-ui/core/AppBar";
 
-
-import React, { useContext, useEffect, useState } from 'react'
-import AppBar from '@material-ui/core/AppBar';
-
-import { GlobalContext } from '../../../context/GlobalState'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Container from '@material-ui/core/Container'
-import Button from '@material-ui/core/Button'
+import { GlobalContext } from "../../../context/GlobalState";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Container from "@material-ui/core/Container";
+import Button from "@material-ui/core/Button";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 //import TabPanel from '@material-ui/lab/TabPanel'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from "@material-ui/core/styles";
 //import { useForm, Controller} from 'react-hook-form'
 //import { ErrorMessage } from '@hookform/error-message'
 
-import {UpdatePatientTab1} from './UpdatePatientTab1'
-import {UpdatePatientTab2} from './UpdatePatientTab2'
-import {UpdatePatientTab3} from './UpdatePatientTab3'
-import {useReusableForm} from '../../reusableForms/useReusableForm'
+import { UpdatePatientTab1 } from "./UpdatePatientTab1";
+import { UpdatePatientTab2 } from "./UpdatePatientTab2";
+import { UpdatePatientTab3 } from "./UpdatePatientTab3";
+import { useReusableForm } from "../../reusableForms/useReusableForm";
 
 //import Notify from '../../notification/Notify';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
-  
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
-  },
-  button:{
-    marginTop: '10px'
-  }
- 
 
-}))
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  button: {
+    marginTop: "10px",
+  },
+}));
 
 export const UpdatePatientTabForm = (props) => {
-  const classes = useStyles()
-  const { currentPatient } = useContext(GlobalContext)
+  const classes = useStyles();
+  const { currentPatient } = useContext(GlobalContext);
   //const { register, handleSubmit, setValue, errors, control} = useForm()
   const initialFValues = {
-    idType:'DNI',
-    idTypeNo: '',
-    firstName: '',
-    lastName: '',
-    lastName2: '',
-    birthDay: '',
-    sex: '',
-    phone1: '',
-    phone2: '',
-    email: '',
-    address: '',
-    gName: '',
-    gPhone1: '',
-    gPhone2: '',
-    gRelation: '',
-    bloodType: '',
-    marital:'',
-    occupation: '',
-    religion: '',
-    referral: ''
-}
+    idType: "DNI",
+    idTypeNo: "",
+    firstName: "",
+    lastName: "",
+    lastName2: "",
+    birthDay: "",
+    sex: "",
+    phone1: "",
+    phone2: "",
+    email: "",
+    address: "",
+    gName: "",
+    gPhone1: "",
+    gPhone2: "",
+    gRelation: "",
+    bloodType: "",
+    marital: "",
+    occupation: "",
+    religion: "",
+    referral: "",
+  };
   //const [ values, setValues ] = useState(initialFValues)
   //const [ values1, setValues1 ] = useState({})
   //tabs
   const indexToTabName = {
     Datos: 0,
     Contacto: 1,
-    Misc: 2
+    Misc: 2,
   };
-  const [selectedTab, setSelectedTab] = useState(indexToTabName['Datos']);
+  const [selectedTab, setSelectedTab] = useState(indexToTabName["Datos"]);
   // const tabNameToIndex = {
   //   0: 'Datos',
   //   1: 'Contacto',
   //   2: 'Misc'
   // };
- 
+
   const handleChangeTab = (event, newValue) => {
     //console.log('handleChangeTab: ',newValue)
     setSelectedTab(newValue);
   };
- 
-const validate = (fieldValues = values) => {
-  let temp = { ...errors }
-  if ('firstName' in fieldValues)
-      temp.firstName = fieldValues.firstName ? "" : "This field is required."
-  if ('lastName' in fieldValues)
-      temp.lastName = fieldValues.lastName ? "" : "This field is required."
 
-  setErrors({
-      ...temp
-  })
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
+    if ("firstName" in fieldValues)
+      temp.firstName = fieldValues.firstName ? "" : "This field is required.";
+    if ("lastName" in fieldValues)
+      temp.lastName = fieldValues.lastName ? "" : "This field is required.";
 
-  if (fieldValues === values)
-      return Object.values(temp).every(x => x === "")
-}
-  
+    setErrors({
+      ...temp,
+    });
+
+    if (fieldValues === values)
+      return Object.values(temp).every((x) => x === "");
+  };
+
   const {
     values,
     setValues,
@@ -108,26 +104,21 @@ const validate = (fieldValues = values) => {
     setErrors,
     handleInputChange,
     //resetForm
-} = useReusableForm(initialFValues, true, validate);
- 
+  } = useReusableForm(initialFValues, true, validate);
+
   useEffect(() => {
-   
     if (currentPatient !== null) {
-      setValues(currentPatient)
+      setValues(currentPatient);
       //console.log('UpdatePatientTabForm-currentPatient: ',currentPatient)
       //setValue('currPatient', { ...currentPatient })
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPatient])
+  }, [currentPatient]);
 
-
-
-
-
-const handleSubmit = e => {
-  e.preventDefault()
-  console.log('UpdatePatientTabForm: ',values)
-  if (validate()){
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("UpdatePatientTabForm: ", values);
+    if (validate()) {
       //console.log('validation')
       const newData = {
         //dni: parseInt(values.dni),
@@ -153,101 +144,135 @@ const handleSubmit = e => {
         marital: values.marital,
         occupation: values.occupation.toUpperCase(),
         religion: values.religion.toUpperCase(),
-        referral: values.referral.toUpperCase()
-      }
+        referral: values.referral.toUpperCase(),
+      };
       // props.createPatient({ variables: { dni: newData.dni, firstName: newData.firstName, lastName: newData.lastName, email: newData.email } })
       //props.createPatient({ variables: { patientInput: {dni: newData.dni, firstName: newData.firstName, lastName: newData.lastName, lastName2: newData.lastName2, birthDay:newData.birthDay, sex: newData.sex, email: newData.email }} })
-      props.updatePatient({ variables: { id:newData.id, patientInput: {
-        idType: newData.idType, 
-        idTypeNo: newData.idTypeNo, 
-        firstName: newData.firstName, 
-        lastName: newData.lastName, 
-        lastName2: newData.lastName2, 
-        birthDay:newData.birthDay, 
-        sex: newData.sex, 
-        phone1: newData.phone1,
-        phone2: newData.phone2,
-        email: newData.email,
-        address: newData.address,
-        gName: newData.gName,
-        gPhone1: newData.gPhone1,
-        gPhone2: newData.gPhone2,
-        gRelation: newData.gRelation,
-        bloodType: newData.bloodType,
-        marital: newData.marital,
-        occupation: newData.occupation,
-        religion: newData.religion,
-        referral: newData.referral
-        }} })
-    
+      //props.updatePatient({ variables: { id:newData.id, patientInput: {
+      props.updatePatient.mutate({
+        variables: {
+          id: newData.id,
+          patientInput: {
+            idType: newData.idType,
+            idTypeNo: newData.idTypeNo,
+            firstName: newData.firstName,
+            lastName: newData.lastName,
+            lastName2: newData.lastName2,
+            birthDay: newData.birthDay,
+            sex: newData.sex,
+            phone1: newData.phone1,
+            phone2: newData.phone2,
+            email: newData.email,
+            address: newData.address,
+            gName: newData.gName,
+            gPhone1: newData.gPhone1,
+            gPhone2: newData.gPhone2,
+            gRelation: newData.gRelation,
+            bloodType: newData.bloodType,
+            marital: newData.marital,
+            occupation: newData.occupation,
+            religion: newData.religion,
+            referral: newData.referral,
+          },
+        },
+      });
+      // props.updatePatient.mutate({
+      //   id: newData.id,
+      //   patientInput: {
+      //     idType: newData.idType,
+      //     idTypeNo: newData.idTypeNo,
+      //     firstName: newData.firstName,
+      //     lastName: newData.lastName,
+      //     lastName2: newData.lastName2,
+      //     birthDay: newData.birthDay,
+      //     sex: newData.sex,
+      //     phone1: newData.phone1,
+      //     phone2: newData.phone2,
+      //     email: newData.email,
+      //     address: newData.address,
+      //     gName: newData.gName,
+      //     gPhone1: newData.gPhone1,
+      //     gPhone2: newData.gPhone2,
+      //     gRelation: newData.gRelation,
+      //     bloodType: newData.bloodType,
+      //     marital: newData.marital,
+      //     occupation: newData.occupation,
+      //     religion: newData.religion,
+      //     referral: newData.referral,
+      //   },
+      // });
+
       //resetForm()
       //Notify('Datos de Paciente actualizados');
+    }
+  };
 
-  }
-}
-  
   return (
-    <Container component='main' maxWidth='xs'>
+    <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <form 
-          className={classes.form}
-          onSubmit={handleSubmit}
-        >
+        <form className={classes.form} onSubmit={handleSubmit}>
           <AppBar position="static" color="default">
-            <Tabs 
+            <Tabs
               indicatorColor="primary"
               textColor="primary"
               variant="scrollable"
               //variant="fullWidth"
               scrollButtons="auto"
-              value={selectedTab} 
-              onChange={handleChangeTab}>
-              <Tab label='Datos' />
-              <Tab label='Contacto' />
-              <Tab label='Misc' />
+              value={selectedTab}
+              onChange={handleChangeTab}
+            >
+              <Tab label="Datos" />
+              <Tab label="Contacto" />
+              <Tab label="Misc" />
             </Tabs>
           </AppBar>
-          {(selectedTab===0)&&(<UpdatePatientTab1 
-            values={values}
-            onChange={handleInputChange}
-            errors={errors}
-            />)}
-          
-          {(selectedTab===1)&&(<UpdatePatientTab2 
-            values={values}
-            onChange={handleInputChange}
-            errors={errors}
-            />)}
-          {(selectedTab===2)&&(<UpdatePatientTab3 
-            values={values}
-            onChange={handleInputChange}
-            errors={errors}
-            />)}
-            <Button
-              type='submit'
-              //fullWidth
-              variant='contained'
-              color='primary'
-              className={classes.button}
-            >
-              ENVIAR
-            </Button>
-            <Button
-              //type='submit'
-              //fullWidth
-              variant='outlined'
-              color='primary'
-              className={classes.button}
-              onClick={props.handleCancel}
-            >
-              CERRAR
-            </Button>
+          {selectedTab === 0 && (
+            <UpdatePatientTab1
+              values={values}
+              onChange={handleInputChange}
+              errors={errors}
+            />
+          )}
+
+          {selectedTab === 1 && (
+            <UpdatePatientTab2
+              values={values}
+              onChange={handleInputChange}
+              errors={errors}
+            />
+          )}
+          {selectedTab === 2 && (
+            <UpdatePatientTab3
+              values={values}
+              onChange={handleInputChange}
+              errors={errors}
+            />
+          )}
+          <Button
+            type="submit"
+            //fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.button}
+          >
+            ENVIAR
+          </Button>
+          <Button
+            //type='submit'
+            //fullWidth
+            variant="outlined"
+            color="primary"
+            className={classes.button}
+            onClick={props.handleCancel}
+          >
+            CERRAR
+          </Button>
         </form>
       </div>
     </Container>
-  )
-}
+  );
+};
 
 /*
    {(selectedTab===0)&&(<NewPatientTab1 
@@ -427,7 +452,6 @@ const validate = (fieldValues = values) => {
   />
 </MuiPickersUtilsProvider>
 */
-
 
 /*
   <Controller
