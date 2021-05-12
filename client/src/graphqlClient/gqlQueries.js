@@ -210,10 +210,46 @@ export const DELETE_PATIENT = gql`
   }
 `;
 
-export const CREATE_APPOINTMENT = gql`
-  mutation createAppointment($subject: String!, $patient: ID!) {
-    createAppointment(subject: $subject, patient: $patient) {
+export const GET_APPOINTMENTS = gql`
+  query {
+    appointments {
       id
+      appointmentId
+      appointmentType
+      appointmentStatus
+      StartTime
+      EndTime
+      Description
+      #lastName
+    }
+  }
+`;
+export const GET_APPOINTMENTS_BY_TIMEFRAME = gql`
+  query GetAppointmentsByTimeframe($start: String!, $end: String!) {
+    getAppointmentsByTimeframe(start: $start, end: $end) {
+      #id
+      appointmentId
+      appointmentType
+      #appointmentStatus
+      start
+      end
+      #Description
+      #lastName
+    }
+  }
+`;
+
+export const ADD_APPOINTMENT = gql`
+  mutation addAppointment($appointmentInput: AppointmentInput) {
+    addAppointment(appointmentInput: $appointmentInput) {
+      #id
+      appointmentId
+      appointmentType
+      #appointmentStatus
+      start
+      end
+      #Description
+      #lastName
     }
   }
 `;

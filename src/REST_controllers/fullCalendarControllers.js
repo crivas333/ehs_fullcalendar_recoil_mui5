@@ -3,36 +3,11 @@
 import { Counters, Appointment, Patient } from "../models";
 //const Events = require('../../data');
 
-// @desc    Get all transactions
-// @route   GET /api/v1/transactions
-// @access  Public
-exports.getAppointments = async (req, res, next) => {
-  console.log("getAppointments: ", req.body);
-  //dbo.collection('ScheduleData').find({}).toArray(function (err, cus) {
-
-  // try{
-  //   const doc = await Appointment.find(
-  //     { StartTime: { $gte: req.body.StartDate }, StartTime:{$lte: req.body.EndDate} }
-  //     ).exec();
-  //     //res.send(doc)
-  //     return res.status(200).json(doc)
-  // }
-  // catch(err){
-  //   return res.status(500).json()
-  // }
-  const doc = await Appointment.find({});
-  const result = {};
-  result.result = doc;
-  result.count = doc.length;
-  //console.log('dataGrid: ',doc)
-  return res.json(result);
-};
-
 // @desc    Add transaction
 // @route   POST /api/v1/transactions
 // @access  Public
 exports.crudAppointments = async (req, res, next) => {
-  //console.log("dataGrid-crudAppointments: ", req.body);
+  console.log("FullCalendar - crudAppointments: ", req.body);
   const param = req.body;
   const { userId } = req.session;
   // console.log('userId: ', userId)
@@ -67,11 +42,11 @@ exports.crudAppointments = async (req, res, next) => {
           StartTime: eventData[a].StartTime,
           EndTime: eventData[a].EndTime,
           patient: eventData[a].patient || null,
-          fullName: eventData[a].fullName || "",
-          noRegistered: eventData[a].noRegistered,
-          Description: eventData[a].Descripction,
-          Subject: eventData[a].Subject,
-          IsAllDay: eventData[a].IsAllDay,
+          fullName: eventData[a].fullName || null,
+          noRegistered: eventData[a].noRegistered || null,
+          Description: eventData[a].Descripction || null,
+          Subject: eventData[a].Subject || null,
+          IsAllDay: eventData[a].IsAllDay || null,
         });
         const result = await appointment.save();
 
@@ -158,7 +133,7 @@ exports.crudAppointments = async (req, res, next) => {
               EndTime: eventData[b].EndTime,
               patient: eventData[b].patient || null,
               fullName: eventData[b].fullName || null,
-              noRegistered: eventData[b].noRegistered,
+              noRegistered: eventData[b].noRegistered || null,
               Description: eventData[b].Description,
               Subject: eventData[b].Subject,
               IsAllDay: eventData[b].IsAllDay,
@@ -166,13 +141,13 @@ exports.crudAppointments = async (req, res, next) => {
           },
           { new: true }
         ).exec();
-        //console.log('changed appointment: ',appointment)
+        console.log("changed appointment: ", appointment);
         if (eventData[b].patient !== null && eventData[b].patient !== "") {
           const updatedPatient = await Patient.findOneAndUpdate(
             { _id: eventData[b].patient },
             { $push: { appointments: appointment } }
           ).exec();
-          //console.log('updatedPatient: ',updatedPatient)
+          console.log("updatedPatient: ", updatedPatient);
         }
       } catch (err) {
         console.log("Changed-error: ", error);
@@ -229,6 +204,75 @@ exports.crudAppointments = async (req, res, next) => {
   res.send(req.body);
 };
 
+// @desc    Get all transactions
+// @route   GET /api/v1/transactions
+// @access  Public
+// @params  get->req.query
+// @params  post->req.body
+exports.getAppointments = async (req, res, next) => {
+  //console.log("FullCalendar - getAppointments: ", req.body);
+  //console.log("FullCalendar - getAppointments: ", req);
+  console.log("FullCalendar - getAppointments: ", req.query);
+
+  // try {
+  //   const doc = await Appointment.find({
+  //     StartTime: { $gte: req.query.start },
+  //     StartTime: { $lte: req.query.end },
+  //   }).exec();
+  //   return res.status(200).json(doc);
+  // } catch (err) {
+  //   return res.status(500).json();
+  // }
+
+  // try {
+  //   const doc = await Appointment.find({
+  //     StartTime: { $gte: req.query.start },
+  //     StartTime: { $lte: req.query.end },
+  //   }).exec();
+  //   //console.log(doc);
+  //   //normlization
+  //   const resp = doc.map((a) => ({
+  //     id: a.appointmentId,
+  //     title: a.appointmentType,
+  //     start: a.StartTime,
+  //     end: a.EndTime,
+  //   }));
+  //   //console.log(resp);
+  //   return res.status(200).json(resp);
+  // } catch (err) {
+  //   return res.status(500).json();
+  // }
+
+  try {
+    const doc = await Appointment.find({}).exec();
+    //console.log(doc);
+    //normlization
+
+    console.log(resp);
+    return res.status(200).json(resp);
+  } catch (err) {
+    return res.status(500).json();
+  }
+};
+
+exports.getAppointments111 = async (req, res, next) => {
+  //console.log("FullCalendar - getAppointments: ", req.body);
+  //console.log("FullCalendar - getAppointments: ", req);
+  console.log("FullCalendar - getAppointments: ", req.query);
+  //dbo.collection('ScheduleData').find({}).toArray(function (err, cus) {
+
+  //Tank.find({ size: 'small' }).where('createdDate').gt(oneYearAgo).exec(callback);
+  try {
+    const doc = await Appointment.find({
+      StartTime: { $gte: req.body.StartDate },
+      StartTime: { $lte: req.body.EndDate },
+    }).exec();
+    //res.send(doc)
+    return res.status(200).json(doc);
+  } catch (err) {
+    return res.status(500).json();
+  }
+};
 /*
   if((eventData[b].patient)&&(prevPatientRef.patient)){
     console.log('tiene y tuvo ref: ',prevPatientRef)
@@ -266,7 +310,39 @@ exports.crudAppointments = async (req, res, next) => {
 //     });
 //return res.status(200).json(Events)
 //return res.status(200).json(await Appointment.find({}))
+//};
 
+// @desc    Get all transactions
+// @route   GET /api/v1/transactions
+// @access  Public
+exports.searchPatients = async (req, res, next) => {
+  console.log("SCHEDULE - searchPatients: ", req.body);
+  //console.log("queryPatients: ", req.body.select)
+  //console.log("addTransactions: ", req.body.where[0].value)
+
+  //return res.status(200).json(await Patient.find({}))
+  //const arr1=req.query.$filter.split(',')
+  //console.log(arr1)
+  //return await Patient.find({ lastName: new RegExp(args.lastName) })
+  //return await Patient.find({ lastName: new RegExp(searchquery) })
+  //if (req.body.where!==null){
+  if (typeof req.body.where !== "undefined") {
+    //console.log("queryPatients.where.value: ", req.body.where[0].value)
+    const searchquery = req.body.where[0].value;
+    return res
+      .status(200)
+      .json(
+        await Patient.find(
+          { lastName: new RegExp(searchquery, "i") },
+          "lastName lastName2 firstName historyId _id"
+        )
+      );
+
+    //return res.status(200).json([])
+  } else {
+    return res.status(400).json([]);
+  }
+};
 /*
   Patient.find(req.params.)
   .populate('lastName')

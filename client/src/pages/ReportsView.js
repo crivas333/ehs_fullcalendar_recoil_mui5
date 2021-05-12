@@ -15,7 +15,7 @@ import { makeStyles } from "@material-ui/core/styles";
 //import { useLocation } from 'react-router-dom'
 //import { GlobalContext } from '../context/GlobalState'
 //import { PatientList } from '../components/patientData/PatientList'
-//import Scheduler from "../components/scheduler/Scheduler";
+import Report from "../components/report/Report";
 //import AutoCompleteSF from "../components/patient/patientSearch/AutoCompleteSF";
 // import "./styles.css";
 
@@ -31,14 +31,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //export default function Appointment () {
-export default function Calendar() {
+export default function Reports() {
   const classes = useStyles();
   //const { currentPatient } = useContext(GlobalContext)
 
   return (
     <div className={classes.root}>
-      {/*<AutoCompleteSF/>*/}
-      {/*<Scheduler />*/}
+      <Report />
     </div>
   );
 }

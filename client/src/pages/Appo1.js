@@ -1,5 +1,4 @@
-
-import React from 'react'
+import React from "react";
 
 //import { useMutation } from '@apollo/client'
 //import { CREATE_APPOINTMENT, UPDATE_APPOINTMENT, DELETE_APPOINTMENT } from '../apolloConfig/gqlQueries'
@@ -15,8 +14,8 @@ import React from 'react'
 //import DialogContent from '@material-ui/core/DialogContent'
 //import DialogContentText from '@material-ui/core/DialogContentText'
 //import DialogTitle from '@material-ui/core/DialogTitle'
-import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles'
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
 // import Paper from '@material-ui/core/Paper'
 // import Scrollbar from 'rmw-shell/lib/components/Scrollbar'
 // import { Scrollbars } from 'react-custom-scrollbars'
@@ -29,43 +28,34 @@ import { makeStyles } from '@material-ui/core/styles'
 // import AutoBootstrap from "../components/autoBootstrap";
 //import { GlobalContext } from '../context/GlobalState'
 //import { PatientList } from '../components/patientData/PatientList'
-import DailyAppo1 from '../components/dataGrid1/DailyAppo1'
+//import DailyAppo1 from '../components/dataGrid1/DailyAppo1'
 //import AppoView from '../components/appointment/AppoView'
 // import "./styles.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    
   },
   paper: {
     padding: theme.spacing(1),
-    textAlign: 'center',
+    textAlign: "center",
     color: theme.palette.text.secondary,
-    maxHeight: 550
-  }
-}))
+    maxHeight: 550,
+  },
+}));
 
-export default function Appointment () {
-  const classes = useStyles()
+export default function Appointment() {
+  const classes = useStyles();
   //const { currentPatient } = useContext(GlobalContext)
-  
 
- 
   // {params.isCreating && <Backdrop />}
   return (
     <div className={classes.root}>
-      
-       <Grid container spacing={3}>
-          <Grid container item xs={12}>
-            <DailyAppo1 />
-          </Grid>
-      
+      <Grid container spacing={3}>
+        <Grid container item xs={12}>
+          {/*<DailyAppo1 />*/}
         </Grid>
-      
-
-  
-     
+      </Grid>
     </div>
-  )
+  );
 }

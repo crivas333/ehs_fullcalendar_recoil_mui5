@@ -1,3 +1,13 @@
+#npm
+>npm uninstall -g <package_name>
+>sudo npm uninstall -g <package_name>
+
+#source-map-explorer
+-install globally
+>sudo npm install -g source-map-explorer
+-run the command line, specifying the output file
+>source-map-explorer 'build/static/js/*.js' --html myOutput2.html
+
 #GIT
 
 
