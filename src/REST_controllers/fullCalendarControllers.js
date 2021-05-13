@@ -224,35 +224,35 @@ exports.getAppointments = async (req, res, next) => {
   //   return res.status(500).json();
   // }
 
-  // try {
-  //   const doc = await Appointment.find({
-  //     StartTime: { $gte: req.query.start },
-  //     StartTime: { $lte: req.query.end },
-  //   }).exec();
-  //   //console.log(doc);
-  //   //normlization
-  //   const resp = doc.map((a) => ({
-  //     id: a.appointmentId,
-  //     title: a.appointmentType,
-  //     start: a.StartTime,
-  //     end: a.EndTime,
-  //   }));
-  //   //console.log(resp);
-  //   return res.status(200).json(resp);
-  // } catch (err) {
-  //   return res.status(500).json();
-  // }
-
   try {
-    const doc = await Appointment.find({}).exec();
+    const doc = await Appointment.find({
+      start: { $gte: req.query.start },
+      end: { $lte: req.query.end },
+    }).exec();
     //console.log(doc);
     //normlization
-
-    console.log(resp);
+    const resp = doc.map((a) => ({
+      id: a.appointmentId,
+      title: a.appointmentType,
+      start: a.start,
+      end: a.end,
+    }));
+    //console.log(resp);
     return res.status(200).json(resp);
   } catch (err) {
     return res.status(500).json();
   }
+
+  // try {
+  //   const doc = await Appointment.find({}).exec();
+  //   //console.log(doc);
+  //   //normlization
+
+  //   console.log(doc);
+  //   return res.status(200).json(doc);
+  // } catch (err) {
+  //   return res.status(500).json();
+  // }
 };
 
 exports.getAppointments111 = async (req, res, next) => {

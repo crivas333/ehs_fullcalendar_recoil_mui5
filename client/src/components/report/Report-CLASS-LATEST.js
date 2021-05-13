@@ -1,41 +1,48 @@
 import React from "react";
 import FullCalendar from "@fullcalendar/react";
+//import { formatDate } from '@fullcalendar/react';
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import request from "graphql-request";
-import { INITIAL_EVENTS, createEventId } from "./event-utils";
+//import { INITIAL_EVENTS, createEventId } from "./event-utils";
+import { createEventId } from "./event-utils";
 //import Modal from "@material-ui/core/Modal";
 //import Button from "@material-ui/core/Button";
 import AddEventDialog from "./AddEventDialog";
-import axios from "axios";
-import { GET_APPOINTMENTS } from "../../graphqlClient/gqlQueries";
+//import axios from "axios";
+import {
+  ADD_APPOINTMENT,
+  GET_APPOINTMENTS_BY_TIMEFRAME,
+} from "../../graphqlClient/gqlQueries";
 
-let eventGuid = 0;
-let todayStr = new Date().toISOString().replace(/T.*$/, ""); // YYYY-MM-DD of today
+//let eventGuid = 0;
+//let todayStr = new Date().toISOString().replace(/T.*$/, ""); // YYYY-MM-DD of today
 
-const formatEvents111 = async () => {
-  //return INITIAL_EVENTS;
-  // const res = await request("/graphql", GET_APPOINTMENTS);
-  // return res.appointments;
+const formatEvents111 = async (info) => {
   try {
-    const res = await request("/graphql", GET_APPOINTMENTS);
-    //console.log("loadOptions-res:", res.appointments);
-    // console.log(
-    //   res.appointments.map((a) => ({
-    //     id: a.appointmentId,
-    //     title: a.appointmentType,
-    //     start: a.StartTime,
-    //     end: a.EndTime,
-    //   }))
-    // );
-
-    if (res && res.appointments) {
-      return res.appointments.map((a) => ({
+    //console.log("info: ", info);
+    //const res = await request("/graphql", GET_APPOINTMENTS);
+    const res = await request("/graphql", GET_APPOINTMENTS_BY_TIMEFRAME, {
+      start: info.start,
+      end: info.end,
+    });
+    //console.log("loadOptions-res:", res.getAppointmentsByTimeframe);
+    console.log(
+      res.getAppointmentsByTimeframe.map((a) => ({
         id: a.appointmentId,
         title: a.appointmentType,
-        start: new Date(parseInt(a.StartTime)).toISOString(),
-        end: new Date(parseInt(a.EndTime)).toISOString(),
+        start: new Date(parseInt(a.start)).toISOString(),
+        end: new Date(parseInt(a.start)).toISOString(),
+      }))
+    );
+
+    if (res && res.getAppointmentsByTimeframe) {
+      return res.getAppointmentsByTimeframe.map((a) => ({
+        id: a.appointmentId,
+        title: a.appointmentType,
+        start: new Date(parseInt(a.start)).toISOString(),
+        end: new Date(parseInt(a.end)).toISOString(),
       }));
     }
     return [];
@@ -48,21 +55,13 @@ const formatEvents111 = async () => {
 export default class DemoApp extends React.Component {
   state = {
     weekendsVisible: true,
-    currentEvents: [],
+    //currentEvents: [],
     openEventDialog: false,
   };
-  // componentDidMount() {
-  //   axios
-  //     .get("/api/v1/fullCalendar/getDataFull")
-  //     .then((response) => {
-  //       this.setState({ event: response.data });
-  //       console.log({ calendarEvents: response.data });
-  //       //console.log(response.data);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
+  componentDidMount() {
+    console.log("component did mount");
+  }
+  calendarRef = React.createRef();
   render() {
     return (
       <div className="demo-app">
@@ -70,6 +69,7 @@ export default class DemoApp extends React.Component {
         <div className="demo-app-main">
           <FullCalendar
             //ref={(el) => (this.fc = el)}
+            ref={this.calendarRef}
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             headerToolbar={{
               left: "prev,next today",
@@ -83,6 +83,7 @@ export default class DemoApp extends React.Component {
             //     dateIncrement: { days: 1 }
             //   }
             // }}
+            //initialView="dayGridWeek"
             initialView="dayGridMonth"
             //selectHelper={true}
             //eventlimit={true}
@@ -101,28 +102,28 @@ export default class DemoApp extends React.Component {
             eventChange={function(){}}
             eventRemove={function(){}}
             */
+            //eventAdd={(ev) => console.log(ev.event.title)
+            // eventAdd={(addInfo) =>
+            //   console.log(addInfo.event._def.extendedProps)
+            // }
+            eventAdd={this.eventAdding}
             //dateClick={this.handleDateClick}
-            //events={"{'graphql/events'}"}
-            //events={this.formatEvents()}
 
             //eventDrop={this.handleEventDrop}  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // events={(fetchInfo, successCallback, failureCallback) => {
-            //   //console.log("fetchInfo: ", fetchInfo);
-            //   formatEvents111()
-            //     .then((res) => console.log(res))
-            //     .then((res) => successCallback(res));
 
-            //   //console.log("res::", res.PromiseResult);
-            //   // if (res) {
-            //   //   successCallback(res);
-            //   // } else {
-            //   //   failureCallback("error");
-            //   // }
-            // }}
-            //events={"/api/v1/fullCalendar/getDataFull"}
-            //events={this.state.currentEvents}
-            //events={this.fetchEvents}
+            //events={"/api/v1/fullCalendar/getDataFull"} //!!!!!!!!!!!!!!!!!!! ok
+            //events={this.state.currentEvents} //!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOK
+            //events={this.fetchEvents} //!!!!!!!!!!!!!!!!!!!!11111111!!!!!!!!1  OK
+            // eventSources={(
+            //   { url: "/api/v1/fullCalendar/getDataFull" },
+            //   { events: this.fetchEvents },
+            // )}
+            // eventSources={
+            //   ({ url: "/api/v1/fullCalendar/getDataFull" }, this.fetchEvents)
+            // }
             eventSources={this.fetchEvents}
+            locale={"es-PE"}
+            //calendar.setOption('locale', 'fr');
           />
 
           <AddEventDialog
@@ -134,6 +135,11 @@ export default class DemoApp extends React.Component {
       </div>
     );
   }
+
+  // someMethod() {
+  //   let calendarApi = this.calendarRef.current.getApi()
+  //   calendarApi.next()
+  // }
 
   // formatEvents() {
   //   return this.props.appointments.map((appointment) => {
@@ -151,6 +157,7 @@ export default class DemoApp extends React.Component {
   //   });
   // }
   fetchEvents(fetchInfo, successCallback, failureCallback) {
+    //console.log(fetchInfo);
     formatEvents111(fetchInfo)
       .then((events) => {
         successCallback(events);
@@ -159,6 +166,28 @@ export default class DemoApp extends React.Component {
         failureCallback(error);
       });
   }
+  eventAdding = async (addInfo) => {
+    //console.log(addInfo.event);
+    // formatEvents111(fetchInfo)
+    //   .then((events) => {
+    //     successCallback(events);
+    //   })
+    //   .catch((error) => {
+    //     failureCallback(error);
+    //   });
+    try {
+      const res = await request("/graphql", ADD_APPOINTMENT, {
+        appointmentInput: {
+          appointmentType: addInfo.event.title,
+          appointmentStatus: addInfo.event._def.extendedProps.status,
+          start: addInfo.event.start,
+          end: addInfo.event.end,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   // handleDateClick = (arg) => {
   //   // bind with an arrow function
   //   alert(arg.dateStr);
@@ -183,41 +212,41 @@ export default class DemoApp extends React.Component {
 
     calendarApi.unselect(); // clear date selection
 
-    // if (title) {
-    //   calendarApi.addEvent({
-    //     id: createEventId(),
-    //     title,
-    //     start: selectInfo.startStr,
-    //     end: selectInfo.endStr,
-    //     allDay: selectInfo.allDay,
-    //   });
-    // }
-    calendarApi.addEvent(
-      {
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
-      },
-      true
-    );
-  };
+    if (title) {
+      calendarApi.addEvent(
+        {
+          //id: createEventId(),
+          title,
+          start: selectInfo.startStr,
+          end: selectInfo.endStr,
 
-  handleEventClick = (clickInfo) => {
-    if (
-      window.confirm(
-        `Are you sure you want to delete the event '${clickInfo.event.title}'`
-      )
-    ) {
-      clickInfo.event.remove();
+          extendedProps: {
+            status: "Programada",
+            //description: "mydesc",
+          },
+          //allDay: selectInfo.allDay,
+        },
+        true
+      );
     }
   };
 
+  // handleEventClick111 = (clickInfo) => {
+  //   if (
+  //     window.confirm(
+  //       `Are you sure you want to delete the event '${clickInfo.event.title}'`
+  //     )
+  //   ) {
+  //     clickInfo.event.remove();
+  //   }
+  // };
+  handleEventClick = (clickInfo) => {};
+
   handleEvents = (events) => {
-    this.setState({
-      currentEvents: events,
-    });
+    console.log("handleEvents called after evenSet: do nothing by now");
+    // this.setState({
+    //   currentEvents: events,
+    // });
   };
 }
 

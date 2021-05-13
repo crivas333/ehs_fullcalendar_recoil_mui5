@@ -13,9 +13,7 @@ export default {
     },
     getAppointmentsByTimeframe: async (root, args, context, info) => {
       // TODO: projection, pagination
-      // console.log('patients')
       //console.log("getAppointmentsByTimeframe: ", args);
-      //return Appointment.find({});
       try {
         const doc = await Appointment.find({
           start: { $gte: args.start },
@@ -23,16 +21,8 @@ export default {
         }).exec();
         //console.log(doc);
         return doc;
-        // const resp = doc.map((a) => ({
-        //   id: a.appointmentId,
-        //   title: a.appointmentType,
-        //   start: a.StartTime,
-        //   end: a.EndTime,
-        // }));
-        // console.log(resp);
-        // return resp;
       } catch (err) {
-        //console.log(err);
+        console.log(err);
         //throw err;
         return err;
       }

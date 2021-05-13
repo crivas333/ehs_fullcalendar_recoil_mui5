@@ -13,18 +13,31 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 //import Tooltip from "@material-ui/core/Tooltip";
 
-const initialEvent = {
-  title: "",
-  appointmentStatus: "",
-  start: "",
-  end: "",
-  appointmentId: "",
+const initialUser = {
+  firstName: "",
+  lastName: "",
+  age: 0,
+  visits: 0,
+  status: "single",
+  progress: 0,
+  subRows: undefined,
 };
 
 const AddEventDialog = (props) => {
-  const [event, setEvent] = useState(initialEvent);
-  const { addEventHandler } = props;
+  const [event, setEvent] = useState(initialUser);
+  //const { addEventHandler } = props;
   //const [open, setOpen] = React.useState(false);
+
+  // const [switchState, setSwitchState] = React.useState({
+  //   addMultiple: false,
+  // });
+
+  // React.useEffect(() => {
+  //   setOpen(props.show);
+  //   console.log({ open });
+  //   return () => {
+  //   };
+  // }, [props.show]);
 
   // React.useEffect(() => {
   //   //setOpen(props.show);
@@ -33,20 +46,32 @@ const AddEventDialog = (props) => {
   //   return () => {};
   // }, []);
 
+  // const handleSwitchChange = (name) => (event) => {
+  //   setSwitchState({ ...switchState, [name]: event.target.checked });
+  // };
+
+  // const resetSwitch = () => {
+  //   setSwitchState({ addMultiple: false });
+  // };
+
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+
   const handleClose = () => {
+    //setOpen(false);
     props.closeDialog();
   };
 
   const handleAdd = (event) => {
     //addEventHandler(event);
-    setEvent(initialEvent);
+    setEvent(initialUser);
+    //switchState.addMultiple ? setOpen(true) : setOpen(false);
   };
 
-  const handleChange =
-    (name) =>
-    ({ target: { value } }) => {
-      setEvent({ ...event, [name]: value });
-    };
+  const handleChange = (name) => ({ target: { value } }) => {
+    setEvent({ ...event, [name]: value });
+  };
 
   return (
     <div>
@@ -62,10 +87,10 @@ const AddEventDialog = (props) => {
           <TextField
             autoFocus
             margin="dense"
-            label="appointmentType"
+            label="First Name"
             type="text"
             fullWidth
-            value={event.appointmentType}
+            value={event.firstName}
             onChange={handleChange("firstName")}
           />
           <TextField
