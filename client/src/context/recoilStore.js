@@ -4,7 +4,8 @@ export const appoEvtState = atom({
   default: {
     appointmentType: "CONSULTA",
     appointmentStatus: "PROGRAMADA",
-    start: null,
-    end: null,
+    start: "",
+    end: "",
+    fullname: "",
   }, // default value (aka initial value)
 });

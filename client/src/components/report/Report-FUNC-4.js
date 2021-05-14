@@ -98,6 +98,12 @@ export default function DemoApp() {
     setOpenEventDialog(false);
   };
 
+  // const handleWeekendsToggle = () => {
+  //   // this.setState({
+  //   //   weekendsVisible: !this.state.weekendsVisible,
+  //   // });
+  //   setWeekendsVisible((prev) => !prev);
+  // };
   const eventAdding = async (addInfo) => {
     try {
       const res = await request("/graphql", ADD_APPOINTMENT, {
@@ -127,13 +133,9 @@ export default function DemoApp() {
     // });
     setAppoEvt({
       appointmentType: appoEvt.appointmentType,
-      //appointmentType: "CONTROL",
       appointmentStatus: appoEvt.appointmentStatus,
-      fullname: appoEvt.fullname,
-      start: new Date(selectInfo.start).toISOString(),
+      start: selectInfo.startStr,
       end: selectInfo.endStr,
-      //start: selectInfo.start,
-      //end: selectInfo.end,
     });
     //setAppoEvt({ start: "start", end: "end" });
     setOpenEventDialog(true);
@@ -156,7 +158,7 @@ export default function DemoApp() {
     //   );
     // }
     // console.log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
-    //calendarApi.refetchEvents = { fetchEvents };
+    calendarApi.refetchEvents = { fetchEvents };
   };
   const handleEventClick = (clickInfo) => {};
 
@@ -180,6 +182,15 @@ export default function DemoApp() {
             center: "title",
             right: "dayGridMonth,timeGridWeek,timeGridDay",
           }}
+          // views={{
+          //   rollingSevenDay: {
+          //     type: "dayGrid",
+          //     duration: { days: 7 },
+          //     dateIncrement: { days: 1 }
+          //   }
+          // }}
+          //initialView="dayGridWeek"
+          //initialView="dayGridMonth"
           initialView="timeGridWeek"
           //selectHelper={true}
           allDaySlot={false}
@@ -193,15 +204,40 @@ export default function DemoApp() {
           selectable={true}
           selectMirror={true}
           dayMaxEvents={true}
+          //weekends={this.state.weekendsVisible}
+          //initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
           eventClick={handleEventClick}
           eventsSet={handleEvents} // called after events are initialized/added/changed/removed
+          /* you can update a remote database when these fire:
+            eventAdd={function(){}}
+            eventChange={function(){}}
+            eventRemove={function(){}}
+            */
+          //eventAdd={(ev) => console.log(ev.event.title)
+          // eventAdd={(addInfo) =>
+          //   console.log(addInfo.event._def.extendedProps)
+          // }
           eventAdd={eventAdding}
           //dateClick={this.handleDateClick}
+
+          //eventDrop={this.handleEventDrop}  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          //events={"http://localhost:3000/api/v1/fullCalendar/getDataFull"} //!!!!!!!!!!!!!!!!!!! ok
           events={"/api/v1/fullCalendar/getDataFull"} //!!!!!!!!!!!!!!!!!!! ok
+          //events={this.state.currentEvents} //!!!!!!!!!!!!!!!!!!!!!!!!!!!! NOK
+          //events={fetchEvents} //!!!!!!!!!!!!!!!!!!!!11111111!!!!!!!!1  OK
+          // eventSources={(
+          //   { url: "/api/v1/fullCalendar/getDataFull" },
+          //   { events: this.fetchEvents },
+          // )}
+          // eventSources={
+          //   ({ url: "/api/v1/fullCalendar/getDataFull" }, this.fetchEvents)
+          // }
+          //eventSources={fetchEvents}
           //datesSet={formatEvents111}
           locale={"es-PE"}
+          //calendar.setOption('locale', 'fr');
         />
 
         <AddEventDialog

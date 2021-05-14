@@ -5,6 +5,8 @@ import {
   useReusableForm,
   ReusableForm,
 } from "../reusableForms/useReusableForm";
+import { useRecoilState } from "recoil";
+import { appoEvtState } from "../../context/recoilStore";
 import * as appointmentService from "../../services/configService";
 import { GlobalContext } from "../../context/GlobalState";
 import Button from "@material-ui/core/Button";
@@ -13,78 +15,128 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 //import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import AsyncSelectForFullCalendar from "../patient/patientSearch/AsyncSelectForFullCalendar";
 
-const initialFValues = {
-  id: 0,
-  fullName: "",
-  email: "",
-  mobile: "",
-};
+// const initialFValues = {
+//   appointmentType: "CONSULTA",
+//   appointmentStatus: "PROGRAMADA",
+//   start: "",
+//   end: "",
+// };
 
 export default function AddEventDialog(props) {
   const { applicationFields } = useContext(GlobalContext);
+  const [appoEvt, setAppoEvt] = useRecoilState(appoEvtState);
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
-    if ("fullName" in fieldValues)
-      temp.fullName = fieldValues.fullName ? "" : "This field is required.";
-    if ("email" in fieldValues)
-      temp.email = /$^|.+@.+..+/.test(fieldValues.email)
-        ? ""
-        : "Email is not valid.";
-    if ("mobile" in fieldValues)
-      temp.mobile =
-        fieldValues.mobile.length > 9 ? "" : "Minimum 10 numbers required.";
-    if ("departmentId" in fieldValues)
-      temp.departmentId =
-        fieldValues.departmentId.length !== 0 ? "" : "This field is required.";
+    if ("fullName" in fieldValues) {
+      console.log("values.fullName1: ", values.fullName);
+      temp.fullName = fieldValues.fullName ? "" : "Seleccione un Paciente";
+    }
+    // if ("lastName" in fieldValues)
+    //   temp.lastName = fieldValues.lastName ? "" : "Ingrese A. Paterno.";
+
     setErrors({
       ...temp,
     });
 
-    if (fieldValues === values)
+    if (fieldValues === values) {
+      console.log(
+        "object:",
+        Object.values(temp).every((x) => x === "")
+      );
+      console.log("errors: ", errors);
+      console.log("temp: ", temp);
+      console.log("values.fullName2: ", values.fullName);
       return Object.values(temp).every((x) => x === "");
+    }
   };
-
   const {
     values,
-    //setValues,
+    setValues,
     errors,
     setErrors,
     handleInputChange,
     resetForm,
-  } = useReusableForm(initialFValues, true, validate);
+    //} = useReusableForm(initialFValues, true, validate);
+  } = useReusableForm(appoEvt, true, validate);
+
+  React.useEffect(() => {
+    //setOpen(props.show);
+    setValues(appoEvt);
+    //setEvent(appoEvt);
+    //console.log("addEventDialog - values1: ", values);
+    console.log("addEventDialog - appoEvt: ", appoEvt);
+    //console.log("addEventDialog - values2: ", values);
+
+    return () => {};
+  }, [appoEvt]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("AddEventDialog - handleSubmit");
     if (validate()) {
       //employeeService.insertEmployee(values)
-      resetForm();
+      //resetForm();
+      console.log(values);
+      props.closeDialog();
     }
   };
   const handleClose = () => {
     props.closeDialog();
   };
 
-  const handleAdd = (event) => {
-    //addEventHandler(event);
+  const handleAdd = (e) => {
+    e.preventDefault();
     //setEvent(event);
     //setAppoEvt(event);
-    props.closeDialog();
+    console.log("validate: ", validate());
+    if (validate()) {
+      console.log("inside validation");
+      //resetForm();
+      //return;
+      console.log(values);
+      props.closeDialog();
+    }
+  };
+
+  const onAutoCompleteChange = (val) => {
+    //console.log("onAutoCompleteChange: ", val.fullName);
+    setValues({
+      ...values,
+      fullName: val.fullName,
+      notRegistered: "",
+      patient: val.id,
+    });
   };
   return (
     <div>
-      <Dialog
-        open={props.show}
-        //open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">Añadir Cita</DialogTitle>
+      <Dialog open={props.show} onClose={handleClose}>
+        <DialogTitle id="form-dialog-title">
+          Añadir Cita: {values.start}
+        </DialogTitle>
         <DialogContent>
           <ReusableForm onSubmit={handleSubmit}>
             <Grid container>
               <Grid item xs={12} sm={6}>
+                <AsyncSelectForFullCalendar
+                  onValChange={onAutoCompleteChange}
+                />
+                <ReusableControls.CustomInput
+                  name="fullName"
+                  label="Paciente Registrado"
+                  value={values.fullName}
+                  error={errors.fullName}
+                />
+                <ReusableControls.CustomInput
+                  name="notRegistered"
+                  label="Paciente No Registrado"
+                  value={values.notRegistered}
+                  onChange={handleInputChange}
+                  error={errors.notRegistered}
+                />
+
                 <ReusableControls.CustomSelect
                   name="appointmentType"
                   label="Tipo de Cita"
@@ -95,7 +147,7 @@ export default function AddEventDialog(props) {
                     "appointmentView",
                     "appointmentType"
                   )}
-                  error={errors.appontmentType}
+                  error={errors.appointmentType}
                 />
                 <ReusableControls.CustomSelect
                   name="appointmentStatus"
@@ -108,20 +160,30 @@ export default function AddEventDialog(props) {
                     "appointmentStatus"
                   )}
                 />
-                <ReusableControls.CustomDateTimePicker
-                  name="eventStartTime"
+                <ReusableControls.CustomKeyboardDateTimePicker
+                  name="start"
                   label="Fecha de Inicio de Cita"
                   value={values.start}
                   onChange={handleInputChange}
+                  error={errors.start}
                 />
-                <ReusableControls.CustomDateTimePicker
-                  name="eventEndTime"
+                <ReusableControls.CustomKeyboardDateTimePicker
+                  name="end"
                   label="Fecha de Fin de Cita"
                   value={values.end}
                   onChange={handleInputChange}
+                  error={errors.end}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}></Grid>
+              <Button
+                type="submit"
+                //fullWidth
+                variant="contained"
+                color="primary"
+                //className={classes.button}
+              >
+                ENVIAR
+              </Button>
             </Grid>
           </ReusableForm>
         </DialogContent>

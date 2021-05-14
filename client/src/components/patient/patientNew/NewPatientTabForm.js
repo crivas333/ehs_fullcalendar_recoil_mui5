@@ -87,16 +87,21 @@ export const NewPatientTabForm = (props) => {
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     if ("firstName" in fieldValues)
-      temp.firstName = fieldValues.firstName ? "" : "This field is required.";
+      temp.firstName = fieldValues.firstName ? "" : "Ingrese Nombre(s)";
     if ("lastName" in fieldValues)
-      temp.lastName = fieldValues.lastName ? "" : "This field is required.";
+      temp.lastName = fieldValues.lastName ? "" : "Ingrese A. Paterno";
 
     setErrors({
       ...temp,
     });
 
-    if (fieldValues === values)
+    if (fieldValues === values) {
+      console.log(
+        "object: ",
+        Object.values(temp).every((x) => x === "")
+      );
       return Object.values(temp).every((x) => x === "");
+    }
   };
 
   const {

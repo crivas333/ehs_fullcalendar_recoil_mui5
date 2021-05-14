@@ -85,9 +85,9 @@ export const UpdatePatientTabForm = (props) => {
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     if ("firstName" in fieldValues)
-      temp.firstName = fieldValues.firstName ? "" : "This field is required.";
+      temp.firstName = fieldValues.firstName ? "" : "Ingrese Nombre.";
     if ("lastName" in fieldValues)
-      temp.lastName = fieldValues.lastName ? "" : "This field is required.";
+      temp.lastName = fieldValues.lastName ? "" : "Ingrese A. Paterno.";
 
     setErrors({
       ...temp,
@@ -117,7 +117,7 @@ export const UpdatePatientTabForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("UpdatePatientTabForm: ", values);
+    //console.log("UpdatePatientTabForm: ", values);
     if (validate()) {
       //console.log('validation')
       const newData = {
