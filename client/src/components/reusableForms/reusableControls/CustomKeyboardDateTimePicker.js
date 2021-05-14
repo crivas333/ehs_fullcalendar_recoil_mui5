@@ -18,7 +18,7 @@ export default function CustomDateTimePicker(props) {
   const handleLocalChange = (name, value) => {
     //console.log('test',name,value)
     setSelectedDate(value);
-    onChange(convertToDefEventPara(name, value));
+    //onChange(convertToDefEventPara(name, value));
   };
   return (
     <MuiPickersUtilsProvider

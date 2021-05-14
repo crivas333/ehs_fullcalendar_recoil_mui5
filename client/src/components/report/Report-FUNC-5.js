@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useRecoilState } from "recoil";
 import { appoEvtState } from "../../context/recoilStore";
 import FullCalendar from "@fullcalendar/react";
@@ -20,14 +20,6 @@ import {
   GET_APPOINTMENTS_BY_TIMEFRAME,
 } from "../../graphqlClient/gqlQueries";
 
-const initialEvt = {
-  appointmentType: "CONSULTA",
-  appointmentStatus: "PROGRAMADA",
-  start: "",
-  end: "",
-  fullName: "",
-  notRegistered: "",
-};
 //let eventGuid = 0;
 //let todayStr = new Date().toISOString().replace(/T.*$/, ""); // YYYY-MM-DD of today
 function renderEventContent(eventInfo) {
@@ -72,12 +64,11 @@ const formatEvents111 = async (info) => {
 
 export default function DemoApp() {
   //calendarRef = React.createRef();
-  const [openEventDialog, setOpenEventDialog] = useState(false);
+  const [openEventDialog, setOpenEventDialog] = React.useState(false);
   //const eventTemp = useStore((state) => state.eventTemp);
   //const eventTemp = useStore.getState().eventTemp;
   //const setEventTemp = useStore((store) => store.setEventTemp);
-  //const [appoEvt, setAppoEvt] = useRecoilState(appoEvtState);
-  const [evt, setEvt] = useState(initialEvt);
+  const [appoEvt, setAppoEvt] = useRecoilState(appoEvtState);
   const calendarRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -121,21 +112,51 @@ export default function DemoApp() {
       console.log(err);
     }
   };
-  const handleEvt = (val) => {
-    console.log("Report-handleEvt-evt", val);
-  };
   const handleDateSelect = (selectInfo) => {
+    //setOpenEventDialog(true);
+    //console.log(selectInfo);
+    //let title = prompt("Please enter a new title for your event");
+    //console.log("evetTemp3: ", eventTemp);
+    let title = "";
     let calendarApi = selectInfo.view.calendar;
     calendarApi.unselect(); // clear date selection
-    setEvt({
-      ...evt,
+    //console.log("handleDateSelect - appoEvt:", appoEvt);
+    // setAppoEvt({
+    //   start: selectInfo.start.toISOString(),
+    //   end: selectInfo.end.toISOString(),
+    // });
+    setAppoEvt({
+      appointmentType: appoEvt.appointmentType,
+      //appointmentType: "CONTROL",
+      appointmentStatus: appoEvt.appointmentStatus,
+      fullname: appoEvt.fullname,
       start: new Date(selectInfo.start).toISOString(),
       end: selectInfo.endStr,
       //start: selectInfo.start,
       //end: selectInfo.end,
     });
-
+    //setAppoEvt({ start: "start", end: "end" });
     setOpenEventDialog(true);
+    // if (openEventDialog === false) {
+    //   console.log("after closing event dialog");
+    //   calendarApi.addEvent(
+    //     {
+    //       //id: createEventId(),
+    //       title,
+    //       start: selectInfo.startStr,
+    //       end: selectInfo.endStr,
+
+    //       extendedProps: {
+    //         status: "Programada",
+    //         //description: "mydesc",
+    //       },
+    //       //allDay: selectInfo.allDay,
+    //     },
+    //     true
+    //   );
+    // }
+    // console.log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+    //calendarApi.refetchEvents = { fetchEvents };
   };
   const handleEventClick = (clickInfo) => {};
 
@@ -185,9 +206,8 @@ export default function DemoApp() {
 
         <AddEventDialog
           show={openEventDialog}
-          evt={evt}
+          //show={false}
           closeDialog={handleCloseDialog}
-          handleEvt={handleEvt}
         />
       </div>
     </div>

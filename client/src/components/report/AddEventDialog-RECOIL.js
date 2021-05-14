@@ -5,8 +5,8 @@ import {
   useReusableForm,
   ReusableForm,
 } from "../reusableForms/useReusableForm";
-//import { useRecoilState } from "recoil";
-//import { appoEvtState } from "../../context/recoilStore";
+import { useRecoilState } from "recoil";
+import { appoEvtState } from "../../context/recoilStore";
 import * as appointmentService from "../../services/configService";
 import { GlobalContext } from "../../context/GlobalState";
 import Button from "@material-ui/core/Button";
@@ -26,16 +26,13 @@ import AsyncSelectForFullCalendar from "../patient/patientSearch/AsyncSelectForF
 
 export default function AddEventDialog(props) {
   const { applicationFields } = useContext(GlobalContext);
-  //const [appoEvt, setAppoEvt] = useRecoilState(appoEvtState);
-  const { evt, closeDialog, handleEvt } = props;
+  const [appoEvt, setAppoEvt] = useRecoilState(appoEvtState);
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
-    if ("fullName" in fieldValues && "notRegistered in fieldValues") {
-      //console.log("values.fullName1: ", values.fullName);
-      if (fieldValues.fullName === "") {
-        temp.notRegistered = fieldValues.notRegistered ? "" : "Campo requerido";
-      }
+    if ("fullName" in fieldValues) {
+      console.log("values.fullName1: ", values.fullName);
+      temp.fullName = fieldValues.fullName ? "" : "Seleccione un Paciente";
     }
     // if ("lastName" in fieldValues)
     //   temp.lastName = fieldValues.lastName ? "" : "Ingrese A. Paterno.";
@@ -45,13 +42,13 @@ export default function AddEventDialog(props) {
     });
 
     if (fieldValues === values) {
-      // console.log(
-      //   "object:",
-      //   Object.values(temp).every((x) => x === "")
-      // );
-      //console.log("errors: ", errors);
-      //console.log("temp: ", temp);
-      //console.log("values.fullName2: ", values.fullName);
+      console.log(
+        "object:",
+        Object.values(temp).every((x) => x === "")
+      );
+      console.log("errors: ", errors);
+      console.log("temp: ", temp);
+      console.log("values.fullName2: ", values.fullName);
       return Object.values(temp).every((x) => x === "");
     }
   };
@@ -63,38 +60,44 @@ export default function AddEventDialog(props) {
     handleInputChange,
     resetForm,
     //} = useReusableForm(initialFValues, true, validate);
-  } = useReusableForm(evt, true, validate);
+  } = useReusableForm(appoEvt, true, validate);
 
   React.useEffect(() => {
-    setValues(evt);
-    console.log("useEffect - addEventDialog - evt: ", evt);
+    //setOpen(props.show);
+    setValues(appoEvt);
+    //setEvent(appoEvt);
+    //console.log("addEventDialog - values1: ", values);
+    console.log("addEventDialog - appoEvt: ", appoEvt);
+    //console.log("addEventDialog - values2: ", values);
 
     return () => {};
-  }, [evt]);
+  }, [appoEvt]);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("AddEventDialog - handleSubmit");
-  //   if (validate()) {
-  //     //employeeService.insertEmployee(values)
-  //     //resetForm();
-  //     console.log(values);
-  //     closeDialog();
-  //   }
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("AddEventDialog - handleSubmit");
+    if (validate()) {
+      //employeeService.insertEmployee(values)
+      //resetForm();
+      console.log(values);
+      props.closeDialog();
+    }
+  };
   const handleClose = () => {
-    closeDialog();
+    props.closeDialog();
   };
 
   const handleAdd = (e) => {
     e.preventDefault();
-    console.log("handleAdd - values: ", values);
+    //setEvent(event);
+    //setAppoEvt(event);
+    console.log("validate: ", validate());
     if (validate()) {
-      //console.log("inside validation");
+      console.log("inside validation");
       //resetForm();
-      if ("notRegistered" in values) handleEvt(values);
-      //setValues({});
-      closeDialog();
+      //return;
+      console.log(values);
+      props.closeDialog();
     }
   };
 
@@ -107,42 +110,31 @@ export default function AddEventDialog(props) {
       patient: val.id,
     });
   };
-
-  const handleIconFullName = () => {
-    console.log("handleIconFullName");
-    setValues({ ...values, fullName: "", patient: "" });
-  };
-  const handleIconNotRegistered = () => {
-    console.log("handleIconNotRegistered");
-    setValues({ ...values, notRegistered: "" });
-  };
   return (
     <div>
       <Dialog open={props.show} onClose={handleClose}>
-        <DialogTitle id="form-dialog-title">Añadir Cita</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          Añadir Cita: {values.start}
+        </DialogTitle>
         <DialogContent>
-          <ReusableForm
-          //onSubmit={handleSubmit}
-          >
+          <ReusableForm onSubmit={handleSubmit}>
             <Grid container>
               <Grid item xs={12} sm={6}>
                 <AsyncSelectForFullCalendar
                   onValChange={onAutoCompleteChange}
                 />
-                <ReusableControls.CustomInputIconDelete
+                <ReusableControls.CustomInput
                   name="fullName"
-                  label="Seleccione Paciente Registrado"
+                  label="Paciente Registrado"
                   value={values.fullName}
                   error={errors.fullName}
-                  handleIconClick={handleIconFullName}
                 />
-                <ReusableControls.CustomInputIconEdit
+                <ReusableControls.CustomInput
                   name="notRegistered"
                   label="Paciente No Registrado"
                   value={values.notRegistered}
                   onChange={handleInputChange}
                   error={errors.notRegistered}
-                  handleIconClick={handleIconNotRegistered}
                 />
 
                 <ReusableControls.CustomSelect
@@ -168,14 +160,14 @@ export default function AddEventDialog(props) {
                     "appointmentStatus"
                   )}
                 />
-                <ReusableControls.PlainDateTimePicker
+                <ReusableControls.CustomKeyboardDateTimePicker
                   name="start"
                   label="Fecha de Inicio de Cita"
                   value={values.start}
                   onChange={handleInputChange}
                   error={errors.start}
                 />
-                <ReusableControls.PlainDateTimePicker
+                <ReusableControls.CustomKeyboardDateTimePicker
                   name="end"
                   label="Fecha de Fin de Cita"
                   value={values.end}
@@ -183,6 +175,15 @@ export default function AddEventDialog(props) {
                   error={errors.end}
                 />
               </Grid>
+              <Button
+                type="submit"
+                //fullWidth
+                variant="contained"
+                color="primary"
+                //className={classes.button}
+              >
+                ENVIAR
+              </Button>
             </Grid>
           </ReusableForm>
         </DialogContent>
@@ -202,15 +203,3 @@ export default function AddEventDialog(props) {
     </div>
   );
 }
-
-/*
- <Button
-                type="submit"
-                //fullWidth
-                variant="contained"
-                color="primary"
-                //className={classes.button}
-              >
-                ENVIAR
-              </Button>
-*/

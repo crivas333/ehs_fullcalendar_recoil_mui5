@@ -22,7 +22,7 @@ const loadPatient = async (input) => {
     const res = await request("/graphql", AUTOCOMPLETE_SEARCH_PATIENT_BY_ID, {
       id: input,
     });
-    console.log(res);
+    //console.log(res);
     //if (res.data && res.data.patient) {
     if (res && res.patient) {
       //console.log('res-patiente:',res.data.patient.id)
