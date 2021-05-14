@@ -29,7 +29,9 @@
     "react-scripts": "^3.4.3",
     "react-select": "^4.3.0",
     "react-table": "^7.6.3",
-    "source-map-explorer": "^2.5.2"
+    "recoil": "^0.2.0",
+    "source-map-explorer": "^2.5.2",
+    "zustand": "^3.5.1"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",

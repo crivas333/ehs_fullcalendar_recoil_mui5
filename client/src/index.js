@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { RecoilRoot } from "recoil";
 import { request } from "graphql-request";
 
 import unstable_createMuiStrictModeTheme from "@material-ui/core/styles/createMuiStrictModeTheme";
@@ -109,15 +110,17 @@ const renderApp = (currSession) => {
   //const queryClient = new QueryClient();
 
   const ApolloApp = (AppComponent) => (
-    <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <GlobalProvider>
-          <React.StrictMode>
-            <AppComponent />
-          </React.StrictMode>
-        </GlobalProvider>
-      </QueryClientProvider>
-    </ThemeProvider>
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <GlobalProvider>
+            <React.StrictMode>
+              <AppComponent />
+            </React.StrictMode>
+          </GlobalProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </RecoilRoot>
   );
 
   ReactDOM.render(ApolloApp(App), document.getElementById("root"));

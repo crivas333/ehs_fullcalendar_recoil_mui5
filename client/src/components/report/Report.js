@@ -1,4 +1,6 @@
 import React from "react";
+import { useRecoilState } from "recoil";
+import { appoEvtState } from "../../context/recoilStore";
 import FullCalendar from "@fullcalendar/react";
 //import { formatDate } from '@fullcalendar/react';
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -6,10 +8,12 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import request from "graphql-request";
 //import { INITIAL_EVENTS, createEventId } from "./event-utils";
-import { createEventId } from "./event-utils";
+//import { createEventId } from "./event-utils";
 //import Modal from "@material-ui/core/Modal";
 //import Button from "@material-ui/core/Button";
 import AddEventDialog from "./AddEventDialog";
+//import { useStore } from "../../context/GlobalStore";
+
 //import axios from "axios";
 import {
   ADD_APPOINTMENT,
@@ -61,10 +65,26 @@ const formatEvents111 = async (info) => {
 export default function DemoApp() {
   //calendarRef = React.createRef();
   const [openEventDialog, setOpenEventDialog] = React.useState(false);
-
+  //const eventTemp = useStore((state) => state.eventTemp);
+  //const eventTemp = useStore.getState().eventTemp;
+  //const setEventTemp = useStore((store) => store.setEventTemp);
+  const [appoEvt, setAppoEvt] = useRecoilState(appoEvtState);
   const calendarRef = React.useRef(null);
+
+  React.useEffect(() => {
+    //console.log("evenTemp1: ", eventTemp);
+    //eventTemp = { title: "newTitle" };
+    // useStore.setState((state) => ({
+    //   ...state,
+    //   eventTemp,
+    // }));
+    //setEventTemp({ title: "newTitle", title2: "newTitle2" });
+    //console.log("evenTemp2: ", eventTemp);
+    //setAppoEvt({ title: "newTitle", title2: "newTitle2" });
+  }, []);
+
   const fetchEvents = (fetchInfo, successCallback, failureCallback) => {
-    //console.log(fetchInfo);
+    console.log("fetchEvents: ", fetchInfo);
     formatEvents111(fetchInfo)
       .then((events) => {
         successCallback(events);
@@ -73,6 +93,17 @@ export default function DemoApp() {
         failureCallback(error);
       });
   };
+
+  const handleCloseDialog = () => {
+    setOpenEventDialog(false);
+  };
+
+  // const handleWeekendsToggle = () => {
+  //   // this.setState({
+  //   //   weekendsVisible: !this.state.weekendsVisible,
+  //   // });
+  //   setWeekendsVisible((prev) => !prev);
+  // };
   const eventAdding = async (addInfo) => {
     try {
       const res = await request("/graphql", ADD_APPOINTMENT, {
@@ -87,43 +118,47 @@ export default function DemoApp() {
       console.log(err);
     }
   };
-
-  const handleCloseDialog = () => {
-    setOpenEventDialog(false);
-  };
-
-  // const handleWeekendsToggle = () => {
-  //   // this.setState({
-  //   //   weekendsVisible: !this.state.weekendsVisible,
-  //   // });
-  //   setWeekendsVisible((prev) => !prev);
-  // };
-
   const handleDateSelect = (selectInfo) => {
-    //this.setState({ openEventDialog: true });
+    //setOpenEventDialog(true);
+    //console.log(selectInfo);
     //let title = prompt("Please enter a new title for your event");
-    let title = "hello";
+    //console.log("evetTemp3: ", eventTemp);
+    let title = "";
     let calendarApi = selectInfo.view.calendar;
-
     calendarApi.unselect(); // clear date selection
+    //console.log("handleDateSelect - appoEvt:", appoEvt);
+    // setAppoEvt({
+    //   start: selectInfo.start.toISOString(),
+    //   end: selectInfo.end.toISOString(),
+    // });
+    setAppoEvt({
+      appointmentType: appoEvt.appointmentType,
+      appointmentStatus: appoEvt.appointmentStatus,
+      start: selectInfo.startStr,
+      end: selectInfo.endStr,
+    });
+    //setAppoEvt({ start: "start", end: "end" });
+    setOpenEventDialog(true);
+    // if (openEventDialog === false) {
+    //   console.log("after closing event dialog");
+    //   calendarApi.addEvent(
+    //     {
+    //       //id: createEventId(),
+    //       title,
+    //       start: selectInfo.startStr,
+    //       end: selectInfo.endStr,
 
-    if (title) {
-      calendarApi.addEvent(
-        {
-          //id: createEventId(),
-          title,
-          start: selectInfo.startStr,
-          end: selectInfo.endStr,
-
-          extendedProps: {
-            status: "Programada",
-            //description: "mydesc",
-          },
-          //allDay: selectInfo.allDay,
-        },
-        true
-      );
-    }
+    //       extendedProps: {
+    //         status: "Programada",
+    //         //description: "mydesc",
+    //       },
+    //       //allDay: selectInfo.allDay,
+    //     },
+    //     true
+    //   );
+    // }
+    // console.log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+    calendarApi.refetchEvents = { fetchEvents };
   };
   const handleEventClick = (clickInfo) => {};
 
@@ -158,7 +193,13 @@ export default function DemoApp() {
           //initialView="dayGridMonth"
           initialView="timeGridWeek"
           //selectHelper={true}
-          eventlimit={true}
+          allDaySlot={false}
+          slotDuration={"00:20:00"}
+          slotMinTime={"07:00:00"}
+          firstDay={1} //Monday
+          //eventMaxStack={3}
+          nowIndicator={true}
+          //eventLimit={true}
           editable={true}
           selectable={true}
           selectMirror={true}
@@ -194,7 +235,8 @@ export default function DemoApp() {
           //   ({ url: "/api/v1/fullCalendar/getDataFull" }, this.fetchEvents)
           // }
           //eventSources={fetchEvents}
-          //locale={"es-PE"}
+          //datesSet={formatEvents111}
+          locale={"es-PE"}
           //calendar.setOption('locale', 'fr');
         />
 

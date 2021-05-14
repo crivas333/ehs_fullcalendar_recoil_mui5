@@ -1,53 +1,77 @@
-import React, { useState } from "react";
-
-//import AddIcon from "@material-ui/icons/Add";
+import React, { useContext } from "react";
+import { Grid } from "@material-ui/core";
+import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
+import {
+  useReusableForm,
+  ReusableForm,
+} from "../reusableForms/useReusableForm";
+import * as appointmentService from "../../services/configService";
+import { GlobalContext } from "../../context/GlobalState";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
+//import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-//import IconButton from "@material-ui/core/IconButton";
-//import PropTypes from "prop-types";
-//import Switch from "@material-ui/core/Switch";
-import TextField from "@material-ui/core/TextField";
-//import Tooltip from "@material-ui/core/Tooltip";
 
-const initialEvent = {
-  title: "",
-  appointmentStatus: "",
-  start: "",
-  end: "",
-  appointmentId: "",
+const initialFValues = {
+  id: 0,
+  fullName: "",
+  email: "",
+  mobile: "",
 };
 
-const AddEventDialog = (props) => {
-  const [event, setEvent] = useState(initialEvent);
-  const { addEventHandler } = props;
-  //const [open, setOpen] = React.useState(false);
+export default function AddEventDialog(props) {
+  const { applicationFields } = useContext(GlobalContext);
 
-  // React.useEffect(() => {
-  //   //setOpen(props.show);
-  //   console.log(open);
-  //   console.log({open})
-  //   return () => {};
-  // }, []);
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
+    if ("fullName" in fieldValues)
+      temp.fullName = fieldValues.fullName ? "" : "This field is required.";
+    if ("email" in fieldValues)
+      temp.email = /$^|.+@.+..+/.test(fieldValues.email)
+        ? ""
+        : "Email is not valid.";
+    if ("mobile" in fieldValues)
+      temp.mobile =
+        fieldValues.mobile.length > 9 ? "" : "Minimum 10 numbers required.";
+    if ("departmentId" in fieldValues)
+      temp.departmentId =
+        fieldValues.departmentId.length !== 0 ? "" : "This field is required.";
+    setErrors({
+      ...temp,
+    });
 
+    if (fieldValues === values)
+      return Object.values(temp).every((x) => x === "");
+  };
+
+  const {
+    values,
+    //setValues,
+    errors,
+    setErrors,
+    handleInputChange,
+    resetForm,
+  } = useReusableForm(initialFValues, true, validate);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validate()) {
+      //employeeService.insertEmployee(values)
+      resetForm();
+    }
+  };
   const handleClose = () => {
     props.closeDialog();
   };
 
   const handleAdd = (event) => {
     //addEventHandler(event);
-    setEvent(initialEvent);
+    //setEvent(event);
+    //setAppoEvt(event);
+    props.closeDialog();
   };
-
-  const handleChange =
-    (name) =>
-    ({ target: { value } }) => {
-      setEvent({ ...event, [name]: value });
-    };
-
   return (
     <div>
       <Dialog
@@ -56,61 +80,57 @@ const AddEventDialog = (props) => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Add User</DialogTitle>
+        <DialogTitle id="form-dialog-title">Añadir Cita</DialogTitle>
         <DialogContent>
-          <DialogContentText>Demo add item to react table.</DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="appointmentType"
-            type="text"
-            fullWidth
-            value={event.appointmentType}
-            onChange={handleChange("firstName")}
-          />
-          <TextField
-            margin="dense"
-            label="Last Name"
-            type="text"
-            fullWidth
-            value={event.lastName}
-            onChange={handleChange("lastName")}
-          />
-          <TextField
-            margin="dense"
-            label="Age"
-            type="number"
-            fullWidth
-            value={event.age}
-            onChange={handleChange("age")}
-          />
-          <TextField
-            margin="dense"
-            label="Visits"
-            type="number"
-            fullWidth
-            value={event.visits}
-            onChange={handleChange("visits")}
-          />
-          <TextField
-            margin="dense"
-            label="Status"
-            type="text"
-            fullWidth
-            value={event.status}
-            onChange={handleChange("status")}
-          />
-          <TextField
-            margin="dense"
-            label="Profile Progress"
-            type="number"
-            fullWidth
-            value={event.progress}
-            onChange={handleChange("progress")}
-          />
+          <ReusableForm onSubmit={handleSubmit}>
+            <Grid container>
+              <Grid item xs={12} sm={6}>
+                <ReusableControls.CustomSelect
+                  name="appointmentType"
+                  label="Tipo de Cita"
+                  value={values.appointmentType}
+                  onChange={handleInputChange}
+                  options={appointmentService.getFieldsDataCollection(
+                    applicationFields,
+                    "appointmentView",
+                    "appointmentType"
+                  )}
+                  error={errors.appontmentType}
+                />
+                <ReusableControls.CustomSelect
+                  name="appointmentStatus"
+                  label="Estado de la Cita"
+                  value={values.appointmentStatus}
+                  onChange={handleInputChange}
+                  options={appointmentService.getFieldsDataCollection(
+                    applicationFields,
+                    "appointmentView",
+                    "appointmentStatus"
+                  )}
+                />
+                <ReusableControls.CustomDateTimePicker
+                  name="eventStartTime"
+                  label="Fecha de Inicio de Cita"
+                  value={values.start}
+                  onChange={handleInputChange}
+                />
+                <ReusableControls.CustomDateTimePicker
+                  name="eventEndTime"
+                  label="Fecha de Fin de Cita"
+                  value={values.end}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}></Grid>
+            </Grid>
+          </ReusableForm>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button
+            onClick={handleClose}
+            //onClick={resetForm}
+            color="primary"
+          >
             Cancel
           </Button>
           <Button onClick={handleAdd} color="primary">
@@ -120,10 +140,4 @@ const AddEventDialog = (props) => {
       </Dialog>
     </div>
   );
-};
-
-// AddEventDialog.propTypes = {
-//   addEventHandler: PropTypes.func.isRequired,
-// };
-
-export default AddEventDialog;
+}
