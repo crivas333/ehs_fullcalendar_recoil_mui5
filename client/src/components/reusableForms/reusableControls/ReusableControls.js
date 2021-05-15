@@ -11,9 +11,11 @@ import CustomDateTimePicker from "./CustomDateTimePicker";
 import CustomKeyboardDatePicker from "./CustomKeyboardDatePicker";
 import CustomKeyboardDateTimePicker from "./CustomKeyboardDateTimePicker";
 import PlainDateTimePicker from "./PlainDateTimePicker";
+import PlainDatePicker from "./PlainDatePicker";
 import Button from "./Button";
 
 const ReusableControls = {
+  PlainDatePicker,
   PlainDateTimePicker,
   CustomInput,
   CustomInputIconEdit,

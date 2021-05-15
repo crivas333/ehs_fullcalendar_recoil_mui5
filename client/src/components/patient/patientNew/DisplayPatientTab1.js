@@ -1,81 +1,91 @@
-
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import ReusableControls from '../../reusableForms/reusableControls/ReusableControls'
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import ReusableControls from "../../reusableForms/reusableControls/ReusableControls";
 //import {getSexCollection, getIdTypeCollection} from '../../../services/employeeService'
 //import * as employeeService from "../../../services/employeeService";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     //alignItems: 'center'
   },
-
-
-
-}))
+}));
 
 // export default function App() {
 export const DisplayPatientTab1 = (props) => {
-  const classes = useStyles()
+  const classes = useStyles();
   const { values } = props;
 
-
-  
-
-  return (  
+  return (
     <div className={classes.paper}>
-        <ReusableControls.CustomInput
-          name='historyId'
-          label='Nro de Historia'
-          value={values.historyId}
-        /> 
-        <ReusableControls.CustomInput
-          name='age'
-          label='Edad'
-          value={values.age_years}
-        /> 
-        <ReusableControls.CustomInput
-          name='idType'
-          label='Tipo de Documento'
-          value={values.idType}
-        /> 
-        <ReusableControls.CustomInput
-          name='idTypeNo'
-          label='Nro. Documento'
-          value={values.idTypeNo}
-        /> 
-        <ReusableControls.CustomInput
-           name='firstName'
-           label='Nombres'
-           value={values.firstName}
-        />    
-        <ReusableControls.CustomInput
-           name='lastName'
-           label='A. Paterno'
-           value={values.lastName}
-        />
-        <ReusableControls.CustomInput
-           name='lastName2'
-           label='A. Materno'
-           value={values.lastName2}
-        />
-         <ReusableControls.DisplayDatePicker
-           name='birthDay'
-           label='F. Nacimiento'
-           value={values.birthDay}
-        />
-        <ReusableControls.CustomInput
-           name='sex'
-           label='Sexo'
-           value={values.sex}
-        />
+      <ReusableControls.CustomInput
+        name="historyId"
+        label="Nro de Historia"
+        value={values.historyId}
+        variant="outlined"
+        readOnly={true}
+      />
+      <ReusableControls.CustomInput
+        name="age"
+        label="Edad"
+        value={values.age_years}
+        variant="outlined"
+        readOnly={true}
+      />
+      <ReusableControls.CustomInput
+        name="idType"
+        label="Tipo de Documento"
+        value={values.idType}
+        variant="outlined"
+        readOnly={true}
+      />
+      <ReusableControls.CustomInput
+        name="idTypeNo"
+        label="Nro. Documento"
+        value={values.idTypeNo}
+        variant="outlined"
+        readOnly={true}
+      />
+      <ReusableControls.CustomInput
+        name="firstName"
+        label="Nombres"
+        value={values.firstName}
+        variant="outlined"
+        readOnly={true}
+      />
+      <ReusableControls.CustomInput
+        name="lastName"
+        label="A. Paterno"
+        value={values.lastName}
+        variant="outlined"
+        readOnly={true}
+      />
+      <ReusableControls.CustomInput
+        name="lastName2"
+        label="A. Materno"
+        value={values.lastName2}
+        variant="outlined"
+        readOnly={true}
+      />
+      <ReusableControls.PlainDatePicker
+        name="birthDay"
+        label="F. Nacimiento"
+        value={values.birthDay}
+        inputVariant="outlined"
+        readOnly={true}
+      />
+      <ReusableControls.CustomInput
+        name="sex"
+        label="Sexo"
+        value={values.sex}
+        variant="outlined"
+        readOnly={true}
+      />
     </div>
-   
-  )
-}
+  );
+};
 
 /*
  <TextField           
@@ -215,7 +225,6 @@ export const DisplayPatientTab1 = (props) => {
   />
 </MuiPickersUtilsProvider>
 */
-
 
 /*
   <Controller

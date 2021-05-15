@@ -96,21 +96,21 @@ export const NewPatientTabForm = (props) => {
     });
 
     if (fieldValues === values) {
-      console.log(
-        "object: ",
-        Object.values(temp).every((x) => x === "")
-      );
+      // console.log(
+      //   "object: ",
+      //   Object.values(temp).every((x) => x === "")
+      // );
       return Object.values(temp).every((x) => x === "");
     }
   };
 
   const {
     values,
-    //setValues,
+    setValues,
     errors,
     setErrors,
     handleInputChange,
-    resetForm,
+    //resetForm,
   } = useReusableForm(initialFValues, true, validate);
 
   const handleSubmit = (e) => {
@@ -195,7 +195,7 @@ export const NewPatientTabForm = (props) => {
       //   },
       // });
 
-      resetForm();
+      //resetForm();
       //props.handleAction(0)
     }
   };

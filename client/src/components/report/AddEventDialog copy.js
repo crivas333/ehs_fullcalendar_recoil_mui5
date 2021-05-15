@@ -23,25 +23,48 @@ import AsyncSelectForFullCalendar from "../patient/patientSearch/AsyncSelectForF
 //   start: "",
 //   end: "",
 // };
-//let temp;
+let temp;
 export default function AddEventDialog(props) {
   const { applicationFields } = useContext(GlobalContext);
   //const [appoEvt, setAppoEvt] = useRecoilState(appoEvtState);
   const { evt, closeDialog, handleEvt } = props;
 
   const validate = (fieldValues = values) => {
-    let temp = { ...errors };
+    //let temp = { ...errors };
     temp = { ...errors };
-
-    //console.log("BEFORE: fieldValues.fullName: ", fieldValues.fullName);
+    // if ("fullName" in fieldValues && "notRegistered" in fieldValues) {
+    //   // console.log("values.fullName: ", values.fullName);
+    //   // console.log("values.notRegistered: ", values.notRegistered);
+    //   if (fieldValues.fullName === "") {
+    //     temp.notRegistered = fieldValues.notRegistered ? "" : "Campo requerido";
+    //   } else {
+    //     temp = { ...temp, notRegistered: "" };
+    //   }
+    //   if (fieldValues.notRegistered === "") {
+    //     temp.fullName = fieldValues.fullName ? "" : "Campo requerido";
+    //   } else {
+    //     console.log("fieldValues.notRegisteres: ", fieldValues.fullName);
+    //     temp = { ...temp, fullName: "" };
+    //   }
+    // }
+    // if ("fullName" in fieldValues) {
+    //   console.log("fieldValues.fullName: ", fieldValues.fullName);
+    //   temp.fullName = fieldValues.fullName ? "" : "Ingrese A. Paterno.";
+    // }
+    console.log("BEFORE: fieldValues.fullName: ", fieldValues.fullName);
     if ("fullName" in fieldValues) {
       console.log("fieldValues.fullName: ", fieldValues.fullName);
       //temp.notRegistered = fieldValues.notRegistered ? "" : "Campo requerido";
-      if (fieldValues.fullName !== "") {
+      //if (fieldValues.fullName !== "")
+      if (
+        fieldValues.fullName !== "" &&
+        (fieldValues.notRegistered === undefined ||
+          fieldValues.notRegistered === "")
+      ) {
         temp.notRegistered = "";
         temp.fullName = "";
         //setErrors({ ...temp, notRegistered: "" });
-        setErrors({ ...errors, notRegistered: "" });
+        //setErrors({ ...errors, notRegistered: "" });
         setValues({
           ...values,
           fullName: fieldValues.fullName,
@@ -52,9 +75,12 @@ export default function AddEventDialog(props) {
       }
     }
     if ("notRegistered" in fieldValues) {
-      //console.log("fieldValues.notRegistered: ", fieldValues.notRegistered);
+      console.log("fieldValues.notRegistered: ", fieldValues.notRegistered);
       //temp.notRegistered = fieldValues.notRegistered ? "" : "Campo requerido";
-      if (fieldValues.notRegistered !== "") {
+      if (
+        fieldValues.notRegistered !== "" &&
+        (fieldValues.fullName === undefined || fieldValues.fullName === "")
+      ) {
         temp.notRegistered = "";
         temp.fullName = "";
         //setErrors({ ...errors, fullName: "" });
@@ -63,16 +89,15 @@ export default function AddEventDialog(props) {
           notRegistered: fieldValues.notRegistered,
           fullName: "",
         });
+      } else {
+        temp.notRegistered = "Ingrese Paciente No registrado";
       }
-      //else {
-      //   temp.notRegistered = "Ingrese Paciente No registrado";
-      // }
     }
 
     setErrors({
       ...temp,
     });
-    //console.log("errors:", errors);
+    console.log("errors:", errors);
     if (fieldValues === values) {
       console.log("temp: ", temp.notRegistered, "", temp.fullName);
       return Object.values(temp).every((x) => x === "");
@@ -134,8 +159,8 @@ export default function AddEventDialog(props) {
       notRegistered: "",
       patient: val.id,
     });
-    //temp.notRegistered = "";
-    //temp.fullName = "";
+    temp.notRegistered = "";
+    temp.fullName = "";
     setErrors({ ...errors, notRegistered: "", fullName: "" });
   };
 
