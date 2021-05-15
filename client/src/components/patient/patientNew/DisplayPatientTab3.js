@@ -1,59 +1,63 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
-import ReusableControls from '../../reusableForms/reusableControls/ReusableControls'
+import ReusableControls from "../../reusableForms/reusableControls/ReusableControls";
 //import {getMaritalCollection, getBloodTypeCollection} from '../../../services/employeeService'
 //import * as employeeService from "../../../services/employeeService";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     //alignItems: 'center'
   },
-
-
-
-}))
+}));
 
 // export default function App() {
 export const DisplayPatientTab3 = (props) => {
-  const classes = useStyles()
+  const classes = useStyles();
 
-  return (  
+  return (
     <div className={classes.paper}>
       <ReusableControls.CustomInput
-        name='bloodType'
-        label='Tipo de Sangre'
+        name="bloodType"
+        label="Tipo de Sangre"
         value={props.values.bloodType}
+        variant="outlined"
+        readOnly={true}
       />
       <ReusableControls.CustomInput
-        name='marital'
-        label='Estado Civil'
+        name="marital"
+        label="Estado Civil"
         value={props.values.marital}
+        variant="outlined"
+        readOnly={true}
       />
       <ReusableControls.CustomInput
-        name='occupation'
-        label='Ocupación'
+        name="occupation"
+        label="Ocupación"
         value={props.values.occupation}
-      /> 
+        variant="outlined"
+        readOnly={true}
+      />
       <ReusableControls.CustomInput
-        name='religion'
-        label='Religión'
+        name="religion"
+        label="Religión"
         value={props.values.religion}
-      /> 
-       <ReusableControls.CustomInput
-        name='referral'
-        label='Referido por'
+        variant="outlined"
+        readOnly={true}
+      />
+      <ReusableControls.CustomInput
+        name="referral"
+        label="Referido por"
         value={props.values.referral}
-      /> 
-
-    
+        variant="outlined"
+        readOnly={true}
+      />
     </div>
-   
-  )
-}
+  );
+};
 
 /*
  <TextField           
@@ -193,7 +197,6 @@ export const DisplayPatientTab3 = (props) => {
   />
 </MuiPickersUtilsProvider>
 */
-
 
 /*
   <Controller

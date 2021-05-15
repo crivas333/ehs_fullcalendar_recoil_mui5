@@ -1,72 +1,74 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
-import ReusableControls from '../../reusableForms/reusableControls/ReusableControls'
-import {getMaritalCollection, getBloodTypeCollection} from '../../../services/configService'
+import ReusableControls from "../../reusableForms/reusableControls/ReusableControls";
+import {
+  getMaritalCollection,
+  getBloodTypeCollection,
+} from "../../../services/configService";
 //import * as employeeService from "../../../services/employeeService";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     //alignItems: 'center'
   },
-
-
-
-}))
+}));
 
 // export default function App() {
 export const UpdatePatientTab3 = (props) => {
-  const classes = useStyles()
-  const { values,errors, onChange} = props;
+  const classes = useStyles();
+  const { values, errors, onChange } = props;
 
-  return (  
+  return (
     <div className={classes.paper}>
       <ReusableControls.CustomSelect
-        name='bloodType'
-        label='Tipo de Sangre'
+        name="bloodType"
+        label="Tipo de Sangre"
         value={values.bloodType}
         onChange={onChange}
         options={getBloodTypeCollection()}
         error={errors.bloodType}
+        variant="outlined"
       />
       <ReusableControls.CustomSelect
-        name='marital'
-        label='Estado Civil'
+        name="marital"
+        label="Estado Civil"
         value={values.marital}
         onChange={onChange}
         options={getMaritalCollection()}
         error={errors.marital}
+        variant="outlined"
       />
       <ReusableControls.CustomInput
-        name='occupation'
-        label='Ocupación'
+        name="occupation"
+        label="Ocupación"
         value={values.occupation}
         onChange={onChange}
         error={errors.occupation}
-      /> 
+        variant="outlined"
+      />
       <ReusableControls.CustomInput
-        name='religion'
-        label='Religión'
+        name="religion"
+        label="Religión"
         value={values.religion}
         onChange={onChange}
         error={errors.religion}
-      /> 
-       <ReusableControls.CustomInput
-        name='referral'
-        label='Referido por'
+        variant="outlined"
+      />
+      <ReusableControls.CustomInput
+        name="referral"
+        label="Referido por"
         value={values.referral}
         onChange={onChange}
         error={errors.referral}
-      /> 
-
-    
+        variant="outlined"
+      />
     </div>
-   
-  )
-}
+  );
+};
 
 /*
  <TextField           
@@ -206,7 +208,6 @@ export const UpdatePatientTab3 = (props) => {
   />
 </MuiPickersUtilsProvider>
 */
-
 
 /*
   <Controller

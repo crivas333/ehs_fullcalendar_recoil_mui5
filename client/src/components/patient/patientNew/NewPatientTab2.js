@@ -1,94 +1,92 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import ReusableControls from '../../reusableForms/reusableControls/ReusableControls'
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import ReusableControls from "../../reusableForms/reusableControls/ReusableControls";
 //import {getMaritalCollection} from '../../../services/employeeService'
 //import * as employeeService from "../../../services/employeeService";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     //alignItems: 'center'
   },
-
-
-
-}))
+}));
 
 // export default function App() {
 export const NewPatientTab2 = (props) => {
-  const classes = useStyles()
+  const classes = useStyles();
 
-  
-
-  return (  
+  return (
     <div className={classes.paper}>
       <ReusableControls.CustomInput
-        name='phone1'
-        label='Teléfono 1'
+        name="phone1"
+        label="Teléfono 1"
         value={props.values.phone1}
         onChange={props.handleInputChange}
         error={props.errors.phone1}
-      /> 
+        variant="outlined"
+      />
       <ReusableControls.CustomInput
-        name='phone2'
-        label='Teléfono 2'
+        name="phone2"
+        label="Teléfono 2"
         value={props.values.phone2}
         onChange={props.handleInputChange}
         error={props.errors.phone2}
-      />  
+        variant="outlined"
+      />
       <ReusableControls.CustomInput
-        name='email'
-        label='Email'
+        name="email"
+        label="Email"
         value={props.values.email}
         onChange={props.handleInputChange}
         error={props.errors.email}
-      /> 
+        variant="outlined"
+      />
       <ReusableControls.CustomInputMulti
-        name='address'
-        label='Dirección'
+        name="address"
+        label="Dirección"
         value={props.values.address}
         onChange={props.handleInputChange}
         error={props.errors.address}
         maxLines={3}
+        variant="outlined"
       />
-       <ReusableControls.CustomInput
-        name='gName'
-        label='Acompañante - Nombre'
+      <ReusableControls.CustomInput
+        name="gName"
+        label="Acompañante - Nombre"
         value={props.values.gName}
         onChange={props.handleInputChange}
         error={props.errors.gName}
-      /> 
+        variant="outlined"
+      />
       <ReusableControls.CustomInput
-        name='gPhone1'
-        label='Acompañante - Teléfono 1'
+        name="gPhone1"
+        label="Acompañante - Teléfono 1"
         value={props.values.gPhone1}
         onChange={props.handleInputChange}
         error={props.errors.gPhone1}
-      /> 
+        variant="outlined"
+      />
       <ReusableControls.CustomInput
-        name='gPhone2'
-        label='Acompañante - Teléfono 2'
+        name="gPhone2"
+        label="Acompañante - Teléfono 2"
         value={props.values.gPhone2}
         onChange={props.handleInputChange}
         error={props.errors.gPhone2}
-      /> 
-       <ReusableControls.CustomInput
-        name='gRelation'
-        label='Acompañante - Relación'
+        variant="outlined"
+      />
+      <ReusableControls.CustomInput
+        name="gRelation"
+        label="Acompañante - Relación"
         value={props.values.gRelation}
         onChange={props.handleInputChange}
         error={props.errors.gRelation}
+        variant="outlined"
       />
-
-    
-
-    
     </div>
-   
-  )
-}
+  );
+};
 
 /*
  <TextField           
@@ -228,7 +226,6 @@ export const NewPatientTab2 = (props) => {
   />
 </MuiPickersUtilsProvider>
 */
-
 
 /*
   <Controller

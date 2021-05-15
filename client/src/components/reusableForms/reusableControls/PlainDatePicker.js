@@ -1,14 +1,23 @@
 import React from "react";
-import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+import { DatePicker } from "@material-ui/pickers";
 //import {
 //   MuiPickersUtilsProvider,
 //   KeyboardDatePicker,
 // } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-import esLocale from "date-fns/locale/es";
+//import DateFnsUtils from "@date-io/date-fns";
+//import esLocale from "date-fns/locale/es";
 
 export default function PlainDatePicker(props) {
-  const { name, label, value, onChange, inputVariant, readOnly } = props;
+  const {
+    name,
+    label,
+    value,
+    onChange,
+    inputVariant,
+    readOnly = false,
+    disableFuture = false,
+    disablePast = false,
+  } = props;
   //const [selectedDate, handleDateChange] = useState(new Date());
   //const [selectedDate, setSelectedDate] = useState(null)
 
@@ -22,7 +31,39 @@ export default function PlainDatePicker(props) {
   // }
 
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
+    <DatePicker
+      placeholder="dd/MM/yyyy"
+      //disableToolbar variant="inline"
+      inputVariant={inputVariant}
+      //disablePast={disablePast}
+      label={label}
+      format="dd/MM/yyyy"
+      maxDateMessage="No indicar fecha en el futuro"
+      minDateMessage="No indicar fecha anterior a 1900"
+      invalidDateMessage="Campo en BLANCO o Formato de FECHA inválido"
+      name={name}
+      value={value || null}
+      onChange={(date) => onChange(convertToDefEventPara(name, date))} //11!1!OK
+      //onChange={(date) => convertToDefEventPara(name, date)} //!!!!!!!!!!! OK
+      //onChange={handleLocalChange}
+      //onChange={(date) => handleLocalChange(name, date)}
+      //onChange={handleDateChange}
+      //disableFuture='true'
+      //variant="dialog"
+      //autoOk
+      //ampm={false}
+      disableFuture={disableFuture}
+      disablePast={disablePast}
+      readOnly={readOnly}
+      //showTabs={true}
+      //mask='__/__/____ __:__ _M'
+      onError={console.log}
+    />
+  );
+}
+
+/*
+ <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
       <DatePicker
         placeholder="dd/MM/yyyy"
         disableFuture="true"
@@ -54,5 +95,4 @@ export default function PlainDatePicker(props) {
         onChange={(date) => onChange(convertToDefEventPara(name, date))} //11!1!OK
       />
     </MuiPickersUtilsProvider>
-  );
-}
+*/

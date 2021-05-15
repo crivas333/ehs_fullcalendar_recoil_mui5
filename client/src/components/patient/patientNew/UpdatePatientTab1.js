@@ -1,104 +1,109 @@
-
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import ReusableControls from '../../reusableForms/reusableControls/ReusableControls'
-import {getSexCollection, getIdTypeCollection} from '../../../services/configService'
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import ReusableControls from "../../reusableForms/reusableControls/ReusableControls";
+import {
+  getSexCollection,
+  getIdTypeCollection,
+} from "../../../services/configService";
 //import * as employeeService from "../../../services/employeeService";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     //alignItems: 'center'
   },
-
-
-
-}))
+}));
 
 // export default function App() {
 export const UpdatePatientTab1 = (props) => {
-  const classes = useStyles()
-  const { values,errors, onChange} = props;
+  const classes = useStyles();
+  const { values, errors, onChange } = props;
 
   // React.useEffect(() => {
   //  console.log('UpdatePatientTab1-values: ',{values})
- 
+
   // }, [])
-  
 
-  return (  
+  return (
     <div className={classes.paper}>
-        <ReusableControls.CustomInput
-          name='id'
-          label='id'
-          value={values.id}
-        /> 
-         <ReusableControls.CustomInput
-          name='historyId'
-          label='Nro de Historia'
-          value={values.historyId}
-        /> 
-        <ReusableControls.CustomSelect
-          name='idType'
-          label='Tipo de Documento'
-          value={values.idType}
-          onChange={onChange}
-          options={getIdTypeCollection()}
-          error={errors.idType}
+      <ReusableControls.CustomInput
+        name="id"
+        label="id"
+        value={values.id}
+        variant="outlined"
+        readOnly={true}
       />
-        <ReusableControls.CustomInput
-          name='idTypeNo'
-          label='Nro. Documento'
-          value={values.idTypeNo}
-          onChange={onChange}
-          error={errors.idTypeNo}
-        /> 
-        
-        <ReusableControls.CustomInput
-           name='firstName'
-           label='Nombres'
-           value={values.firstName}
-           onChange={onChange}
-           error={errors.firstName}
-        />    
-        <ReusableControls.CustomInput
-           name='lastName'
-           label='A. Paterno'
-           value={values.lastName}
-           onChange={onChange}
-           error={errors.lastName}
-        />
-        <ReusableControls.CustomInput
-           name='lastName2'
-           label='A. Materno'
-           value={values.lastName2}
-           onChange={onChange}
-           error={errors.lastName2}
-        />
-          <ReusableControls.CustomDatePicker
-          name='birthDay'
-          label='F. Nacimiento'
-          value={values.birthDay}
-          onChange={onChange}
-          error={errors.birthDay}
-        />
-     
-         <ReusableControls.CustomSelect
-            name='sex'
-            label='Sexo'
-            value={values.sex}
-            onChange={onChange}
-            options={getSexCollection()}
-            error={errors.sex}
-        />
-
-    
+      <ReusableControls.CustomInput
+        name="historyId"
+        label="Nro de Historia"
+        value={values.historyId}
+        variant="outlined"
+        readOnly={true}
+      />
+      <ReusableControls.CustomSelect
+        name="idType"
+        label="Tipo de Documento"
+        value={values.idType}
+        onChange={onChange}
+        options={getIdTypeCollection()}
+        error={errors.idType}
+        variant="outlined"
+      />
+      <ReusableControls.CustomInput
+        name="idTypeNo"
+        label="Nro. Documento"
+        value={values.idTypeNo}
+        onChange={onChange}
+        error={errors.idTypeNo}
+        variant="outlined"
+      />
+      <ReusableControls.CustomInput
+        name="firstName"
+        label="Nombres"
+        value={values.firstName}
+        onChange={onChange}
+        error={errors.firstName}
+        variant="outlined"
+      />
+      <ReusableControls.CustomInput
+        name="lastName"
+        label="A. Paterno"
+        value={values.lastName}
+        onChange={onChange}
+        error={errors.lastName}
+        variant="outlined"
+      />
+      <ReusableControls.CustomInput
+        name="lastName2"
+        label="A. Materno"
+        value={values.lastName2}
+        onChange={onChange}
+        error={errors.lastName2}
+        variant="outlined"
+      />
+      <ReusableControls.PlainDatePicker
+        name="birthDay"
+        label="F. Nacimiento"
+        value={values.birthDay}
+        onChange={onChange}
+        error={errors.birthDay}
+        inputVariant="outlined"
+        disableFuture={true}
+      />
+      <ReusableControls.CustomSelect
+        name="sex"
+        label="Sexo"
+        value={values.sex}
+        onChange={onChange}
+        options={getSexCollection()}
+        error={errors.sex}
+        variant="outlined"
+      />
     </div>
-   
-  )
-}
+  );
+};
 
 /*
  <TextField           
@@ -238,7 +243,6 @@ export const UpdatePatientTab1 = (props) => {
   />
 </MuiPickersUtilsProvider>
 */
-
 
 /*
   <Controller

@@ -11,6 +11,7 @@ import * as appointmentService from "../../services/configService";
 import { GlobalContext } from "../../context/GlobalState";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -187,6 +188,7 @@ export default function AddEventDialog(props) {
             />
 
             <ReusableControls.CustomSelect
+              variant="outlined"
               name="appointmentType"
               label="Tipo de Cita"
               value={values.appointmentType}
@@ -198,7 +200,9 @@ export default function AddEventDialog(props) {
               )}
               error={errors.appointmentType}
             />
+
             <ReusableControls.CustomSelect
+              variant="outlined"
               name="appointmentStatus"
               label="Estado de la Cita"
               value={values.appointmentStatus}
@@ -210,6 +214,8 @@ export default function AddEventDialog(props) {
               )}
             />
             <ReusableControls.PlainDateTimePicker
+              inputVariant="outlined"
+              disablePast={true}
               name="start"
               label="Fecha de Inicio de Cita"
               value={values.start}
@@ -217,11 +223,21 @@ export default function AddEventDialog(props) {
               error={errors.start}
             />
             <ReusableControls.PlainDateTimePicker
+              inputVariant="outlined"
+              disablePast={true}
               name="end"
               label="Fecha de Fin de Cita"
               value={values.end}
               onChange={handleInputChange}
               error={errors.end}
+            />
+            <ReusableControls.CustomInput
+              variant="outlined"
+              name="description"
+              label="Descripción"
+              value={values.description}
+              onChange={handleInputChange}
+              error={errors.description}
             />
           </ReusableForm>
         </DialogContent>

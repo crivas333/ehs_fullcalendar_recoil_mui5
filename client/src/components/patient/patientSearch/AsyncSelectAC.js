@@ -7,6 +7,13 @@ import { GlobalContext } from "../../../context/GlobalState";
 import { SEARCH_PATIENT_BY_LASTNAME } from "../../../graphqlClient/gqlQueries";
 import "./asyncSelect.css";
 
+const selectStyles = {
+  menu: (base) => ({
+    ...base,
+    zIndex: 100,
+  }),
+};
+
 const formatOptionLabel = ({ historyId, lastName, lastName2, firstName }) => (
   <span>{`${historyId} - ${lastName} ${lastName2}, ${firstName}`}</span>
 );
@@ -71,6 +78,7 @@ export default function AsyncSelectAC() {
   return (
     <div>
       <AsyncSelect
+        styles={selectStyles}
         autoFocus
         isClearable
         //styles={customStyles}
