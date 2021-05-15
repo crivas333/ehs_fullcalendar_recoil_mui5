@@ -3,7 +3,7 @@ import { TextField } from "@material-ui/core";
 //import FormControl from '@material-ui/core/FormControl'
 //import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from "@material-ui/core/InputAdornment";
-import EditIcon from "@material-ui/icons/Edit";
+//import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Clear";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
@@ -27,15 +27,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomInputIconDelete(props) {
   const classes = useStyles();
-  const { name, label, value, error = null, onChange, handleIconClick } = props;
+  const {
+    name,
+    label,
+    value,
+    error = null,
+    onChange,
+    readOnly,
+    variant,
+    handleIconClick,
+  } = props;
   return (
     <TextField
-      variant="standard"
+      variant={variant}
       size="small"
       type="text"
       margin="normal"
       fullWidth
-      //inputRef={register}
       label={label}
       name={name}
       value={value || ""}
@@ -43,6 +51,7 @@ export default function CustomInputIconDelete(props) {
       {...(error && { error: true, helperText: error })}
       inputProps={{ className: classes.input }}
       InputProps={{
+        readOnly: readOnly,
         endAdornment: (
           <InputAdornment position="end">
             <IconButton onClick={handleIconClick}>

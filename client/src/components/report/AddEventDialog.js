@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Grid } from "@material-ui/core";
+//import { Grid } from "@material-ui/core";
 import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
 import {
   useReusableForm,
@@ -9,6 +9,7 @@ import {
 //import { appoEvtState } from "../../context/recoilStore";
 import * as appointmentService from "../../services/configService";
 import { GlobalContext } from "../../context/GlobalState";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -24,7 +25,17 @@ import AsyncSelectForFullCalendar from "../patient/patientSearch/AsyncSelectForF
 //   end: "",
 // };
 //let temp;
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(1),
+    display: "flex",
+    flexDirection: "column",
+    //alignItems: 'center'
+  },
+}));
+
 export default function AddEventDialog(props) {
+  const classes = useStyles();
   const { applicationFields } = useContext(GlobalContext);
   //const [appoEvt, setAppoEvt] = useRecoilState(appoEvtState);
   const { evt, closeDialog, handleEvt } = props;
@@ -35,13 +46,13 @@ export default function AddEventDialog(props) {
 
     //console.log("BEFORE: fieldValues.fullName: ", fieldValues.fullName);
     if ("fullName" in fieldValues) {
-      console.log("fieldValues.fullName: ", fieldValues.fullName);
+      //console.log("fieldValues.fullName: ", fieldValues.fullName);
       //temp.notRegistered = fieldValues.notRegistered ? "" : "Campo requerido";
       if (fieldValues.fullName !== "") {
         temp.notRegistered = "";
         temp.fullName = "";
         //setErrors({ ...temp, notRegistered: "" });
-        setErrors({ ...errors, notRegistered: "" });
+        //setErrors({ ...errors, notRegistered: "" });
         setValues({
           ...values,
           fullName: fieldValues.fullName,
@@ -148,15 +159,92 @@ export default function AddEventDialog(props) {
     setValues({ ...values, notRegistered: "" });
   };
   return (
-    <div>
+    <div className={classes.paper}>
       <Dialog open={props.show} onClose={handleClose}>
         <DialogTitle id="form-dialog-title">Añadir Cita</DialogTitle>
         <DialogContent>
           <ReusableForm
           //onSubmit={handleSubmit}
           >
-            <Grid container>
-              <Grid item xs={12} sm={6}>
+            <AsyncSelectForFullCalendar onValChange={onAutoCompleteChange} />
+            <ReusableControls.CustomInputIconDelete
+              variant="outlined"
+              name="fullName"
+              label="Seleccione Paciente Registrado"
+              value={values.fullName}
+              error={errors.fullName}
+              handleIconClick={handleIconFullName}
+              readOnly={true}
+            />
+            <ReusableControls.CustomInputIconEdit
+              variant="outlined"
+              name="notRegistered"
+              label="Paciente No Registrado"
+              value={values.notRegistered}
+              onChange={handleInputChange}
+              error={errors.notRegistered}
+              handleIconClick={handleIconNotRegistered}
+            />
+
+            <ReusableControls.CustomSelect
+              name="appointmentType"
+              label="Tipo de Cita"
+              value={values.appointmentType}
+              onChange={handleInputChange}
+              options={appointmentService.getFieldsDataCollection(
+                applicationFields,
+                "appointmentView",
+                "appointmentType"
+              )}
+              error={errors.appointmentType}
+            />
+            <ReusableControls.CustomSelect
+              name="appointmentStatus"
+              label="Estado de la Cita"
+              value={values.appointmentStatus}
+              onChange={handleInputChange}
+              options={appointmentService.getFieldsDataCollection(
+                applicationFields,
+                "appointmentView",
+                "appointmentStatus"
+              )}
+            />
+            <ReusableControls.PlainDateTimePicker
+              name="start"
+              label="Fecha de Inicio de Cita"
+              value={values.start}
+              onChange={handleInputChange}
+              error={errors.start}
+            />
+            <ReusableControls.PlainDateTimePicker
+              name="end"
+              label="Fecha de Fin de Cita"
+              value={values.end}
+              onChange={handleInputChange}
+              error={errors.end}
+            />
+          </ReusableForm>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleClose}
+            //onClick={resetForm}
+            color="primary"
+          >
+            Cancel
+          </Button>
+          <Button onClick={handleAdd} color="primary">
+            Add
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
+
+/*
+ <Grid container>
+              <Grid item xs={12}>
                 <AsyncSelectForFullCalendar
                   onValChange={onAutoCompleteChange}
                 />
@@ -166,6 +254,8 @@ export default function AddEventDialog(props) {
                   value={values.fullName}
                   error={errors.fullName}
                   handleIconClick={handleIconFullName}
+                  readOnly={true}
+                  variante="outlined"
                 />
                 <ReusableControls.CustomInputIconEdit
                   name="notRegistered"
@@ -215,25 +305,7 @@ export default function AddEventDialog(props) {
                 />
               </Grid>
             </Grid>
-          </ReusableForm>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={handleClose}
-            //onClick={resetForm}
-            color="primary"
-          >
-            Cancel
-          </Button>
-          <Button onClick={handleAdd} color="primary">
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
-}
-
+*/
 /*
  <Button
                 type="submit"

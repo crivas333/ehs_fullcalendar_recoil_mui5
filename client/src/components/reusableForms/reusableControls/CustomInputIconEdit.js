@@ -27,10 +27,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomInputIconEdit(props) {
   const classes = useStyles();
-  const { name, label, value, error = null, onChange, handleIconClick } = props;
+  const {
+    name,
+    label,
+    value,
+    error = null,
+    onChange,
+    variant,
+    handleIconClick,
+  } = props;
   return (
     <TextField
-      variant="standard"
+      variant={variant}
       size="small"
       type="text"
       margin="normal"
