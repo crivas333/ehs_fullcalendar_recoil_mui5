@@ -35,6 +35,7 @@ export default function PlainDatePicker(props) {
       placeholder="dd/MM/yyyy"
       //disableToolbar variant="inline"
       inputVariant={inputVariant}
+      variant="dialog"
       //disablePast={disablePast}
       label={label}
       format="dd/MM/yyyy"
