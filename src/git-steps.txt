@@ -4,9 +4,10 @@ Reinitialized existing Git repository in /home/dala/0_MY_FILES/myWebApp/shortApp
 2)
 
 *) LOCAL MERGE and PUSH to REMOTE MAIN
-> git checkout main
+-Assume the following history exists and the current branch is "master/main":
 - git merge "new-branch" (in the local environment)
->git merge main
+>git checkout main
+>git merge "branch"
 -push local:main into remote:main
 >git push -u origin main
 
@@ -15,8 +16,7 @@ Reinitialized existing Git repository in /home/dala/0_MY_FILES/myWebApp/shortApp
 >git rebase master
 >git checkout master
 >git merge branch
-// git command to merge the branch(feature branch - add-header)
-Ex: git merge add-header
+
 
 *)Sincronizar remote:main with local:main
 >git checkout main
