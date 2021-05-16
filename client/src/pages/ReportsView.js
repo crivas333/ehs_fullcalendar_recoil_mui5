@@ -15,7 +15,7 @@ import { makeStyles } from "@material-ui/core/styles";
 //import { useLocation } from 'react-router-dom'
 //import { GlobalContext } from '../context/GlobalState'
 //import { PatientList } from '../components/patientData/PatientList'
-import Report from "../components/report/Report";
+//import Report from "../components/report/Report";
 //import AutoCompleteSF from "../components/patient/patientSearch/AutoCompleteSF";
 // import "./styles.css";
 
@@ -35,11 +35,7 @@ export default function Reports() {
   const classes = useStyles();
   //const { currentPatient } = useContext(GlobalContext)
 
-  return (
-    <div className={classes.root}>
-      <Report />
-    </div>
-  );
+  return <div className={classes.root}></div>;
 }
 // <AutoCompleteSF />
 /*

@@ -1,24 +1,20 @@
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
-import { appoEvtState } from "../../context/recoilStore";
+//import { useRecoilState } from "recoil";
+//import { appoEvtState } from "../../context/recoilStore";
 import FullCalendar from "@fullcalendar/react";
 //import { formatDate } from '@fullcalendar/react';
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import request from "graphql-request";
-//import { INITIAL_EVENTS, createEventId } from "./event-utils";
-//import { createEventId } from "./event-utils";
-//import Modal from "@material-ui/core/Modal";
-//import Button from "@material-ui/core/Button";
+//import request from "graphql-request";
+
 import AddEventDialog from "./AddEventDialog";
 //import { useStore } from "../../context/GlobalStore";
 
-//import axios from "axios";
-import {
-  ADD_APPOINTMENT,
-  GET_APPOINTMENTS_BY_TIMEFRAME,
-} from "../../graphqlClient/gqlQueries";
+// import {
+//   ADD_APPOINTMENT,
+//   //GET_APPOINTMENTS_BY_TIMEFRAME,
+// } from "../../graphqlClient/gqlQueries";
 
 const initialEvt = {
   appointmentType: "CONSULTA",
@@ -28,8 +24,7 @@ const initialEvt = {
   fullName: "",
   notRegistered: "",
 };
-//let eventGuid = 0;
-//let todayStr = new Date().toISOString().replace(/T.*$/, ""); // YYYY-MM-DD of today
+
 function renderEventContent(eventInfo) {
   console.log("renderEventContent");
   return (
@@ -39,36 +34,36 @@ function renderEventContent(eventInfo) {
     </>
   );
 }
-const formatEvents111 = async (info) => {
-  try {
-    const res = await request("/graphql", GET_APPOINTMENTS_BY_TIMEFRAME, {
-      start: info.start,
-      end: info.end,
-    });
-    //console.log("loadOptions-res:", res.getAppointmentsByTimeframe);
-    console.log(
-      res.getAppointmentsByTimeframe.map((a) => ({
-        id: a.appointmentId,
-        title: a.appointmentType,
-        start: new Date(parseInt(a.start)).toISOString(),
-        end: new Date(parseInt(a.start)).toISOString(),
-      }))
-    );
+// const formatEvents111 = async (info) => {
+//   try {
+//     const res = await request("/graphql", GET_APPOINTMENTS_BY_TIMEFRAME, {
+//       start: info.start,
+//       end: info.end,
+//     });
+//     //console.log("loadOptions-res:", res.getAppointmentsByTimeframe);
+//     console.log(
+//       res.getAppointmentsByTimeframe.map((a) => ({
+//         id: a.appointmentId,
+//         title: a.appointmentType,
+//         start: new Date(parseInt(a.start)).toISOString(),
+//         end: new Date(parseInt(a.start)).toISOString(),
+//       }))
+//     );
 
-    if (res && res.getAppointmentsByTimeframe) {
-      return res.getAppointmentsByTimeframe.map((a) => ({
-        id: a.appointmentId,
-        title: a.appointmentType,
-        start: new Date(parseInt(a.start)).toISOString(),
-        end: new Date(parseInt(a.end)).toISOString(),
-      }));
-    }
-    return [];
-  } catch (err) {
-    //console.log('AsyncSelectAC - error: ',err)
-    console.log(err);
-  }
-};
+//     if (res && res.getAppointmentsByTimeframe) {
+//       return res.getAppointmentsByTimeframe.map((a) => ({
+//         id: a.appointmentId,
+//         title: a.appointmentType,
+//         start: new Date(parseInt(a.start)).toISOString(),
+//         end: new Date(parseInt(a.end)).toISOString(),
+//       }));
+//     }
+//     return [];
+//   } catch (err) {
+//console.log('AsyncSelectAC - error: ',err)
+//     console.log(err);
+//   }
+// };
 
 export default function DemoApp() {
   //calendarRef = React.createRef();
@@ -92,16 +87,16 @@ export default function DemoApp() {
     //setAppoEvt({ title: "newTitle", title2: "newTitle2" });
   }, []);
 
-  const fetchEvents = (fetchInfo, successCallback, failureCallback) => {
-    console.log("fetchEvents: ", fetchInfo);
-    formatEvents111(fetchInfo)
-      .then((events) => {
-        successCallback(events);
-      })
-      .catch((error) => {
-        failureCallback(error);
-      });
-  };
+  // const fetchEvents = (fetchInfo, successCallback, failureCallback) => {
+  //   console.log("fetchEvents: ", fetchInfo);
+  //   formatEvents111(fetchInfo)
+  //     .then((events) => {
+  //       successCallback(events);
+  //     })
+  //     .catch((error) => {
+  //       failureCallback(error);
+  //     });
+  // };
 
   const handleCloseDialog = () => {
     setOpenEventDialog(false);
@@ -109,14 +104,14 @@ export default function DemoApp() {
 
   const eventAdding = async (addInfo) => {
     try {
-      const res = await request("/graphql", ADD_APPOINTMENT, {
-        appointmentInput: {
-          appointmentType: addInfo.event.title,
-          appointmentStatus: addInfo.event._def.extendedProps.status,
-          start: addInfo.event.start,
-          end: addInfo.event.end,
-        },
-      });
+      // const res = await request("/graphql", ADD_APPOINTMENT, {
+      //   appointmentInput: {
+      //     appointmentType: addInfo.event.title,
+      //     appointmentStatus: addInfo.event._def.extendedProps.status,
+      //     start: addInfo.event.start,
+      //     end: addInfo.event.end,
+      //   },
+      // });
     } catch (err) {
       console.log(err);
     }

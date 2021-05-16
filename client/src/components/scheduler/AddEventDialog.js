@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Grid } from "@material-ui/core";
+//import { Grid } from "@material-ui/core";
 import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
 import {
   useReusableForm,
@@ -9,7 +9,9 @@ import {
 //import { appoEvtState } from "../../context/recoilStore";
 import * as appointmentService from "../../services/configService";
 import { GlobalContext } from "../../context/GlobalState";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+//import FormControl from "@material-ui/core/FormControl";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -23,44 +25,31 @@ import AsyncSelectForFullCalendar from "../patient/patientSearch/AsyncSelectForF
 //   start: "",
 //   end: "",
 // };
-let temp;
+//let temp;
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(1),
+    display: "flex",
+    flexDirection: "column",
+    //alignItems: 'center'
+  },
+}));
+
 export default function AddEventDialog(props) {
+  const classes = useStyles();
   const { applicationFields } = useContext(GlobalContext);
   //const [appoEvt, setAppoEvt] = useRecoilState(appoEvtState);
   const { evt, closeDialog, handleEvt } = props;
 
   const validate = (fieldValues = values) => {
-    //let temp = { ...errors };
+    let temp = { ...errors };
     temp = { ...errors };
-    // if ("fullName" in fieldValues && "notRegistered" in fieldValues) {
-    //   // console.log("values.fullName: ", values.fullName);
-    //   // console.log("values.notRegistered: ", values.notRegistered);
-    //   if (fieldValues.fullName === "") {
-    //     temp.notRegistered = fieldValues.notRegistered ? "" : "Campo requerido";
-    //   } else {
-    //     temp = { ...temp, notRegistered: "" };
-    //   }
-    //   if (fieldValues.notRegistered === "") {
-    //     temp.fullName = fieldValues.fullName ? "" : "Campo requerido";
-    //   } else {
-    //     console.log("fieldValues.notRegisteres: ", fieldValues.fullName);
-    //     temp = { ...temp, fullName: "" };
-    //   }
-    // }
-    // if ("fullName" in fieldValues) {
-    //   console.log("fieldValues.fullName: ", fieldValues.fullName);
-    //   temp.fullName = fieldValues.fullName ? "" : "Ingrese A. Paterno.";
-    // }
-    console.log("BEFORE: fieldValues.fullName: ", fieldValues.fullName);
+
+    //console.log("BEFORE: fieldValues.fullName: ", fieldValues.fullName);
     if ("fullName" in fieldValues) {
-      console.log("fieldValues.fullName: ", fieldValues.fullName);
+      //console.log("fieldValues.fullName: ", fieldValues.fullName);
       //temp.notRegistered = fieldValues.notRegistered ? "" : "Campo requerido";
-      //if (fieldValues.fullName !== "")
-      if (
-        fieldValues.fullName !== "" &&
-        (fieldValues.notRegistered === undefined ||
-          fieldValues.notRegistered === "")
-      ) {
+      if (fieldValues.fullName !== "") {
         temp.notRegistered = "";
         temp.fullName = "";
         //setErrors({ ...temp, notRegistered: "" });
@@ -75,12 +64,9 @@ export default function AddEventDialog(props) {
       }
     }
     if ("notRegistered" in fieldValues) {
-      console.log("fieldValues.notRegistered: ", fieldValues.notRegistered);
+      //console.log("fieldValues.notRegistered: ", fieldValues.notRegistered);
       //temp.notRegistered = fieldValues.notRegistered ? "" : "Campo requerido";
-      if (
-        fieldValues.notRegistered !== "" &&
-        (fieldValues.fullName === undefined || fieldValues.fullName === "")
-      ) {
+      if (fieldValues.notRegistered !== "") {
         temp.notRegistered = "";
         temp.fullName = "";
         //setErrors({ ...errors, fullName: "" });
@@ -89,15 +75,16 @@ export default function AddEventDialog(props) {
           notRegistered: fieldValues.notRegistered,
           fullName: "",
         });
-      } else {
-        temp.notRegistered = "Ingrese Paciente No registrado";
       }
+      //else {
+      //   temp.notRegistered = "Ingrese Paciente No registrado";
+      // }
     }
 
     setErrors({
       ...temp,
     });
-    console.log("errors:", errors);
+    //console.log("errors:", errors);
     if (fieldValues === values) {
       console.log("temp: ", temp.notRegistered, "", temp.fullName);
       return Object.values(temp).every((x) => x === "");
@@ -120,7 +107,7 @@ export default function AddEventDialog(props) {
     //console.log("useEffect - addEventDialog - evt: ", evt);
 
     return () => {};
-  }, [evt]);
+  }, [evt, setValues]);
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -159,8 +146,8 @@ export default function AddEventDialog(props) {
       notRegistered: "",
       patient: val.id,
     });
-    temp.notRegistered = "";
-    temp.fullName = "";
+    //temp.notRegistered = "";
+    //temp.fullName = "";
     setErrors({ ...errors, notRegistered: "", fullName: "" });
   };
 
@@ -173,15 +160,107 @@ export default function AddEventDialog(props) {
     setValues({ ...values, notRegistered: "" });
   };
   return (
-    <div>
+    <div className={classes.paper}>
       <Dialog open={props.show} onClose={handleClose}>
         <DialogTitle id="form-dialog-title">Añadir Cita</DialogTitle>
         <DialogContent>
           <ReusableForm
           //onSubmit={handleSubmit}
           >
-            <Grid container>
-              <Grid item xs={12} sm={6}>
+            <AsyncSelectForFullCalendar onValChange={onAutoCompleteChange} />
+            <ReusableControls.CustomInputIconDelete
+              variant="outlined"
+              name="fullName"
+              label="Seleccione Paciente Registrado"
+              value={values.fullName}
+              error={errors.fullName}
+              handleIconClick={handleIconFullName}
+              readOnly={true}
+            />
+            <ReusableControls.CustomInputIconEdit
+              variant="outlined"
+              name="notRegistered"
+              label="Paciente No Registrado"
+              value={values.notRegistered}
+              onChange={handleInputChange}
+              error={errors.notRegistered}
+              handleIconClick={handleIconNotRegistered}
+            />
+
+            <ReusableControls.CustomSelect
+              variant="outlined"
+              name="appointmentType"
+              label="Tipo de Cita"
+              value={values.appointmentType}
+              onChange={handleInputChange}
+              options={appointmentService.getFieldsDataCollection(
+                applicationFields,
+                "appointmentView",
+                "appointmentType"
+              )}
+              error={errors.appointmentType}
+            />
+
+            <ReusableControls.CustomSelect
+              variant="outlined"
+              name="appointmentStatus"
+              label="Estado de la Cita"
+              value={values.appointmentStatus}
+              onChange={handleInputChange}
+              options={appointmentService.getFieldsDataCollection(
+                applicationFields,
+                "appointmentView",
+                "appointmentStatus"
+              )}
+            />
+            <ReusableControls.PlainDateTimePicker
+              inputVariant="outlined"
+              disablePast={true}
+              name="start"
+              label="Fecha de Inicio de Cita"
+              value={values.start}
+              onChange={handleInputChange}
+              error={errors.start}
+            />
+            <ReusableControls.PlainDateTimePicker
+              inputVariant="outlined"
+              disablePast={true}
+              name="end"
+              label="Fecha de Fin de Cita"
+              value={values.end}
+              onChange={handleInputChange}
+              error={errors.end}
+            />
+            <ReusableControls.CustomInput
+              variant="outlined"
+              name="description"
+              label="Descripción"
+              value={values.description}
+              onChange={handleInputChange}
+              error={errors.description}
+            />
+          </ReusableForm>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleClose}
+            //onClick={resetForm}
+            color="primary"
+          >
+            Cancel
+          </Button>
+          <Button onClick={handleAdd} color="primary">
+            Add
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
+
+/*
+ <Grid container>
+              <Grid item xs={12}>
                 <AsyncSelectForFullCalendar
                   onValChange={onAutoCompleteChange}
                 />
@@ -191,6 +270,8 @@ export default function AddEventDialog(props) {
                   value={values.fullName}
                   error={errors.fullName}
                   handleIconClick={handleIconFullName}
+                  readOnly={true}
+                  variante="outlined"
                 />
                 <ReusableControls.CustomInputIconEdit
                   name="notRegistered"
@@ -240,25 +321,7 @@ export default function AddEventDialog(props) {
                 />
               </Grid>
             </Grid>
-          </ReusableForm>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={handleClose}
-            //onClick={resetForm}
-            color="primary"
-          >
-            Cancel
-          </Button>
-          <Button onClick={handleAdd} color="primary">
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
-}
-
+*/
 /*
  <Button
                 type="submit"

@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import AsyncSelect from "react-select/async";
 //import {components} from 'react-select';
 //import { client } from "../../../graphqlClient/apolloClient";
 import request from "graphql-request";
-import { GlobalContext } from "../../../context/GlobalState";
+//import { GlobalContext } from "../../../context/GlobalState";
 import {
   AUTOCOMPLETE_SEARCH_PATIENT_BY_ID,
   SEARCH_PATIENT_BY_LASTNAME,
@@ -65,9 +65,9 @@ const loadOptions = async (input, cb) => {
 };
 
 export default function AsyncSelectAC(props) {
-  const { getPatientByIdAPOLLO, updateActionExam } = useContext(GlobalContext);
+  //const { getPatientByIdAPOLLO, updateActionExam } = useContext(GlobalContext);
 
-  const [selectedValue, setSelectedValue] = useState(null);
+  //const [selectedValue, setSelectedValue] = useState(null);
 
   // handle input change event
   const handleInputChange = (inputValue) => {
@@ -98,7 +98,8 @@ export default function AsyncSelectAC(props) {
         //className="select"
         //cacheOptions
         //defaultOptions
-        value={selectedValue} //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        value={null}
+        /// value={selectedValue} //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //getOptionLabel={e => e.lastName}
         //getOptionValue={e => e.id}
         loadOptions={loadOptions}

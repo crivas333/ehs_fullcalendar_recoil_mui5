@@ -106,7 +106,7 @@ export const NewPatientTabForm = (props) => {
 
   const {
     values,
-    setValues,
+    //setValues,
     errors,
     setErrors,
     handleInputChange,

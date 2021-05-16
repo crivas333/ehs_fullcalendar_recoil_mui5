@@ -37,7 +37,6 @@ export const DisplayPatientTab2 = (props) => {
         name="email"
         label="Email"
         value={props.values.email}
-        value={props.values.phone1}
         variant="outlined"
         readOnly={true}
       />

@@ -1,23 +1,7 @@
 import React from "react";
 
-//import { useMutation } from '@apollo/client'
-//import { CREATE_APPOINTMENT, UPDATE_APPOINTMENT, DELETE_APPOINTMENT } from '../apolloConfig/gqlQueries'
-//import DisplayPatientData from '../components/patientData/DisplayPatientData'
-//import PatientSummary from '../components/patientData/PatientSummary'
-
-// import Button from '@material-ui/core/Button'
-
-//import Grid from '@material-ui/core/Grid'
 import { makeStyles } from "@material-ui/core/styles";
-// import Paper from '@material-ui/core/Paper'
-// import Scrollbar from 'rmw-shell/lib/components/Scrollbar'
-// import { Scrollbars } from 'react-custom-scrollbars'
-//import { useLocation } from 'react-router-dom'
-//import { GlobalContext } from '../context/GlobalState'
-//import { PatientList } from '../components/patientData/PatientList'
-//import Scheduler from "../components/scheduler/Scheduler";
-//import AutoCompleteSF from "../components/patient/patientSearch/AutoCompleteSF";
-// import "./styles.css";
+import Report from "../components/scheduler/Report";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,12 +19,7 @@ export default function Calendar() {
   const classes = useStyles();
   //const { currentPatient } = useContext(GlobalContext)
 
-  return (
-    <div className={classes.root}>
-      {/*<AutoCompleteSF/>*/}
-      {/*<Scheduler />*/}
-    </div>
-  );
+  return <div className={classes.root}>{<Report />}</div>;
 }
 // <AutoCompleteSF />
 /*
