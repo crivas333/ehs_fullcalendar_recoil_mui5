@@ -54,15 +54,18 @@ export default {
         appointmentStatus: args.appointmentInput.appointmentStatus,
         start: args.appointmentInput.start,
         end: args.appointmentInput.end,
-        patient: args.patient || null,
-        //comments: args.appointmentInput.comments,
-        title: args.appointmentInput.title,
-        IsAllDay: args.appointmentInput.IsAllDay,
+        patient: args.appointmentInput.patient || null,
+        fullName: args.appointmentInput.fullName || "",
+        notRegistered: args.appointmentInput.notRegistered || "",
+        //title: args.appointmentInput.title,
+        description: args.appointmentInput.description || "",
+
+        //IsAllDay: args.appointmentInput.IsAllDay,
       });
       //let createdAppo;
       try {
         appoRes = await appointment.save();
-        console.log("appointment.save - result: ", appoRes);
+        //console.log("appointment.save - result: ", appoRes);
       } catch (err) {
         console.log(err);
         throw err;

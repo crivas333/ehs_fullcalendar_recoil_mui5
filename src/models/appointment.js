@@ -30,20 +30,17 @@ const appointmentSchema = new Schema(
     fullName: {
       type: String,
     },
-    noRegistered: {
+    notRegistered: {
       type: String,
     },
-    creator: {
-      type: ObjectId,
-      ref: "User",
-    },
+
     description: {
       type: String,
       trim: true,
     },
-    title: {
-      type: String,
-      trim: true,
+    creator: {
+      type: ObjectId,
+      ref: "User",
     },
     IsAllDay: {
       type: Boolean,

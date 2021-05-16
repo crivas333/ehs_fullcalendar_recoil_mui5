@@ -21,12 +21,14 @@ const initialEvt = {
   appointmentStatus: "PROGRAMADA",
   start: "",
   end: "",
+  patient: null,
   fullName: "",
   notRegistered: "",
+  description: "",
 };
 
 function renderEventContent(eventInfo) {
-  console.log("renderEventContent");
+  console.log("renderEventContent", eventInfo);
   return (
     <>
       <b>{eventInfo.timeText}</b>
@@ -66,12 +68,7 @@ function renderEventContent(eventInfo) {
 // };
 
 export default function DemoApp() {
-  //calendarRef = React.createRef();
   const [openEventDialog, setOpenEventDialog] = useState(false);
-  //const eventTemp = useStore((state) => state.eventTemp);
-  //const eventTemp = useStore.getState().eventTemp;
-  //const setEventTemp = useStore((store) => store.setEventTemp);
-  //const [appoEvt, setAppoEvt] = useRecoilState(appoEvtState);
   const [evt, setEvt] = useState(initialEvt);
   const calendarRef = React.useRef(null);
 
@@ -107,10 +104,14 @@ export default function DemoApp() {
     try {
       const res = await request("/graphql", ADD_APPOINTMENT, {
         appointmentInput: {
-          appointmentType: addInfo.event.title,
-          appointmentStatus: addInfo.event._def.extendedProps.status,
           start: addInfo.event.start,
           end: addInfo.event.end,
+          appointmentType: addInfo.event.title,
+          appointmentStatus: addInfo.event._def.extendedProps.status,
+          patient: addInfo.event._def.extendedProps.patient,
+          fullName: addInfo.event._def.extendedProps.fullName,
+          notRegistered: addInfo.event._def.extendedProps.notRegistered,
+          description: addInfo.event._def.extendedProps.description,
         },
       });
     } catch (err) {
@@ -118,45 +119,28 @@ export default function DemoApp() {
     }
   };
   const handleEvt = (evt) => {
-    console.log("Report-handleEvt-evt", evt);
-
+    //console.log("Report-handleEvt-evt", evt);
     const calendarApi = calendarRef.current.getApi();
-    console.log("Report-handleEvt-calendarApi", calendarRef.current.getApi());
+    //console.log("Report-handleEvt-calendarApi", calendarRef.current.getApi());
     calendarApi.addEvent(
       {
-        //id: createEventId(),
         title: evt.appointmentType,
         start: evt.start,
         end: evt.end,
-
         extendedProps: {
-          status: evt.appointmentStatus,
+          patient: evt.patient || null,
+          fullName: evt.fullName || "",
+          notRegistered: evt.notRegistered || "",
+          status: evt.appointmentStatus || "",
           description: evt.description,
         },
         //allDay: selectInfo.allDay,
       },
       true
     );
-    // calendarApi.addEvent(
-    //   {
-    //     //id: createEventId(),
-    //     title: "test11111",
-    //     start: new Date().toISOString(),
-    //     //end: selectInfo.endStr,
-
-    //     extendedProps: {
-    //       status: "Programada",
-    //       //description: "mydesc",
-    //     },
-    //     //allDay: selectInfo.allDay,
-    //   },
-    //   true
-    // );
   };
   const handleDateSelect = (selectInfo) => {
     let calendarApi = selectInfo.view.calendar;
-    //let calendarApi = calendarRef.current.getApi();
-    //let calendarApi = selectInfo.view.calendar;
     calendarApi.unselect(); // clear date selection
     setEvt({
       ...evt,
@@ -168,7 +152,12 @@ export default function DemoApp() {
     });
     setOpenEventDialog(true);
   };
-  const handleEventClick = (clickInfo) => {};
+  const handleEventClick = (clickInfo) => {
+    console.log("Repost-handleEvenClick: ", clickInfo);
+    console.log("Repost-handleEvenClick-eventId: ", clickInfo.event.id);
+    //const calendarApi = calendarRef.current.getApi();
+    //const res=
+  };
 
   const handleEvents = (events) => {
     //console.log("handleEvents called after evenSet: do nothing by now");
@@ -181,8 +170,6 @@ export default function DemoApp() {
       {/*{this.renderSidebar()}*/}
       <div className="demo-app-main">
         <FullCalendar
-          //ref={(el) => (this.fc = el)}
-          //ref={this.calendarRef}
           ref={calendarRef}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           headerToolbar={{

@@ -25,13 +25,13 @@ export default gql`
     end: String! #Syncfusion Type
     patient: ID #patient: Patient does not work
     fullName: String
-    noRegistered: String
+    notRegistered: String
     creator: ID #creator: User
     description: String
-    title: String #Syncfusion Type - mapped to appointmentType
-    IsAllDay: Boolean
-    StartTimezone: String
-    EndTimezone: String
+    #title: String #Syncfusion Type - mapped to appointmentType
+    #IsAllDay: Boolean
+    #StartTimezone: String
+    #EndTimezone: String
   }
   type Appointment {
     id: ID!
@@ -42,13 +42,13 @@ export default gql`
     end: String! #Syncfusion Type
     patient: Patient #will store only PatientId
     fullName: String
-    noRegistered: String
+    notRegistered: String
     creator: User
     description: String
-    title: String #Syncfusion Type - mapped to appointmentType
-    IsAllDay: Boolean
-    StartTimezone: String
-    EndTimezone: String
+    #title: String #Syncfusion Type - mapped to appointmentType
+    #IsAllDay: Boolean
+    #StartTimezone: String
+    #EndTimezone: String
     createdAt: String!
     updatedAt: String!
   }
