@@ -6,15 +6,15 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-//import request from "graphql-request";
+import request from "graphql-request";
 
 import AddEventDialog from "./AddEventDialog";
 //import { useStore } from "../../context/GlobalStore";
 
-// import {
-//   ADD_APPOINTMENT,
-//   //GET_APPOINTMENTS_BY_TIMEFRAME,
-// } from "../../graphqlClient/gqlQueries";
+import {
+  ADD_APPOINTMENT,
+  //GET_APPOINTMENTS_BY_TIMEFRAME,
+} from "../../graphqlClient/gqlQueries";
 
 const initialEvt = {
   appointmentType: "CONSULTA",
@@ -103,33 +103,69 @@ export default function DemoApp() {
   };
 
   const eventAdding = async (addInfo) => {
+    console.log("evetAdding: ", addInfo);
     try {
-      // const res = await request("/graphql", ADD_APPOINTMENT, {
-      //   appointmentInput: {
-      //     appointmentType: addInfo.event.title,
-      //     appointmentStatus: addInfo.event._def.extendedProps.status,
-      //     start: addInfo.event.start,
-      //     end: addInfo.event.end,
-      //   },
-      // });
+      const res = await request("/graphql", ADD_APPOINTMENT, {
+        appointmentInput: {
+          appointmentType: addInfo.event.title,
+          appointmentStatus: addInfo.event._def.extendedProps.status,
+          start: addInfo.event.start,
+          end: addInfo.event.end,
+        },
+      });
     } catch (err) {
       console.log(err);
     }
   };
-  const handleEvt = (val) => {
-    console.log("Report-handleEvt-evt", val);
+  const handleEvt = (evt) => {
+    console.log("Report-handleEvt-evt", evt);
+
+    const calendarApi = calendarRef.current.getApi();
+    console.log("Report-handleEvt-calendarApi", calendarRef.current.getApi());
+    calendarApi.addEvent(
+      {
+        //id: createEventId(),
+        title: evt.appointmentType,
+        start: evt.start,
+        end: evt.end,
+
+        extendedProps: {
+          status: evt.appointmentStatus,
+          description: evt.description,
+        },
+        //allDay: selectInfo.allDay,
+      },
+      true
+    );
+    // calendarApi.addEvent(
+    //   {
+    //     //id: createEventId(),
+    //     title: "test11111",
+    //     start: new Date().toISOString(),
+    //     //end: selectInfo.endStr,
+
+    //     extendedProps: {
+    //       status: "Programada",
+    //       //description: "mydesc",
+    //     },
+    //     //allDay: selectInfo.allDay,
+    //   },
+    //   true
+    // );
   };
   const handleDateSelect = (selectInfo) => {
     let calendarApi = selectInfo.view.calendar;
+    //let calendarApi = calendarRef.current.getApi();
+    //let calendarApi = selectInfo.view.calendar;
     calendarApi.unselect(); // clear date selection
     setEvt({
       ...evt,
-      start: new Date(selectInfo.start).toISOString(),
+      //start: new Date(selectInfo.start).toISOString(),
+      start: selectInfo.startStr,
       end: selectInfo.endStr,
       //start: selectInfo.start,
       //end: selectInfo.end,
     });
-
     setOpenEventDialog(true);
   };
   const handleEventClick = (clickInfo) => {};

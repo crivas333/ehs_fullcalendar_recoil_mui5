@@ -126,8 +126,11 @@ export default function AddEventDialog(props) {
 
   const handleAdd = (e) => {
     e.preventDefault();
-    //console.log("handleAdd - values: ", values);
+    console.log("handleAdd - values: ", values);
     if (validate()) {
+      //console.log("inside validation");
+
+      //if ("notRegistered" in values)
       handleEvt(values);
       resetForm();
       //setValues({});
@@ -149,11 +152,11 @@ export default function AddEventDialog(props) {
   };
 
   const handleIconFullName = () => {
-    //onsole.log("handleIconFullName");
+    console.log("handleIconFullName");
     setValues({ ...values, fullName: "", patient: "" });
   };
   const handleIconNotRegistered = () => {
-    //console.log("handleIconNotRegistered");
+    console.log("handleIconNotRegistered");
     setValues({ ...values, notRegistered: "" });
   };
   return (
