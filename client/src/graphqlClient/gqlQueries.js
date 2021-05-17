@@ -215,11 +215,11 @@ export const GET_APPOINTMENTS = gql`
     appointments {
       id
       appointmentId
-      appointmentType
-      appointmentStatus
-      StartTime
-      EndTime
-      Description
+      type
+      status
+      start
+      end
+      description
       #lastName
     }
   }
@@ -227,14 +227,13 @@ export const GET_APPOINTMENTS = gql`
 export const GET_APPOINTMENTS_BY_TIMEFRAME = gql`
   query GetAppointmentsByTimeframe($start: String!, $end: String!) {
     getAppointmentsByTimeframe(start: $start, end: $end) {
-      #id
+      id
       appointmentId
-      appointmentType
-      #appointmentStatus
+      type
+      status
       start
       end
-      #Description
-      #lastName
+      description
     }
   }
 `;
@@ -242,14 +241,13 @@ export const GET_APPOINTMENTS_BY_TIMEFRAME = gql`
 export const ADD_APPOINTMENT = gql`
   mutation addAppointment($appointmentInput: AppointmentInput) {
     addAppointment(appointmentInput: $appointmentInput) {
-      #id
+      id
       appointmentId
-      appointmentType
-      #appointmentStatus
+      type
+      status
       start
       end
-      #Description
-      #lastName
+      description
     }
   }
 `;

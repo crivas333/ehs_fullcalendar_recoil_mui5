@@ -8,7 +8,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import request from "graphql-request";
 
-import AddEventDialog from "./AddEventDialog";
+import EventDialog from "./EventDialog";
 //import { useStore } from "../../context/GlobalStore";
 
 import {
@@ -17,8 +17,8 @@ import {
 } from "../../graphqlClient/gqlQueries";
 
 const initialEvt = {
-  appointmentType: "CONSULTA",
-  appointmentStatus: "PROGRAMADA",
+  type: "CONSULTA",
+  status: "PROGRAMADA",
   start: "",
   end: "",
   patient: null,
@@ -28,7 +28,7 @@ const initialEvt = {
 };
 
 function renderEventContent(eventInfo) {
-  console.log("renderEventContent", eventInfo);
+  //console.log("renderEventContent", eventInfo);
   return (
     <>
       <b>{eventInfo.timeText}</b>
@@ -67,8 +67,9 @@ function renderEventContent(eventInfo) {
 //   }
 // };
 
-export default function DemoApp() {
+export default function MayFullCalendar() {
   const [openEventDialog, setOpenEventDialog] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [evt, setEvt] = useState(initialEvt);
   const calendarRef = React.useRef(null);
 
@@ -100,63 +101,88 @@ export default function DemoApp() {
   };
 
   const eventAdding = async (addInfo) => {
-    console.log("evetAdding: ", addInfo);
+    //console.log("eventAdding: ", addInfo);
     try {
       const res = await request("/graphql", ADD_APPOINTMENT, {
         appointmentInput: {
           start: addInfo.event.start,
           end: addInfo.event.end,
-          appointmentType: addInfo.event.title,
-          appointmentStatus: addInfo.event._def.extendedProps.status,
-          patient: addInfo.event._def.extendedProps.patient,
-          fullName: addInfo.event._def.extendedProps.fullName,
-          notRegistered: addInfo.event._def.extendedProps.notRegistered,
-          description: addInfo.event._def.extendedProps.description,
+          type: addInfo.event.title,
+          status: addInfo.event.extendedProps.status,
+          patient: addInfo.event.extendedProps.patient,
+          fullName: addInfo.event.extendedProps.fullName,
+          notRegistered: addInfo.event.extendedProps.notRegistered,
+          description: addInfo.event.extendedProps.description,
         },
       });
     } catch (err) {
       console.log(err);
     }
   };
-  const handleEvt = (evt) => {
+  const eventChanging = async () => {};
+  const eventRemoving = async () => {};
+
+  const handleAddingEvt = (data) => {
     //console.log("Report-handleEvt-evt", evt);
     const calendarApi = calendarRef.current.getApi();
-    //console.log("Report-handleEvt-calendarApi", calendarRef.current.getApi());
     calendarApi.addEvent(
       {
-        title: evt.appointmentType,
-        start: evt.start,
-        end: evt.end,
+        title: data.type,
+        start: data.start,
+        end: data.end,
         extendedProps: {
-          patient: evt.patient || null,
-          fullName: evt.fullName || "",
-          notRegistered: evt.notRegistered || "",
-          status: evt.appointmentStatus || "",
-          description: evt.description,
+          patient: data.patient || null,
+          fullName: data.fullName || "",
+          notRegistered: data.notRegistered || "",
+          status: data.status || "",
+          description: data.description,
         },
         //allDay: selectInfo.allDay,
       },
       true
     );
+    setEvt(initialEvt);
   };
+  const handleChangingEvt = (data) => {
+    console.log("handleChangingEvt", data);
+  };
+  const handleRemovingEvt = () => {};
+
   const handleDateSelect = (selectInfo) => {
     let calendarApi = selectInfo.view.calendar;
     calendarApi.unselect(); // clear date selection
+    setIsEditing(false);
+    // setEvt({
+    //   ...evt,
+    //   start: selectInfo.startStr,
+    //   end: selectInfo.endStr,
+    // });
     setEvt({
-      ...evt,
-      //start: new Date(selectInfo.start).toISOString(),
+      type: "CONSULTA",
+      status: "PROGRAMADA",
       start: selectInfo.startStr,
       end: selectInfo.endStr,
-      //start: selectInfo.start,
-      //end: selectInfo.end,
+      patient: null,
+      fullName: "",
+      notRegistered: "",
+      description: "",
     });
     setOpenEventDialog(true);
   };
   const handleEventClick = (clickInfo) => {
-    console.log("Repost-handleEvenClick: ", clickInfo);
-    console.log("Repost-handleEvenClick-eventId: ", clickInfo.event.id);
-    //const calendarApi = calendarRef.current.getApi();
-    //const res=
+    console.log("MyFC-handleEventClick: ", clickInfo.event);
+    setIsEditing(true);
+    setEvt({
+      start: clickInfo.event.startStr,
+      end: clickInfo.event.endStr,
+      type: clickInfo.event.title,
+      status: clickInfo.event.extendedProps.status,
+      patient: clickInfo.event.extendedProps.patient || null,
+      fullName: clickInfo.event.extendedProps.fullName || "",
+      notRegistered: clickInfo.event.extendedProps.notRegistered || "",
+      description: clickInfo.event.extendedProps.description || "",
+    });
+    setOpenEventDialog(true);
   };
 
   const handleEvents = (events) => {
@@ -195,17 +221,22 @@ export default function DemoApp() {
           eventClick={handleEventClick}
           eventsSet={handleEvents} // called after events are initialized/added/changed/removed
           eventAdd={eventAdding}
+          eventChange={eventChanging}
+          eventRemove={eventRemoving}
           //dateClick={this.handleDateClick}
           events={"/api/v1/fullCalendar/getDataFull"} //!!!!!!!!!!!!!!!!!!! ok
           //datesSet={formatEvents111}
           locale={"es-PE"}
         />
 
-        <AddEventDialog
+        <EventDialog
           show={openEventDialog}
+          isEditing={isEditing}
           evt={evt}
           closeDialog={handleCloseDialog}
-          handleEvt={handleEvt}
+          handleAddingEvt={handleAddingEvt}
+          handleChangingEvt={handleChangingEvt}
+          handleRemovingEvt={handleRemovingEvt}
         />
       </div>
     </div>

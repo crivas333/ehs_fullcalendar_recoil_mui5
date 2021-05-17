@@ -1,7 +1,7 @@
 import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import Report from "../components/scheduler/Report";
+import MyFullCalendar from "../components/scheduler/MyFullCalendar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,7 +19,7 @@ export default function Calendar() {
   const classes = useStyles();
   //const { currentPatient } = useContext(GlobalContext)
 
-  return <div className={classes.root}>{<Report />}</div>;
+  return <div className={classes.root}>{<MyFullCalendar />}</div>;
 }
 // <AutoCompleteSF />
 /*

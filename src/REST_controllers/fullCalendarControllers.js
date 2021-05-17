@@ -233,9 +233,14 @@ exports.getAppointments = async (req, res, next) => {
     //normlization
     const resp = doc.map((a) => ({
       id: a.appointmentId,
-      title: a.appointmentType,
+      title: a.type,
       start: a.start,
       end: a.end,
+      status: a.status,
+      patient: a.patient,
+      fullName: a.fullName,
+      notRegistered: a.notRegistered,
+      description: a.description,
     }));
     //console.log(resp);
     return res.status(200).json(resp);

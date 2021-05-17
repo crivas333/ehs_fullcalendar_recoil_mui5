@@ -19,13 +19,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import AsyncSelectForFullCalendar from "../patient/patientSearch/AsyncSelectForFullCalendar";
 
-// const initialFValues = {
-//   appointmentType: "CONSULTA",
-//   appointmentStatus: "PROGRAMADA",
-//   start: "",
-//   end: "",
-// };
-//let temp;
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
@@ -35,17 +28,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddEventDialog(props) {
+export default function EventDialog(props) {
   const classes = useStyles();
   const { applicationFields } = useContext(GlobalContext);
-  //const [appoEvt, setAppoEvt] = useRecoilState(appoEvtState);
-  const { evt, closeDialog, handleEvt } = props;
+  const {
+    evt,
+    closeDialog,
+    handleAddingEvt,
+    handleChangingEvt,
+    handleRemovingEvt,
+    isEditing,
+  } = props;
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     temp = { ...errors };
 
-    //console.log("BEFORE: fieldValues.fullName: ", fieldValues.fullName);
     if ("fullName" in fieldValues) {
       //console.log("fieldValues.fullName: ", fieldValues.fullName);
       //temp.notRegistered = fieldValues.notRegistered ? "" : "Campo requerido";
@@ -86,53 +84,23 @@ export default function AddEventDialog(props) {
     });
     //console.log("errors:", errors);
     if (fieldValues === values) {
-      console.log("temp: ", temp.notRegistered, "", temp.fullName);
+      //console.log("temp: ", temp.notRegistered, "", temp.fullName);
       return Object.values(temp).every((x) => x === "");
       //return Object.values(errors).every((x) => x === "");
     }
     //return Object.values(temp).every((x) => x === "");
   };
-  const {
-    values,
-    setValues,
-    errors,
-    setErrors,
-    handleInputChange,
-    resetForm,
-    //} = useReusableForm(initialFValues, true, validate);
-  } = useReusableForm(evt, true, validate);
+  const { values, setValues, errors, setErrors, handleInputChange, resetForm } =
+    useReusableForm(evt, true, validate);
 
   React.useEffect(() => {
     setValues(evt);
-    //console.log("useEffect - addEventDialog - evt: ", evt);
-
     return () => {};
   }, [evt, setValues]);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("AddEventDialog - handleSubmit");
-  //   if (validate()) {
-  //     //employeeService.insertEmployee(values)
-  //     //resetForm();
-  //     console.log(values);
-  //     closeDialog();
-  //   }
-  // };
-  const handleClose = () => {
+  const handleDialogClose = () => {
     resetForm();
     closeDialog();
-  };
-
-  const handleAdd = (e) => {
-    e.preventDefault();
-    console.log("AddEventDialoghandleAdd - values: ", values);
-    if (validate()) {
-      handleEvt(values);
-      resetForm();
-      //setValues({});
-      closeDialog();
-    }
   };
 
   const onAutoCompleteChange = (val) => {
@@ -149,16 +117,33 @@ export default function AddEventDialog(props) {
   };
 
   const handleIconFullName = () => {
-    //onsole.log("handleIconFullName");
     setValues({ ...values, fullName: "", patient: "" });
   };
   const handleIconNotRegistered = () => {
-    //console.log("handleIconNotRegistered");
     setValues({ ...values, notRegistered: "" });
+  };
+
+  const handleDialogAdd = (e) => {
+    e.preventDefault();
+    if (validate()) {
+      handleAddingEvt(values);
+      resetForm();
+      //setValues({});
+      closeDialog();
+    }
+  };
+  const handleDialogChange = (e) => {
+    e.preventDefault();
+    if (validate()) {
+      handleChangingEvt(values);
+      resetForm();
+      //setValues({});
+      closeDialog();
+    }
   };
   return (
     <div className={classes.paper}>
-      <Dialog open={props.show} onClose={handleClose}>
+      <Dialog open={props.show} onClose={handleDialogClose}>
         <DialogTitle id="form-dialog-title">Añadir Cita</DialogTitle>
         <DialogContent>
           <ReusableForm
@@ -183,26 +168,25 @@ export default function AddEventDialog(props) {
               error={errors.notRegistered}
               handleIconClick={handleIconNotRegistered}
             />
-
             <ReusableControls.CustomSelect
               variant="outlined"
-              name="appointmentType"
+              name="type"
               label="Tipo de Cita"
-              value={values.appointmentType}
+              value={values.type}
               onChange={handleInputChange}
               options={appointmentService.getFieldsDataCollection(
                 applicationFields,
                 "appointmentView",
                 "appointmentType"
               )}
-              error={errors.appointmentType}
+              error={errors.type}
             />
 
             <ReusableControls.CustomSelect
               variant="outlined"
-              name="appointmentStatus"
+              name="status"
               label="Estado de la Cita"
-              value={values.appointmentStatus}
+              value={values.status}
               onChange={handleInputChange}
               options={appointmentService.getFieldsDataCollection(
                 applicationFields,
@@ -214,7 +198,7 @@ export default function AddEventDialog(props) {
               inputVariant="outlined"
               disablePast={true}
               name="start"
-              label="Fecha de Inicio de Cita"
+              label="Inicio de Cita"
               value={values.start}
               onChange={handleInputChange}
               error={errors.start}
@@ -223,7 +207,7 @@ export default function AddEventDialog(props) {
               inputVariant="outlined"
               disablePast={true}
               name="end"
-              label="Fecha de Fin de Cita"
+              label="Fin de Cita"
               value={values.end}
               onChange={handleInputChange}
               error={errors.end}
@@ -239,16 +223,25 @@ export default function AddEventDialog(props) {
           </ReusableForm>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={handleClose}
-            //onClick={resetForm}
-            color="primary"
-          >
-            Cancel
-          </Button>
-          <Button onClick={handleAdd} color="primary">
-            Add
-          </Button>
+          {isEditing ? (
+            <>
+              <Button onClick={handleDialogClose} color="primary">
+                Cancelar
+              </Button>
+              <Button onClick={handleDialogChange} color="primary">
+                Actualizar
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button onClick={handleDialogClose} color="primary">
+                Cancelar
+              </Button>
+              <Button onClick={handleDialogAdd} color="primary">
+                Añadir
+              </Button>
+            </>
+          )}
         </DialogActions>
       </Dialog>
     </div>

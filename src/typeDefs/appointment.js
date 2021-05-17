@@ -19,8 +19,8 @@ export default gql`
 
   input AppointmentInput {
     #appointmentId: Int!
-    appointmentType: String!
-    appointmentStatus: String!
+    type: String!
+    status: String!
     start: String!
     end: String! #Syncfusion Type
     patient: ID #patient: Patient does not work
@@ -36,8 +36,8 @@ export default gql`
   type Appointment {
     id: ID!
     appointmentId: Int!
-    appointmentType: String!
-    appointmentStatus: String!
+    type: String!
+    status: String!
     start: String!
     end: String! #Syncfusion Type
     patient: Patient #will store only PatientId

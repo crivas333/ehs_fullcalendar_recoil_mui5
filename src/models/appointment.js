@@ -9,11 +9,11 @@ const appointmentSchema = new Schema(
       type: Number,
       required: [true, "Please add some text"],
     },
-    appointmentType: {
+    type: {
       type: String,
       required: [true, "Please add some text"],
     },
-    appointmentStatus: {
+    status: {
       type: String,
       required: [true, "Please add some text"],
     },
