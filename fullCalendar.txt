@@ -38,3 +38,13 @@ const usePrevious = (value) => {
 
     return ref.current
 }
+
+h2.fc-toolbar-title {
+  color: #0052ba;
+  /*background: #000;*/
+  font-size: 10px;
+}
+.fc h2 {
+  color: #0052ba;
+  font-size: 10px;
+}

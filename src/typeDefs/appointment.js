@@ -9,12 +9,9 @@ export default gql`
   }
 
   extend type Mutation {
-    #createAppointment(Subject: String!, patientId: ID!):  Appointment @auth
-    #createPatient(patientInput: PatientInput): Patient @auth
     addAppointment(appointmentInput: AppointmentInput): Appointment @auth
     updateAppointment(id: ID!, appointmentInput: AppointmentInput): Appointment
       @auth
-    #updateAppointment(id: ID!, appointmentId: Int): Appointment @auth
   }
 
   input AppointmentInput {
@@ -23,7 +20,8 @@ export default gql`
     status: String!
     start: String!
     end: String! #Syncfusion Type
-    patient: ID #patient: Patient does not work
+    patientId: ID #in appointmentInput - we are sending only the patientId (not the object)
+    #patientId: Patient (this does not compilate)
     fullName: String
     notRegistered: String
     creator: ID #creator: User
@@ -40,7 +38,8 @@ export default gql`
     status: String!
     start: String!
     end: String! #Syncfusion Type
-    patient: Patient #will store only PatientId
+    #patientId: ID #this does not work
+    patientId: Patient #This works - but we are storing only the PatientId
     fullName: String
     notRegistered: String
     creator: User

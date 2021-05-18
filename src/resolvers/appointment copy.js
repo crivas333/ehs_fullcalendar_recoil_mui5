@@ -30,7 +30,7 @@ export default {
   },
   Mutation: {
     addAppointment: async (root, args, { req }, info) => {
-      //console.log("addAppointment: ", args);
+      console.log("addAppointment: ", args);
       //const { userId } = req.session;
       //console.log("AddAppointmente - userId: ", userId);
       let appointmentId;
@@ -96,10 +96,10 @@ export default {
 
       try {
         const appointment = await Appointment.findOneAndUpdate(
-          { id: args.appointmentInput.id },
+          { id: args.appointmentInput.appoId },
           {
             $set: {
-              //appointmentId: args.appointmentInput.appointmentId,
+              appointmentId: args.appointmentInput.id,
               type: args.appointmentInput.type,
               status: args.appointmentInput.status,
               start: args.appointmentInput.start,
@@ -112,62 +112,62 @@ export default {
           },
           { new: true }
         ).exec();
-        //console.log("changed appointment: ", appointment);
+        console.log("changed appointment: ", appointment);
 
-        // const prevPatientRef = await Appointment.findOne(
-        //   { appointmentId: args.appointmentInput.appointmentId },
-        //   "patientId"
-        // ).exec();
-        // console.log("prevPatientRef: ", prevPatientRef);
-        // //const prevPatientRefstring=prevPatientRef.patient+''
-        // //const prevPatientRefstring=prevPatientRef.patient.toString()
+        const prevPatientRef = await Appointment.findOne(
+          { appointmentId: args.appointmentInput.appointmentId },
+          "patientId"
+        ).exec();
+        console.log("prevPatientRef: ", prevPatientRef);
+        //const prevPatientRefstring=prevPatientRef.patient+''
+        //const prevPatientRefstring=prevPatientRef.patient.toString()
 
-        // if (
-        //   args.appointmentInput.patientId === null &&
-        //   prevPatientRef.patientId === null
-        // ) {
-        //   console.log(" empty patientRef  and empty previousRef");
-        // }
-        // if (
-        //   args.appointmentInput.patientId === null &&
-        //   prevPatientRef.patient !== null
-        // ) {
-        //   console.log(" empty patientRef  and filled previousRef");
-        //   await Patient.findOneAndUpdate(
-        //     { _id: prevPatient.patientId + "" },
-        //     { $pull: { appointments: args.appointmentInput.id } }
-        //   ).exec();
-        // }
-        // if (
-        //   args.appointmentInput.patientid !== null &&
-        //   prevPatientRef.patient === null
-        // ) {
-        //   console.log(" filled with patientRef  and empty previousRef");
-        //   await Patient.findOneAndUpdate(
-        //     { _id: args.appointmentInput.patientId },
-        //     { $push: { appointments: appointment } }
-        //   ).exec();
-        // }
+        if (
+          args.appointmentInput.patientId === null &&
+          prevPatientRef.patientId === null
+        ) {
+          console.log(" empty patientRef  and empty previousRef");
+        }
+        if (
+          args.appointmentInput.patientId === null &&
+          prevPatientRef.patient !== null
+        ) {
+          console.log(" empty patientRef  and filled previousRef");
+          await Patient.findOneAndUpdate(
+            { _id: prevPatient.patientId + "" },
+            { $pull: { appointments: args.appointmentInput.id } }
+          ).exec();
+        }
+        if (
+          args.appointmentInput.patientid !== null &&
+          prevPatientRef.patient === null
+        ) {
+          console.log(" filled with patientRef  and empty previousRef");
+          await Patient.findOneAndUpdate(
+            { _id: args.appointmentInput.patientId },
+            { $push: { appointments: appointment } }
+          ).exec();
+        }
 
-        // if (
-        //   args.appointmentInput.patientId !== null &&
-        //   prevPatientRef.patientId !== null
-        // ) {
-        //   console.log("filled with patientRef  and filled with previousRef");
+        if (
+          args.appointmentInput.patientId !== null &&
+          prevPatientRef.patientId !== null
+        ) {
+          console.log("filled with patientRef  and filled with previousRef");
 
-        //   if (args.appointmentInput.patientId !== prevPatientRef.patient + "") {
-        //     console.log("PatientRef changed!");
-        //     await Patient.findOneAndUpdate(
-        //       { _id: prevPatient.patientId + "" },
-        //       { $pull: { appointments: args.appointmentInput.id } }
-        //     ).exec();
-        //   } else {
-        //     console.log("PatientRef didnt change!");
-        //   }
-        // }
+          if (args.appointmentInput.patientId !== prevPatientRef.patient + "") {
+            console.log("PatientRef changed!");
+            await Patient.findOneAndUpdate(
+              { _id: prevPatient.patientId + "" },
+              { $pull: { appointments: args.appointmentInput.id } }
+            ).exec();
+          } else {
+            console.log("PatientRef didnt change!");
+          }
+        }
 
-        return appointment;
-        //return Appointment.findById(args.appointmentInput.id);
+        //return(appointment)
+        return Appointment.findById(args.id);
         //return (res.status(200))
         //return res.status(200).json(Appointment.findById(args.id));
       } catch (err) {

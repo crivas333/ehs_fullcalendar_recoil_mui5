@@ -219,8 +219,10 @@ export const GET_APPOINTMENTS = gql`
       status
       start
       end
+      #patientId
+      fullName
+      notRegistered
       description
-      #lastName
     }
   }
 `;
@@ -233,6 +235,9 @@ export const GET_APPOINTMENTS_BY_TIMEFRAME = gql`
       status
       start
       end
+      patientId
+      fullName
+      notRegistered
       description
     }
   }
@@ -247,34 +252,34 @@ export const ADD_APPOINTMENT = gql`
       status
       start
       end
+      patientId {
+        id
+      }
+      fullName
+      notRegistered
+      description
+    }
+  }
+`;
+export const UPDATE_APPOINTMENT = gql`
+  mutation updateAppointment($id: ID!, $appointmentInput: AppointmentInput) {
+    updateAppointment(id: $id, appointmentInput: $appointmentInput) {
+      id
+      appointmentId
+      type
+      status
+      start
+      end
+      patientId {
+        id
+      }
+      fullName
+      notRegistered
       description
     }
   }
 `;
 
-export const UPDATE_APPOINTMENT = gql`
-  mutation updateAppointment(
-    $id: ID!
-    $dni: Int!
-    $firstName: String!
-    $lastName: String!
-    $email: String
-  ) {
-    updateAppointment(
-      id: $id
-      dni: $dni
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-    ) {
-      id
-      dni
-      firstName
-      lastName
-      email
-    }
-  }
-`;
 export const DELETE_APPOINTMENT = gql`
   mutation deleteAppointment($id: ID!) {
     deleteAppointment(id: $id) {

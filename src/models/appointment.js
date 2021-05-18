@@ -23,7 +23,7 @@ const appointmentSchema = new Schema(
     end: {
       type: Date,
     },
-    patient: {
+    patientId: {
       type: ObjectId,
       ref: "Patient",
     },

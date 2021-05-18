@@ -17,6 +17,11 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 //import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import SaveIcon from "@material-ui/icons/Save";
+import DeleteIcon from "@material-ui/icons/Delete";
+import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
+import Grid from "@material-ui/core/Grid";
 import AsyncSelectForFullCalendar from "../patient/patientSearch/AsyncSelectForFullCalendar";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +30,22 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     //alignItems: 'center'
+  },
+  button: {
+    margin: theme.spacing(1),
+    [theme.breakpoints.down("sm")]: {
+      minWidth: 32,
+      paddingLeft: 8,
+      paddingRight: 8,
+      "& .MuiButton-startIcon": {
+        margin: 0,
+      },
+    },
+  },
+  buttonText: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
 }));
 
@@ -94,6 +115,7 @@ export default function EventDialog(props) {
     useReusableForm(evt, true, validate);
 
   React.useEffect(() => {
+    console.log("EventDialog-evt: ", evt);
     setValues(evt);
     return () => {};
   }, [evt, setValues]);
@@ -109,7 +131,7 @@ export default function EventDialog(props) {
       ...values,
       fullName: val.fullName,
       notRegistered: "",
-      patient: val.id,
+      patientId: val.id,
     });
     //temp.notRegistered = "";
     //temp.fullName = "";
@@ -117,7 +139,7 @@ export default function EventDialog(props) {
   };
 
   const handleIconFullName = () => {
-    setValues({ ...values, fullName: "", patient: "" });
+    setValues({ ...values, fullName: "", patientId: "" });
   };
   const handleIconNotRegistered = () => {
     setValues({ ...values, notRegistered: "" });
@@ -141,10 +163,35 @@ export default function EventDialog(props) {
       closeDialog();
     }
   };
+
+  // const titlePicker = () => {
+  //   return (
+  //     <div>
+  //       <span>title</span>
+  //     </div>
+  //   );
+  // };
+  //<DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
   return (
     <div className={classes.paper}>
       <Dialog open={props.show} onClose={handleDialogClose}>
-        <DialogTitle id="form-dialog-title">Añadir Cita</DialogTitle>
+        <DialogTitle>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
+            {isEditing ? (
+              <span>Actualizar Cita</span>
+            ) : (
+              <span>Añadir Cita</span>
+            )}
+            <IconButton aria-label="close" onClick={handleDialogClose}>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
+        </DialogTitle>
         <DialogContent>
           <ReusableForm
           //onSubmit={handleSubmit}
@@ -212,10 +259,11 @@ export default function EventDialog(props) {
               onChange={handleInputChange}
               error={errors.end}
             />
-            <ReusableControls.CustomInput
+            <ReusableControls.CustomInputMulti
               variant="outlined"
               name="description"
               label="Descripción"
+              maxLines={2}
               value={values.description}
               onChange={handleInputChange}
               error={errors.description}
@@ -225,20 +273,32 @@ export default function EventDialog(props) {
         <DialogActions>
           {isEditing ? (
             <>
-              <Button onClick={handleDialogClose} color="primary">
-                Cancelar
+              <Button
+                onClick={handleDialogClose}
+                color="secondary"
+                //variant="outlined"
+                startIcon={<DeleteIcon />}
+              >
+                <span className={classes.buttonText}>Eliminar</span>
               </Button>
-              <Button onClick={handleDialogChange} color="primary">
-                Actualizar
+              <Button
+                onClick={handleDialogChange}
+                color="primary"
+                //variant="contained"
+                startIcon={<SaveIcon />}
+              >
+                <span className={classes.buttonText}>Guardar</span>
               </Button>
             </>
           ) : (
             <>
-              <Button onClick={handleDialogClose} color="primary">
-                Cancelar
-              </Button>
-              <Button onClick={handleDialogAdd} color="primary">
-                Añadir
+              <Button
+                onClick={handleDialogAdd}
+                color="primary"
+                //variant="contained"
+                startIcon={<SaveIcon />}
+              >
+                <span className={classes.buttonText}>Guardar</span>
               </Button>
             </>
           )}
@@ -247,6 +307,24 @@ export default function EventDialog(props) {
     </div>
   );
 }
+
+/*
+ <Button
+                onClick={handleDialogClose}
+                color="primary"
+                //variant="outlined"
+              >
+                Cancelar
+              </Button>
+*/
+/*
+<DialogTitle id="form-dialog-title">
+          {isEditing ? <span>Actualizar Cita</span> : <span>Añadir Cita</span>}
+          <IconButton>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+*/
 
 /*
  <Grid container>

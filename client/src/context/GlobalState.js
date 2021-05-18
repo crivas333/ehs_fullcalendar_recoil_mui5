@@ -322,7 +322,7 @@ export const GlobalProvider = ({ children }) => {
     try {
       //const res = await client.query({ query: GET_APPLICATIONSFIELDS });
       const res = await request("/graphql", GET_APPLICATIONSFIELDS);
-      console.log("getApplicationFieldsAPOLLO- res: ", res);
+      //console.log("getApplicationFieldsAPOLLO- res: ", res);
       dispatch({
         type: "GET_APPLICATIONFIELDS_GQL",
         //payload: res.data.getApplicationFields,

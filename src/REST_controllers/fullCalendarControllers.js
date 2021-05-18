@@ -232,12 +232,15 @@ exports.getAppointments = async (req, res, next) => {
     //console.log(doc);
     //normlization
     const resp = doc.map((a) => ({
-      id: a.appointmentId,
-      title: a.type,
+      //FullCalendar standard fields:
+      id: a.id,
       start: a.start,
       end: a.end,
+      //FullCalendar extendedProps fields:
+      type: a.type,
+      appointmentId: a.appointmentId, //
       status: a.status,
-      patient: a.patient,
+      patientId: a.patientId,
       fullName: a.fullName,
       notRegistered: a.notRegistered,
       description: a.description,

@@ -29,7 +29,7 @@ export default function CustomInputMulti(props) {
     value,
     error = null,
     onChange,
-    maxLines,
+    maxLines = 2,
     variant,
     readOnly,
   } = props;
