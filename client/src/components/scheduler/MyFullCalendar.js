@@ -159,7 +159,7 @@ export default function MayFullCalendar() {
         },
       });
       if (res && res.addAppointment) {
-        //console.log(res.addAppointment);
+        console.log(res.addAppointment);
         const calendarApi = calendarRef.current.getApi();
         calendarApi.refetchEvents();
       }
@@ -176,7 +176,7 @@ export default function MayFullCalendar() {
         appointmentInput: {
           start: data.start,
           end: data.end,
-          //appointmentId: data.appointmentId, //it is not defined in appointmentInput
+          appointmentId: data.appointmentId, //it is not defined in appointmentInput
           type: data.type,
           status: data.status,
           patientId: data.patientId,

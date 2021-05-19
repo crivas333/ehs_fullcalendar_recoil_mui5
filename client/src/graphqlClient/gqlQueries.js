@@ -254,7 +254,9 @@ export const ADD_APPOINTMENT = gql`
       end
       patientId {
         id
+        lastName
       }
+      #patientId   #this requires for typeDef: Paitien Id (not Patient Object)
       fullName
       notRegistered
       description
@@ -262,7 +264,10 @@ export const ADD_APPOINTMENT = gql`
   }
 `;
 export const UPDATE_APPOINTMENT = gql`
-  mutation updateAppointment($id: ID!, $appointmentInput: AppointmentInput) {
+  mutation updateAppointment(
+    $id: ID!
+    $appointmentInput: updateAppointmentInput
+  ) {
     updateAppointment(id: $id, appointmentInput: $appointmentInput) {
       id
       appointmentId
