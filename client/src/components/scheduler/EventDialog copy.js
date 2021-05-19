@@ -115,7 +115,7 @@ export default function EventDialog(props) {
     useReusableForm(evt, true, validate);
 
   React.useEffect(() => {
-    //console.log("EventDialog-evt: ", evt);
+    console.log("EventDialog-evt: ", evt);
     setValues(evt);
     return () => {};
   }, [evt, setValues]);

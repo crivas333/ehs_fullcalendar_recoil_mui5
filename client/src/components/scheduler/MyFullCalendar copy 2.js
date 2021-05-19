@@ -186,7 +186,7 @@ export default function MayFullCalendar() {
         },
       });
       if (res && res.updateAppointment) {
-        console.log("updateAppointment", res.updateAppointment);
+        //console.log(res.addAppointment);
         const calendarApi = calendarRef.current.getApi();
         calendarApi.refetchEvents();
       }
@@ -290,7 +290,7 @@ export default function MayFullCalendar() {
             center: "title",
             right: "dayGridMonth,timeGridWeek,timeGridDay,timeGridWeekDays",
           }}
-          initialView="timeGridDay"
+          initialView="timeGridWeekDays"
           //selectHelper={true}
           allDaySlot={false}
           slotDuration={"00:20:00"}

@@ -1,7 +1,8 @@
-import Joi from "joi";
-import { startChat } from "../schemas";
-import { User, Chat, Message, Patient, Appointment, Counters } from "../models";
-import { UserInputError } from "apollo-server-express";
+//import Joi from "joi";
+//import { startChat } from "../schemas";
+import { Patient, Appointment, Counters } from "../models";
+//import { UserInputError } from "apollo-server-express";
+//import mongoose from "mongoose";
 
 export default {
   Query: {
@@ -91,103 +92,60 @@ export default {
     },
 
     updateAppointment: async (root, args, { req }, info) => {
-      console.log("resolver.appointment-updateAppointment: ", args);
+      console.log("resolver.appointment-updateAppointment-args: ", args);
+      console.log("resolver.appointment-updateAppointment-args.id: ", args.id);
       //return Appointment.findById(args.id)
-
+      //mongoose.Types.ObjectId.isValid(value)
+      //const ID = new mongoose.Types.ObjectId(args.id);
+      //console.log("ID", ID);
+      //console.log(mongoose.Types.ObjectId.isValid(ID));
+      //return Appointment.findById(args.id);
+      //var appointment;
+      const doc = await Appointment.findById(args.id);
+      doc.type = args.appointmentInput.type;
+      doc.status = args.appointmentInput.status;
+      doc.start = args.appointmentInput.start;
+      doc.end = args.appointmentInput.end;
+      doc.patientId = args.appointmentInput.patientId || null;
+      doc.fullName = args.appointmentInput.fullName || "";
+      doc.notRegistered = args.appointmentInput.notRegistered || "";
+      doc.description = args.appointmentInput.description || "";
+      return await doc.save();
       try {
-        const appointment = await Appointment.findOneAndUpdate(
-          { id: args.appointmentInput.id },
+        appointment = await Appointment.findOneAndUpdate(
+          { id: args.id },
           {
-            $set: {
-              //appointmentId: args.appointmentInput.appointmentId,
-              type: args.appointmentInput.type,
-              status: args.appointmentInput.status,
-              start: args.appointmentInput.start,
-              end: args.appointmentInput.end,
-              patientId: args.appointmentInput.patientId || null,
-              fullName: args.appointmentInput.fullName || "",
-              notRegistered: args.appointmentInput.notRegistered || "",
-              description: args.appointmentInput.description || "",
-            },
+            //appointmentId: args.appointmentInput.appointmentId,
+            type: args.appointmentInput.type,
+            status: args.appointmentInput.status,
+            start: args.appointmentInput.start,
+            end: args.appointmentInput.end,
+            patientId: args.appointmentInput.patientId || null,
+            fullName: args.appointmentInput.fullName || "",
+            notRegistered: args.appointmentInput.notRegistered || "",
+            description: args.appointmentInput.description || "",
           },
           { new: true }
-        ).exec();
-        //console.log("changed appointment: ", appointment);
-
-        // const prevPatientRef = await Appointment.findOne(
-        //   { appointmentId: args.appointmentInput.appointmentId },
-        //   "patientId"
-        // ).exec();
-        // console.log("prevPatientRef: ", prevPatientRef);
-        // //const prevPatientRefstring=prevPatientRef.patient+''
-        // //const prevPatientRefstring=prevPatientRef.patient.toString()
-
-        // if (
-        //   args.appointmentInput.patientId === null &&
-        //   prevPatientRef.patientId === null
-        // ) {
-        //   console.log(" empty patientRef  and empty previousRef");
-        // }
-        // if (
-        //   args.appointmentInput.patientId === null &&
-        //   prevPatientRef.patient !== null
-        // ) {
-        //   console.log(" empty patientRef  and filled previousRef");
-        //   await Patient.findOneAndUpdate(
-        //     { _id: prevPatient.patientId + "" },
-        //     { $pull: { appointments: args.appointmentInput.id } }
-        //   ).exec();
-        // }
-        // if (
-        //   args.appointmentInput.patientid !== null &&
-        //   prevPatientRef.patient === null
-        // ) {
-        //   console.log(" filled with patientRef  and empty previousRef");
-        //   await Patient.findOneAndUpdate(
-        //     { _id: args.appointmentInput.patientId },
-        //     { $push: { appointments: appointment } }
-        //   ).exec();
-        // }
-
-        // if (
-        //   args.appointmentInput.patientId !== null &&
-        //   prevPatientRef.patientId !== null
-        // ) {
-        //   console.log("filled with patientRef  and filled with previousRef");
-
-        //   if (args.appointmentInput.patientId !== prevPatientRef.patient + "") {
-        //     console.log("PatientRef changed!");
-        //     await Patient.findOneAndUpdate(
-        //       { _id: prevPatient.patientId + "" },
-        //       { $pull: { appointments: args.appointmentInput.id } }
-        //     ).exec();
-        //   } else {
-        //     console.log("PatientRef didnt change!");
-        //   }
-        // }
-
-        return appointment;
-        //return Appointment.findById(args.appointmentInput.id);
-        //return (res.status(200))
-        //return res.status(200).json(Appointment.findById(args.id));
+        );
       } catch (err) {
         console.log("updateAppointment-error: ", error);
       }
+      return appointment;
     },
   },
-  Appointment: {
-    patientId: async (appointment, args, context, info) => {
-      // return (await appointment.populate('patient').execPopulate()).patient
-      return await Patient.findById(appointment.patientId);
-    },
-    // creator: async (appointment, args, context, info) => {
-    //       // console.log('parent - appointment: ',appointment)
-    //       // console.log('parent - appointment: ',appointment.creator)
-    //       //return (await appointment.populate('creator').execPopulate()).creator
-    //       // return Message.find({ chat: chat.id })
-    //   return (await User.findById(appointment.creator))
-    // }
-  },
+  // Appointment: {
+  //   patientId: async (appointment, args, context, info) => {
+  //     // return (await appointment.populate('patient').execPopulate()).patient
+  //     return await Patient.findById(appointment.patientId);
+  //   },
+  //   // creator: async (appointment, args, context, info) => {
+  //   //       // console.log('parent - appointment: ',appointment)
+  //   //       // console.log('parent - appointment: ',appointment.creator)
+  //   //       //return (await appointment.populate('creator').execPopulate()).creator
+  //   //       // return Message.find({ chat: chat.id })
+  //   //   return (await User.findById(appointment.creator))
+  //   // }
+  // },
 };
 
 // Patient: {
