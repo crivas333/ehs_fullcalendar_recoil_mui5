@@ -212,10 +212,9 @@ export default function EventDialog(props) {
             />
             <AsyncSelectForFullCalendar onValChange={onAutoCompleteChange} />
             <ReusableControls.CustomInputIconDelete
-              //autosize={true}
               variant="outlined"
               name="fullName"
-              label="Paciente Registrado"
+              label="Seleccione Paciente Registrado"
               value={values.fullName}
               error={errors.fullName}
               handleIconClick={handleIconFullName}
@@ -224,7 +223,7 @@ export default function EventDialog(props) {
             <ReusableControls.CustomInputIconEdit
               variant="outlined"
               name="notRegistered"
-              label="Paciente NO Registrado"
+              label="Paciente No Registrado"
               value={values.notRegistered}
               onChange={handleInputChange}
               error={errors.notRegistered}

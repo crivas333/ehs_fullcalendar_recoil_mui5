@@ -14,6 +14,17 @@ const selectStyles = {
     ...base,
     zIndex: 100,
   }),
+  container: (base) => ({
+    ...base,
+    //margin: 9,
+    margin: "9px",
+    //width: "535px",
+    minWidth: "100%",
+  }),
+  // control: (base) => ({
+  //   ...base,
+  //   padding: 100,
+  // }),
 };
 const formatOptionLabel = ({ historyId, lastName, lastName2, firstName }) => (
   <span>{`${historyId} - ${lastName} ${lastName2}, ${firstName}`}</span>
@@ -94,7 +105,7 @@ export default function AsyncSelectAC(props) {
         //components={{ Input }}
         formatOptionLabel={formatOptionLabel}
         //className='boxSize'
-        placeholder="Buscar por a. Paterno"
+        placeholder="Seleccione PACIENTE por A. Paterno"
         //className="select"
         //cacheOptions
         //defaultOptions

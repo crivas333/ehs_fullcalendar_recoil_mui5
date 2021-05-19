@@ -4,7 +4,8 @@ import { TextField } from "@material-ui/core";
 //import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from "@material-ui/core/InputAdornment";
 //import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Clear";
+//import DeleteIcon from "@material-ui/icons/Clear";
+import ClearIcon from "@material-ui/icons/Clear";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -55,7 +56,7 @@ export default function CustomInputIconDelete(props) {
         endAdornment: (
           <InputAdornment position="end">
             <IconButton onClick={handleIconClick}>
-              <DeleteIcon />
+              <ClearIcon fontSize="small" />
             </IconButton>
           </InputAdornment>
         ),

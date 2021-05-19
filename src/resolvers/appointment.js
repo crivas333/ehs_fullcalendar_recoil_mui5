@@ -81,6 +81,7 @@ export default {
       //return Appointment.findById(args.id);
       var appointment;
       const doc = await Appointment.findById(args.id);
+      //doc.appointmentId= args.appointmentInput.appointmentId, //it works with or without appointmentId
       doc.type = args.appointmentInput.type;
       doc.status = args.appointmentInput.status;
       doc.start = args.appointmentInput.start;
@@ -95,7 +96,7 @@ export default {
       //     { _id: args.id },
       //     {
       //       $set: {
-      //         appointmentId: args.appointmentInput.appointmentId,
+      //         appointmentId: args.appointmentInput.appointmentId,  //this filed must be included
       //         type: args.appointmentInput.type,
       //         status: args.appointmentInput.status,
       //         start: args.appointmentInput.start,
