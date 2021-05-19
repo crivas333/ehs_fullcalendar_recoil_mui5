@@ -57,6 +57,7 @@ export default {
         fullName: args.appointmentInput.fullName || "",
         notRegistered: args.appointmentInput.notRegistered || "",
         description: args.appointmentInput.description || "",
+        backgroundColor: args.appointmentInput.backgroundColor || "",
       });
       //let createdAppo;
       try {
@@ -90,6 +91,7 @@ export default {
       doc.fullName = args.appointmentInput.fullName || "";
       doc.notRegistered = args.appointmentInput.notRegistered || "";
       doc.description = args.appointmentInput.description || "";
+      doc.backgroundColor = args.appointmentInput.backgroundColor || "";
       return await doc.save();
       // try {
       //   const appointment = await Appointment.findOneAndUpdate(

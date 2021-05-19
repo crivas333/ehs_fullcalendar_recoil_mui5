@@ -153,6 +153,7 @@ export default function EventDialog(props) {
 
   const handleDialogAdd = (e) => {
     e.preventDefault();
+
     if (validate()) {
       handleAddingEvt(values);
       resetForm();
@@ -328,6 +329,25 @@ export default function EventDialog(props) {
   );
 }
 
+/*
+ <DialogTitle>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
+            {isEditing ? (
+              <span>Actualizar Cita</span>
+            ) : (
+              <span>Añadir Cita</span>
+            )}
+            <IconButton aria-label="close" onClick={handleDialogClose}>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
+        </DialogTitle>
+*/
 /*
  <Button
                 onClick={handleDialogClose}

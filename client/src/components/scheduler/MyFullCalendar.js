@@ -40,12 +40,14 @@ const initialEvt = {
   fullName: "",
   notRegistered: "",
   description: "",
+  backgroundColor: "",
 };
 
 function renderEventContent(eventInfo) {
   //console.log("renderEventContent", eventInfo);
   //<b>{eventInfo.timeText}</b>
   //<i>{eventInfo.event.extendedProps.type}</i>
+
   return (
     <>
       <b>{eventInfo.event.id}</b>
@@ -145,6 +147,24 @@ export default function MayFullCalendar() {
   const handleAddingEvt = async (data) => {
     console.log("FC-handleAddingEvt", data);
     //console.log("eventAdding: ", addInfo);
+    switch (data.status) {
+      case "PROGRAMADA":
+        data.backgroundColor = "#F57F17";
+        break;
+      case "CONFIRMADA":
+        data.backgroundColor = "#7fa900";
+        break;
+      case "POSTERGADA":
+        data.backgroundColor = "#8e24aa";
+        break;
+      case "CANCELADA":
+        data.backgroundColor = "#92a8d1";
+        break;
+      case "ATENDIDA":
+        data.backgroundColor = "#808080";
+        break;
+      default:
+    }
     try {
       const res = await request("/graphql", ADD_APPOINTMENT, {
         appointmentInput: {
@@ -156,6 +176,7 @@ export default function MayFullCalendar() {
           fullName: data.fullName,
           notRegistered: data.notRegistered,
           description: data.description,
+          backgroundColor: data.backgroundColor,
         },
       });
       if (res && res.addAppointment) {
@@ -170,6 +191,24 @@ export default function MayFullCalendar() {
   };
   const handleChangingEvt = async (data) => {
     console.log("handleChangingEvt", data);
+    switch (data.status) {
+      case "PROGRAMADA":
+        data.backgroundColor = "#F57F17";
+        break;
+      case "CONFIRMADA":
+        data.backgroundColor = "#7fa900";
+        break;
+      case "POSTERGADA":
+        data.backgroundColor = "#8e24aa";
+        break;
+      case "CANCELADA":
+        data.backgroundColor = "#92a8d1";
+        break;
+      case "ATENDIDA":
+        data.backgroundColor = "#808080";
+        break;
+      default:
+    }
     try {
       const res = await request("/graphql", UPDATE_APPOINTMENT, {
         id: data.id,
@@ -183,6 +222,7 @@ export default function MayFullCalendar() {
           fullName: data.fullName,
           notRegistered: data.notRegistered,
           description: data.description,
+          backgroundColor: data.backgroundColor,
         },
       });
       if (res && res.updateAppointment) {
@@ -212,6 +252,7 @@ export default function MayFullCalendar() {
       fullName: "",
       notRegistered: "",
       description: "",
+      backgroundColor: "",
     });
     setOpenEventDialog(true);
   };

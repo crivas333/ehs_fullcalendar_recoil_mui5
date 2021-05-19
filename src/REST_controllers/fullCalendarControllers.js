@@ -244,6 +244,7 @@ exports.getAppointments = async (req, res, next) => {
       fullName: a.fullName,
       notRegistered: a.notRegistered,
       description: a.description,
+      backgroundColor: a.backgroundColor,
     }));
     //console.log(resp);
     return res.status(200).json(resp);

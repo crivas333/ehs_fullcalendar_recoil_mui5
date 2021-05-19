@@ -28,6 +28,7 @@ export default gql`
     notRegistered: String
     creator: ID #creator: User
     description: String
+    backgroundColor: String
     #title: String #Syncfusion Type - mapped to appointmentType
     #IsAllDay: Boolean
     #StartTimezone: String
@@ -45,6 +46,7 @@ export default gql`
     notRegistered: String
     creator: ID #creator: User
     description: String
+    backgroundColor: String
     #title: String #Syncfusion Type - mapped to appointmentType
     #IsAllDay: Boolean
     #StartTimezone: String
@@ -63,6 +65,7 @@ export default gql`
     notRegistered: String
     creator: User
     description: String
+    backgroundColor: String
     #title: String #Syncfusion Type - mapped to appointmentType
     #IsAllDay: Boolean
     #StartTimezone: String

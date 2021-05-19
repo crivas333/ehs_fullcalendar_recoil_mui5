@@ -38,6 +38,10 @@ const appointmentSchema = new Schema(
       type: String,
       trim: true,
     },
+    backgroundColor: {
+      type: String,
+      trim: true,
+    },
     creator: {
       type: ObjectId,
       ref: "User",
