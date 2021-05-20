@@ -15,9 +15,10 @@ import "./styling.css";
 import {
   ADD_APPOINTMENT,
   UPDATE_APPOINTMENT,
+  DELETE_APPOINTMENT,
   //GET_APPOINTMENTS_BY_TIMEFRAME,
 } from "../../graphqlClient/gqlQueries";
-import { id } from "date-fns/locale";
+//import { id } from "date-fns/locale";
 
 // id: id,
 // appointmentId: appointmentId,
@@ -47,10 +48,12 @@ function renderEventContent(eventInfo) {
   //console.log("renderEventContent", eventInfo);
   //<b>{eventInfo.timeText}</b>
   //<i>{eventInfo.event.extendedProps.type}</i>
+  //<b>{eventInfo.event.id}</b>
 
   return (
     <>
-      <b>{eventInfo.event.id}</b>
+      <b>{eventInfo.timeText}</b>
+      <i>{eventInfo.event.extendedProps.type}</i>
     </>
   );
 }
@@ -118,31 +121,35 @@ export default function MayFullCalendar() {
     setOpenEventDialog(false);
   };
 
-  const eventAdding = async (data) => {};
-  const eventChanging = async () => {};
-  const eventRemoving = async () => {};
-
-  const handleAddingEvt111 = (data) => {
-    //console.log("Report-handleEvt-evt", evt);
-    const calendarApi = calendarRef.current.getApi();
-    calendarApi.addEvent(
-      {
-        title: data.type,
-        start: data.start,
-        end: data.end,
-        extendedProps: {
-          patient: data.patient || null,
-          fullName: data.fullName || "",
-          notRegistered: data.notRegistered || "",
-          status: data.status || "",
-          description: data.description,
+  //const eventAdding = async (data) => {};
+  const eventChanging = async (changeInfo) => {
+    console.log("eventChanging: ", changeInfo);
+    try {
+      const res = await request("/graphql", UPDATE_APPOINTMENT, {
+        id: changeInfo.event.id,
+        appointmentInput: {
+          start: changeInfo.event.startStr,
+          end: changeInfo.event.endStr,
+          type: changeInfo.event.extendedProps.type,
+          status: changeInfo.event.extendedProps.status,
+          patientId: changeInfo.event.extendedProps.patientId || null,
+          fullName: changeInfo.event.extendedProps.fullName || "",
+          notRegistered: changeInfo.event.extendedProps.notRegistered || "",
+          description: changeInfo.event.extendedProps.description || "",
+          appointmentId: changeInfo.event.extendedProps.appointmentId,
+          backgroundColor: changeInfo.event.backgroundColor,
         },
-        //allDay: selectInfo.allDay,
-      },
-      true
-    );
-    setEvt(initialEvt);
+      });
+      if (res && res.updateAppointment) {
+        //console.log("updateAppointment", res.updateAppointment);
+        const calendarApi = calendarRef.current.getApi();
+        calendarApi.refetchEvents();
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
+  //const eventRemoving = async () => {};
 
   const handleAddingEvt = async (data) => {
     console.log("FC-handleAddingEvt", data);
@@ -226,7 +233,7 @@ export default function MayFullCalendar() {
         },
       });
       if (res && res.updateAppointment) {
-        console.log("updateAppointment", res.updateAppointment);
+        //console.log("updateAppointment", res.updateAppointment);
         const calendarApi = calendarRef.current.getApi();
         calendarApi.refetchEvents();
       }
@@ -235,7 +242,23 @@ export default function MayFullCalendar() {
     }
     setEvt(initialEvt);
   };
-  const handleRemovingEvt = () => {};
+  const handleRemovingEvt = async (data) => {
+    console.log("handleRemovingEvt", data);
+
+    try {
+      const res = await request("/graphql", DELETE_APPOINTMENT, {
+        id: data.id,
+      });
+      if (res && res.deleteAppointment) {
+        console.log("deleteAppointment", res.deleteAppointment);
+        const calendarApi = calendarRef.current.getApi();
+        calendarApi.refetchEvents();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setEvt(initialEvt);
+  };
 
   const handleDateSelect = (selectInfo) => {
     let calendarApi = selectInfo.view.calendar;
@@ -350,8 +373,9 @@ export default function MayFullCalendar() {
           eventClick={handleEventClick}
           eventsSet={handleEvents} // called after events are initialized/added/changed/removed
           //eventAdd={eventAdding}
-          //eventChange={eventChanging}
+          eventChange={eventChanging}
           //eventRemove={eventRemoving}
+          //eventChange={(txt) => console.log("eventChanged: ", txt)}
           //dateClick={this.handleDateClick}
           events={"/api/v1/fullCalendar/getDataFull"} //!!!!!!!!!!!!!!!!!!! ok
           //datesSet={formatEvents111}

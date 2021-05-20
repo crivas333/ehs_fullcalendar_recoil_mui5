@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 //import { Grid } from "@material-ui/core";
 import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
 import {
@@ -57,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EventDialog(props) {
   const classes = useStyles();
-  const [openConfirmation, setOpenConfirmation] = useState(false);
   const { applicationFields } = useContext(GlobalContext);
   const {
     evt,
@@ -121,11 +120,16 @@ export default function EventDialog(props) {
   const { values, setValues, errors, setErrors, handleInputChange, resetForm } =
     useReusableForm(evt, true, validate);
 
-  useEffect(() => {
+  React.useEffect(() => {
     //console.log("EventDialog-evt: ", evt);
     setValues(evt);
     return () => {};
   }, [evt, setValues]);
+
+  const handleDialogClose = () => {
+    resetForm();
+    closeDialog();
+  };
 
   const onAutoCompleteChange = (val) => {
     //console.log("onAutoCompleteChange: ", val.fullName);
@@ -139,6 +143,7 @@ export default function EventDialog(props) {
     //temp.fullName = "";
     setErrors({ ...errors, notRegistered: "", fullName: "" });
   };
+
   const handleIconFullName = () => {
     setValues({ ...values, fullName: "", patientId: "" });
   };
@@ -146,10 +151,6 @@ export default function EventDialog(props) {
     setValues({ ...values, notRegistered: "" });
   };
 
-  const handleDialogClose = () => {
-    resetForm();
-    closeDialog();
-  };
   const handleDialogAdd = (e) => {
     e.preventDefault();
 
@@ -170,21 +171,21 @@ export default function EventDialog(props) {
     }
   };
   const handleDialogDelete = (e) => {
-    resetForm();
-    closeDialog();
-    setOpenConfirmation(true);
-  };
-  const handleConfirmationCancel = (e) => {
-    resetForm();
-    setOpenConfirmation(false);
-  };
-  const handleConfirmationOk = (e) => {
     e.preventDefault();
+
     handleRemovingEvt(values);
     resetForm();
-    setOpenConfirmation(false);
+    closeDialog();
   };
 
+  // const titlePicker = () => {
+  //   return (
+  //     <div>
+  //       <span>title</span>
+  //     </div>
+  //   );
+  // };
+  //<DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
   return (
     <div className={classes.paper}>
       <Dialog open={props.show} onClose={handleDialogClose}>
@@ -329,44 +330,6 @@ export default function EventDialog(props) {
               </Button>
             </>
           )}
-        </DialogActions>
-      </Dialog>
-
-      <Dialog
-        open={openConfirmation}
-        onClose={handleDialogClose}
-        disableBackdropClick
-        disableEscapeKeyDown
-        //maxWidth="xs"
-        //onEntering={handleEntering}
-      >
-        <DialogTitle>Confirmación</DialogTitle>
-        <DialogContent>¿Seguro que desea ELIMINAR esta CITA?</DialogContent>
-        <DialogActions>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-          >
-            <Button
-              onClick={handleConfirmationOk}
-              color="secondary"
-              //variant="outlined"
-              startIcon={<DeleteIcon />}
-            >
-              <span className={classes.buttonText}>Eliminar</span>
-            </Button>
-            <Button
-              autoFocus
-              onClick={handleConfirmationCancel}
-              color="primary"
-              //variant="contained"
-              startIcon={<CloseIcon />}
-            >
-              <span className={classes.buttonText}>Cancelar</span>
-            </Button>
-          </Grid>
         </DialogActions>
       </Dialog>
     </div>

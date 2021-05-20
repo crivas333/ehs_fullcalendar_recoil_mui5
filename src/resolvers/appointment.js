@@ -117,6 +117,12 @@ export default {
       //   console.log("updateAppointment-error: ", error);
       // }
     },
+    deleteAppointment: async (root, args, { req }, info) => {
+      const appointment = await Appointment.findByIdAndDelete(args.id);
+      // patient = await Patient.findById(args.id)
+      // req.session.userId = patient.id
+      return appointment;
+    },
   },
   //in the following code: parent=appointment
   Appointment: {

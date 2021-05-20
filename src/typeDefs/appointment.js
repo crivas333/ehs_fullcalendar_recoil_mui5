@@ -14,6 +14,7 @@ export default gql`
       id: ID!
       appointmentInput: updateAppointmentInput
     ): Appointment @auth
+    deleteAppointment(id: ID!): Appointment @auth
   }
 
   input AppointmentInput {
