@@ -52,8 +52,10 @@ function renderEventContent(eventInfo) {
 
   return (
     <>
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.extendedProps.type}</i>
+      <b>{eventInfo.timeText}</b>&nbsp;
+      <i>{eventInfo.event.extendedProps.type}</i>&nbsp;
+      <i>{eventInfo.event.extendedProps.fullName}</i>
+      <i>{eventInfo.event.extendedProps.notRegistered}</i>
     </>
   );
 }
@@ -308,6 +310,8 @@ export default function MayFullCalendar() {
       {/*{this.renderSidebar()}*/}
       <div className="demo-app-main">
         <FullCalendar
+          //slotMinHeight={50}
+          //eventMinHeight={50}
           ref={calendarRef}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           contentHeight="auto"
@@ -330,8 +334,9 @@ export default function MayFullCalendar() {
             },
             timeGridWeekDays: {
               type: "timeGrid",
-              duration: { days: 7 },
-              hiddenDays: [0, 6],
+              //duration: { days: 7 },
+              //hiddenDays: [0, 6],
+              duration: { days: 5 },
               buttonText: "5 day",
             },
             timeGridDay: {
