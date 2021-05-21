@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 //import { useRecoilState } from "recoil";
 //import { appoEvtState } from "../../context/recoilStore";
+import Tooltip from "@material-ui/core/Tooltip";
+//import Typography from "@material-ui/core/Typography";
 import FullCalendar from "@fullcalendar/react";
 //import { formatDate } from '@fullcalendar/react';
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -30,6 +32,7 @@ import {
 // fullName: a.fullName,
 // notRegistered: a.notRegistered,
 // description: a.description,
+
 const initialEvt = {
   id: null, //will store MongoDB id
   start: "",
@@ -45,79 +48,46 @@ const initialEvt = {
 };
 
 function renderEventContent(eventInfo) {
-  //console.log("renderEventContent", eventInfo);
+  console.log("renderEventContent", eventInfo);
   //<b>{eventInfo.timeText}</b>
   //<i>{eventInfo.event.extendedProps.type}</i>
-  //<b>{eventInfo.event.id}</b>
 
+  //<span>{eventInfo.timeText}&nbsp;</span>
+  console.log(eventInfo.view.type);
+  //const calendarApi = calendarRef.current.getApi();
+  //let calendarApi = eventInfo.view.calendar;
   return (
     <>
-      <b>{eventInfo.timeText}</b>&nbsp;
-      <i>{eventInfo.event.extendedProps.type}</i>&nbsp;
-      <i>{eventInfo.event.extendedProps.fullName}</i>
-      <i>{eventInfo.event.extendedProps.notRegistered}</i>
+      <Tooltip title="My Tooltip Content" placement="bottom-start">
+        <div className="div.fc-event-main">
+          {eventInfo.view.type === "timeGridDay" ? (
+            <>
+              <b>{eventInfo.timeText}</b>&nbsp;
+              <i>{eventInfo.event.extendedProps.type}</i>
+              <br />
+              <span>{eventInfo.event.extendedProps.fullName}</span>
+              <span>{eventInfo.event.extendedProps.notRegistered}</span>
+            </>
+          ) : (
+            <>
+              <b>
+                {eventInfo.timeText}
+                <br />
+              </b>
+              <i>{eventInfo.event.extendedProps.type}</i>
+            </>
+          )}
+        </div>
+      </Tooltip>
     </>
   );
 }
-// const formatEvents111 = async (info) => {
-//   try {
-//     const res = await request("/graphql", GET_APPOINTMENTS_BY_TIMEFRAME, {
-//       start: info.start,
-//       end: info.end,
-//     });
-//     //console.log("loadOptions-res:", res.getAppointmentsByTimeframe);
-//     console.log(
-//       res.getAppointmentsByTimeframe.map((a) => ({
-//         id: a.appointmentId,
-//         title: a.appointmentType,
-//         start: new Date(parseInt(a.start)).toISOString(),
-//         end: new Date(parseInt(a.start)).toISOString(),
-//       }))
-//     );
-
-//     if (res && res.getAppointmentsByTimeframe) {
-//       return res.getAppointmentsByTimeframe.map((a) => ({
-//         id: a.appointmentId,
-//         title: a.appointmentType,
-//         start: new Date(parseInt(a.start)).toISOString(),
-//         end: new Date(parseInt(a.end)).toISOString(),
-//       }));
-//     }
-//     return [];
-//   } catch (err) {
-//console.log('AsyncSelectAC - error: ',err)
-//     console.log(err);
-//   }
-// };
 
 export default function MayFullCalendar() {
   const [openEventDialog, setOpenEventDialog] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [evt, setEvt] = useState(initialEvt);
   const calendarRef = React.useRef(null);
-
-  // React.useEffect(() => {
-  //   //console.log("evenTemp1: ", eventTemp);
-  //   //eventTemp = { title: "newTitle" };
-  //   // useStore.setState((state) => ({
-  //   //   ...state,
-  //   //   eventTemp,
-  //   // }));
-  //   //setEventTemp({ title: "newTitle", title2: "newTitle2" });
-  //   //console.log("evenTemp2: ", eventTemp);
-  //   //setAppoEvt({ title: "newTitle", title2: "newTitle2" });
-  // }, []);
-
-  // const fetchEvents = (fetchInfo, successCallback, failureCallback) => {
-  //   console.log("fetchEvents: ", fetchInfo);
-  //   formatEvents111(fetchInfo)
-  //     .then((events) => {
-  //       successCallback(events);
-  //     })
-  //     .catch((error) => {
-  //       failureCallback(error);
-  //     });
-  // };
 
   const handleCloseDialog = () => {
     setOpenEventDialog(false);
@@ -136,7 +106,8 @@ export default function MayFullCalendar() {
           status: changeInfo.event.extendedProps.status,
           patientId: changeInfo.event.extendedProps.patientId || null,
           fullName: changeInfo.event.extendedProps.fullName || "",
-          notRegistered: changeInfo.event.extendedProps.notRegistered || "",
+          notRegistered:
+            changeInfo.event.extendedProps.notRegistered.toUpperCase() || "",
           description: changeInfo.event.extendedProps.description || "",
           appointmentId: changeInfo.event.extendedProps.appointmentId,
           backgroundColor: changeInfo.event.backgroundColor,
@@ -174,6 +145,9 @@ export default function MayFullCalendar() {
         break;
       default:
     }
+    const calendarApi = calendarRef.current.getApi();
+    //calendarApi.refetchEvents();
+
     try {
       const res = await request("/graphql", ADD_APPOINTMENT, {
         appointmentInput: {
@@ -190,8 +164,24 @@ export default function MayFullCalendar() {
       });
       if (res && res.addAppointment) {
         console.log(res.addAppointment);
-        const calendarApi = calendarRef.current.getApi();
-        calendarApi.refetchEvents();
+        calendarApi.addEvent(
+          {
+            id: res.addAppointment.id,
+            start: data.start,
+            end: data.end,
+            backgroundColor: res.addAppointment.backgroundColor,
+            extendedProps: {
+              type: res.addAppointment.type,
+              status: res.addAppointment.status,
+              patientId: res.addAppointment.patientId,
+              fullName: res.addAppointment.fullName,
+              notRegistered: res.addAppointment.notRegistered,
+              description: res.addAppointment.description,
+              appointmentId: res.addAppointment.appointmentId,
+            },
+          },
+          true
+        );
       }
     } catch (err) {
       console.log(err);
@@ -305,13 +295,14 @@ export default function MayFullCalendar() {
     //   currentEvents: events,
     // });
   };
+
   return (
     <div className="demo-app">
       {/*{this.renderSidebar()}*/}
       <div className="demo-app-main">
         <FullCalendar
           //slotMinHeight={50}
-          //eventMinHeight={50}
+          //eventMinHeight={15}
           ref={calendarRef}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           contentHeight="auto"
@@ -359,6 +350,14 @@ export default function MayFullCalendar() {
             center: "title",
             right: "dayGridMonth,timeGridWeek,timeGridDay,timeGridWeekDays",
           }}
+          // customButtons={{
+          //   addEventButton: {
+          //     text: "add event...",
+          //     click: function () {
+          //       console.log("a");
+          //     },
+          //   },
+          // }}
           initialView="timeGridDay"
           //selectHelper={true}
           allDaySlot={false}
@@ -383,8 +382,12 @@ export default function MayFullCalendar() {
           //eventChange={(txt) => console.log("eventChanged: ", txt)}
           //dateClick={this.handleDateClick}
           events={"/api/v1/fullCalendar/getDataFull"} //!!!!!!!!!!!!!!!!!!! ok
+          //lazyFetching={false}
           //datesSet={formatEvents111}
-          locale={"es-PE"}
+          //locale={"es-PE"}
+          locale={"es"}
+          //timezone='America/Lima'
+          //eventDidMount={handleEventDidMount}
         />
 
         <EventDialog
@@ -400,3 +403,26 @@ export default function MayFullCalendar() {
     </div>
   );
 }
+
+// const fetchEvents = (fetchInfo, successCallback, failureCallback) => {
+//   console.log("fetchEvents: ", fetchInfo);
+//   formatEvents111(fetchInfo)
+//     .then((events) => {
+//       successCallback(events);
+//     })
+//     .catch((error) => {
+//       failureCallback(error);
+//     });
+// };
+
+/*
+ var min = 1;
+      var max = 100;
+      var rand =  min + (Math.random() * (max-min));
+*/
+// customButtons: {
+//   addEventButton: {
+//     text: 'add event...',
+//     click: function() {}
+//   }
+// }

@@ -260,6 +260,7 @@ export const ADD_APPOINTMENT = gql`
       fullName
       notRegistered
       description
+      backgroundColor
     }
   }
 `;

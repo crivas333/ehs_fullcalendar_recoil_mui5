@@ -12,7 +12,13 @@ import "./asyncSelect.css";
 const selectStyles = {
   menu: (base) => ({
     ...base,
-    zIndex: 100,
+
+    zIndex: 100, //this eliminates menu transparency
+  }),
+  control: (provided) => ({
+    ...provided,
+    // none of react-select's styles are passed to <Control />
+    borderColor: "blue",
   }),
   container: (base) => ({
     ...base,
@@ -97,7 +103,8 @@ export default function AsyncSelectAC(props) {
     <div>
       <AsyncSelect
         styles={selectStyles}
-        autoFocus
+        //autoFocus
+        //menuColor="red"
         isClearable
         loadingIndicator
         //styles={customStyles}

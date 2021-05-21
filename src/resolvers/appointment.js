@@ -72,7 +72,7 @@ export default {
     },
 
     updateAppointment: async (root, args, { req }, info) => {
-      //console.log("resolver.appointment-updateAppointment-args: ", args);
+      console.log("resolver.appointment-updateAppointment-args: ", args);
       //console.log("resolver.appointment-updateAppointment-args.id: ", args.id);
       //return Appointment.findById(args.id)
       //mongoose.Types.ObjectId.isValid(value)
