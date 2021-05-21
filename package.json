@@ -9,7 +9,7 @@
   "scripts": {
     "start": "NODE_ENV=production node -r esm .",
     "dev": "nodemon -r esm",
-    "heroku-postbuild": "cd client && yarn && yarn build"
+    "heroku-postbuild": "cd client && yarn --production=true && yarn build"
   },
   "dependencies": {
     "apollo-server-express": "^2.23.0",
