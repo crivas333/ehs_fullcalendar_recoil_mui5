@@ -89,8 +89,9 @@ export default {
       doc.end = args.appointmentInput.end;
       doc.patientId = args.appointmentInput.patientId || null;
       doc.fullName = args.appointmentInput.fullName || "";
-      doc.notRegistered = args.appointmentInput.notRegistered || "";
-      doc.description = args.appointmentInput.description || "";
+      doc.notRegistered =
+        args.appointmentInput.notRegistered.toUpperCase() || "";
+      doc.description = args.appointmentInput.description.toUpperCase() || "";
       doc.backgroundColor = args.appointmentInput.backgroundColor || "";
       return await doc.save();
       // try {

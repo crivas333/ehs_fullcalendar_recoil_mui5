@@ -48,17 +48,27 @@ const initialEvt = {
 };
 
 function renderEventContent(eventInfo) {
-  console.log("renderEventContent", eventInfo);
-  //<b>{eventInfo.timeText}</b>
-  //<i>{eventInfo.event.extendedProps.type}</i>
-
-  //<span>{eventInfo.timeText}&nbsp;</span>
-  console.log(eventInfo.view.type);
+  //console.log("renderEventContent", eventInfo);
   //const calendarApi = calendarRef.current.getApi();
   //let calendarApi = eventInfo.view.calendar;
   return (
     <>
-      <Tooltip title="My Tooltip Content" placement="bottom-start">
+      <Tooltip
+        placement="bottom-start"
+        title={
+          <>
+            <b>{eventInfo.timeText}</b>&nbsp;
+            <i>{eventInfo.event.extendedProps.type}</i>
+            <br />
+            <span>{eventInfo.event.extendedProps.fullName}</span>
+            <span>{eventInfo.event.extendedProps.notRegistered}</span>
+            <br />
+            <span>{eventInfo.event.extendedProps.status}</span>
+            <br />
+            <span>{eventInfo.event.extendedProps.description}</span>
+          </>
+        }
+      >
         <div className="div.fc-event-main">
           {eventInfo.view.type === "timeGridDay" ? (
             <>
@@ -87,6 +97,8 @@ export default function MayFullCalendar() {
   const [openEventDialog, setOpenEventDialog] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [evt, setEvt] = useState(initialEvt);
+  const [weekends, setWeekends] = useState(false);
+  const [shift, setShift] = useState("13:00:00");
   const calendarRef = React.useRef(null);
 
   const handleCloseDialog = () => {
@@ -106,8 +118,7 @@ export default function MayFullCalendar() {
           status: changeInfo.event.extendedProps.status,
           patientId: changeInfo.event.extendedProps.patientId || null,
           fullName: changeInfo.event.extendedProps.fullName || "",
-          notRegistered:
-            changeInfo.event.extendedProps.notRegistered.toUpperCase() || "",
+          notRegistered: changeInfo.event.extendedProps.notRegistered || "",
           description: changeInfo.event.extendedProps.description || "",
           appointmentId: changeInfo.event.extendedProps.appointmentId,
           backgroundColor: changeInfo.event.backgroundColor,
@@ -297,12 +308,12 @@ export default function MayFullCalendar() {
   };
 
   return (
-    <div className="demo-app">
+    <div>
       {/*{this.renderSidebar()}*/}
-      <div className="demo-app-main">
+      <div>
         <FullCalendar
-          //slotMinHeight={50}
-          //eventMinHeight={15}
+          //slotMinHeight={50} //done in CSS
+          //eventMinHeight={15} //ignored due to slotMinHeight setting in CSS
           ref={calendarRef}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           contentHeight="auto"
@@ -323,13 +334,13 @@ export default function MayFullCalendar() {
                 day: "2-digit",
               },
             },
-            timeGridWeekDays: {
-              type: "timeGrid",
-              //duration: { days: 7 },
-              //hiddenDays: [0, 6],
-              duration: { days: 5 },
-              buttonText: "5 day",
-            },
+            // timeGridWeekDays: {
+            //   type: "timeGrid",
+            //   //duration: { days: 7 },
+            //   //hiddenDays: [0, 6],
+            //   duration: { days: 5 },
+            //   buttonText: "5 day",
+            // },
             timeGridDay: {
               titleFormat: {
                 year: "numeric",
@@ -348,21 +359,32 @@ export default function MayFullCalendar() {
           headerToolbar={{
             left: "prev,next today",
             center: "title",
-            right: "dayGridMonth,timeGridWeek,timeGridDay,timeGridWeekDays",
+            //right: "dayGridMonth,timeGridWeek,timeGridDay,timeGridWeekDays",
+            right:
+              "dayGridMonth,timeGridWeek,timeGridDay weekendsButton,shiftButton,",
           }}
-          // customButtons={{
-          //   addEventButton: {
-          //     text: "add event...",
-          //     click: function () {
-          //       console.log("a");
-          //     },
-          //   },
-          // }}
-          initialView="timeGridDay"
+          customButtons={{
+            weekendsButton: {
+              text: "[5]-[7]",
+              click: function () {
+                setWeekends((prev) => !prev);
+              },
+            },
+            shiftButton: {
+              text: "[1]-[1/2]",
+              click: function () {
+                if (shift === "07:00:00") setShift("13:00:00");
+                if (shift === "13:00:00") setShift("07:00:00");
+              },
+            },
+          }}
+          weekends={weekends}
+          initialView="timeGridWeek"
           //selectHelper={true}
           allDaySlot={false}
           slotDuration={"00:20:00"}
-          slotMinTime={"07:00:00"}
+          //slotMinTime={"07:00:00"}
+          slotMinTime={shift}
           firstDay={1} //Monday
           //eventMaxStack={3}
           nowIndicator={true}
@@ -413,6 +435,37 @@ export default function MayFullCalendar() {
 //     .catch((error) => {
 //       failureCallback(error);
 //     });
+// };
+
+// const formatEvents111 = async (info) => {
+//   try {
+//     const res = await request("/graphql", GET_APPOINTMENTS_BY_TIMEFRAME, {
+//       start: info.start,
+//       end: info.end,
+//     });
+//     //console.log("loadOptions-res:", res.getAppointmentsByTimeframe);
+//     console.log(
+//       res.getAppointmentsByTimeframe.map((a) => ({
+//         id: a.appointmentId,
+//         title: a.appointmentType,
+//         start: new Date(parseInt(a.start)).toISOString(),
+//         end: new Date(parseInt(a.start)).toISOString(),
+//       }))
+//     );
+
+//     if (res && res.getAppointmentsByTimeframe) {
+//       return res.getAppointmentsByTimeframe.map((a) => ({
+//         id: a.appointmentId,
+//         title: a.appointmentType,
+//         start: new Date(parseInt(a.start)).toISOString(),
+//         end: new Date(parseInt(a.end)).toISOString(),
+//       }));
+//     }
+//     return [];
+//   } catch (err) {
+//console.log('AsyncSelectAC - error: ',err)
+//     console.log(err);
+//   }
 // };
 
 /*
