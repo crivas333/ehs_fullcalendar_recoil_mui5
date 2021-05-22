@@ -5,7 +5,7 @@ import SiteLayout from "../layouts/SiteLayout";
 import PatientView from "./Paciente";
 //import AppointmentView from './Appointment'
 import CalendarView from "./Calendar";
-import Appo1View from "./Appo1";
+import AppoitmentsView from "./Appointments";
 import EncounterView from "./Encounter";
 import ExamsView from "./ExamView";
 import ReportsView from "./ReportsView";
@@ -29,7 +29,7 @@ export default function Pages() {
         <Routes>
           <Route path="/Paciente" element={<PatientView />} />
           <Route path="/Agendamiento" element={<CalendarView />} />
-          <Route path="/Citas" element={<Appo1View />} />
+          <Route path="/Citas" element={<AppoitmentsView />} />
           <Route path="/Consulta" element={<EncounterView />} />
           <Route path="/Examenes" element={<ExamsView />} />
           <Route path="/Config" element={<SystemConfigView />} />

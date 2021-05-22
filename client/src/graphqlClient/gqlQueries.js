@@ -235,7 +235,11 @@ export const GET_APPOINTMENTS_BY_TIMEFRAME = gql`
       status
       start
       end
-      patientId
+      patientId {
+        id
+        fullName
+        historyId
+      }
       fullName
       notRegistered
       description

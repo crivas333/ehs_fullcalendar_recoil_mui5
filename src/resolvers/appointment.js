@@ -14,7 +14,7 @@ export default {
     },
     getAppointmentsByTimeframe: async (root, args, context, info) => {
       // TODO: projection, pagination
-      //console.log("getAppointmentsByTimeframe: ", args);
+      console.log("getAppointmentsByTimeframe: ", args);
       try {
         const doc = await Appointment.find({
           start: { $gte: args.start },
