@@ -97,7 +97,7 @@ export default function MayFullCalendar() {
   const [openEventDialog, setOpenEventDialog] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [evt, setEvt] = useState(initialEvt);
-  const [weekends, setWeekends] = useState(false);
+  //const [weekends, setWeekends] = useState(false);
   const [shift, setShift] = useState("13:00:00");
   const calendarRef = React.useRef(null);
 
@@ -334,13 +334,13 @@ export default function MayFullCalendar() {
                 day: "2-digit",
               },
             },
-            // timeGridWeekDays: {
-            //   type: "timeGrid",
-            //   //duration: { days: 7 },
-            //   //hiddenDays: [0, 6],
-            //   duration: { days: 5 },
-            //   buttonText: "5 day",
-            // },
+            timeGridWeekDays: {
+              type: "timeGrid",
+              //duration: { days: 7 },
+              hiddenDays: [0, 6],
+              duration: { days: 7 },
+              buttonText: "5-Day",
+            },
             timeGridDay: {
               titleFormat: {
                 year: "numeric",
@@ -361,15 +361,15 @@ export default function MayFullCalendar() {
             center: "title",
             //right: "dayGridMonth,timeGridWeek,timeGridDay,timeGridWeekDays",
             right:
-              "dayGridMonth,timeGridWeek,timeGridDay weekendsButton,shiftButton,",
+              "dayGridMonth,timeGridWeek,timeGridDay timeGridWeekDays,shiftButton,",
           }}
           customButtons={{
-            weekendsButton: {
-              text: "[5]-[7]",
-              click: function () {
-                setWeekends((prev) => !prev);
-              },
-            },
+            // weekendsButton: {
+            //   text: "[5]-[7]",
+            //   click: function () {
+            //     setWeekends((prev) => !prev);
+            //   },
+            // },
             shiftButton: {
               text: "[1]-[1/2]",
               click: function () {
@@ -378,8 +378,8 @@ export default function MayFullCalendar() {
               },
             },
           }}
-          weekends={weekends}
-          initialView="timeGridWeek"
+          //weekends={weekends}
+          initialView="timeGridWeekDays"
           //selectHelper={true}
           allDaySlot={false}
           slotDuration={"00:20:00"}

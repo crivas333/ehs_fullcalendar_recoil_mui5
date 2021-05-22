@@ -1,39 +1,79 @@
-import React, { useContext, useEffect, Fragment } from "react";
+import React, { useState } from "react";
 //import clsx from 'clsx';
 import { useQuery } from "react-query";
 import request from "graphql-request";
-import { GET_APPOINTMENTS_BY_TIMEFRAME } from "../../graphqlClient/gqlQueries";
 //import { makeStyles } from '@material-ui/core/styles'
 
-import Grid from "@material-ui/core/Grid";
-import { GlobalContext } from "../../context/GlobalState";
+//import Grid from "@material-ui/core/Grid";
+//import { GlobalContext } from "../../context/GlobalState";
 //import ExamTable from './ExamTableMUI'
-import AddExamForm from "./AddExamForm";
-import EditExamForm from "./EditExamForm";
+//import AddExamForm from "./AddExamForm";
+//import EditExamForm from "./EditExamForm";
 import ExamTable from "./ReactTable";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EventDialogAppo from "./EventDialogAppo";
+import {
+  //ADD_APPOINTMENT,
+  UPDATE_APPOINTMENT,
+  //DELETE_APPOINTMENT,
+  GET_APPOINTMENTS_BY_TIMEFRAME,
+  //GET_APPOINTMENTS_BY_TIMEFRAME,
+} from "../../graphqlClient/gqlQueries";
+
+const initialEvt = {
+  id: null, //will store MongoDB id
+  start: "",
+  end: "",
+  appointmentId: "",
+  type: "CONSULTA",
+  status: "PROGRAMADA",
+  patientId: null,
+  fullName: "",
+  notRegistered: "",
+  description: "",
+  backgroundColor: "",
+};
 
 export default function DailyAppointments(props) {
+  //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const [openEventDialog, setOpenEventDialog] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [evt, setEvt] = useState(initialEvt);
   //const classes = useStyles()
-  const {
-    currentPatient,
-    applicationFields,
-    dataExam,
-    rowExam,
-    actionExam,
-    updateRowExam_APOLLO,
-    updateEditingRowExam,
-    updateActionExam,
-    getExamByPatientID_APOLLO,
-    addExamDataAPOLLO,
-    deleteApplicationFieldsAPOLLO,
-  } = useContext(GlobalContext);
+  // const {
+  //   //currentPatient,
+  //   //applicationFields,
+  //   //dataExam,
+  //   //rowExam,
+  //   //actionExam,
+  //   //updateRowExam_APOLLO,
+  //   //updateEditingRowExam,
+  //   //updateActionExam,
+  //   //getExamByPatientID_APOLLO,
+  //   //addExamDataAPOLLO,
+  //   //deleteApplicationFieldsAPOLLO,
+  // } = useContext(GlobalContext);
 
   const editRow = (data) => {
-    updateActionExam(1);
+    //updateActionExam(1);
     //console.log("Exam - editRow: ", data);
-    updateEditingRowExam(data);
+    //updateEditingRowExam(data);
+    setIsEditing(true);
+    setEvt({
+      id: data.id,
+      //start: data.startStr,
+      start: data.start,
+      end: data.end,
+      type: data.type,
+      status: data.status,
+      patientId: data.patientId || null,
+      fullName: data.fullName || "",
+      notRegistered: data.notRegistered || "",
+      description: data.description || "",
+      appointmentId: data.appointmentId,
+    });
+    setOpenEventDialog(true);
   };
   const columns = React.useMemo(
     () => [
@@ -87,7 +127,7 @@ export default function DailyAppointments(props) {
         },
       },
       //eslint-disable-next-line react-hooks/exhaustive-deps
-    ], // eslint-disable-next-line
+    ],
     []
   );
   const { isLoading, isError, data, error } = useQuery(
@@ -106,10 +146,15 @@ export default function DailyAppointments(props) {
           fullName: a.patientId !== null ? a.patientId.fullName : "",
           notRegistered: a.notRegistered,
           start: new Date(parseInt(a.start)).toISOString(),
-          //end: new Date(parseInt(a.end)).toISOString(),
+          end: new Date(parseInt(a.end)).toISOString(),
           status: a.status,
           type: a.type,
+          appointmentId: a.appointmentId,
+          patientId: a.patientId,
+          description: a.description,
         }));
+      } else {
+        throw new Error("Network response was not ok");
       }
     }
   );
@@ -122,58 +167,59 @@ export default function DailyAppointments(props) {
     return <span>Error: {error.message}</span>;
   }
 
-  //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-  //const [selectedRow, setSelectedRow]=useState([])
-
-  // const { data, loading, error } = useQuery(GET_EXAM_BY_PATIENT_ID);
-  // if (loading) return <p>Loading ...</p>;
-  // if (error) return <p>ERROR: {error.message}</p>;
-  // if (data && data.exams) {
-  //   console.log('useQuery:',data)}
-
-  // //Load Data
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     await getExamByPatientID_APOLLO(currentPatient.id);
-  //   }
-  //   if (currentPatient.id && actionExam === 0) {
-  //     //console.log('Exam - PatientId',currentPatient.id)
-  //     fetchData();
-  //   }
-  //   //eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  // CRUD operations
-  const addExamData = (dataArray) => {
-    //createField.fieldType=fieldType
-    //console.log('AddExamData - currPatient:',currentPatient)
-    console.log("AddExamData - addExamData:", dataArray);
-    const newData = {
-      examType: dataArray.examType,
-      examStatus: dataArray.examStatus,
-      examDateTime: dataArray.examDateTime,
-      patient: currentPatient.id,
-      //historyId: parseInt(currentPatient.historyId,10)
-      historyId: currentPatient.historyId,
-    };
-    addExamDataAPOLLO(newData);
+  const handleAddingEvt = (data) => {
+    console.log("DailyAppointmente - handeAddingEvt:", data);
   };
-  const deleteFieldData = (id) => {
-    //setAction(0)
-    //console.log(id)
-    //setUsers(users.filter(user => user.id !== id))
-    deleteApplicationFieldsAPOLLO(id);
+  const handleChangingEvt = async (data) => {
+    console.log("DailyAppointment-handleChangingEvt", data);
+    try {
+      const res = await request("/graphql", UPDATE_APPOINTMENT, {
+        id: data.id,
+        appointmentInput: {
+          start: data.start,
+          end: data.end,
+          appointmentId: data.appointmentId, //it is not defined in appointmentInput
+          type: data.type,
+          status: data.status,
+          patientId: data.patientId.id,
+          fullName: data.fullName,
+          notRegistered: data.notRegistered,
+          description: data.description,
+          backgroundColor: data.backgroundColor,
+        },
+      });
+      if (res && res.updateAppointment) {
+        console.log("updateAppointment", res.updateAppointment);
+        //const calendarApi = calendarRef.current.getApi();
+        //calendarApi.refetchEvents();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setEvt(initialEvt);
   };
-  const updateRowExam = (row) => {
-    updateActionExam(0);
-    console.log("Exam - updateRowExam: ", row);
-    updateRowExam_APOLLO(row);
+  const handleRemovingEvt = () => {};
+  const handleCloseDialog = () => {
+    setOpenEventDialog(false);
   };
-
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12}>
+    <div>
+      <ExamTable columns={columns} data={data} handleAddEvt={handleAddingEvt} />
+      <EventDialogAppo
+        show={openEventDialog}
+        isEditing={isEditing}
+        evt={evt}
+        closeDialog={handleCloseDialog}
+        handleAddingEvt={handleAddingEvt}
+        handleChangingEvt={handleChangingEvt}
+        handleRemovingEvt={handleRemovingEvt}
+      />
+    </div>
+  );
+}
+
+/*
+  <Grid item xs={12}>
         {actionExam === 1 && (
           <Fragment>
             <EditExamForm
@@ -196,21 +242,7 @@ export default function DailyAppointments(props) {
           </Fragment>
         )}
       </Grid>
-      <Grid item xs={12}>
-        <ExamTable
-          columns={columns}
-          //data={dataExam}
-          data={data}
-          //getRowProps={row => ({onClick: () => editRow(row.values)})}
-          //updateMyData={updateMyData}
-          //skipPageReset={skipPageReset}
-          //editRow={editRow}
-          deleteUser={deleteFieldData}
-        />
-      </Grid>
-    </Grid>
-  );
-}
+*/
 //<AddExamForm addRow={addExamData} />
 //{(data.length&&<AddExamForm addRow={addExamData} />)}
 
