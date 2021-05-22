@@ -10,12 +10,6 @@ import { GlobalContext } from "../../context/GlobalState";
 
 const initialFValues = {
   id: 0,
-  fullName: "",
-  email: "",
-  mobile: "",
-  city: "",
-  gender: "male",
-  departmentId: "",
   encounterType: "CONSULTA",
   patientType: "NUEVO",
   serviceType: "AMBULATORIA",
