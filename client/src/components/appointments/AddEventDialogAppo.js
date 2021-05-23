@@ -25,7 +25,9 @@ import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import Tooltip from "@material-ui/core/Tooltip";
+
 import AsyncSelectForFullCalendar from "../patient/patientSearch/AsyncSelectForFullCalendar";
+//import { ADD_APPOINTMENT } from "../../graphqlClient/gqlQueries";
 
 const useStyles = makeStyles((theme) => ({
   paper: {

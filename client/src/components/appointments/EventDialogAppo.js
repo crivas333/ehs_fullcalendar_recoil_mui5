@@ -178,6 +178,7 @@ export default function EventDialog(props) {
     closeDialog();
     setOpenConfirmation(true);
   };
+
   const handleConfirmationCancel = (e) => {
     resetForm();
     setOpenConfirmation(false);
