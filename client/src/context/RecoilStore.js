@@ -9,3 +9,11 @@ export const appoEvtState = atom({
     fullname: "",
   }, // default value (aka initial value)
 });
+export const isAuthState = atom({
+  key: "isAuthState",
+  default: false,
+});
+export const currentUserState = atom({
+  key: "currentUserState",
+  default: [],
+});

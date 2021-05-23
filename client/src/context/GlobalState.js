@@ -46,9 +46,9 @@ var initialState = {
     religion: "",
     referral: "",
   },
-  patientData: [],
+  //patientData: [],
   error: null,
-  loading: true,
+  //loading: true,
   loadedConfigData: false,
   currentUser: [],
   isAuth: false,
@@ -470,10 +470,10 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
-        patientData: state.patientData,
+        //patientData: state.patientData,
         currentPatient: state.currentPatient,
         error: state.error,
-        loading: state.loading,
+        //loading: state.loading,
         loadedConfigData: state.loadedConfigData,
         currentUser: state.currentUser,
         isAuth: state.isAuth,

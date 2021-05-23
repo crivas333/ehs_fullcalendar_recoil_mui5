@@ -1,4 +1,11 @@
 import React, { useEffect, useContext } from "react";
+import {
+  //RecoilRoot,
+  //atom,
+  //selector,
+  useRecoilState,
+  //useRecoilValue,
+} from "recoil";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 //import Notifier from './components/notification/Notifier'; //!!!!!!!!!this works
 import { Notifier } from "./components/notification/Notifier";
@@ -10,24 +17,30 @@ import LandingPage from "./pages/Landing";
 // import NotFoundPage from './pages/NotFound'
 import Pages from "./pages";
 
-import { GlobalContext } from "./context/GlobalState";
+//import { GlobalContext } from "./context/GlobalState";
+import { isAuthState, currentUserState } from "./context/RecoilStore";
 import ScrollToTop from "./layouts/ScrollToTop";
 
 function App() {
   // console.log('APP')
-  const { isAuth, updateCurrentUser } = useContext(GlobalContext);
-
+  //const { isAuth, updateCurrentUser } = useContext(GlobalContext);
+  const [isAuth, setIsAuth] = useRecoilState(isAuthState);
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   //const session = currSessionVar()
   //const session = JSON.parse(sessionStorage.getItem('currSession')); // An object :
   //console.log(session)
   useEffect(() => {
     const session = JSON.parse(sessionStorage.getItem("currSession")); // An object :
     //console.log(session);
-
-    async function fetchData() {
-      await updateCurrentUser(session);
+    if (session !== null) {
+      setCurrentUser(session);
+      setIsAuth(true);
     }
-    fetchData();
+
+    // async function fetchData() {
+    //   await updateCurrentUser(session);
+    // }
+    // fetchData();
     return () => {};
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Or [] if effect doesn't need props or state

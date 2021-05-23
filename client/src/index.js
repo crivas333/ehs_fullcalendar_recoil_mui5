@@ -8,16 +8,13 @@ import { ThemeProvider } from "@material-ui/core/styles";
 //import ThemeProvider from '@material-ui/core/styles/MuiThemeProvider' //it does not work
 //import fetch from 'cross-fetch'
 import App from "./App";
-//import { ApolloProvider } from "@apollo/client";
 import { GlobalProvider } from "./context/GlobalState";
-//import { client } from "./graphqlClient/apolloClient";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "./graphqlClient/reactQueryClient";
-
-// import { currSessionVar } from './apolloConfig/apolloClient'
 import { IS_THERE_OPEN_SESSION } from "./graphqlClient/gqlQueries";
 //import {IS_THERE_OPEN_SESSION_FETCH } from './apolloConfig/gqlQueries-fetch'
 //import Notify from './components/notification/Notify';
+
 //const theme = createMuiTheme({
 const theme = unstable_createMuiStrictModeTheme({
   // typography:{
@@ -31,6 +28,7 @@ const theme = unstable_createMuiStrictModeTheme({
     },
   },
 });
+
 //request(endpoint, query, variables).then((data) => console.log(data))
 async function checkLoggedIn() {
   //request('/graphql', IS_THERE_OPEN_SESSION).then((res) => console.log('res:',res.openSession))
@@ -44,11 +42,55 @@ async function checkLoggedIn() {
     console.log("is there open session 1: ", err.response.error);
     console.log("is there open session 2: ", err.response.status);
     //Notify({message:'Verifique la conección con el SERVIDOR', status: 'error'});
-    //console.log('is there open session 3: ',err.response.data.error)
-    //throw new Error('No hay conecciòn con el servidor')
+
+    //throw new Error("No hay conección con el servidor");
   }
 }
 
+const renderApp = (currSession) => {
+  //console.log('currSession: ', currSession)
+
+  sessionStorage.setItem("currSession", JSON.stringify(currSession));
+  //var obj = JSON.parse(sessionStorage.getItem('currSession')); // An object :
+  //console.log(obj);
+
+  const RootApp = (AppComponent) => (
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <GlobalProvider>
+            <React.StrictMode>
+              <AppComponent />
+            </React.StrictMode>
+          </GlobalProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </RecoilRoot>
+  );
+
+  ReactDOM.render(RootApp(App), document.getElementById("root"));
+};
+
+(async () => renderApp(await checkLoggedIn()))();
+
+//ReactDOM.render(ApolloApp(App), document.getElementById('root'))
+
+/*
+  const ApolloApp = (AppComponent) => (
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <ApolloProvider client={client}>
+          <GlobalProvider>
+            <React.StrictMode>
+              <AppComponent />
+            </React.StrictMode>
+          </GlobalProvider>
+        </ApolloProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
+
+*/
 // async function checkLoggedIn111 (currSession) {
 //   const requestBody = {
 //     query: IS_THERE_OPEN_SESSION_FETCH
@@ -95,54 +137,3 @@ async function checkLoggedIn() {
 //     // console.log("currSession: ",currSession);
 //   return (currSession)
 // }
-
-const renderApp = (currSession) => {
-  //console.log('currSession: ', currSession)
-  // currSessionVar({session: signIn, loggedIn: true});
-  //var myVariable = "Hello World";
-  //sessionStorage['currSession'] = currSession;
-  //var readValue = sessionStorage['currSession'];
-  sessionStorage.setItem("currSession", JSON.stringify(currSession));
-  //var obj = JSON.parse(sessionStorage.getItem('currSession')); // An object :
-  //console.log(obj);
-
-  //currSessionVar(currSession)
-  //const queryClient = new QueryClient();
-
-  const ApolloApp = (AppComponent) => (
-    <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
-          <GlobalProvider>
-            <React.StrictMode>
-              <AppComponent />
-            </React.StrictMode>
-          </GlobalProvider>
-        </QueryClientProvider>
-      </ThemeProvider>
-    </RecoilRoot>
-  );
-
-  ReactDOM.render(ApolloApp(App), document.getElementById("root"));
-};
-
-(async () => renderApp(await checkLoggedIn()))();
-
-//ReactDOM.render(ApolloApp(App), document.getElementById('root'))
-
-/*
-  const ApolloApp = (AppComponent) => (
-    <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <ApolloProvider client={client}>
-          <GlobalProvider>
-            <React.StrictMode>
-              <AppComponent />
-            </React.StrictMode>
-          </GlobalProvider>
-        </ApolloProvider>
-      </QueryClientProvider>
-    </ThemeProvider>
-  );
-
-*/

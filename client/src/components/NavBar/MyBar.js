@@ -17,9 +17,17 @@ import { SIGNOUT } from "../../graphqlClient/gqlQueries";
 import { useMutation } from "react-query";
 import request from "graphql-request";
 import { useNavigate } from "react-router-dom";
-import { GlobalContext } from "../../context/GlobalState";
+//import { GlobalContext } from "../../context/GlobalState";
 import PatientSummary from "../patient/PatientSummary";
 import Notify from "../notification/Notify";
+import { isAuthState, currentUserState } from "../../context/RecoilStore";
+import {
+  //RecoilRoot,
+  //atom,
+  //selector,
+  useRecoilState,
+  //useRecoilValue,
+} from "recoil";
 
 const drawerWidth = 240;
 
@@ -94,7 +102,9 @@ function ResponsiveAppBar(props) {
   // const theme = useTheme();
   // const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const { updateCurrentUser } = useContext(GlobalContext);
+  //const { updateCurrentUser } = useContext(GlobalContext);
+  const [isAuth, setIsAuth] = useRecoilState(isAuthState);
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   const navigate = useNavigate();
 
   // const handleDrawerToggle = () => {
@@ -124,7 +134,9 @@ function ResponsiveAppBar(props) {
         message: "Terminó la sesión",
         status: "success",
       });
-      updateCurrentUser(null);
+      //updateCurrentUser(null);
+      //setCurrentUser(null);
+      setIsAuth(false);
       navigate("/landing");
     },
     onMutate: (data) => {

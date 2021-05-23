@@ -12,7 +12,15 @@ import { SIGNIN, SIGNUP } from "../graphqlClient/gqlQueries";
 import { SignInForm } from "../components/landing/SignInForm";
 import { SignUpForm } from "../components/landing/SignUpForm";
 import { useNavigate } from "react-router-dom";
-import { GlobalContext } from "../context/GlobalState";
+//import { GlobalContext } from "../context/GlobalState";
+import { isAuthState, currentUserState } from "../context/RecoilStore";
+import {
+  //RecoilRoot,
+  //atom,
+  //selector,
+  useRecoilState,
+  //useRecoilValue,
+} from "recoil";
 import Notify from "../components/notification/Notify";
 
 async function signInHelper(data) {
@@ -33,7 +41,10 @@ async function signUpHelper(data) {
 export default function Landing() {
   const [gotoSignUp, setGotoSignUp] = useState(false);
   const navigate = useNavigate();
-  const { isAuth, updateCurrentUser } = useContext(GlobalContext);
+  //const { isAuth, updateCurrentUser } = useContext(GlobalContext);
+  const [isAuth, setIsAuth] = useRecoilState(isAuthState);
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+
   // const [signIn, { data: dataSignIn, error: errorSignIn }] = useMutation(SIGNIN,
   //const [signIn, { error: errorSignIn }] = useMutation(SIGNIN,
   // const [signIn] = useMutation(SIGNIN, {
@@ -54,8 +65,11 @@ export default function Landing() {
   const signIn = useMutation(signInHelper, {
     onSuccess: (data, variables) => {
       //console.log("onSuccess:", data);
+      setCurrentUser(signIn);
+      setIsAuth(true);
       Notify({ message: "Login exitoso", status: "success" });
-      updateCurrentUser(signIn); // set isAuth: true
+      //updateCurrentUser(signIn); // set isAuth: true
+
       navigate("/paciente");
     },
     onMutate: (data) => {
@@ -91,9 +105,11 @@ export default function Landing() {
   const signUp = useMutation(signUpHelper, {
     onSuccess: (data, variables) => {
       //console.log("onSuccess:", data);
+
       Notify({ message: "Registración exitosa", status: "success" });
       setGotoSignUp(false);
       console.log("Data - SignUp: ", data);
+      //navigate("/");
     },
     onMutate: (data) => {
       //console.log("onMutate:", data);
