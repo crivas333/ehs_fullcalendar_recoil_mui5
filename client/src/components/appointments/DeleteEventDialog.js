@@ -1,17 +1,14 @@
-import React, { useContext, useState, useEffect } from "react";
+import React from "react";
 //import { Grid } from "@material-ui/core";
-import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
-import {
-  useReusableForm,
-  ReusableForm,
-} from "../reusableForms/useReusableForm";
+//import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
+
 //import { useRecoilState } from "recoil";
 //import { appoEvtState } from "../../context/recoilStore";
 //import * as appointmentService from "../../services/configService";
-import { GlobalContext } from "../../context/GlobalState";
+//import { GlobalContext } from "../../context/GlobalState";
 import { makeStyles } from "@material-ui/core/styles";
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+//import { useTheme } from "@material-ui/core/styles";
+//import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Button from "@material-ui/core/Button";
 //import FormControl from "@material-ui/core/FormControl";
 import Dialog from "@material-ui/core/Dialog";
@@ -58,12 +55,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DeleteEventDialog(props) {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  //const theme = useTheme();
+  //const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const classes = useStyles();
   //const [open, setOpen] = useState(false);
   //const { applicationFields } = useContext(GlobalContext);
-  const { evtId, handleRemovingEvt, closeDialog, show } = props;
+  const { evt, handleRemovingEvt, closeDialog, show } = props;
 
   // useEffect(() => {
   //   //console.log("EventDialog-evt: ", evt);
@@ -91,7 +88,7 @@ export default function DeleteEventDialog(props) {
   };
   const handleConfirmationOk = (e) => {
     e.preventDefault();
-    handleRemovingEvt(evtId);
+    handleRemovingEvt(evt);
     //resetForm();
     //setOpen(false);
     closeDialog();

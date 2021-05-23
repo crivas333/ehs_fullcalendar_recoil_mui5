@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-//import { Grid } from "@material-ui/core";
 import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
 import {
   useReusableForm,
@@ -13,7 +12,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Button from "@material-ui/core/Button";
-//import FormControl from "@material-ui/core/FormControl";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -63,14 +61,7 @@ export default function EventDialog(props) {
   const classes = useStyles();
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const { applicationFields } = useContext(GlobalContext);
-  const {
-    evt,
-    closeDialog,
-    handleAddingEvt,
-    handleChangingEvt,
-    handleRemovingEvt,
-    isEditing,
-  } = props;
+  const { evt, closeDialog, handleChangingEvt, handleRemovingEvt } = props;
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -154,16 +145,7 @@ export default function EventDialog(props) {
     resetForm();
     closeDialog();
   };
-  const handleDialogAdd = (e) => {
-    e.preventDefault();
 
-    if (validate()) {
-      handleAddingEvt(values);
-      resetForm();
-      //setValues({});
-      closeDialog();
-    }
-  };
   const handleDialogChange = (e) => {
     e.preventDefault();
     if (validate()) {
@@ -204,11 +186,8 @@ export default function EventDialog(props) {
             justify="space-between"
             alignItems="center"
           >
-            {isEditing ? (
-              <span>Actualizar Cita</span>
-            ) : (
-              <span>Añadir Cita</span>
-            )}
+            <span>Actualizar Cita</span>
+
             <IconButton aria-label="close" onClick={handleDialogClose}>
               <CloseIcon />
             </IconButton>
@@ -302,42 +281,29 @@ export default function EventDialog(props) {
           </ReusableForm>
         </DialogContent>
         <DialogActions>
-          {isEditing ? (
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="center"
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
+            <Button
+              onClick={handleDialogDelete}
+              color="secondary"
+              //variant="outlined"
+              startIcon={<DeleteIcon />}
             >
-              <Button
-                onClick={handleDialogDelete}
-                color="secondary"
-                //variant="outlined"
-                startIcon={<DeleteIcon />}
-              >
-                <span className={classes.buttonText}>Eliminar</span>
-              </Button>
-              <Button
-                onClick={handleDialogChange}
-                color="primary"
-                //variant="contained"
-                startIcon={<SaveIcon />}
-              >
-                <span className={classes.buttonText}>Guardar</span>
-              </Button>
-            </Grid>
-          ) : (
-            <>
-              <Button
-                onClick={handleDialogAdd}
-                color="primary"
-                //variant="contained"
-                startIcon={<SaveIcon />}
-              >
-                <span className={classes.buttonText}>Guardar</span>
-              </Button>
-            </>
-          )}
+              <span className={classes.buttonText}>Eliminar</span>
+            </Button>
+            <Button
+              onClick={handleDialogChange}
+              color="primary"
+              //variant="contained"
+              startIcon={<SaveIcon />}
+            >
+              <span className={classes.buttonText}>Guardar</span>
+            </Button>
+          </Grid>
         </DialogActions>
       </Dialog>
 

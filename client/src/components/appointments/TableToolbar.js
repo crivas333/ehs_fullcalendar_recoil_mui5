@@ -1,6 +1,6 @@
 import React from "react";
 
-import AddEventDialogAppo from "./AddEventDialogAppo";
+import AddEventDialogAppo from "./AddEventDialog";
 import clsx from "clsx";
 //import DeleteIcon from "@material-ui/icons/Delete";
 import GlobalFilter from "./GlobalFilter";

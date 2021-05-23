@@ -6,19 +6,17 @@ import request from "graphql-request";
 //import Grid from "@material-ui/core/Grid";
 //import { GlobalContext } from "../../context/GlobalState";
 import Notify from "../notification/Notify";
-import ExamTable from "./ReactTable";
+import TableOfAppointments from "./TableOfAppointments";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import EventDialogAppo from "./EventDialogAppo";
+import EditEventDialog from "./EditEventDialog";
 import DeleteEventDialog from "./DeleteEventDialog";
 import {
   ADD_APPOINTMENT,
   UPDATE_APPOINTMENT,
   DELETE_APPOINTMENT,
   GET_APPOINTMENTS_BY_TIMEFRAME,
-  //GET_APPOINTMENTS_BY_TIMEFRAME,
 } from "../../graphqlClient/gqlQueries";
-//import DeleteEventDialog from "./DeleteEventDialog";
 
 const initialEvt = {
   id: null, //will store MongoDB id
@@ -56,9 +54,7 @@ export default function DailyAppointments(props) {
   //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const [openEventDialog, setOpenEventDialog] = useState(false);
   const [openDeleteEventDialog, setOpenDeleteEventDialog] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
   const [evt, setEvt] = useState(initialEvt);
-  const [evtId, setEvtId] = useState(null);
   const queryClient = useQueryClient();
   //const classes = useStyles()
   // const {
@@ -76,13 +72,9 @@ export default function DailyAppointments(props) {
   // } = useContext(GlobalContext);
 
   const editRow = (data) => {
-    //updateActionExam(1);
-    //console.log("Exam - editRow: ", data);
-    //updateEditingRowExam(data);
-    setIsEditing(true);
+    //console.log("Exam - editRow: ", data)
     setEvt({
       id: data.id,
-      //start: data.startStr,
       start: data.start,
       end: data.end,
       type: data.type,
@@ -96,10 +88,8 @@ export default function DailyAppointments(props) {
     setOpenEventDialog(true);
   };
   const deleteRow = (data) => {
-    //updateActionExam(1);
     //console.log("Exam - editRow: ", data);
-    //updateEditingRowExam(data);
-    setEvtId(data);
+    setEvt(data);
     setOpenDeleteEventDialog(true);
   };
   const columns = React.useMemo(
@@ -327,33 +317,36 @@ export default function DailyAppointments(props) {
     setEvt(initialEvt);
   };
   const handleRemovingEvt = (data) => {
-    console.log("DailyAppointments - handleRemovingEvt: ", data);
+    //console.log("DailyAppointments - handleRemovingEvt: ", data);
     deleteAppointment.mutate({
       variables: { id: data.id },
     });
   };
-  const handleCloseDialog = () => {
+  const handleCloseEditDialog = () => {
     setOpenEventDialog(false);
   };
-  const handleCloseEventDialog = () => {
+  const handleClosedeleteDialog = () => {
     setOpenDeleteEventDialog(false);
   };
   return (
     <div>
-      <ExamTable columns={columns} data={data} handleAddEvt={handleAddingEvt} />
-      <EventDialogAppo
+      <TableOfAppointments
+        columns={columns}
+        data={data}
+        handleAddEvt={handleAddingEvt}
+      />
+      <EditEventDialog
         show={openEventDialog}
-        isEditing={isEditing}
         evt={evt}
-        closeDialog={handleCloseDialog}
-        handleAddingEvt={handleAddingEvt}
+        closeDialog={handleCloseEditDialog}
+        //handleAddingEvt={handleAddingEvt}
         handleChangingEvt={handleChangingEvt}
         handleRemovingEvt={handleRemovingEvt}
       />
       <DeleteEventDialog
         show={openDeleteEventDialog}
-        evtId={evtId}
-        closeDialog={handleCloseEventDialog}
+        evt={evt}
+        closeDialog={handleClosedeleteDialog}
         handleRemovingEvt={handleRemovingEvt}
       />
     </div>

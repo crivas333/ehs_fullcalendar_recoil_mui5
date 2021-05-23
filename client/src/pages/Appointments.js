@@ -2,7 +2,7 @@ import React from "react";
 
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import DailyAppointments from "../components/appointments/DailyAppointments";
+import DailyAppointments from "../components/appointments/Appointments";
 
 const useStyles = makeStyles((theme) => ({
   root: {
