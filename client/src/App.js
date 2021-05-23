@@ -1,10 +1,11 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import {
   //RecoilRoot,
   //atom,
   //selector,
   useRecoilState,
   //useRecoilValue,
+  useSetRecoilState,
 } from "recoil";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 //import Notifier from './components/notification/Notifier'; //!!!!!!!!!this works
@@ -25,7 +26,8 @@ function App() {
   // console.log('APP')
   //const { isAuth, updateCurrentUser } = useContext(GlobalContext);
   const [isAuth, setIsAuth] = useRecoilState(isAuthState);
-  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  //const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  const setCurrentUser = useSetRecoilState(currentUserState);
   //const session = currSessionVar()
   //const session = JSON.parse(sessionStorage.getItem('currSession')); // An object :
   //console.log(session)

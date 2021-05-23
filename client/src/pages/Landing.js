@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 // import { CustomPatient } from "../components/CustomPatient";
 // import { PatientForm } from "../components/PatientForm";
 // import { BuilderForm } from "../components/BuilderForm";
@@ -20,6 +20,7 @@ import {
   //selector,
   useRecoilState,
   //useRecoilValue,
+  useSetRecoilState,
 } from "recoil";
 import Notify from "../components/notification/Notify";
 
@@ -43,7 +44,8 @@ export default function Landing() {
   const navigate = useNavigate();
   //const { isAuth, updateCurrentUser } = useContext(GlobalContext);
   const [isAuth, setIsAuth] = useRecoilState(isAuthState);
-  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  //const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  const setCurrentUser = useSetRecoilState(currentUserState);
 
   // const [signIn, { data: dataSignIn, error: errorSignIn }] = useMutation(SIGNIN,
   //const [signIn, { error: errorSignIn }] = useMutation(SIGNIN,

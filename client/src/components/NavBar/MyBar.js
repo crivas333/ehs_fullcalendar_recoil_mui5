@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 // import PropTypes from "prop-types";
 import clsx from "clsx";
 import AppBar from "@material-ui/core/AppBar";
@@ -25,8 +25,9 @@ import {
   //RecoilRoot,
   //atom,
   //selector,
-  useRecoilState,
+  //useRecoilState,
   //useRecoilValue,
+  useSetRecoilState,
 } from "recoil";
 
 const drawerWidth = 240;
@@ -103,8 +104,10 @@ function ResponsiveAppBar(props) {
   // const [mobileOpen, setMobileOpen] = React.useState(false);
 
   //const { updateCurrentUser } = useContext(GlobalContext);
-  const [isAuth, setIsAuth] = useRecoilState(isAuthState);
-  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  //const [isAuth, setIsAuth] = useRecoilState(isAuthState);
+  //const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  const setIsAuth = useSetRecoilState(isAuthState);
+  const setCurrentUser = useSetRecoilState(currentUserState);
   const navigate = useNavigate();
 
   // const handleDrawerToggle = () => {
@@ -135,7 +138,7 @@ function ResponsiveAppBar(props) {
         status: "success",
       });
       //updateCurrentUser(null);
-      //setCurrentUser(null);
+      setCurrentUser(null);
       setIsAuth(false);
       navigate("/landing");
     },

@@ -50,8 +50,8 @@ var initialState = {
   error: null,
   //loading: true,
   loadedConfigData: false,
-  currentUser: [],
-  isAuth: false,
+  //currentUser: [],
+  //isAuth: false,
   applicationFields: [],
   dataExam: [],
   rowExam: [],
@@ -83,22 +83,22 @@ export const GlobalProvider = ({ children }) => {
     //   })
     // }
   }
-  function updateCurrentUser(session) {
-    // const session =await currSessionVar();
-    if (session !== null) {
-      // console.log("updateCurrentUser1: ", session);
-      dispatch({
-        type: "USER_LOGGEDIN",
-        payload: session,
-      });
-    } else {
-      // console.log("updateCurrentUser2: ", session);
-      dispatch({
-        type: "USER_NOT_LOGGEDIN",
-        payload: null,
-      });
-    }
-  }
+  // function updateCurrentUser(session) {
+  //   // const session =await currSessionVar();
+  //   if (session !== null) {
+  //     // console.log("updateCurrentUser1: ", session);
+  //     dispatch({
+  //       type: "USER_LOGGEDIN",
+  //       payload: session,
+  //     });
+  //   } else {
+  //     // console.log("updateCurrentUser2: ", session);
+  //     dispatch({
+  //       type: "USER_NOT_LOGGEDIN",
+  //       payload: null,
+  //     });
+  //   }
+  // }
 
   function clearCurrentPatient() {
     dispatch({
@@ -475,15 +475,15 @@ export const GlobalProvider = ({ children }) => {
         error: state.error,
         //loading: state.loading,
         loadedConfigData: state.loadedConfigData,
-        currentUser: state.currentUser,
-        isAuth: state.isAuth,
+        //currentUser: state.currentUser,
+        //isAuth: state.isAuth,
         applicationFields: state.applicationFields,
         dataExam: state.dataExam,
         rowExam: state.rowExam,
         actionExam: state.actionExam,
 
         updateActionExam,
-        updateCurrentUser,
+        //updateCurrentUser,
         // updateCurrentPatient,
         clearCurrentPatient,
         reloadCurrentPatient,

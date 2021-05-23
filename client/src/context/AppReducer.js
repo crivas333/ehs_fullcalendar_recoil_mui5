@@ -10,25 +10,25 @@ export default (state, action) => {
         ...state,
         rowExam: action.payload,
       };
-    case "USER_LOGGEDIN":
-      //console.log("Reducer USER_LOGGED_IN",action.payload);
-      return {
-        ...state,
-        isAuth: true,
-        currentUser: action.payload,
-      };
-    case "USER_NOT_LOGGEDIN":
-      return {
-        ...state,
-        isAuth: false,
-        currentUser: action.payload,
-      };
-    case "USER_SIGNIN":
-      return {
-        ...state,
-        isAuth: true,
-        currentUser: action.payload,
-      };
+    // case "USER_LOGGEDIN":
+    //   //console.log("Reducer USER_LOGGED_IN",action.payload);
+    //   return {
+    //     ...state,
+    //     isAuth: true,
+    //     currentUser: action.payload,
+    //   };
+    // case "USER_NOT_LOGGEDIN":
+    //   return {
+    //     ...state,
+    //     isAuth: false,
+    //     currentUser: action.payload,
+    //   };
+    // case "USER_SIGNIN":
+    //   return {
+    //     ...state,
+    //     isAuth: true,
+    //     currentUser: action.payload,
+    //   };
     case "TRANSACTION_ERROR":
       return {
         ...state,
