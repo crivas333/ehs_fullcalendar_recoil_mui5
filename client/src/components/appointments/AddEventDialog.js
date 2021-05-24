@@ -9,7 +9,7 @@ import {
 //import { appoEvtState } from "../../context/recoilStore";
 import * as appointmentService from "../../services/configService";
 import { GlobalContext } from "../../context/GlobalState";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Button from "@material-ui/core/Button";
@@ -190,7 +190,7 @@ export default function EventDialog(props) {
   };
 
   return (
-    <div className={classes.paper}>
+    <div>
       <Tooltip title="Añadir Cita">
         <IconButton aria-label="add" onClick={handleClickOpen}>
           <AddIcon />

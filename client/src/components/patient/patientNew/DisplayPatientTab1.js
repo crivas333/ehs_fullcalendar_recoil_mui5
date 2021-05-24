@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import ReusableControls from "../../reusableForms/reusableControls/ReusableControls";
 //import {getSexCollection, getIdTypeCollection} from '../../../services/employeeService'
 //import * as employeeService from "../../../services/employeeService";

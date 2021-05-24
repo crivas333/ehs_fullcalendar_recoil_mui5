@@ -13,7 +13,7 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Grid from "@material-ui/core/Grid";
 //import Paper from '@material-ui/core/Paper'
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 
 import AsyncSelectAC from "../components/patient/patientSearch/AsyncSelectAC";
 import { DisplayPatientTabForm } from "../components/patient/patientNew/DisplayPatientTabForm";
@@ -22,18 +22,18 @@ import { UpdatePatientTabForm } from "../components/patient/patientNew/UpdatePat
 import { GlobalContext } from "../context/GlobalState";
 import Notify from "../components/notification/Notify";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    //overflow: 'auto'
-    overflow: "hidden",
-  },
-  paper: {
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     flexGrow: 1,
+//     //overflow: 'auto'
+//     overflow: "hidden",
+//   },
+//   paper: {
+//     padding: theme.spacing(1),
+//     textAlign: "center",
+//     color: theme.palette.text.secondary,
+//   },
+// }));
 const SEARCH = 0;
 const CREATE = 1;
 const UPDATE = 2;
@@ -61,13 +61,10 @@ async function deleteHelper(data) {
 }
 
 export default function Paciente() {
-  const classes = useStyles();
+  //const classes = useStyles();
 
-  const {
-    currentPatient,
-    clearCurrentPatient,
-    reloadCurrentPatient,
-  } = useContext(GlobalContext);
+  const { currentPatient, clearCurrentPatient, reloadCurrentPatient } =
+    useContext(GlobalContext);
   const [action, setAction] = useState(SEARCH);
 
   const createPatient = useMutation(createHelper, {
@@ -223,7 +220,7 @@ export default function Paciente() {
 
   //<AsyncPaginationSearch />
   return (
-    <div className={classes.root}>
+    <div>
       <Grid container direction="column" spacing={2}>
         <Grid item xs={12}>
           <AsyncSelectAC />

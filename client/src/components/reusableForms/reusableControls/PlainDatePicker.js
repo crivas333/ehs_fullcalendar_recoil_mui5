@@ -1,5 +1,6 @@
 import React from "react";
-import { DatePicker } from "@material-ui/pickers";
+import DatePicker from "@material-ui/lab/DatePicker";
+import TextField from "@material-ui/core/TextField";
 //import {
 //   MuiPickersUtilsProvider,
 //   KeyboardDatePicker,
@@ -32,6 +33,7 @@ export default function PlainDatePicker(props) {
 
   return (
     <DatePicker
+      renderInput={(props) => <TextField {...props} />}
       placeholder="dd/MM/yyyy"
       //disableToolbar variant="inline"
       inputVariant={inputVariant}

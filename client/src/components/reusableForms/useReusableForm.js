@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core";
+//import { makeStyles } from "@material-ui/core";
 
 export function useReusableForm(
   initialFValues,
@@ -38,22 +38,22 @@ export function useReusableForm(
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiFormControl-root": {
-      width: "100%",
-      margin: theme.spacing(1),
-      //margin: theme.spacing(0),
-      //minWidth: 120,
-    },
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     "& .MuiFormControl-root": {
+//       width: "100%",
+//       margin: theme.spacing(1),
+//       //margin: theme.spacing(0),
+//       //minWidth: 120,
+//     },
+//   },
+// }));
 
 export function ReusableForm(props) {
-  const classes = useStyles();
+  //const classes = useStyles();
   const { children, ...other } = props;
   return (
-    <form className={classes.root} autoComplete="off" {...other}>
+    <form autoComplete="off" {...other}>
       {props.children}
     </form>
   );

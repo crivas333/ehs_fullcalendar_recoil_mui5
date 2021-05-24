@@ -10,8 +10,8 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import PatientIcon from "@material-ui/icons/PermContactCalendar";
 import Toolbar from "@material-ui/core/Toolbar";
 // import Typography from '@material-ui/core/Typography'
-import { makeStyles } from "@material-ui/core/styles";
-
+//import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import { SIGNOUT } from "../../graphqlClient/gqlQueries";
 //import { useMutation } from "@apollo/client";
 import { useMutation } from "react-query";
@@ -167,7 +167,7 @@ function ResponsiveAppBar(props) {
   //   window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <div className={classes.root}>
+    <div>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -185,7 +185,7 @@ function ResponsiveAppBar(props) {
             aria-label="open drawer"
             edge="start"
             onClick={props.onClickHandleDrawerOpen}
-            //className={classes.menuButton}
+            className={classes.menuButton}
             className={clsx(
               classes.menuButton,
               props.drawerOpen && classes.hide

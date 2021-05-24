@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 //import TabPanel from '@material-ui/lab/TabPanel'
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 
 import { NewPatientTab1 } from "./NewPatientTab1";
 import { NewPatientTab2 } from "./NewPatientTab2";
@@ -18,25 +18,25 @@ import {
   ReusableForm,
 } from "../../reusableForms/useReusableForm";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(1),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
+// const useStyles = makeStyles((theme) => ({
+//   paper: {
+//     marginTop: theme.spacing(1),
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//   },
 
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  button: {
-    marginTop: "10px",
-  },
-}));
+//   form: {
+//     width: "100%", // Fix IE 11 issue.
+//     marginTop: theme.spacing(1),
+//   },
+//   button: {
+//     marginTop: "10px",
+//   },
+// }));
 
 export const NewPatientTabForm = (props) => {
-  const classes = useStyles();
+  //const classes = useStyles();
   const { currentPatient } = useContext(GlobalContext);
   //tabs
   const indexToTabName = {
@@ -203,8 +203,8 @@ export const NewPatientTabForm = (props) => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
-        <ReusableForm className={classes.form} onSubmit={handleSubmit}>
+      <div>
+        <ReusableForm onSubmit={handleSubmit}>
           <AppBar position="static" color="default">
             <Tabs
               indicatorColor="primary"
@@ -248,7 +248,7 @@ export const NewPatientTabForm = (props) => {
             //fullWidth
             variant="contained"
             color="primary"
-            className={classes.button}
+            //className={classes.button}
           >
             ENVIAR
           </Button>
@@ -257,7 +257,7 @@ export const NewPatientTabForm = (props) => {
             //fullWidth
             variant="outlined"
             color="primary"
-            className={classes.button}
+            //className={classes.button}
             onClick={props.handleCancel}
           >
             CERRAR

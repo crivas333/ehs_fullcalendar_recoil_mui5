@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 //import TabPanel from '@material-ui/lab/TabPanel'
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 //import { useForm, Controller} from 'react-hook-form'
 //import { ErrorMessage } from '@hookform/error-message'
 
@@ -19,25 +19,25 @@ import { useReusableForm } from "../../reusableForms/useReusableForm";
 
 //import Notify from '../../notification/Notify';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(1),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
+// const useStyles = makeStyles((theme) => ({
+//   paper: {
+//     marginTop: theme.spacing(1),
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//   },
 
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  button: {
-    marginTop: "10px",
-  },
-}));
+//   form: {
+//     width: "100%", // Fix IE 11 issue.
+//     marginTop: theme.spacing(1),
+//   },
+//   button: {
+//     marginTop: "10px",
+//   },
+// }));
 
 export const UpdatePatientTabForm = (props) => {
-  const classes = useStyles();
+  //const classes = useStyles();
   const { currentPatient } = useContext(GlobalContext);
   //const { register, handleSubmit, setValue, errors, control} = useForm()
   const initialFValues = {
@@ -210,8 +210,8 @@ export const UpdatePatientTabForm = (props) => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
-        <form className={classes.form} onSubmit={handleSubmit}>
+      <div>
+        <form onSubmit={handleSubmit}>
           <AppBar position="static" color="default">
             <Tabs
               indicatorColor="primary"
@@ -254,7 +254,7 @@ export const UpdatePatientTabForm = (props) => {
             //fullWidth
             variant="contained"
             color="primary"
-            className={classes.button}
+            //className={classes.button}
           >
             ENVIAR
           </Button>
@@ -263,7 +263,7 @@ export const UpdatePatientTabForm = (props) => {
             //fullWidth
             variant="outlined"
             color="primary"
-            className={classes.button}
+            //className={classes.button}
             onClick={props.handleCancel}
           >
             CERRAR

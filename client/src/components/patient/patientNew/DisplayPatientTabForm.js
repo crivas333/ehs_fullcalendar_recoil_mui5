@@ -1,75 +1,71 @@
+import React, { useContext, useEffect, useState } from "react";
+import AppBar from "@material-ui/core/AppBar";
 
-
-import React, { useContext, useEffect, useState } from 'react'
-import AppBar from '@material-ui/core/AppBar';
-
-import { GlobalContext } from '../../../context/GlobalState'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Container from '@material-ui/core/Container'
+import { GlobalContext } from "../../../context/GlobalState";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Container from "@material-ui/core/Container";
 //import Button from '@material-ui/core/Button'
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 //import TabPanel from '@material-ui/lab/TabPanel'
-import { makeStyles } from '@material-ui/core/styles'
+//import { makeStyles } from '@material-ui/core/styles'
 
-import {DisplayPatientTab1} from './DisplayPatientTab1'
-import {DisplayPatientTab2} from './DisplayPatientTab2'
-import {DisplayPatientTab3} from './DisplayPatientTab3'
+import { DisplayPatientTab1 } from "./DisplayPatientTab1";
+import { DisplayPatientTab2 } from "./DisplayPatientTab2";
+import { DisplayPatientTab3 } from "./DisplayPatientTab3";
 //import {useReusableForm,ReusableForm} from '../../reusableForms/useReusableForm'
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(1),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
-  },
-  button:{
-    marginTop: '10px'
-  }
- 
+// const useStyles = makeStyles((theme) => ({
+//   paper: {
+//     marginTop: theme.spacing(1),
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//   },
 
-}))
+//   form: {
+//     width: "100%", // Fix IE 11 issue.
+//     marginTop: theme.spacing(1),
+//   },
+//   button: {
+//     marginTop: "10px",
+//   },
+// }));
 
 export const DisplayPatientTabForm = (props) => {
-  const classes = useStyles()
-  const { currentPatient } = useContext(GlobalContext)
+  //const classes = useStyles();
+  const { currentPatient } = useContext(GlobalContext);
   const initialFValues = {
-    idType:'DNI',
-    idTypeNo: '',
-    firstName: '',
-    lastName: '',
-    lastName2: '',
-    birthDay: '',
-    sex: '',
-    phone1: '',
-    phone2: '',
-    email: '',
-    address: '',
-    gName: '',
-    gPhone1: '',
-    gPhone2: '',
-    gRelation: '',
-    bloodType: '',
-    marital:'',
-    occupation: '',
-    religion: '',
-    referral: ''
-}
+    idType: "DNI",
+    idTypeNo: "",
+    firstName: "",
+    lastName: "",
+    lastName2: "",
+    birthDay: "",
+    sex: "",
+    phone1: "",
+    phone2: "",
+    email: "",
+    address: "",
+    gName: "",
+    gPhone1: "",
+    gPhone2: "",
+    gRelation: "",
+    bloodType: "",
+    marital: "",
+    occupation: "",
+    religion: "",
+    referral: "",
+  };
 
-  const [ values, setValues ] = useState(initialFValues)
+  const [values, setValues] = useState(initialFValues);
   //tabs
   const indexToTabName = {
     Datos: 0,
     Contacto: 1,
-    Misc: 2
+    Misc: 2,
   };
-  const [selectedTab, setSelectedTab] = useState(indexToTabName['Datos']);
+  const [selectedTab, setSelectedTab] = useState(indexToTabName["Datos"]);
   // const tabNameToIndex = {
   //   0: 'Datos',
   //   1: 'Contacto',
@@ -80,65 +76,68 @@ export const DisplayPatientTabForm = (props) => {
     //console.log('handleChangeTab: ',newValue)
     setSelectedTab(newValue);
   };
- 
 
- useEffect(() => {
+  useEffect(() => {
     if (currentPatient !== null) {
       //setValue('currPatient', { ...currentPatient })
-      setValues(currentPatient)
+      setValues(currentPatient);
       //console.log('DisplayPatientTabForm-currentPatient: ',currentPatient)
       //values=currentPatient
     }
-  }, [currentPatient])
-  
-//<Container component='main' maxWidth='xs'>
+  }, [currentPatient]);
+
+  //<Container component='main' maxWidth='xs'>
   return (
-    <Container >
+    <Container>
       <CssBaseline />
-      <div className={classes.paper}>
-        <form 
-          className={classes.form}
-          //onSubmit={handleSubmit}
+      <div>
+        <form
+        //className={classes.form}
+        //onSubmit={handleSubmit}
         >
-          <AppBar 
-            position="static" 
-            color="default">
+          <AppBar position="static" color="default">
             <Tabs
-              centered 
+              centered
               indicatorColor="primary"
               textColor="primary"
               //variant="scrollable"
               //variant="fullWidth"
               scrollButtons="auto"
-              value={selectedTab} 
-              onChange={handleChangeTab}>
-              <Tab label='Datos' />
-              <Tab label='Contacto' />
-              <Tab label='Misc' />
+              value={selectedTab}
+              onChange={handleChangeTab}
+            >
+              <Tab label="Datos" />
+              <Tab label="Contacto" />
+              <Tab label="Misc" />
             </Tabs>
           </AppBar>
-          {(selectedTab===0)&&(<DisplayPatientTab1 
-            values={values}
-            //onChange={handleInputChange}
-            //errors={errors}
-            />)}
-          
-          {(selectedTab===1)&&(<DisplayPatientTab2 
-            values={values}
-            //handleInputChange={handleInputChange}
-            //errors={errors}
-            />)}
-          {(selectedTab===2)&&(<DisplayPatientTab3 
-            values={values}
-            //handleInputChange={handleInputChange}
-            //errors={errors}
-            />)}
-       
+          {selectedTab === 0 && (
+            <DisplayPatientTab1
+              values={values}
+              //onChange={handleInputChange}
+              //errors={errors}
+            />
+          )}
+
+          {selectedTab === 1 && (
+            <DisplayPatientTab2
+              values={values}
+              //handleInputChange={handleInputChange}
+              //errors={errors}
+            />
+          )}
+          {selectedTab === 2 && (
+            <DisplayPatientTab3
+              values={values}
+              //handleInputChange={handleInputChange}
+              //errors={errors}
+            />
+          )}
         </form>
       </div>
     </Container>
-  )
-}
+  );
+};
 
 /*
    {(selectedTab===0)&&(<NewPatientTab1 
@@ -318,7 +317,6 @@ const validate = (fieldValues = values) => {
   />
 </MuiPickersUtilsProvider>
 */
-
 
 /*
   <Controller

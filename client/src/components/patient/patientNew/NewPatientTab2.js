@@ -1,24 +1,24 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 import ReusableControls from "../../reusableForms/reusableControls/ReusableControls";
 //import {getMaritalCollection} from '../../../services/employeeService'
 //import * as employeeService from "../../../services/employeeService";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(1),
-    display: "flex",
-    flexDirection: "column",
-    //alignItems: 'center'
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   paper: {
+//     marginTop: theme.spacing(1),
+//     display: "flex",
+//     flexDirection: "column",
+//     //alignItems: 'center'
+//   },
+// }));
 
 // export default function App() {
 export const NewPatientTab2 = (props) => {
-  const classes = useStyles();
+  //const classes = useStyles();
 
   return (
-    <div className={classes.paper}>
+    <div>
       <ReusableControls.CustomInput
         name="phone1"
         label="Teléfono 1"

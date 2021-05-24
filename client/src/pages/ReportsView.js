@@ -8,7 +8,7 @@ import React from "react";
 // import Button from '@material-ui/core/Button'
 
 //import Grid from '@material-ui/core/Grid'
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 // import Paper from '@material-ui/core/Paper'
 // import Scrollbar from 'rmw-shell/lib/components/Scrollbar'
 // import { Scrollbars } from 'react-custom-scrollbars'
@@ -19,23 +19,23 @@ import { makeStyles } from "@material-ui/core/styles";
 //import AutoCompleteSF from "../components/patient/patientSearch/AutoCompleteSF";
 // import "./styles.css";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     flexGrow: 1,
+//   },
+//   paper: {
+//     padding: theme.spacing(1),
+//     textAlign: "center",
+//     color: theme.palette.text.secondary,
+//   },
+// }));
 
 //export default function Appointment () {
 export default function Reports() {
-  const classes = useStyles();
+  //const classes = useStyles();
   //const { currentPatient } = useContext(GlobalContext)
 
-  return <div className={classes.root}></div>;
+  return <div></div>;
 }
 // <AutoCompleteSF />
 /*
