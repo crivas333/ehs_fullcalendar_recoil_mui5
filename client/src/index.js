@@ -39,9 +39,10 @@ const theme = createTheme({
     secondary: {
       main: "#19857b",
     },
-    // error: {
-    //   main: red.A400,
-    // },
+    error: {
+      //main: red.A400,
+      main: "#19857b",
+    },
     background: {
       default: "#fff",
     },

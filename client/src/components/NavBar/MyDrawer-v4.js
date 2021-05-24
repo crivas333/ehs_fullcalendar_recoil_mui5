@@ -1,16 +1,14 @@
 import React from "react";
-//import useMediaQuery from "@material-ui/core/useMediaQuery";
-//import Paper from "@material-ui/core/Paper";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import Paper from "@material-ui/core/Paper";
 // import PropTypes from "prop-types";
 // import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
-import Box from "@material-ui/core/Box";
 //import Hidden from "@material-ui/core/Hidden";
 
-//import { makeStyles, useTheme } from "@material-ui/styles";
-//import { useTheme } from "@material-ui/styles";
+import { makeStyles, useTheme } from "@material-ui/styles";
 // import ListSubheader from "@material-ui/core/ListSubheader";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -27,76 +25,76 @@ import Profile from "./Profile";
 
 const drawerWidth = 240;
 
-// const useStyles = makeStyles((theme) => ({
-//   // root: {
-//   //   display: "flex",
-//   // },
-//   // appBar: {
-//   //   transition: theme.transitions.create(["margin", "width"], {
-//   //     easing: theme.transitions.easing.sharp,
-//   //     duration: theme.transitions.duration.leavingScreen,
-//   //   }),
-//   // },
-//   // appBarShift: {
-//   //   width: `calc(100% - ${drawerWidth}px)`,
-//   //   marginLeft: drawerWidth,
-//   //   transition: theme.transitions.create(["margin", "width"], {
-//   //     easing: theme.transitions.easing.easeOut,
-//   //     duration: theme.transitions.duration.enteringScreen,
-//   //   }),
-//   // },
-//   // menuButton: {
-//   //   marginRight: theme.spacing(0),
-//   // },
-//   // hide: {
-//   //   display: "none",
-//   // },
-//   // drawerMobile: {
-//   //   [theme.breakpoints.up("sm")]: {
-//   //     width: drawerWidth,
-//   //     flexShrink: 0,
-//   //   },
-//   // },
-//   // drawerPaperMobile: {
-//   //   width: drawerWidth,
-//   // },
-//   // drawer: {
-//   //   width: drawerWidth,
-//   //   flexShrink: 0,
-//   // },
-//   // drawerPaper: {
-//   //   width: drawerWidth,
-//   // },
-//   // drawerHeader: {
-//   //   display: "flex",
-//   //   alignItems: "center",
-//   //   padding: theme.spacing(0, 1),
-//   //   // necessary for content to be below app bar
-//   //   ...theme.mixins.toolbar,
-//   //   justifyContent: "flex-end",
-//   // },
-//   // content: {
-//   //   flexGrow: 1,
-//   //   padding: theme.spacing(0),
-//   //   transition: theme.transitions.create("margin", {
-//   //     easing: theme.transitions.easing.sharp,
-//   //     duration: theme.transitions.duration.leavingScreen,
-//   //   }),
-//   //   marginLeft: -drawerWidth,
-//   // },
-//   // contentShift: {
-//   //   transition: theme.transitions.create("margin", {
-//   //     easing: theme.transitions.easing.easeOut,
-//   //     duration: theme.transitions.duration.enteringScreen,
-//   //   }),
-//   //   marginLeft: 0,
-//   // },
-// }));
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+  },
+  // appBar: {
+  //   transition: theme.transitions.create(["margin", "width"], {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.leavingScreen,
+  //   }),
+  // },
+  // appBarShift: {
+  //   width: `calc(100% - ${drawerWidth}px)`,
+  //   marginLeft: drawerWidth,
+  //   transition: theme.transitions.create(["margin", "width"], {
+  //     easing: theme.transitions.easing.easeOut,
+  //     duration: theme.transitions.duration.enteringScreen,
+  //   }),
+  // },
+  menuButton: {
+    marginRight: theme.spacing(0),
+  },
+  hide: {
+    display: "none",
+  },
+  drawerMobile: {
+    [theme.breakpoints.up("sm")]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+  },
+  drawerPaperMobile: {
+    width: drawerWidth,
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(0),
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  },
+}));
 
 function ResponsiveDrawer(props) {
   const { window } = props;
-  //const classes = useStyles();
-  //const theme = useTheme();
+  const classes = useStyles();
+  const theme = useTheme();
   // const [mobileOpen, setMobileOpen] = React.useState(false);
   // const {mobileOpen,updateMobileOpen} = useContext(GlobalContext);
   const location = useLocation();
@@ -117,13 +115,12 @@ function ResponsiveDrawer(props) {
   // <Profile> instead of <div className={classes.toolbar} />
   const drawer = (
     <div>
-      <Profile //className={classes.toolbar}
-      />
+      <Profile className={classes.toolbar} />
       <Divider />
       <List
         component="nav"
         aria-labelledby="nested-list-subheader"
-        //className={classes.root1}
+        className={classes.root1}
       >
         <ListItem button onClick={handleExpandPatient}>
           <ListItemText primary="GESTIÓN de PACIENTES" />
@@ -134,7 +131,7 @@ function ResponsiveDrawer(props) {
             <ListItem
               button
               onClick={props.clickDrawerClose}
-              //className={classes.nested}
+              className={classes.nested}
               key="Paciente"
               component={NavLink}
               to="/Paciente"
@@ -145,7 +142,7 @@ function ResponsiveDrawer(props) {
             <ListItem
               button
               onClick={props.clickDrawerClose}
-              //className={classes.nested}
+              className={classes.nested}
               key="Agendamiento"
               component={NavLink}
               to="/Agendamiento"
@@ -156,7 +153,7 @@ function ResponsiveDrawer(props) {
             <ListItem
               button
               onClick={props.clickDrawerClose}
-              //className={classes.nested}
+              className={classes.nested}
               key="Citas"
               component={NavLink}
               to="/Citas"
@@ -176,7 +173,7 @@ function ResponsiveDrawer(props) {
             <ListItem
               button
               onClick={props.clickDrawerClose}
-              //className={classes.nested}
+              className={classes.nested}
               key="Consulta"
               component={NavLink}
               to="/Consulta"
@@ -187,7 +184,7 @@ function ResponsiveDrawer(props) {
             <ListItem
               button
               onClick={props.clickDrawerClose}
-              //className={classes.nested}
+              className={classes.nested}
               key="Diario Clínico"
               component={NavLink}
               to="/Diario Clínico"
@@ -198,7 +195,7 @@ function ResponsiveDrawer(props) {
             <ListItem
               button
               onClick={props.clickDrawerClose}
-              //className={classes.nested}
+              className={classes.nested}
               key="Examenes"
               component={NavLink}
               to="/Examenes"
@@ -209,7 +206,7 @@ function ResponsiveDrawer(props) {
             <ListItem
               button
               onClick={props.clickDrawerClose}
-              //className={classes.nested}
+              className={classes.nested}
               key="Informes"
               component={NavLink}
               to="/Informes"
@@ -220,7 +217,7 @@ function ResponsiveDrawer(props) {
             <ListItem
               button
               onClick={props.clickDrawerClose}
-              //className={classes.nested}
+              className={classes.nested}
               key="Documentos"
               component={NavLink}
               to="/Documentos"
@@ -240,7 +237,7 @@ function ResponsiveDrawer(props) {
             <ListItem
               button
               onClick={props.clickDrawerClose}
-              //className={classes.nested}
+              className={classes.nested}
               key="Config"
               component={NavLink}
               to="/Config"
@@ -253,94 +250,65 @@ function ResponsiveDrawer(props) {
       </List>
     </div>
   );
+  const Hidden1 = () => {
+    //const hidden = useMediaQuery((theme) => theme.breakpoints.up("xl"));
+    const hidden = useMediaQuery((theme) => theme.breakpoints.up("sm"));
+    return hidden ? null : <Paper />;
+  };
+
   const container =
     window !== undefined ? () => window().document.body : undefined;
-  // const Hidden1 = () => {
-  //   //const hidden = useMediaQuery((theme) => theme.breakpoints.up("xl"));
-  //   const hidden = useMediaQuery((theme) => theme.breakpoints.up("sm"));
-  //   return hidden ? null : <Paper />;
-  // };
-
   // open={mobileOpen}
   //<nav className={classes.drawer} aria-label='mailbox folders'>
   //<Hidden smUp implementation='css'>
   return (
-    <Box sx={{ display: "flex" }}>
+    <div className={classes.root}>
       <CssBaseline />
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
-      >
-        {/*<nav className={classes.drawer} aria-label="mailbox folders">*/}
+
+      <nav className={classes.drawer} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         {/*<Hidden smUp implementation="js">*/}
-        {/*<Hidden1>*/}
-        <Drawer
-          //for Mobile
-          container={container}
-          variant="temporary"
-          //anchor={theme.direction === "rtl" ? "right" : "left"}
-          anchor="left"
-          open={props.drawerOpen}
-          onClose={props.onClickHandleDrawerToggle}
-          //classes={{ paper: classes.drawerPaperMobile }}
-          //classes={{paper: classes.drawerPaper}}
-          // Below Better open performance on mobile.
-          //ModalProps={{keepMounted: true }}
-          //ModalProps={{ onBackdropClick: props.onClickHandleDrawerToggle}}
-          ModalProps={{
-            onBackdropClick: props.onClickHandleDrawerClose,
-            keepMounted: true,
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
-        {/*</Hidden>*/}
-        {/*</Hidden1>*/}
+        <Hidden1>
+          <Drawer
+            //for Mobile
+            container={container}
+            variant="temporary"
+            anchor={theme.direction === "rtl" ? "right" : "left"}
+            open={props.drawerOpen}
+            //onClose={props.onClickHandleDrawerToggle}
+            classes={{ paper: classes.drawerPaperMobile }}
+            //classes={{paper: classes.drawerPaper}}
+            // Below Better open performance on mobile.
+            //ModalProps={{keepMounted: true }}
+            //ModalProps={{ onBackdropClick: props.onClickHandleDrawerToggle}}
+            ModalProps={{
+              onBackdropClick: props.onClickHandleDrawerClose,
+              keepMounted: true,
+            }}
+          >
+            {drawer}
+          </Drawer>
+          {/*</Hidden>*/}
+        </Hidden1>
 
         {/*<Hidden xsDown implementation="css">*/}
-        {/*<Paper sx={{ display: { xl: "none", xs: "block" } }}>*/}
-        <Drawer
-          // for Desktop
-          //className={classes.drawer}
-          //sx={{ width: drawerWidth, flexShrink: 0 }}
-          // sx={{
-          //   display: { xs: "none", sm: "block" },
-          //   "& .MuiDrawer-paper": {
-          //     boxSizing: "border-box",
-          //     width: drawerWidth,
-          //   },
-          // }}
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box",
-            },
-          }}
-          variant="persistent"
-          anchor="left"
-          open={props.drawerOpen}
-          //classes={{ paper: classes.drawerPaper }}
-          //variant='permanent'
-          //open
-        >
-          {drawer}
-        </Drawer>
-        {/* </Hidden>*/}
-        {/*</Paper>*/}
-        {/*</nav>*/}
-      </Box>
-    </Box>
+        <Paper sx={{ display: { xl: "none", xs: "block" } }}>
+          <Drawer
+            // for Desktop
+            className={classes.drawer}
+            variant="persistent"
+            anchor="left"
+            open={props.drawerOpen}
+            classes={{ paper: classes.drawerPaper }}
+            //variant='permanent'
+            //open
+          >
+            {drawer}
+          </Drawer>
+          {/* </Hidden>*/}
+        </Paper>
+      </nav>
+    </div>
   );
 }
 

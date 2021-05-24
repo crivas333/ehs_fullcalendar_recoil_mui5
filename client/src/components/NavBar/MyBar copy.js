@@ -185,7 +185,7 @@ function ResponsiveAppBar(props) {
             aria-label="open drawer"
             edge="start"
             onClick={props.onClickHandleDrawerOpen}
-            //className={classes.menuButton}
+            className={classes.menuButton}
             className={clsx(
               classes.menuButton,
               props.drawerOpen && classes.hide

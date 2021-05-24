@@ -13,7 +13,8 @@ export default function PlainDateTimePicker(props) {
     label,
     value,
     onChange,
-    inputVariant,
+    //inputVariant,
+    variant,
     readOnly = false,
     disablePast = false,
     disableFuture = false,
@@ -33,7 +34,7 @@ export default function PlainDateTimePicker(props) {
   // };
   return (
     <DateTimePicker
-      renderInput={(props) => <TextField {...props} />}
+      renderInput={(props) => <TextField {...props} variant={variant} />}
       //disableToolbar variant="inline"
       //variant="inline"
       //variant="dialog"

@@ -7,8 +7,8 @@ import React from "react";
 //import * as appointmentService from "../../services/configService";
 //import { GlobalContext } from "../../context/GlobalState";
 import { makeStyles } from "@material-ui/styles";
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+//import { useTheme } from "@material-ui/core/styles";
+//import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Button from "@material-ui/core/Button";
 //import FormControl from "@material-ui/core/FormControl";
 import Dialog from "@material-ui/core/Dialog";
@@ -55,8 +55,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DeleteEventDialog(props) {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  //const theme = useTheme();
+  //const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const classes = useStyles();
   //const [open, setOpen] = useState(false);
   //const { applicationFields } = useContext(GlobalContext);

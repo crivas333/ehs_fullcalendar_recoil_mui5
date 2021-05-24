@@ -14,7 +14,8 @@ export default function PlainDatePicker(props) {
     label,
     value,
     onChange,
-    inputVariant,
+    //inputVariant,
+    variant,
     readOnly = false,
     disableFuture = false,
     disablePast = false,
@@ -33,10 +34,10 @@ export default function PlainDatePicker(props) {
 
   return (
     <DatePicker
-      renderInput={(props) => <TextField {...props} />}
+      renderInput={(props) => <TextField {...props} variant={variant} />}
       placeholder="dd/MM/yyyy"
       //disableToolbar variant="inline"
-      inputVariant={inputVariant}
+      //inputVariant={inputVariant}
       variant="dialog"
       //disablePast={disablePast}
       label={label}
