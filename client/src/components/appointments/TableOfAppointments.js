@@ -13,7 +13,7 @@ import TablePaginationActions from "./TablePaginationActions";
 import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 
-//import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import TableToolbar from "./TableToolbar";
 import {
   useGlobalFilter,
@@ -22,27 +22,27 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-//import { findBreakingChanges } from 'graphql'
+import { findBreakingChanges } from "graphql";
 
-// const useStyles = makeStyles((theme) => ({
-//   selected: {
-//     backgroundColor: "green !important",
-//     "&:hover": {
-//       backgroundColor: "green !important",
-//     },
-//   },
-//   cellHeader: {
-//     width: "10%",
-//     //fontSize: '08pt',
-//     fontSize: "12px",
-//     backgroundColor: "grey",
-//   },
-//   cellBody: {
-//     width: "10%",
-//     fontSize: "12px",
-//     //backgroundColor: 'green'
-//   },
-// }));
+const useStyles = makeStyles((theme) => ({
+  selected: {
+    backgroundColor: "green !important",
+    "&:hover": {
+      backgroundColor: "green !important",
+    },
+  },
+  cellHeader: {
+    width: "10%",
+    //fontSize: '08pt',
+    fontSize: "12px",
+    backgroundColor: "grey",
+  },
+  cellBody: {
+    width: "10%",
+    fontSize: "12px",
+    //backgroundColor: 'green'
+  },
+}));
 
 const EnhancedTable = ({
   columns,
@@ -53,7 +53,7 @@ const EnhancedTable = ({
   //skipPageReset,
   handleAddEvt,
 }) => {
-  //const classes = useStyles();
+  const classes = useStyles();
   const {
     getTableProps,
     getTableBodyProps,
@@ -101,6 +101,7 @@ const EnhancedTable = ({
   };
 
   const handleChangeRowsPerPage = (event) => {
+    console.log("handleChangeRowPerPage: ", event);
     setPageSize(Number(event.target.value));
   };
 
@@ -166,8 +167,10 @@ const EnhancedTable = ({
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[
-                5, 10, 25,
-                //{ label: "All", value: data.length }, //this cause warning of duplicated key '5'
+                5,
+                10,
+                25,
+                { label: "All", value: data.length }, //this cause warning of duplicated key '5'
               ]}
               colSpan={3}
               count={data.length}

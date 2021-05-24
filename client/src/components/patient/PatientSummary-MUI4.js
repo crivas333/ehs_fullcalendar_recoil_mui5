@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 // import TextField from '@material-ui/core/TextField'
 // import Grid from '@material-ui/core/Grid'
 // import Typography from '@material-ui/core/Typography'
-//import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/styles";
 // import Container from '@material-ui/core/Container'
 // import InputLabel from '@material-ui/core/InputLabel'
 import format from "date-fns/format";
@@ -11,32 +11,30 @@ import format from "date-fns/format";
 // import { useForm } from 'react-hook-form'
 import { GlobalContext } from "../../context/GlobalState";
 
-// const useStyles = makeStyles((theme) => ({
-//   paper: {
-//     //marginTop: theme.spacing(0),
-//     display: "flex",
-//     flexDirection: "column",
-//   },
-//   // spanMobile:{
-//   //   //whiteSpace:'pre-wrap',
-//   //   lineHeight: '14px',
-//   // }
-// }));
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    //marginTop: theme.spacing(0),
+    display: "flex",
+    flexDirection: "column",
+  },
+  // spanMobile:{
+  //   //whiteSpace:'pre-wrap',
+  //   lineHeight: '14px',
+  // }
+}));
 
 //const nbsp = '\u00A0';
 //const breakline = '\u000A';
 
 function NewlineText(props) {
-  const newText = props.text.split("\n").map((item, key) => (
-    <span style={{ fontSize: "10pt" }} key={key}>
-      {item}
-    </span>
-  ));
+  const newText = props.text
+    .split("\n")
+    .map((item, key) => <span key={key}>{item}</span>);
   return newText;
 }
 
 export default function PatientSummary(props) {
-  //const classes = useStyles();
+  const classes = useStyles();
   const { currentPatient } = useContext(GlobalContext);
   const [textMobile, setTextMobile] = useState("");
   const [textPC, setTextPC] = useState("");
@@ -80,33 +78,27 @@ export default function PatientSummary(props) {
       setTextMobile(line1);
 
       //lines divided by feedLine (enter)
-      line2 = `Historia: ${currentPatient.historyId} - ${currentPatient.lastName} ${currentPatient.lastName2}, ${currentPatient.firstName} - 
-      ${currentPatient.idType}: ${currentPatient.idTypeNo}  -  F. Nacimiento: ${dob} (${age} años)  -  Sexo: ${currentPatient.sex} - 
-        Teléfono: ${currentPatient.phone1}  -  Email: ${currentPatient.email}`;
+      line2 = `Historia: ${currentPatient.historyId} - ${currentPatient.lastName} ${currentPatient.lastName2}, ${currentPatient.firstName}
+      ${currentPatient.idType}: ${currentPatient.idTypeNo}  -  F. Nacimiento: ${dob} (${age} años)  -  Sexo: ${currentPatient.sex}
+      Teléfono: ${currentPatient.phone1}  -  Email: ${currentPatient.email}`;
       setTextPC(line2);
     }
   }, [currentPatient]);
 
   if (isMobile) {
     return (
-      <div style={{ lineHeight: "1em" }}>
-        <span style={{ fontSize: "9pt" }}>{textMobile}</span>
+      <div className={classes.paper}>
+        <span style={{ lineHeight: "14px" }}>{textMobile}</span>
       </div>
     );
   } else {
     return (
-      <div style={{ lineHeight: "1em" }}>
+      <div className={classes.paper}>
         <NewlineText text={textPC}></NewlineText>
       </div>
     );
   }
 }
-
-/*
- <span style={{ lineHeight: "14px", fontSize: "12px" }}>
-          {textMobile}
-        </span>
-*/
 
 /*
  <div className={classes.paper}>  

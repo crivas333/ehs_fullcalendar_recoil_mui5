@@ -5,19 +5,19 @@ import IconButton from "@material-ui/core/IconButton";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
-//import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { makeStyles } from "@material-ui/styles";
 import { useTheme } from "@material-ui/styles";
 import PropTypes from "prop-types";
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexShrink: 0,
-//     marginLeft: theme.spacing(2.5),
-//   },
-// }));
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexShrink: 0,
+    marginLeft: theme.spacing(2.5),
+  },
+}));
 
 const TablePaginationActions = (props) => {
-  //const classes = useStyles();
+  const classes = useStyles();
   const theme = useTheme();
   const { count, page, rowsPerPage, onChangePage } = props;
 
