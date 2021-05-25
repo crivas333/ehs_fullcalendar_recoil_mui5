@@ -2,15 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 
 import { GlobalContext } from "../../../context/GlobalState";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
+
 import Button from "@material-ui/core/Button";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-//import TabPanel from '@material-ui/lab/TabPanel'
-import { makeStyles } from "@material-ui/core/styles";
-//import { useForm, Controller} from 'react-hook-form'
-//import { ErrorMessage } from '@hookform/error-message'
+import { experimentalStyled as styled } from "@material-ui/core/styles";
 
 import { UpdatePatientTab1 } from "./UpdatePatientTab1";
 import { UpdatePatientTab2 } from "./UpdatePatientTab2";
@@ -19,25 +15,18 @@ import { useReusableForm } from "../../reusableForms/useReusableForm";
 
 //import Notify from '../../notification/Notify';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(1),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  button: {
-    marginTop: "10px",
-  },
+const MyBox = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  //margingTop: theme.spacing(1),
+  padding: theme.spacing(1, 0),
+  //alignItems: "center",
+  //padding: theme.spacing(0, 1),
+  //justifyContent: "flex-end",
 }));
 
 export const UpdatePatientTabForm = (props) => {
-  const classes = useStyles();
+  //const classes = useStyles();
   const { currentPatient } = useContext(GlobalContext);
   //const { register, handleSubmit, setValue, errors, control} = useForm()
   const initialFValues = {
@@ -208,69 +197,66 @@ export const UpdatePatientTabForm = (props) => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <AppBar position="static" color="default">
-            <Tabs
-              indicatorColor="primary"
-              textColor="primary"
-              variant="scrollable"
-              //variant="fullWidth"
-              scrollButtons="auto"
-              value={selectedTab}
-              onChange={handleChangeTab}
-            >
-              <Tab label="Datos" />
-              <Tab label="Contacto" />
-              <Tab label="Misc" />
-            </Tabs>
-          </AppBar>
-          {selectedTab === 0 && (
-            <UpdatePatientTab1
-              values={values}
-              onChange={handleInputChange}
-              errors={errors}
-            />
-          )}
+    <MyBox>
+      <form onSubmit={handleSubmit}>
+        <AppBar position="static" color="default">
+          <Tabs
+            indicatorColor="primary"
+            textColor="primary"
+            variant="scrollable"
+            //variant="fullWidth"
+            scrollButtons="auto"
+            value={selectedTab}
+            onChange={handleChangeTab}
+          >
+            <Tab label="Datos" />
+            <Tab label="Contacto" />
+            <Tab label="Misc" />
+          </Tabs>
+        </AppBar>
+        {selectedTab === 0 && (
+          <UpdatePatientTab1
+            values={values}
+            onChange={handleInputChange}
+            errors={errors}
+          />
+        )}
 
-          {selectedTab === 1 && (
-            <UpdatePatientTab2
-              values={values}
-              onChange={handleInputChange}
-              errors={errors}
-            />
-          )}
-          {selectedTab === 2 && (
-            <UpdatePatientTab3
-              values={values}
-              onChange={handleInputChange}
-              errors={errors}
-            />
-          )}
-          <Button
-            type="submit"
-            //fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
-            ENVIAR
-          </Button>
-          <Button
-            //type='submit'
-            //fullWidth
-            variant="outlined"
-            color="primary"
-            className={classes.button}
-            onClick={props.handleCancel}
-          >
-            CERRAR
-          </Button>
-        </form>
-      </div>
-    </Container>
+        {selectedTab === 1 && (
+          <UpdatePatientTab2
+            values={values}
+            onChange={handleInputChange}
+            errors={errors}
+          />
+        )}
+        {selectedTab === 2 && (
+          <UpdatePatientTab3
+            values={values}
+            onChange={handleInputChange}
+            errors={errors}
+          />
+        )}
+        <Button
+          type="submit"
+          //fullWidth
+          variant="contained"
+          color="primary"
+          //className={classes.button}
+        >
+          ENVIAR
+        </Button>
+        <Button
+          //type='submit'
+          //fullWidth
+          variant="outlined"
+          color="primary"
+          //className={classes.button}
+          onClick={props.handleCancel}
+        >
+          CERRAR
+        </Button>
+      </form>
+    </MyBox>
   );
 };
 

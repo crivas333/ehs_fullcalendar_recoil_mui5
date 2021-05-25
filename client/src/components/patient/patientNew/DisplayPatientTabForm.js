@@ -2,38 +2,50 @@ import React, { useContext, useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 
 import { GlobalContext } from "../../../context/GlobalState";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
-//import Button from '@material-ui/core/Button'
+
+import { useTheme } from "@material-ui/core/styles";
+import { experimentalStyled as styled } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 //import TabPanel from '@material-ui/lab/TabPanel'
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 
 import { DisplayPatientTab1 } from "./DisplayPatientTab1";
 import { DisplayPatientTab2 } from "./DisplayPatientTab2";
 import { DisplayPatientTab3 } from "./DisplayPatientTab3";
 //import {useReusableForm,ReusableForm} from '../../reusableForms/useReusableForm'
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(1),
-    display: "flex",
-    flexDirection: "column",
-    //alignItems: 'center'
-  },
+// const useStyles = makeStyles((theme) => ({
+//   paper: {
+//     marginTop: theme.spacing(1),
+//     display: "flex",
+//     flexDirection: "column",
+//     //alignItems: 'center'
+//   },
 
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  button: {
-    marginTop: "10px",
-  },
+//   form: {
+//     width: "100%", // Fix IE 11 issue.
+//     marginTop: theme.spacing(1),
+//   },
+//   button: {
+//     marginTop: "10px",
+//   },
+// }));
+const MyBox = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  //margingTop: theme.spacing(1),
+  padding: theme.spacing(1, 0),
+  //alignItems: "center",
+  //padding: theme.spacing(0, 1),
+
+  //justifyContent: "flex-end",
 }));
 
 export const DisplayPatientTabForm = (props) => {
-  const classes = useStyles();
+  //const classes = useStyles();
+  const theme = useTheme();
   const { currentPatient } = useContext(GlobalContext);
   const initialFValues = {
     idType: "DNI",
@@ -86,12 +98,18 @@ export const DisplayPatientTabForm = (props) => {
     }
   }, [currentPatient]);
 
-  //<Container component='main' maxWidth='xs'>
   return (
-    <div className={classes.paper}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        p: theme.spacing(1, 0),
+        //paddingTop: 1, //padding
+        //mt: 1, //margig top - works
+      }}
+    >
       <form
-        className={classes.form}
-        //onSubmit={handleSubmit}
+      //className={classes.form}
       >
         <AppBar position="static" color="default">
           <Tabs
@@ -132,7 +150,7 @@ export const DisplayPatientTabForm = (props) => {
           />
         )}
       </form>
-    </div>
+    </Box>
   );
 };
 

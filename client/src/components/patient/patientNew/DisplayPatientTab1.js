@@ -1,25 +1,37 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
+import { experimentalStyled as styled } from "@material-ui/core/styles";
 import ReusableControls from "../../reusableForms/reusableControls/ReusableControls";
 //import {getSexCollection, getIdTypeCollection} from '../../../services/employeeService'
 //import * as employeeService from "../../../services/employeeService";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(1),
-    display: "flex",
-    flexDirection: "column",
-    //alignItems: 'center'
-  },
+// const useStyles = makeStyles((theme) => ({
+//   paper: {
+//     marginTop: theme.spacing(1),
+//     display: "flex",
+//     flexDirection: "column",
+//     //alignItems: 'center'
+//   },
+// }));
+const MyBox = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  margingTop: theme.spacing(1),
+  //padding: theme.spacing(1, 0),
+  //alignItems: "center",
+  //padding: theme.spacing(0, 1),
+  //justifyContent: "flex-end",
 }));
 
 // export default function App() {
 export const DisplayPatientTab1 = (props) => {
-  const classes = useStyles();
+  //const classes = useStyles();
   const { values } = props;
 
   return (
-    <div className={classes.paper}>
+    <MyBox
+    //className={classes.paper}
+    >
       <ReusableControls.CustomInput
         name="historyId"
         label="Nro de Historia"
@@ -83,7 +95,7 @@ export const DisplayPatientTab1 = (props) => {
         variant="outlined"
         readOnly={true}
       />
-    </div>
+    </MyBox>
   );
 };
 

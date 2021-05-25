@@ -1,0 +1,120 @@
+=================================================================================
+import { experimentalStyled as styled } from "@material-ui/core/styles";
+
+const MyBox = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  //margingTop: theme.spacing(1),
+  padding: theme.spacing(1, 0),
+  //alignItems: "center",
+  //padding: theme.spacing(0, 1),
+
+  //justifyContent: "flex-end",
+}));
+
+ return (
+    <myBox>
+    </MyBox>
+=====================================================================
+import { useTheme } from "@material-ui/core/styles";
+
+export const DisplayPatientTabForm = (props) => {
+  const theme = useTheme();
+  
+return (
+    <Box
+		sx={{
+			display: "flex",
+			flexDirection: "column",
+			p: theme.spacing(1, 0),
+			//paddingTop: 1, //paddingTop -  works
+			//mt: 1, //margig top - works
+		  }}
+    
+    >
+    </Box>
+}
+
+
+
+
+import * as React from 'react';
+import { styled } from '@material-ui/styles';
+import Button from '@material-ui/core/Button';
+
+const MyButton = styled(Button)({
+  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  border: 0,
+  borderRadius: 3,
+  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  color: 'white',
+  height: 48,
+  padding: '0 30px',
+});
+
+export default function StyledComponents() {
+  return <MyButton>Styled Components</MyButton>;
+}
+
+
+
+import Box from '@material-ui/core/Box'
+const Example = ({children}) => (
+  <Box display="flex" flexDirection="column" alignItems="stretch" padding={1}>
+    {children}
+  </Box>
+)
+Notice also how padding={1} is a shorthand for theme.spacing(1). 
+Box provides various conveniences for working with Material-UI themes like this.
+ <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        //mt: theme.spacing()
+        mt: 1, //margig top
+      }}
+      //className={classes.paper}
+    >
+
+const StyledButton = styled(Button)`
+  ${({ theme }) => `
+  background-color: ${theme.palette.primary.main};
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 4px 10px;
+  font-size: 13px;
+  &:hover {
+    background-color: ${darken(theme.palette.primary.main, 0.2)};
+  }
+  ${theme.breakpoints.up('sm')} {
+    font-size: 14px;
+    padding: 7px 14px;
+  }
+  `}
+`;
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  transition: theme.transitions.create(["margin", "width"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  //display: "flex",
+  //alignItems: "center",
+  //padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  //justifyContent: "flex-end",
+}));
