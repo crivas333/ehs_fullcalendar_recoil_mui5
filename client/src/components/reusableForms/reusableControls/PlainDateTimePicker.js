@@ -35,7 +35,13 @@ export default function PlainDateTimePicker(props) {
   return (
     <DateTimePicker
       renderInput={(props) => (
-        <TextField {...props} variant={variant} label={label} />
+        <TextField
+          {...props}
+          variant={variant}
+          size="small"
+          margin="dense"
+          label={label}
+        />
       )}
       //inputFormat="dd/MM/yyyy hh:mm a"
       inputFormat="dd/MM/yyyy hh:mm a"

@@ -40,7 +40,6 @@ export const NewPatientTab1 = (props) => {
         error={errors.idTypeNo}
         variant="outlined"
       />
-
       <ReusableControls.CustomInput
         name="firstName"
         label="Nombres"

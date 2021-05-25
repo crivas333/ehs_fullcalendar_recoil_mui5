@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import SiteLayout from "../layouts/SiteLayout";
-import PatientView from "./Paciente";
+import PatientView from "./PacientView";
 //import AppointmentView from './Appointment'
 import CalendarView from "./Calendar";
 import AppoitmentsView from "./Appointments";

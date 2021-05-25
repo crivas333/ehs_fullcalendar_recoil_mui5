@@ -26,10 +26,21 @@ export default function CustomSelect(props) {
     options,
   } = props;
   //<InputLabel>{label}</InputLabel>
+  //<FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+  //   <TextField
+  //   id="filled-select-currency"
+  //   select //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //   label="Select"
+  //   value={currency}
+  //   onChange={handleChange}
+  //   helperText="Please select your currency"
+  //   variant="filled"
+  // >
   return (
     <FormControl
       variant={variant}
       size="small"
+      margin="dense"
       //className={classes.formControl}
       //{...error && { error: true }}
     >
@@ -40,7 +51,7 @@ export default function CustomSelect(props) {
       </InputLabel>
       <Select
         //variant='standard'
-        label={label}
+        label={label} //keep this for lebel display consistance
         //native
         fullWidth
         name={name}

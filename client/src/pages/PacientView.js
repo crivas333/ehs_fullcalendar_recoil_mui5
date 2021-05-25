@@ -163,11 +163,12 @@ export default function Paciente() {
     deletePatient.mutate({ variables: { id: currentPatient.id } });
   };
 
-  //<AsyncPaginationSearch />
+  //<Grid container spacing={2}>
+  //<Grid item xs={8}></Grid>
   return (
     <Box
       sx={{
-        flexGrow: 1,
+        flexDirection: "row",
         //overflow: 'auto'
         //overflow: "hidden",
       }}
@@ -177,9 +178,15 @@ export default function Paciente() {
           <AsyncSelectAC />
         </Grid>
 
-        <Grid item container xs={12} alignItems="flex-start" direction="column">
-          <Grid item>
-            <ButtonGroup variant="contained">
+        <Grid
+          item
+          xs={12}
+          container
+          //alignItems="flex-center"
+          direction="column"
+        >
+          <Grid item xs>
+            <ButtonGroup size="small" variant="contained">
               <Button
                 color="primary"
                 disabled={action === 2}
@@ -220,6 +227,7 @@ export default function Paciente() {
           </Grid>
         </Grid>
       </Grid>
+      <Grid container></Grid>
     </Box>
   );
 }

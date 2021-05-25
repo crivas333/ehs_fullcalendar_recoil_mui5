@@ -1,3 +1,4 @@
+/* The following is a temporal solution for Vertical Scroll dissapearing after AppBar Menu-button pressing */
 body {
   overflow-y: scroll !important;
 }

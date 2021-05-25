@@ -201,70 +201,67 @@ export const NewPatientTabForm = (props) => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <ReusableForm className={classes.form} onSubmit={handleSubmit}>
-          <AppBar position="static" color="default">
-            <Tabs
-              indicatorColor="primary"
-              textColor="primary"
-              variant="scrollable"
-              //variant="fullWidth"
-              scrollButtons="auto"
-              value={selectedTab}
-              onChange={handleChangeTab}
-            >
-              <Tab label="Datos" />
-              <Tab label="Contacto" />
-              <Tab label="Misc" />
-            </Tabs>
-          </AppBar>
-          {selectedTab === 0 && (
-            <NewPatientTab1
-              values={values}
-              onChange={handleInputChange}
-              errors={errors}
-              //handleAction={handleAction}
-            />
-          )}
+    <div className={classes.paper}>
+      <ReusableForm className={classes.form} onSubmit={handleSubmit}>
+        <AppBar position="static" color="default">
+          <Tabs
+            indicatorColor="primary"
+            textColor="primary"
+            variant="scrollable"
+            //variant="fullWidth"
+            scrollButtons="auto"
+            value={selectedTab}
+            onChange={handleChangeTab}
+          >
+            <Tab label="Datos" />
+            <Tab label="Contacto" />
+            <Tab label="Misc" />
+          </Tabs>
+        </AppBar>
+        {selectedTab === 0 && (
+          <NewPatientTab1
+            values={values}
+            onChange={handleInputChange}
+            errors={errors}
+            //handleAction={handleAction}
+          />
+        )}
 
-          {selectedTab === 1 && (
-            <NewPatientTab2
-              values={values}
-              handleInputChange={handleInputChange}
-              errors={errors}
-            />
-          )}
-          {selectedTab === 2 && (
-            <NewPatientTab3
-              values={values}
-              handleInputChange={handleInputChange}
-              errors={errors}
-            />
-          )}
-          <Button
-            type="submit"
-            //fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
-            ENVIAR
-          </Button>
-          <Button
-            //type='submit'
-            //fullWidth
-            variant="outlined"
-            color="primary"
-            className={classes.button}
-            onClick={props.handleCancel}
-          >
-            CERRAR
-          </Button>
-        </ReusableForm>
-      </div>
-    </Container>
+        {selectedTab === 1 && (
+          <NewPatientTab2
+            values={values}
+            handleInputChange={handleInputChange}
+            errors={errors}
+          />
+        )}
+        {selectedTab === 2 && (
+          <NewPatientTab3
+            values={values}
+            handleInputChange={handleInputChange}
+            errors={errors}
+          />
+        )}
+        <Button
+          type="submit"
+          //fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.button}
+        >
+          ENVIAR
+        </Button>
+        <Button
+          //type='submit'
+          //fullWidth
+          variant="outlined"
+          color="primary"
+          className={classes.button}
+          onClick={props.handleCancel}
+        >
+          CERRAR
+        </Button>
+      </ReusableForm>
+    </div>
   );
 };
 

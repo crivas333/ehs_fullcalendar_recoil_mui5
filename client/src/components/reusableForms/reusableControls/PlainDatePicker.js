@@ -35,11 +35,17 @@ export default function PlainDatePicker(props) {
   return (
     <DatePicker
       renderInput={(props) => (
-        <TextField {...props} variant={variant} label={label} />
+        <TextField
+          {...props}
+          variant={variant}
+          margin="dense"
+          size="small"
+          label={label}
+        />
       )}
       showTodayButton
       todayText="hoy"
-      placeholder="dd/MM/yyyy"
+      //placeholder="dd/MM/yyyy"
       //disableToolbar variant="inline"
       //inputVariant={inputVariant}
       //variant="dialog"

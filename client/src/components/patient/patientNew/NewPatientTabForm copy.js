@@ -4,23 +4,26 @@ import AppBar from "@material-ui/core/AppBar";
 import { GlobalContext } from "../../../context/GlobalState";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
-//import Button from '@material-ui/core/Button'
+import Button from "@material-ui/core/Button";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 //import TabPanel from '@material-ui/lab/TabPanel'
 import { makeStyles } from "@material-ui/core/styles";
 
-import { DisplayPatientTab1 } from "./DisplayPatientTab1";
-import { DisplayPatientTab2 } from "./DisplayPatientTab2";
-import { DisplayPatientTab3 } from "./DisplayPatientTab3";
-//import {useReusableForm,ReusableForm} from '../../reusableForms/useReusableForm'
+import { NewPatientTab1 } from "./NewPatientTab1";
+import { NewPatientTab2 } from "./NewPatientTab2";
+import { NewPatientTab3 } from "./NewPatientTab3";
+import {
+  useReusableForm,
+  ReusableForm,
+} from "../../reusableForms/useReusableForm";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
     display: "flex",
     flexDirection: "column",
-    //alignItems: 'center'
+    alignItems: "center",
   },
 
   form: {
@@ -32,9 +35,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const DisplayPatientTabForm = (props) => {
+export const NewPatientTabForm = (props) => {
   const classes = useStyles();
   const { currentPatient } = useContext(GlobalContext);
+  //tabs
+  const indexToTabName = {
+    Datos: 0,
+    Contacto: 1,
+    Misc: 2,
+  };
+  const [selectedTab, setSelectedTab] = useState(indexToTabName["Datos"]);
+  // const tabNameToIndex = {
+  //   0: 'Datos',
+  //   1: 'Contacto',
+  //   2: 'Misc'
+  // };
+
+  const handleChangeTab = (event, newValue) => {
+    //console.log('handleChangeTab: ',newValue)
+    setSelectedTab(newValue);
+  };
+
+  useEffect(() => {
+    if (currentPatient !== null) {
+      //setValue('currPatient', { ...currentPatient })
+    }
+  }, [currentPatient]);
+
   const initialFValues = {
     idType: "DNI",
     idTypeNo: "",
@@ -57,82 +84,187 @@ export const DisplayPatientTabForm = (props) => {
     religion: "",
     referral: "",
   };
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
+    if ("firstName" in fieldValues)
+      temp.firstName = fieldValues.firstName ? "" : "Ingrese Nombre(s)";
+    if ("lastName" in fieldValues)
+      temp.lastName = fieldValues.lastName ? "" : "Ingrese A. Paterno";
 
-  const [values, setValues] = useState(initialFValues);
-  //tabs
-  const indexToTabName = {
-    Datos: 0,
-    Contacto: 1,
-    Misc: 2,
-  };
-  const [selectedTab, setSelectedTab] = useState(indexToTabName["Datos"]);
-  // const tabNameToIndex = {
-  //   0: 'Datos',
-  //   1: 'Contacto',
-  //   2: 'Misc'
-  // };
-  const handleChangeTab = (event, newValue) => {
-    //history.push(`/home/${tabNameToIndex[newValue]}`);
-    //console.log('handleChangeTab: ',newValue)
-    setSelectedTab(newValue);
-  };
+    setErrors({
+      ...temp,
+    });
 
-  useEffect(() => {
-    if (currentPatient !== null) {
-      //setValue('currPatient', { ...currentPatient })
-      setValues(currentPatient);
-      //console.log('DisplayPatientTabForm-currentPatient: ',currentPatient)
-      //values=currentPatient
+    if (fieldValues === values) {
+      // console.log(
+      //   "object: ",
+      //   Object.values(temp).every((x) => x === "")
+      // );
+      return Object.values(temp).every((x) => x === "");
     }
-  }, [currentPatient]);
+  };
 
-  //<Container component='main' maxWidth='xs'>
+  const {
+    values,
+    //setValues,
+    errors,
+    setErrors,
+    handleInputChange,
+    //resetForm,
+  } = useReusableForm(initialFValues, true, validate);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("NewPatientTabForm: ", values);
+    if (validate()) {
+      //console.log('validation')
+      const newData = {
+        //dni: parseInt(values.dni),
+        idType: values.idType,
+        idTypeNo: values.idTypeNo.toUpperCase(),
+        firstName: values.firstName.toUpperCase(),
+        lastName: values.lastName.toUpperCase(),
+        lastName2: values.lastName2.toUpperCase(),
+        //birthDay: (data.currPatient.birthDay||''),
+        //birthDay: (data.currPatient.birthDay), //null
+        birthDay: values.birthDay,
+        sex: values.sex,
+        phone1: values.phone1,
+        phone2: values.phone2,
+        email: values.email.toUpperCase(),
+        address: values.address.toUpperCase(),
+        gName: values.gName.toUpperCase(),
+        gPhone1: values.gPhone1,
+        gPhone2: values.gPhone2,
+        gRelation: values.gRelation.toUpperCase(),
+        bloodType: values.bloodType,
+        marital: values.marital,
+        occupation: values.occupation.toUpperCase(),
+        religion: values.religion.toUpperCase(),
+        referral: values.referral.toUpperCase(),
+      };
+      //props.createPatient({
+      props.createPatient.mutate({
+        variables: {
+          patientInput: {
+            idType: newData.idType,
+            idTypeNo: newData.idTypeNo,
+            firstName: newData.firstName,
+            lastName: newData.lastName,
+            lastName2: newData.lastName2,
+            birthDay: newData.birthDay,
+            sex: newData.sex,
+            phone1: newData.phone1,
+            phone2: newData.phone2,
+            email: newData.email,
+            address: newData.address,
+            gName: newData.gName,
+            gPhone1: newData.gPhone1,
+            gPhone2: newData.gPhone2,
+            gRelation: newData.gRelation,
+            bloodType: newData.bloodType,
+            marital: newData.marital,
+            occupation: newData.occupation,
+            religion: newData.religion,
+            referral: newData.referral,
+          },
+        },
+      });
+      // props.createPatient.mutate({
+      //   patientInput: {
+      //     idType: newData.idType,
+      //     idTypeNo: newData.idTypeNo,
+      //     firstName: newData.firstName,
+      //     lastName: newData.lastName,
+      //     lastName2: newData.lastName2,
+      //     birthDay: newData.birthDay,
+      //     sex: newData.sex,
+      //     phone1: newData.phone1,
+      //     phone2: newData.phone2,
+      //     email: newData.email,
+      //     address: newData.address,
+      //     gName: newData.gName,
+      //     gPhone1: newData.gPhone1,
+      //     gPhone2: newData.gPhone2,
+      //     gRelation: newData.gRelation,
+      //     bloodType: newData.bloodType,
+      //     marital: newData.marital,
+      //     occupation: newData.occupation,
+      //     religion: newData.religion,
+      //     referral: newData.referral,
+      //   },
+      // });
+
+      //resetForm();
+      //props.handleAction(0)
+    }
+  };
+
   return (
-    <div className={classes.paper}>
-      <form
-        className={classes.form}
-        //onSubmit={handleSubmit}
-      >
-        <AppBar position="static" color="default">
-          <Tabs
-            centered
-            indicatorColor="primary"
-            textColor="primary"
-            //variant="scrollable"
-            //variant="fullWidth"
-            scrollButtons="auto"
-            value={selectedTab}
-            onChange={handleChangeTab}
-          >
-            <Tab label="Datos" />
-            <Tab label="Contacto" />
-            <Tab label="Misc" />
-          </Tabs>
-        </AppBar>
-        {selectedTab === 0 && (
-          <DisplayPatientTab1
-            values={values}
-            //onChange={handleInputChange}
-            //errors={errors}
-          />
-        )}
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <ReusableForm className={classes.form} onSubmit={handleSubmit}>
+          <AppBar position="static" color="default">
+            <Tabs
+              indicatorColor="primary"
+              textColor="primary"
+              variant="scrollable"
+              //variant="fullWidth"
+              scrollButtons="auto"
+              value={selectedTab}
+              onChange={handleChangeTab}
+            >
+              <Tab label="Datos" />
+              <Tab label="Contacto" />
+              <Tab label="Misc" />
+            </Tabs>
+          </AppBar>
+          {selectedTab === 0 && (
+            <NewPatientTab1
+              values={values}
+              onChange={handleInputChange}
+              errors={errors}
+              //handleAction={handleAction}
+            />
+          )}
 
-        {selectedTab === 1 && (
-          <DisplayPatientTab2
-            values={values}
-            //handleInputChange={handleInputChange}
-            //errors={errors}
-          />
-        )}
-        {selectedTab === 2 && (
-          <DisplayPatientTab3
-            values={values}
-            //handleInputChange={handleInputChange}
-            //errors={errors}
-          />
-        )}
-      </form>
-    </div>
+          {selectedTab === 1 && (
+            <NewPatientTab2
+              values={values}
+              handleInputChange={handleInputChange}
+              errors={errors}
+            />
+          )}
+          {selectedTab === 2 && (
+            <NewPatientTab3
+              values={values}
+              handleInputChange={handleInputChange}
+              errors={errors}
+            />
+          )}
+          <Button
+            type="submit"
+            //fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.button}
+          >
+            ENVIAR
+          </Button>
+          <Button
+            //type='submit'
+            //fullWidth
+            variant="outlined"
+            color="primary"
+            className={classes.button}
+            onClick={props.handleCancel}
+          >
+            CERRAR
+          </Button>
+        </ReusableForm>
+      </div>
+    </Container>
   );
 };
 
