@@ -10,7 +10,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import PatientIcon from "@material-ui/icons/PermContactCalendar";
 import Toolbar from "@material-ui/core/Toolbar";
 // import Typography from '@material-ui/core/Typography'
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { SIGNOUT } from "../../graphqlClient/gqlQueries";
 //import { useMutation } from "@apollo/client";
@@ -57,21 +57,21 @@ const useStyles = makeStyles((theme) => ({
   hide: {
     display: "none",
   },
-  // drawer: {
-  //   width: drawerWidth,
-  //   flexShrink: 0,
-  // },
-  // drawerPaper: {
-  //   width: drawerWidth,
-  // },
-  // drawerHeader: {
-  //   display: "flex",
-  //   alignItems: "center",
-  //   padding: theme.spacing(0, 1),
-  //   // necessary for content to be below app bar
-  //   ...theme.mixins.toolbar,
-  //   justifyContent: "flex-end",
-  // },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(1),

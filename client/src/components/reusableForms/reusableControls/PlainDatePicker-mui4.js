@@ -1,6 +1,5 @@
 import React from "react";
-import DatePicker from "@material-ui/lab/DatePicker";
-import TextField from "@material-ui/core/TextField";
+import { DatePicker } from "@material-ui/pickers";
 //import {
 //   MuiPickersUtilsProvider,
 //   KeyboardDatePicker,
@@ -14,8 +13,7 @@ export default function PlainDatePicker(props) {
     label,
     value,
     onChange,
-    //inputVariant,
-    variant,
+    inputVariant,
     readOnly = false,
     disableFuture = false,
     disablePast = false,
@@ -34,10 +32,9 @@ export default function PlainDatePicker(props) {
 
   return (
     <DatePicker
-      renderInput={(props) => <TextField {...props} variant={variant} />}
       placeholder="dd/MM/yyyy"
       //disableToolbar variant="inline"
-      //inputVariant={inputVariant}
+      inputVariant={inputVariant}
       variant="dialog"
       //disablePast={disablePast}
       label={label}

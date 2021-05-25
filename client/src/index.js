@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import { RecoilRoot } from "recoil";
 import { request } from "graphql-request";
 
-import unstable_createMuiStrictModeTheme from "@material-ui/core/styles/createMuiStrictModeTheme";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider, StyledEngineProvider } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 //import ThemeProvider from '@material-ui/core/styles/MuiThemeProvider' //it does not work
 //import fetch from 'cross-fetch'
 import App from "./App";
@@ -16,19 +16,35 @@ import { IS_THERE_OPEN_SESSION } from "./graphqlClient/gqlQueries";
 //import Notify from './components/notification/Notify';
 
 //const theme = createMuiTheme({
-const theme = unstable_createMuiStrictModeTheme({
-  // typography:{
-  //   fontSize: 12
-  // },
-  overrides: {
-    MuiButton: {
-      root: {
-        borderRadius: 8,
-      },
+// const theme = unstable_createMuiStrictModeTheme({
+//   // typography:{
+//   //   fontSize: 12
+//   // },
+//   overrides: {
+//     MuiButton: {
+//       root: {
+//         borderRadius: 8,
+//       },
+//     },
+//   },
+// });
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#556cd6",
+    },
+    secondary: {
+      main: "#19857b",
+    },
+    error: {
+      //main: red.A400,
+      main: "#19857b",
+    },
+    background: {
+      default: "#fff",
     },
   },
 });
-
 //request(endpoint, query, variables).then((data) => console.log(data))
 async function checkLoggedIn() {
   //request('/graphql', IS_THERE_OPEN_SESSION).then((res) => console.log('res:',res.openSession))
@@ -56,15 +72,17 @@ const renderApp = (currSession) => {
 
   const RootApp = (AppComponent) => (
     <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
-          <GlobalProvider>
-            <React.StrictMode>
-              <AppComponent />
-            </React.StrictMode>
-          </GlobalProvider>
-        </QueryClientProvider>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <QueryClientProvider client={queryClient}>
+            <GlobalProvider>
+              <React.StrictMode>
+                <AppComponent />
+              </React.StrictMode>
+            </GlobalProvider>
+          </QueryClientProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </RecoilRoot>
   );
 

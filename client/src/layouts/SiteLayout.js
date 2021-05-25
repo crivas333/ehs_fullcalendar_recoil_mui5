@@ -1,7 +1,7 @@
 // import Head from "next/head";
 import React, { useState } from "react";
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import MyBar from "../components/NavBar/MyBar";
 import MyDrawer from "../components/NavBar/MyDrawer";
 //import { Container } from '@material-ui/core'
@@ -10,8 +10,9 @@ import Container from "@material-ui/core/Container";
 // import Backdrop from "../components/NavBar/Backdrop";
 //import Notifier from '../components/notification/Notifier'; //!!!!!!!this works
 //import {Notifier} from '../components/notification/Notifier';
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
+import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
+//import DateFnsUtils from "@date-io/date-fns";
+import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import esLocale from "date-fns/locale/es";
 
 const drawerWidth = 240;
@@ -90,9 +91,9 @@ export default function SiteLayout(props) {
       >
         <div className={classes.toolbar} />
         <div className={classes.wrapper}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
+          <LocalizationProvider dateAdapter={AdapterDateFns} locale={esLocale}>
             {props.children}
-          </MuiPickersUtilsProvider>
+          </LocalizationProvider>
         </div>
       </Container>
 

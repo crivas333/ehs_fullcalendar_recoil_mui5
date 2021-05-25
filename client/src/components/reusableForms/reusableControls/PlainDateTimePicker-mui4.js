@@ -1,7 +1,5 @@
 import React from "react";
-//import { DateTimePicker } from "@material-ui/pickers";
-import DateTimePicker from "@material-ui/lab/DateTimePicker";
-import TextField from "@material-ui/core/TextField";
+import { DateTimePicker } from "@material-ui/pickers";
 //import DateFnsUtils from "@date-io/date-fns";
 //import FormControl from "@material-ui/core/FormControl";
 
@@ -13,8 +11,7 @@ export default function PlainDateTimePicker(props) {
     label,
     value,
     onChange,
-    //inputVariant,
-    variant,
+    inputVariant,
     readOnly = false,
     disablePast = false,
     disableFuture = false,
@@ -34,11 +31,10 @@ export default function PlainDateTimePicker(props) {
   // };
   return (
     <DateTimePicker
-      renderInput={(props) => <TextField {...props} variant={variant} />}
       //disableToolbar variant="inline"
       //variant="inline"
-      //variant="dialog"
-      //inputVariant={inputVariant}
+      variant="dialog"
+      inputVariant={inputVariant}
       label={label}
       //format="dd/MM/yyyy"
       format="dd/MM/yyyy hh:mm a"
