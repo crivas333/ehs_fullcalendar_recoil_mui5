@@ -1,60 +1,94 @@
-// import Head from "next/head";
 import React, { useState } from "react";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/styles";
+//import clsx from "clsx";
+//import { makeStyles } from "@material-ui/styles";
+
+// import {
+//   experimentalStyled as styled,
+//   useTheme,
+// } from "@material-ui/core/styles";
+import { experimentalStyled as styled } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import MyBar from "../components/NavBar/MyBar";
 import MyDrawer from "../components/NavBar/MyDrawer";
-//import { Container } from '@material-ui/core'
-import Container from "@material-ui/core/Container";
-// import Toolbar from '@material-ui/core/Toolbar'
-// import Backdrop from "../components/NavBar/Backdrop";
+
+//import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
+import { Container } from "@material-ui/core";
 //import Notifier from '../components/notification/Notifier'; //!!!!!!!this works
-//import {Notifier} from '../components/notification/Notifier';
-import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
-//import DateFnsUtils from "@date-io/date-fns";
-import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
-import esLocale from "date-fns/locale/es";
+// import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
+// import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
+// import esLocale from "date-fns/locale/es";
 
 const drawerWidth = 240;
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    //the following was added for testing purposses
-    height: "100%",
-    width: "100%",
-    overflow: "hidden",
-  },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
-  content: {
-    //marginTop: '70px',
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     display: "flex",
+//     //the following was added for testing purposses
+//     height: "100%",
+//     width: "100%",
+//     overflow: "hidden",
+//   },
+//   // necessary for content to be below app bar
+//   toolbar: theme.mixins.toolbar,
+//   content: {
+//     //marginTop: '70px',
+//     flexGrow: 1,
+//     padding: theme.spacing(0.5),
+//     transition: theme.transitions.create("margin", {
+//       easing: theme.transitions.easing.sharp,
+//       duration: theme.transitions.duration.leavingScreen,
+//     }),
+//     marginLeft: -drawerWidth,
+//   },
+//   contentShift: {
+//     transition: theme.transitions.create("margin", {
+//       easing: theme.transitions.easing.easeOut,
+//       duration: theme.transitions.duration.enteringScreen,
+//     }),
+//     marginLeft: 0,
+//   },
+//   wrapper: {
+//     display: "flex",
+//     flex: "1 1 auto",
+//     //overflow: 'hidden',
+//     //paddingTop: 64
+//     overflow: "auto",
+//   },
+// }));
+
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
+  ({ theme, open }) => ({
     flexGrow: 1,
-    padding: theme.spacing(0.5),
+    //padding: theme.spacing(3),
+    padding: theme.spacing(1),
+    //overflow: "auto", //for testing
+
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
+    marginLeft: `-${drawerWidth}px`,
+    ...(open && {
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
     }),
-    marginLeft: 0,
-  },
-  wrapper: {
-    display: "flex",
-    flex: "1 1 auto",
-    //overflow: 'hidden',
-    //paddingTop: 64
-    overflow: "auto",
-  },
+  })
+);
+const DrawerHeader = styled("div")(({ theme }) => ({
+  //display: "flex",
+  //alignItems: "center",
+  //padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  //justifyContent: "flex-end",
 }));
 
 export default function SiteLayout(props) {
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
-  const classes = useStyles();
+  //const classes = useStyles();
 
   // const handleDrawerToggle = () => {
   //   //console.log('click1')
@@ -72,7 +106,8 @@ export default function SiteLayout(props) {
   };
   // className={`${classes.content} ${classes.toolbar}`}
   return (
-    <div className={classes.root}>
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
       <MyBar
         drawerOpen={sideDrawerOpen}
         onClickHandleDrawerOpen={handleDrawerOpen}
@@ -84,24 +119,66 @@ export default function SiteLayout(props) {
         onClickHandleDrawerClose={handleDrawerClose}
       />
 
-      <Container
-        className={clsx(classes.content, {
-          [classes.contentShift]: sideDrawerOpen,
-        })}
+      <Main
+        open={sideDrawerOpen}
+        component="main"
+        // sx={{
+        //   flexGrow: 1,
+        //   //overflow: "auto",
+        //   //display: "flex",
+        //   //flex: "1 1 auto",
+        // }}
       >
-        <div className={classes.toolbar} />
+        <DrawerHeader />
+        <Box
+          sx={{
+            display: "flex",
+            flex: "1 1 auto",
+            //overflow: "scroll",
+          }}
+        >
+          {props.children}
+        </Box>
+      </Main>
+
+      {/*<Notifier />*/}
+    </Box>
+  );
+}
+//<Main open={open}></Main>
+/*
+  <Main open={sideDrawerOpen} component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
+        {props.children}
+      </Main>
+*/
+
+// <div className={classes.wrapper}>{props.children}</div>
+/*
+  <Main
+        open={sideDrawerOpen}
+        //className={clsx(classes.content, {
+        //  [classes.contentShift]: sideDrawerOpen,
+        //})}
+        component="main"
+        sx={{ flexGrow: 1, p: 3 }}
+      >
+      
+          <LocalizationProvider dateAdapter={AdapterDateFns} locale={esLocale}>
+            {props.children}
+          </LocalizationProvider>
+        
+      </Main>
+*/
+
+/*
+ <div className={classes.toolbar} />
         <div className={classes.wrapper}>
           <LocalizationProvider dateAdapter={AdapterDateFns} locale={esLocale}>
             {props.children}
           </LocalizationProvider>
         </div>
-      </Container>
-
-      {/*<Notifier />*/}
-    </div>
-  );
-}
-
+*/
 /*
    <main
         className={clsx(classes.content, {

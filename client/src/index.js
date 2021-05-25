@@ -8,6 +8,9 @@ import { createTheme } from "@material-ui/core/styles";
 //import ThemeProvider from '@material-ui/core/styles/MuiThemeProvider' //it does not work
 //import fetch from 'cross-fetch'
 import App from "./App";
+import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
+import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
+import esLocale from "date-fns/locale/es";
 import { GlobalProvider } from "./context/GlobalState";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "./graphqlClient/reactQueryClient";
@@ -29,6 +32,9 @@ import { IS_THERE_OPEN_SESSION } from "./graphqlClient/gqlQueries";
 //   },
 // });
 const theme = createTheme({
+  typography: {
+    fontSize: 12,
+  },
   palette: {
     primary: {
       main: "#556cd6",
@@ -76,9 +82,14 @@ const renderApp = (currSession) => {
         <ThemeProvider theme={theme}>
           <QueryClientProvider client={queryClient}>
             <GlobalProvider>
-              <React.StrictMode>
-                <AppComponent />
-              </React.StrictMode>
+              <LocalizationProvider
+                dateAdapter={AdapterDateFns}
+                locale={esLocale}
+              >
+                <React.StrictMode>
+                  <AppComponent />
+                </React.StrictMode>
+              </LocalizationProvider>
             </GlobalProvider>
           </QueryClientProvider>
         </ThemeProvider>

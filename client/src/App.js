@@ -21,6 +21,7 @@ import Pages from "./pages";
 //import { GlobalContext } from "./context/GlobalState";
 import { isAuthState, currentUserState } from "./context/RecoilStore";
 import ScrollToTop from "./layouts/ScrollToTop";
+import "./App.css";
 
 function App() {
   // console.log('APP')

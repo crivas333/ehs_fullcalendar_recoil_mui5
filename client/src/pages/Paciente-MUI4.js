@@ -14,7 +14,6 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Grid from "@material-ui/core/Grid";
 //import Paper from '@material-ui/core/Paper'
 import { makeStyles } from "@material-ui/styles";
-import Box from "@material-ui/core/Box";
 
 import AsyncSelectAC from "../components/patient/patientSearch/AsyncSelectAC";
 import { DisplayPatientTabForm } from "../components/patient/patientNew/DisplayPatientTabForm";
@@ -142,6 +141,62 @@ export default function Paciente() {
       //console.log("onSettled");
     },
   });
+  // const [createPatient, { dataCreatePatient, error: errorCreatePatient }] = useMutation(CREATE_PATIENT,
+  //const [createPatient] = useMutation(CREATE_PATIENT, {
+  // const createPatient = useMutation(CREATE_PATIENT, {
+  //   // destructured result (data): createPatient
+  //   onCompleted({ createPatient }) {
+  //     //setOpenCreatePatient(false)
+  //     setAction(SEARCH);
+  //     reloadCurrentPatient(createPatient); // set isAuth: true
+  //     // navigate('/paciente');
+  //   },
+  //   //onError (...errorCreatePatient) {
+  //   onError(errorCreatePatient) {
+  //     console.log("createPatient - onError: ", { errorCreatePatient });
+  //   },
+  // });
+
+  // const [updatePatient] = useMutation(
+  //   UPDATE_PATIENT,
+  //   //const [updatePatient,{loading,error}] = useMutation(UPDATE_PATIENT,
+  //   {
+  //     // onCompleted ({ updatePatient }) {
+  //     //   // console.log('updatePatient: ', updatePatient)
+  //     //   setAction(SEARCH)
+  //     //   reloadCurrentPatient(updatePatient)
+  //     //   Notify('Datos de Paciente actualizados');
+  //     // },
+  //     // onError (...errorUpdatePatient) {
+  //     //   console.log('updatePatient - onError: ', { errorUpdatePatient })
+  //     //   Notify('Error - vuelva a ejecutar');
+  //     // }
+  //     onCompleted: (data) => {
+  //       console.log("Data from mutation", data.updatePatient);
+  //       setAction(SEARCH);
+  //       reloadCurrentPatient(data.updatePatient);
+  //       //Notify('Datos de Paciente actualizados');
+  //       Notify({
+  //         message: "Datos de Paciente actualizados",
+  //         status: "success",
+  //       });
+  //     },
+  //     onError: (error) => {
+  //       console.error("Error creating a post", error);
+  //       Notify({ message: "Error - vuelva a ejecutar", status: "error" });
+  //     },
+  //   }
+  // );
+  //const [deletePatient] = useMutation(DELETE_PATIENT, {
+  // const deletePatient = useMutation(DELETE_PATIENT, {
+  //   onCompleted({ deletePatient }) {
+  //     console.log("deletePatient: ", deletePatient);
+  //     clearCurrentPatient();
+  //   },
+  //   onError(...errorDeletePatient) {
+  //     console.log("deletePatient - onError: ", { errorDeletePatient });
+  //   },
+  // });
 
   const handleCancel = () => {
     //console.log('handleCancel')
@@ -165,13 +220,7 @@ export default function Paciente() {
 
   //<AsyncPaginationSearch />
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        //overflow: 'auto'
-        //overflow: "hidden",
-      }}
-    >
+    <div className={classes.root}>
       <Grid container direction="column" spacing={2}>
         <Grid item xs={12}>
           <AsyncSelectAC />
@@ -220,7 +269,7 @@ export default function Paciente() {
           </Grid>
         </Grid>
       </Grid>
-    </Box>
+    </div>
   );
 }
 

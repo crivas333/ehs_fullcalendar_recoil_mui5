@@ -34,14 +34,18 @@ export default function PlainDatePicker(props) {
 
   return (
     <DatePicker
-      renderInput={(props) => <TextField {...props} variant={variant} />}
+      renderInput={(props) => (
+        <TextField {...props} variant={variant} label={label} />
+      )}
+      showTodayButton
+      todayText="hoy"
       placeholder="dd/MM/yyyy"
       //disableToolbar variant="inline"
       //inputVariant={inputVariant}
-      variant="dialog"
+      //variant="dialog"
       //disablePast={disablePast}
-      label={label}
-      format="dd/MM/yyyy"
+      //label={label}
+      //format="dd/MM/yyyy"
       maxDateMessage="No indicar fecha en el futuro"
       minDateMessage="No indicar fecha anterior a 1900"
       invalidDateMessage="Campo en BLANCO o Formato de FECHA inválido"
@@ -56,6 +60,7 @@ export default function PlainDatePicker(props) {
       //variant="dialog"
       //autoOk
       //ampm={false}
+      minDate={new Date("1900-01-01")}
       disableFuture={disableFuture}
       disablePast={disablePast}
       readOnly={readOnly}

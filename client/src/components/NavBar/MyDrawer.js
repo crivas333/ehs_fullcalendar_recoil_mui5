@@ -310,15 +310,6 @@ function ResponsiveDrawer(props) {
         {/*<Paper sx={{ display: { xl: "none", xs: "block" } }}>*/}
         <Drawer
           // for Desktop
-          //className={classes.drawer}
-          //sx={{ width: drawerWidth, flexShrink: 0 }}
-          // sx={{
-          //   display: { xs: "none", sm: "block" },
-          //   "& .MuiDrawer-paper": {
-          //     boxSizing: "border-box",
-          //     width: drawerWidth,
-          //   },
-          // }}
           sx={{
             width: drawerWidth,
             flexShrink: 0,
@@ -330,9 +321,6 @@ function ResponsiveDrawer(props) {
           variant="persistent"
           anchor="left"
           open={props.drawerOpen}
-          //classes={{ paper: classes.drawerPaper }}
-          //variant='permanent'
-          //open
         >
           {drawer}
         </Drawer>

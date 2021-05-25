@@ -34,14 +34,23 @@ export default function PlainDateTimePicker(props) {
   // };
   return (
     <DateTimePicker
-      renderInput={(props) => <TextField {...props} variant={variant} />}
+      renderInput={(props) => (
+        <TextField {...props} variant={variant} label={label} />
+      )}
+      //inputFormat="dd/MM/yyyy hh:mm a"
+      inputFormat="dd/MM/yyyy hh:mm a"
+      allowSameDateSelection
+      //disableMaskedInput
+      //okText
+      ampm={true}
+      //mask="__/__/____ __:__ _M"
       //disableToolbar variant="inline"
       //variant="inline"
       //variant="dialog"
       //inputVariant={inputVariant}
-      label={label}
+      //label={label}
       //format="dd/MM/yyyy"
-      format="dd/MM/yyyy hh:mm a"
+      //format="dd/MM/yyyy hh:mm a"
       name={name}
       value={value || null}
       onChange={(date) => onChange(convertToDefEventPara(name, date))} //11!1!OK

@@ -103,9 +103,6 @@ function ResponsiveAppBar(props) {
   // const theme = useTheme();
   // const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  //const { updateCurrentUser } = useContext(GlobalContext);
-  //const [isAuth, setIsAuth] = useRecoilState(isAuthState);
-  //const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   const setIsAuth = useSetRecoilState(isAuthState);
   const setCurrentUser = useSetRecoilState(currentUserState);
   const navigate = useNavigate();
@@ -114,17 +111,6 @@ function ResponsiveAppBar(props) {
   //   console.log("appbar");
   //   setMobileOpen(!mobileOpen);
   // };
-
-  // const [singOut] = useMutation(SIGNOUT, {
-  //   onCompleted({ resultSignOut }) {
-  //     console.log("on complete: ", resultSignOut);
-  //     updateCurrentUser(null);
-  //     navigate("/landing");
-  //   },
-  //   onError(...error) {
-  //     console.log("SignOut - onError: ", { error });
-  //   },
-  // });
 
   const signOut = useMutation(signoutHelper, {
     onSuccess: (data, variables) => {
