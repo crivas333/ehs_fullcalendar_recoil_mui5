@@ -1,51 +1,48 @@
-import React from 'react'
+import React from "react";
 
 //import Checkbox from '@material-ui/core/Checkbox'
-import MaUTable from '@material-ui/core/Table'
+import MaUTable from "@material-ui/core/Table";
 //import PropTypes from 'prop-types'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableFooter from '@material-ui/core/TableFooter'
-import TableHead from '@material-ui/core/TableHead'
-import TablePagination from '@material-ui/core/TablePagination'
-import TablePaginationActions from './TablePaginationActions'
-import TableRow from '@material-ui/core/TableRow'
-import TableSortLabel from '@material-ui/core/TableSortLabel'
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableFooter from "@material-ui/core/TableFooter";
+import TableHead from "@material-ui/core/TableHead";
+import TablePagination from "@material-ui/core/TablePagination";
+import TablePaginationActions from "./ExamTablePaginationActions";
+import TableRow from "@material-ui/core/TableRow";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
 
-import { makeStyles } from '@material-ui/core/styles'
-import TableToolbar from './TableToolbar'
+import { makeStyles } from "@material-ui/styles";
+import TableToolbar from "./TableToolbar";
 import {
   useGlobalFilter,
   usePagination,
   useRowSelect,
   useSortBy,
   useTable,
-} from 'react-table'
+} from "react-table";
 //import { findBreakingChanges } from 'graphql'
 
 const useStyles = makeStyles((theme) => ({
   selected: {
-     backgroundColor: "green !important",
-     "&:hover": {
-       backgroundColor: "green !important",
-     },
-   },
+    backgroundColor: "green !important",
+    "&:hover": {
+      backgroundColor: "green !important",
+    },
+  },
   cellHeader: {
-    width: '10%',
-      //fontSize: '08pt',
-    fontSize: '12px',
-    backgroundColor: 'grey'
-      
+    width: "10%",
+    //fontSize: '08pt',
+    fontSize: "12px",
+    backgroundColor: "grey",
   },
   cellBody: {
     width: "10%",
-    fontSize: '12px'
-    //backgroundColor: 'green'
-
+    fontSize: "12px",
+    backgroundColor: "green",
   },
- }));
-
+}));
 
 const EnhancedTable = ({
   columns,
@@ -63,7 +60,7 @@ const EnhancedTable = ({
     prepareRow,
     page,
     gotoPage,
-    setPageSize,
+    //setPageSize,
     preGlobalFilteredRows,
     setGlobalFilter,
     //selectedFlatRows,
@@ -85,28 +82,25 @@ const EnhancedTable = ({
     useSortBy,
     usePagination,
     useRowSelect,
-    hooks => {
-     hooks.allColumns.push(columns => [
-      
-    
-       ...columns ,
-      //  {
-      //   Header: 'FECHA',
-      //   accessor: 'examDateTime',
-      // },
-     ])
+    (hooks) => {
+      hooks.allColumns.push((columns) => [
+        ...columns,
+        //  {
+        //   Header: 'FECHA',
+        //   accessor: 'examDateTime',
+        // },
+      ]);
     }
-  )
- 
+  );
 
-  const classes = useStyles()
-  const handleChangePage = (event, newPage) => {
-    gotoPage(newPage)
-  }
+  const classes = useStyles();
+  const handleChangePage = (newPage) => {
+    gotoPage(newPage);
+  };
 
-  const handleChangeRowsPerPage = event => {
-    setPageSize(Number(event.target.value))
-  }
+  // const handleChangeRowsPerPage = (event) => {
+  //   setPageSize(Number(event.target.value));
+  // };
 
   // const removeByIndexs = (array, indexs) =>
   //   array.filter((_, i) => !indexs.includes(i))
@@ -119,10 +113,10 @@ const EnhancedTable = ({
   //   setData(newData)
   // }
 
-  const addUserHandler = user => {
-    const newData = data.concat([user])
-    setData(newData)
-  }
+  const addUserHandler = (user) => {
+    const newData = data.concat([user]);
+    setData(newData);
+  };
 
   // Render the UI for your table
   return (
@@ -135,22 +129,22 @@ const EnhancedTable = ({
         setGlobalFilter={setGlobalFilter}
         globalFilter={globalFilter}
       />
-      <MaUTable {...getTableProps()} size='small'>
+      <MaUTable {...getTableProps()} size="small">
         <TableHead>
-          {headerGroups.map(headerGroup => (
-            <TableRow {...headerGroup.getHeaderGroupProps()} >
-              {headerGroup.headers.map(column => (
-                <TableCell  
-                  {...(column.id === 'actions'
+          {headerGroups.map((headerGroup) => (
+            <TableRow {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <TableCell
+                  {...(column.id === "actions"
                     ? column.getHeaderProps()
                     : column.getHeaderProps(column.getSortByToggleProps()))}
                 >
-                  {column.render('Header')}
-                  {column.id !== 'actions' ? (
+                  {column.render("Header")}
+                  {column.id !== "actions" ? (
                     <TableSortLabel
                       active={column.isSorted}
                       // react-table has a unsorted state which is not treated here
-                      direction={column.isSortedDesc ? 'desc' : 'asc'}
+                      direction={column.isSortedDesc ? "desc" : "asc"}
                     />
                   ) : null}
                 </TableCell>
@@ -160,18 +154,21 @@ const EnhancedTable = ({
         </TableHead>
         <TableBody {...getTableBodyProps()}>
           {page.map((row, i) => {
-            prepareRow(row)
+            prepareRow(row);
             return (
               <TableRow hover {...row.getRowProps()}>
-                {row.cells.map(cell => {
+                {row.cells.map((cell) => {
                   return (
-                    <TableCell {...cell.getCellProps()} className={classes.cellBody} >
-                      {cell.render('Cell') }
+                    <TableCell
+                      {...cell.getCellProps()}
+                      className={classes.cellBody}
+                    >
+                      {cell.render("Cell")}
                     </TableCell>
-                  )
+                  );
                 })}
               </TableRow>
-            )
+            );
           })}
         </TableBody>
 
@@ -182,31 +179,28 @@ const EnhancedTable = ({
                 5,
                 10,
                 25,
-                { label: 'All', value: data.length },
+                { label: "All", value: data.length },
               ]}
               colSpan={3}
               count={data.length}
               rowsPerPage={pageSize}
               page={pageIndex}
               SelectProps={{
-                inputProps: { 'aria-label': 'rows per page' },
+                inputProps: { "aria-label": "rows per page" },
                 native: true,
               }}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
+              myChangePage={handleChangePage}
+              //myChangeRowsPerPage={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>
         </TableFooter>
       </MaUTable>
-      
     </TableContainer>
-  )
-}
+  );
+};
 
-
-
-export default EnhancedTable
+export default EnhancedTable;
 //{...row.getRowProps(getRowProps(row))}
 //{...row.getRowProps()}
 

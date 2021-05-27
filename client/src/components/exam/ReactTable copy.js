@@ -1,21 +1,19 @@
 import React from "react";
 
 //import Checkbox from '@material-ui/core/Checkbox'
-//import MaUTable from "@material-ui/core/Table";
-//import PropTypes from "prop-types";
-//import { useTheme } from "@material-ui/core/styles";
-//import Box from "@material-ui/core/Box";
-import Table from "@material-ui/core/Table";
+import MaUTable from "@material-ui/core/Table";
+//import PropTypes from 'prop-types'
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableFooter from "@material-ui/core/TableFooter";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
 import TableHead from "@material-ui/core/TableHead";
+import TablePagination from "@material-ui/core/TablePagination";
+import TablePaginationActions from "./TablePaginationActions";
+import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
-import TablePaginationActions from "./AppointmentTablePaginationActions";
-//import { makeStyles } from "@material-ui/styles";
+
+import { makeStyles } from "@material-ui/styles";
 import TableToolbar from "./TableToolbar";
 import {
   useGlobalFilter,
@@ -24,28 +22,27 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-
 //import { findBreakingChanges } from 'graphql'
 
-// const useStyles = makeStyles((theme) => ({
-//   selected: {
-//     backgroundColor: "green !important",
-//     "&:hover": {
-//       backgroundColor: "green !important",
-//     },
-//   },
-//   cellHeader: {
-//     width: "10%",
-//     //fontSize: '08pt',
-//     fontSize: "12px",
-//     backgroundColor: "grey",
-//   },
-//   cellBody: {
-//     width: "10%",
-//     fontSize: "12px",
-//     //backgroundColor: 'green'
-//   },
-// }));
+const useStyles = makeStyles((theme) => ({
+  selected: {
+    backgroundColor: "green !important",
+    "&:hover": {
+      backgroundColor: "green !important",
+    },
+  },
+  cellHeader: {
+    width: "10%",
+    //fontSize: '08pt',
+    fontSize: "12px",
+    backgroundColor: "grey",
+  },
+  cellBody: {
+    width: "10%",
+    fontSize: "12px",
+    //backgroundColor: 'green'
+  },
+}));
 
 const EnhancedTable = ({
   columns,
@@ -54,9 +51,7 @@ const EnhancedTable = ({
   getRowProps,
   //updateMyData,
   //skipPageReset,
-  handleAddEvt,
 }) => {
-  //const classes = useStyles();
   const {
     getTableProps,
     getTableBodyProps,
@@ -69,8 +64,7 @@ const EnhancedTable = ({
     preGlobalFilteredRows,
     setGlobalFilter,
     //selectedFlatRows,
-    //state: { pageIndex, pageSize, selectedRowIds, globalFilter },
-    state: { pageIndex, pageSize, globalFilter },
+    state: { pageIndex, pageSize, selectedRowIds, globalFilter },
   } = useTable(
     {
       columns,
@@ -98,9 +92,9 @@ const EnhancedTable = ({
       ]);
     }
   );
-  //const handleChangePage = (event,newPage) =>
-  const handleChangePage = (newPage) => {
-    //console.log("onChangePage");
+
+  const classes = useStyles();
+  const handleChangePage = (event, newPage) => {
     gotoPage(newPage);
   };
 
@@ -108,26 +102,38 @@ const EnhancedTable = ({
     setPageSize(Number(event.target.value));
   };
 
-  const addEventHandler = (data) => {
-    // const newData = data.concat([user]);
-    // setData(newData);
-    handleAddEvt(data);
+  // const removeByIndexs = (array, indexs) =>
+  //   array.filter((_, i) => !indexs.includes(i))
+
+  // const deleteUserHandler = event => {
+  //   const newData = removeByIndexs(
+  //     data,
+  //     Object.keys(selectedRowIds).map(x => parseInt(x, 10))
+  //   )
+  //   setData(newData)
+  // }
+
+  const addUserHandler = (user) => {
+    const newData = data.concat([user]);
+    setData(newData);
   };
 
   // Render the UI for your table
   return (
     <TableContainer>
       <TableToolbar
-        addEventHandler={addEventHandler}
+        numSelected={Object.keys(selectedRowIds).length}
+        //deleteUserHandler={deleteUserHandler}
+        addUserHandler={addUserHandler}
         preGlobalFilteredRows={preGlobalFilteredRows}
         setGlobalFilter={setGlobalFilter}
         globalFilter={globalFilter}
       />
-      <Table {...getTableProps()} size="small">
+      <MaUTable {...getTableProps()} size="small">
         <TableHead>
           {headerGroups.map((headerGroup) => (
             <TableRow {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column, _i) => (
+              {headerGroup.headers.map((column) => (
                 <TableCell
                   {...(column.id === "actions"
                     ? column.getHeaderProps()
@@ -147,7 +153,7 @@ const EnhancedTable = ({
           ))}
         </TableHead>
         <TableBody {...getTableBodyProps()}>
-          {page.map((row) => {
+          {page.map((row, i) => {
             prepareRow(row);
             return (
               <TableRow hover {...row.getRowProps()}>
@@ -155,7 +161,7 @@ const EnhancedTable = ({
                   return (
                     <TableCell
                       {...cell.getCellProps()}
-                      //className={classes.cellBody}
+                      className={classes.cellBody}
                     >
                       {cell.render("Cell")}
                     </TableCell>
@@ -170,8 +176,10 @@ const EnhancedTable = ({
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[
-                5, 10, 25,
-                //{ label: "All", value: data.length }, //this cause warning of duplicated key '5'
+                5,
+                10,
+                25,
+                { label: "All", value: data.length },
               ]}
               colSpan={3}
               count={data.length}
@@ -181,19 +189,18 @@ const EnhancedTable = ({
                 inputProps: { "aria-label": "rows per page" },
                 native: true,
               }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>
         </TableFooter>
-      </Table>
+      </MaUTable>
     </TableContainer>
   );
 };
 
 export default EnhancedTable;
-
 //{...row.getRowProps(getRowProps(row))}
 //{...row.getRowProps()}
 
