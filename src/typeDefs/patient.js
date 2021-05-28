@@ -1,13 +1,12 @@
-import { gql } from 'apollo-server-express'
+import { gql } from "apollo-server-express";
 
 export default gql`
   extend type Query {
-    
     patient(id: ID!): Patient @auth
     patients: [Patient!]! @auth
     searchPatientsByLastName(lastName: String!): [Patient!]! @auth
   }
-  
+
   extend type Mutation {
     createPatient(patientInput: PatientInput): Patient @auth
     #updatePatient(id: ID!, dni: Int!, firstName: String!, lastName: String!, email: String): Patient @auth
@@ -15,7 +14,7 @@ export default gql`
     deletePatient(id: ID!): Patient @auth
   }
 
-  input PatientInput{
+  input PatientInput {
     idType: String
     idTypeNo: String
     firstName: String!
@@ -66,10 +65,11 @@ export default gql`
     religion: String
     referral: String
     appointments: [Appointment!]
+    age_years: String
+    age_months: String
     createdAt: String!
     updatedAt: String!
     #age: String #dymmy field
   }
-
-`
+`;
 //createPatient(dni: Int!, firstName: String!, lastName: String!, email: String): Patient @auth

@@ -1,10 +1,21 @@
 import React, { useState, useContext } from "react";
+import {
+  //RecoilRoot,
+  //atom,
+  //selector,
+  useRecoilState,
+  useRecoilValue,
+  //useSetRecoilState,
+} from "recoil";
 import AsyncSelect from "react-select/async";
-//import {components} from 'react-select';
-//import { client } from "../../../graphqlClient/apolloClient";
 import request from "graphql-request";
 import { GlobalContext } from "../../../context/GlobalState";
+//import { currentPatientState } from "../../../context/RecoilStore";
 import { SEARCH_PATIENT_BY_LASTNAME } from "../../../graphqlClient/gqlQueries";
+import {
+  currentPatientState,
+  getPatientByIdFamSel,
+} from "../../../context/RecoilStore";
 import "./asyncSelect.css";
 
 const selectStyles = {
@@ -14,8 +25,11 @@ const selectStyles = {
   }),
 };
 
-const formatOptionLabel = ({ historyId, lastName, lastName2, firstName }) => (
-  <span>{`${historyId} - ${lastName} ${lastName2}, ${firstName}`}</span>
+// const formatOptionLabel = ({ historyId, lastName, lastName2, firstName }) => (
+//   <span>{`${historyId} - ${lastName} ${lastName2}, ${firstName}`}</span>
+// );
+const formatOptionLabel = ({ historyId, fullName }) => (
+  <span>{`${historyId} - ${fullName}`}</span>
 );
 
 const loadOptions = async (input, cb) => {
@@ -38,9 +52,10 @@ const loadOptions = async (input, cb) => {
       return res.searchPatientsByLastName.map((a) => ({
         id: a.id,
         historyId: a.historyId,
-        lastName: a.lastName,
-        lastName2: a.lastName2,
-        firstName: a.firstName,
+        //lastName: a.lastName,
+        //lastName2: a.lastName2,
+        //firstName: a.firstName,
+        fullName: a.fullName,
       }));
     }
     return [];
@@ -51,23 +66,20 @@ const loadOptions = async (input, cb) => {
 };
 
 export default function AsyncSelectAC() {
+  const [currentPatient, setCurrentPatient] =
+    useRecoilState(currentPatientState);
+  //const patientId = useRecoilValue(getPatientByIdFamSel(currentPatient.id));
+  //const setCurrentUser = useSetRecoilState(currentUserState);
   const { getPatientByIdAPOLLO, updateActionExam } = useContext(GlobalContext);
-  //const [inputValue, setValue] = useState('');
-  //const [value, setValue] = useState('');
   const [selectedValue, setSelectedValue] = useState(null);
 
   // handle input change event
   const handleInputChange = (inputValue) => {
-    //console.log(value.toUpperCase())
-    //setValue(inputValue.toUpperCase());
-    //return value.replace(/[^0-9]/g, "");
     return inputValue.toUpperCase();
   };
 
   // handle selection
   const handleChange = (inputValue) => {
-    //console.log('selectedValue:',value)
-    //setSelectedValue(inputValue);
     if (inputValue) {
       getPatientByIdAPOLLO(inputValue.id);
       setSelectedValue(null);

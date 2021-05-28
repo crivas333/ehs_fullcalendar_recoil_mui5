@@ -426,11 +426,36 @@ export const GlobalProvider = ({ children }) => {
         id: id,
       });
       console.log("GlobalState - getPatientByIdAPOLLO - res: ", res);
-
+      let tempPatient = {};
+      let dt = null;
+      if (res.patient.birthDay) {
+        dt = new Date(parseInt(res.patient.birthDay)); //to local time from UTC milliseconds
+        //console.log("getPatientByIdAPOLLO - dob: ",dt);
+        const duration = intervalToDuration({
+          start: new Date(),
+          end: dt, //convert UTC to LocalTime
+        });
+        const newPatient = Object.keys(res.patient).reduce((object, key) => {
+          if (key === "birthDay") {
+            object[key] = dt;
+          } else {
+            object[key] = res.patient[key];
+          }
+          return object;
+        }, {});
+        //tempPatient={...res.data.patient, dt, age_years:duration.years, age_months:duration.months}
+        tempPatient = {
+          ...newPatient,
+          age_years: duration.years,
+          age_months: duration.months,
+        };
+      } else {
+        tempPatient = { ...res.patient, age_years: "", age_months: "" };
+      }
       dispatch({
         type: "GET_PATIENTDATA",
-        payload: res.patient,
-        //payload: tempPatient,
+        //payload: res.data.patient
+        payload: tempPatient,
       });
     } catch (err) {
       console.log("getPatientByIdAPOLLO-err: ", err);

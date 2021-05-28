@@ -51,8 +51,6 @@ const Span = styled("span", {
 }));
 
 export default function EventDialog(props) {
-  //const theme = useTheme();
-  //useMediaQuery((theme) => theme.breakpoints.up("xl"));
   //const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const matches = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   //const classes = useStyles();

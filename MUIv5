@@ -42,15 +42,7 @@ import * as React from 'react';
 import { styled } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 
-const MyButton = styled(Button)({
-  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-  border: 0,
-  borderRadius: 3,
-  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-  color: 'white',
-  height: 48,
-  padding: '0 30px',
-});
+
 
 export default function StyledComponents() {
   return <MyButton>Styled Components</MyButton>;
@@ -118,3 +110,71 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
   //justifyContent: "flex-end",
 }));
+
+===============================================================================
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(1),
+    display: "flex",
+    flexDirection: "column",
+    //alignItems: 'center'
+  },
+  button: {
+    margin: theme.spacing(1),
+    [theme.breakpoints.down("sm")]: {
+      minWidth: 32,
+      paddingLeft: 8,
+      paddingRight: 8,
+      "& .MuiButton-startIcon": {
+        margin: 0,
+      },
+    },
+  },
+  buttonText: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  closeButton: {
+    position: "absolute",
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+}));
+
+=========================================================================================
+import * as React from 'react';
+import { alpha, experimentalStyled } from '@material-ui/core/styles';
+import Slider from '@material-ui/core/Slider';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+
+const StyledSlider = experimentalStyled(Slider, {
+  shouldForwardProp: (prop) => prop !== 'success',
+})(({ success, theme }) => ({
+  width: 300,
+  ...(success && {
+    color: theme.palette.success.main,
+    '& .MuiSlider-thumb': {
+      [`&:hover, &.Mui-focusVisible`]: {
+        boxShadow: `0px 0px 0px 8px ${alpha(theme.palette.success.main, 0.16)}`,
+      },
+      [`&.Mui-active`]: {
+        boxShadow: `0px 0px 0px 14px ${alpha(theme.palette.success.main, 0.16)}`,
+      },
+    },
+  }),
+}));
+
+
+==================
+import { useTheme } from '@material-ui/core/styles';
+
+function DeepChild() {
+  const theme = useTheme();
+  return <span>{`spacing ${theme.spacing}`}</span>;
+}
+
+============

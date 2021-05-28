@@ -98,9 +98,10 @@ export const SEARCH_PATIENT_BY_LASTNAME = gql`
     searchPatientsByLastName(lastName: $lastName) {
       id
       historyId
-      firstName
-      lastName
-      lastName2
+      #firstName
+      #lastName
+      #lastName2
+      fullName
     }
   }
 `;
@@ -141,6 +142,8 @@ export const SEARCH_PATIENT_BY_ID = gql`
       occupation
       religion
       referral
+      age_years
+      age_months
     }
   }
 `;

@@ -17,6 +17,7 @@
     "connect-mongo": "^4.4.1",
     "cors": "^2.8.5",
     "dataloader": "^2.0.0",
+    "date-fns": "^2.21.3",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
