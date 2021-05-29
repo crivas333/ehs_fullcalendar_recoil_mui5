@@ -16,8 +16,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "cldr-data": "^36.0.0",
-    "date-fns": "^2.21.3",
     "graphql": "^15.3.0",
     "graphql-request": "^3.4.0",
     "history": "^5.0.0",
@@ -28,8 +26,7 @@
     "react-scripts": "^3.4.3",
     "react-select": "^4.3.1",
     "react-table": "^7.7.0",
-    "recoil": "^0.3.1",
-    "zustand": "^3.5.1"
+    "recoil": "^0.3.1"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html output111.html",

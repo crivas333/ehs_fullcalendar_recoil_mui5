@@ -418,10 +418,6 @@ export const GlobalProvider = ({ children }) => {
 
   async function getPatientByIdAPOLLO(id) {
     try {
-      // const res = await client.query({
-      //   query: SEARCH_PATIENT_BY_ID,
-      //   variables: { id: id },
-      // });
       const res = await request("/graphql", SEARCH_PATIENT_BY_ID, {
         id: id,
       });

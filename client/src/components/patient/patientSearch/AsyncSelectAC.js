@@ -3,15 +3,18 @@ import {
   //RecoilRoot,
   //atom,
   //selector,
-  useRecoilState,
-  useRecoilValue,
-  //useSetRecoilState,
+  //useRecoilState,
+  //useRecoilValue,
+  useSetRecoilState,
 } from "recoil";
 import AsyncSelect from "react-select/async";
 import request from "graphql-request";
 import { GlobalContext } from "../../../context/GlobalState";
 //import { currentPatientState } from "../../../context/RecoilStore";
-import { SEARCH_PATIENT_BY_LASTNAME } from "../../../graphqlClient/gqlQueries";
+import {
+  SEARCH_PATIENT_BY_LASTNAME,
+  SEARCH_PATIENT_BY_ID,
+} from "../../../graphqlClient/gqlQueries";
 import {
   currentPatientState,
   getPatientByIdFamSel,
@@ -64,10 +67,22 @@ const loadOptions = async (input, cb) => {
     console.log(err);
   }
 };
-
+async function getPatientById(id) {
+  try {
+    const res = await request("/graphql", SEARCH_PATIENT_BY_ID, {
+      id: id,
+    });
+    //console.log("GlobalState - getPatientByIdAPOLLO - res: ", res);
+    if (res && res.patient) {
+      return res.patient;
+    }
+  } catch (err) {
+    console.log("getPatientByIdAPOLLO-err: ", err);
+    return null;
+  }
+}
 export default function AsyncSelectAC() {
-  const [currentPatient, setCurrentPatient] =
-    useRecoilState(currentPatientState);
+  const setCurrentPatient = useSetRecoilState(currentPatientState);
   //const patientId = useRecoilValue(getPatientByIdFamSel(currentPatient.id));
   //const setCurrentUser = useSetRecoilState(currentUserState);
   const { getPatientByIdAPOLLO, updateActionExam } = useContext(GlobalContext);
@@ -84,6 +99,8 @@ export default function AsyncSelectAC() {
       getPatientByIdAPOLLO(inputValue.id);
       setSelectedValue(null);
       updateActionExam(0);
+      const res = getPatientById(inputValue.id);
+      //useSetRecoilState(res);
     }
   };
 
