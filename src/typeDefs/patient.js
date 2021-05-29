@@ -1,6 +1,8 @@
 import { gql } from "apollo-server-express";
 
 export default gql`
+  #scalar Date
+
   extend type Query {
     patient(id: ID!): Patient @auth
     patients: [Patient!]! @auth
@@ -48,8 +50,9 @@ export default gql`
     lastName: String!
     lastName2: String
     fullName: String
-    #birthDay: Date
-    birthDay: String
+
+    #birthDay: String #this works (original configuration)
+    birthDay: Date #with custom Date scalar
     sex: String
     phone1: String
     phone2: String

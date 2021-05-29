@@ -1,6 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
+// import CssBaseline from '@material-ui/core/CssBaseline'
+// import TextField from '@material-ui/core/TextField'
+// import Grid from '@material-ui/core/Grid'
 // import Typography from '@material-ui/core/Typography'
 import { makeStyles } from "@material-ui/core/styles";
+// import Container from '@material-ui/core/Container'
+// import InputLabel from '@material-ui/core/InputLabel'
 import format from "date-fns/format";
 // import FormControl from '@material-ui/core/FormControl'
 // import { useForm } from 'react-hook-form'
@@ -58,11 +63,10 @@ export default function PatientSummary(props) {
     if (currentPatient.lastName) {
       // console.log('PatientSummary - useEffect: currentPatient: ', currentPatient)
       if (currentPatient.birthDay) {
-        // dob = format(new Date(parseInt(currentPatient.birthDay)), [
-        //   "dd/MM/yyyy",
-        // ]);
-        //due to Date (custom scalar introduction in Apollo Server graphql typeDefs)
-        dob = format(new Date(currentPatient.birthDay), ["dd/MM/yyyy"]);
+        //dob=format(new Date(currentPatient.birthDay),['dd/MM/yyyy'])
+        dob = format(new Date(parseInt(currentPatient.birthDay)), [
+          "dd/MM/yyyy",
+        ]);
         age = currentPatient.age_years;
       }
       if (currentPatient.sex === "MASCULINO") {

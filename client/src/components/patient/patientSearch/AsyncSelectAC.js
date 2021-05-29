@@ -99,7 +99,7 @@ export default function AsyncSelectAC() {
       getPatientByIdAPOLLO(inputValue.id);
       setSelectedValue(null);
       updateActionExam(0);
-      const res = getPatientById(inputValue.id);
+      //const res = getPatientById(inputValue.id);
       //useSetRecoilState(res);
     }
   };

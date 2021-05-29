@@ -132,7 +132,8 @@ patientSchema.virtual("fullName").get(function (value, virtual, doc) {
   return this.lastName + " " + this.lastName2 + ", " + this.firstName;
 });
 patientSchema.virtual("age_years").get(function (value, virtual, doc) {
-  if (this.birthDay !== null || this.birthDay !== "") {
+  //console.log("Patient model - age_years - this.birthday: ", this.birthDay);
+  if (this.birthDay !== null && this.birthDay !== "") {
     const duration = intervalToDuration({
       start: new Date(),
       end: this.birthDay,
@@ -143,7 +144,7 @@ patientSchema.virtual("age_years").get(function (value, virtual, doc) {
   }
 });
 patientSchema.virtual("age_months").get(function (value, virtual, doc) {
-  if (this.birthDay !== null || this.birthDay !== "") {
+  if (this.birthDay !== null && this.birthDay !== "") {
     const duration = intervalToDuration({
       start: new Date(),
       end: this.birthDay,
