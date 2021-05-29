@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 
-import { GlobalContext } from "../../../context/GlobalState";
-
+//import { GlobalContext } from "../../../context/GlobalState";
+import { useRecoilValue } from "recoil";
 import { useTheme } from "@material-ui/core/styles";
 //import { experimentalStyled as styled } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -14,6 +14,7 @@ import Tab from "@material-ui/core/Tab";
 import { DisplayPatientTab1 } from "./DisplayPatientTab1";
 import { DisplayPatientTab2 } from "./DisplayPatientTab2";
 import { DisplayPatientTab3 } from "./DisplayPatientTab3";
+import { currentPatientState } from "../../../context/RecoilStore";
 
 // const MyBox = styled("div")(({ theme }) => ({
 //   display: "flex",
@@ -29,7 +30,8 @@ import { DisplayPatientTab3 } from "./DisplayPatientTab3";
 export const DisplayPatientTabForm = (props) => {
   //const classes = useStyles();
   const theme = useTheme();
-  const { currentPatient } = useContext(GlobalContext);
+  //const { currentPatient } = useContext(GlobalContext);
+  const currPatient = useRecoilValue(currentPatientState);
   const initialFValues = {
     idType: "DNI",
     idTypeNo: "",
@@ -73,13 +75,13 @@ export const DisplayPatientTabForm = (props) => {
   };
 
   useEffect(() => {
-    if (currentPatient !== null) {
+    if (currPatient !== null) {
       //setValue('currPatient', { ...currentPatient })
-      setValues(currentPatient);
+      setValues(currPatient);
       //console.log('DisplayPatientTabForm-currentPatient: ',currentPatient)
       //values=currentPatient
     }
-  }, [currentPatient]);
+  }, [currPatient]);
 
   return (
     <Box

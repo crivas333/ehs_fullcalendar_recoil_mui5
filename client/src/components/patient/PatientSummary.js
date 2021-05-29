@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 // import Typography from '@material-ui/core/Typography'
 import { makeStyles } from "@material-ui/core/styles";
 import format from "date-fns/format";
 // import FormControl from '@material-ui/core/FormControl'
 // import { useForm } from 'react-hook-form'
 import { GlobalContext } from "../../context/GlobalState";
+import { currentPatientState } from "../../context/RecoilStore";
+//import { useRecoilState } from "recoil";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,7 +33,8 @@ function NewlineText(props) {
 
 export default function PatientSummary(props) {
   const classes = useStyles();
-  const { currentPatient } = useContext(GlobalContext);
+  //const { currentPatient } = useContext(GlobalContext);
+  const currPatient = useRecoilValue(currentPatientState);
   const [textMobile, setTextMobile] = useState("");
   const [textPC, setTextPC] = useState("");
   const [isMobile, setIsMobile] = useState(false);
@@ -50,39 +54,40 @@ export default function PatientSummary(props) {
   }, []);
 
   useEffect(() => {
+    //console.log("PatientSummary-currentPatient: ", currPatient);
     let line1 = "";
     let line2 = "";
     let dob = "";
     let age = "";
     let sex = "";
-    if (currentPatient.lastName) {
+    if (currPatient.lastName) {
       // console.log('PatientSummary - useEffect: currentPatient: ', currentPatient)
-      if (currentPatient.birthDay) {
+      if (currPatient.birthDay) {
         // dob = format(new Date(parseInt(currentPatient.birthDay)), [
         //   "dd/MM/yyyy",
         // ]);
         //due to Date (custom scalar introduction in Apollo Server graphql typeDefs)
-        dob = format(new Date(currentPatient.birthDay), ["dd/MM/yyyy"]);
-        age = currentPatient.age_years;
+        dob = format(new Date(currPatient.birthDay), ["dd/MM/yyyy"]);
+        age = currPatient.age_years;
       }
-      if (currentPatient.sex === "MASCULINO") {
+      if (currPatient.sex === "MASCULINO") {
         sex = "M";
       }
-      if (currentPatient.sex === "FEMENINO") {
+      if (currPatient.sex === "FEMENINO") {
         sex = "F";
       }
 
-      line1 = `${currentPatient.historyId} - ${currentPatient.lastName} ${currentPatient.lastName2},
-      ${currentPatient.firstName} - F.N.: ${dob} (${age}a) - Sexo: ${sex}`;
+      line1 = `${currPatient.historyId} - ${currPatient.lastName} ${currPatient.lastName2},
+      ${currPatient.firstName} - F.N.: ${dob} (${age}a) - Sexo: ${sex}`;
       setTextMobile(line1);
 
       //lines divided by feedLine (enter)
-      line2 = `Historia: ${currentPatient.historyId} - ${currentPatient.lastName} ${currentPatient.lastName2}, ${currentPatient.firstName}
-      ${currentPatient.idType}: ${currentPatient.idTypeNo}  -  F. Nacimiento: ${dob} (${age} años)  -  Sexo: ${currentPatient.sex}
-      Teléfono: ${currentPatient.phone1}  -  Email: ${currentPatient.email}`;
+      line2 = `Historia: ${currPatient.historyId} - ${currPatient.lastName} ${currPatient.lastName2}, ${currPatient.firstName}
+      ${currPatient.idType}: ${currPatient.idTypeNo}  -  F. Nacimiento: ${dob} (${age} años)  -  Sexo: ${currPatient.sex}
+      Teléfono: ${currPatient.phone1}  -  Email: ${currPatient.email}`;
       setTextPC(line2);
     }
-  }, [currentPatient]);
+  }, [currPatient]);
 
   if (isMobile) {
     return (

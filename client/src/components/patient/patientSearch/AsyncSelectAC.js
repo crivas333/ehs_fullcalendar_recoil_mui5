@@ -85,7 +85,7 @@ export default function AsyncSelectAC() {
   const setCurrentPatient = useSetRecoilState(currentPatientState);
   //const patientId = useRecoilValue(getPatientByIdFamSel(currentPatient.id));
   //const setCurrentUser = useSetRecoilState(currentUserState);
-  const { getPatientByIdAPOLLO, updateActionExam } = useContext(GlobalContext);
+  //const { getPatientByIdAPOLLO, updateActionExam } = useContext(GlobalContext);
   const [selectedValue, setSelectedValue] = useState(null);
 
   // handle input change event
@@ -96,11 +96,13 @@ export default function AsyncSelectAC() {
   // handle selection
   const handleChange = (inputValue) => {
     if (inputValue) {
-      getPatientByIdAPOLLO(inputValue.id);
-      setSelectedValue(null);
-      updateActionExam(0);
+      //getPatientByIdAPOLLO(inputValue.id);
+
+      //updateActionExam(0);
       //const res = getPatientById(inputValue.id);
-      //useSetRecoilState(res);
+      getPatientById(inputValue.id).then((res) => setCurrentPatient(res));
+      //setCurrentPatient(res);
+      setSelectedValue(null);
     }
   };
 
