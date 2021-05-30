@@ -58,8 +58,10 @@ export default gql`
     appointmentId: Int!
     type: String!
     status: String!
-    start: String!
-    end: String! #Syncfusion Type
+    #start: String!
+    #end: String! #Syncfusion Type
+    start: Date!
+    end: Date! #Syncfusion Type
     #patientId: ID #this forces to query Patiend Id ( not Object Patient Object)
     patientId: Patient #this forces to query Patiend Object
     fullName: String

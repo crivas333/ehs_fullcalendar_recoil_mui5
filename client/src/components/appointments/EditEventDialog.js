@@ -8,8 +8,8 @@ import {
 //import { appoEvtState } from "../../context/recoilStore";
 import * as appointmentService from "../../services/configService";
 import { GlobalContext } from "../../context/GlobalState";
-import { makeStyles } from "@material-ui/styles";
-import { useTheme } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/styles";
+//import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -22,43 +22,47 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 import AsyncSelectForFullCalendar from "../patient/patientSearch/AsyncSelectForFullCalendar";
+import { Span } from "../reusableForms/reusableComponents";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(1),
-    display: "flex",
-    flexDirection: "column",
-    //alignItems: 'center'
-  },
-  button: {
-    margin: theme.spacing(1),
-    [theme.breakpoints.down("sm")]: {
-      minWidth: 32,
-      paddingLeft: 8,
-      paddingRight: 8,
-      "& .MuiButton-startIcon": {
-        margin: 0,
-      },
-    },
-  },
-  buttonText: {
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   paper: {
+//     marginTop: theme.spacing(1),
+//     display: "flex",
+//     flexDirection: "column",
+//     //alignItems: 'center'
+//   },
+//   button: {
+//     margin: theme.spacing(1),
+//     [theme.breakpoints.down("sm")]: {
+//       minWidth: 32,
+//       paddingLeft: 8,
+//       paddingRight: 8,
+//       "& .MuiButton-startIcon": {
+//         margin: 0,
+//       },
+//     },
+//   },
+//   buttonText: {
+//     [theme.breakpoints.down("sm")]: {
+//       display: "none",
+//     },
+//   },
+//   closeButton: {
+//     position: "absolute",
+//     right: theme.spacing(1),
+//     top: theme.spacing(1),
+//     color: theme.palette.grey[500],
+//   },
+// }));
 
 export default function EventDialog(props) {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
-  const classes = useStyles();
+  //const theme = useTheme();
+  //const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const matches = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
+  //const classes = useStyles();
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const { applicationFields } = useContext(GlobalContext);
   const { evt, closeDialog, handleChangingEvt, handleRemovingEvt } = props;
@@ -173,18 +177,31 @@ export default function EventDialog(props) {
   };
 
   return (
-    <div className={classes.paper}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        //p: theme.spacing(1, 0),
+        //paddingTop: 1, //padding
+        //mt: 1, //margig top - works
+      }}
+    >
       <Dialog
-        fullScreen={!matches}
+        //fullScreen={matches}
         open={props.show}
-        onClose={handleDialogClose}
+        //onClose={handleDialogClose}
+        onClose={(event, reason) => {
+          if (reason !== "backdropClick") {
+            handleDialogClose(event, reason);
+          }
+        }}
       >
         <DialogTitle>
           <Grid
             container
             direction="row"
-            justify="space-between"
-            alignItems="center"
+            justifyContent="space-between"
+            //alignItems="center"
           >
             <span>Actualizar Cita</span>
 
@@ -284,8 +301,8 @@ export default function EventDialog(props) {
           <Grid
             container
             direction="row"
-            justify="space-between"
-            alignItems="center"
+            justifyContent="space-between"
+            //alignItems="center"
           >
             <Button
               onClick={handleDialogDelete}
@@ -293,7 +310,7 @@ export default function EventDialog(props) {
               //variant="outlined"
               startIcon={<DeleteIcon />}
             >
-              <span className={classes.buttonText}>Eliminar</span>
+              <Span show={matches}>Eliminar</Span>
             </Button>
             <Button
               onClick={handleDialogChange}
@@ -301,7 +318,7 @@ export default function EventDialog(props) {
               //variant="contained"
               startIcon={<SaveIcon />}
             >
-              <span className={classes.buttonText}>Guardar</span>
+              <Span show={matches}>Guardar</Span>
             </Button>
           </Grid>
         </DialogActions>
@@ -309,9 +326,14 @@ export default function EventDialog(props) {
 
       <Dialog
         open={openConfirmation}
-        onClose={handleDialogClose}
-        disableBackdropClick
+        //onClose={handleDialogClose}
+        //disableBackdropClick
         disableEscapeKeyDown
+        onClose={(event, reason) => {
+          if (reason !== "backdropClick") {
+            handleDialogClose(event, reason);
+          }
+        }}
         //maxWidth="xs"
         //onEntering={handleEntering}
       >
@@ -321,8 +343,8 @@ export default function EventDialog(props) {
           <Grid
             container
             direction="row"
-            justify="space-between"
-            alignItems="center"
+            justifyContent="space-between"
+            //alignItems="center"
           >
             <Button
               onClick={handleConfirmationOk}
@@ -330,21 +352,21 @@ export default function EventDialog(props) {
               //variant="outlined"
               startIcon={<DeleteIcon />}
             >
-              <span className={classes.buttonText}>Eliminar</span>
+              <Span show={matches}>Eliminar</Span>
             </Button>
             <Button
-              autoFocus
+              //autoFocus
               onClick={handleConfirmationCancel}
               color="primary"
               //variant="contained"
               startIcon={<CloseIcon />}
             >
-              <span className={classes.buttonText}>Cancelar</span>
+              <Span show={matches}>Cancelar</Span>
             </Button>
           </Grid>
         </DialogActions>
       </Dialog>
-    </div>
+    </Box>
   );
 }
 

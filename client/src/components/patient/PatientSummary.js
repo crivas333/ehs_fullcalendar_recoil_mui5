@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 // import Typography from '@material-ui/core/Typography'
 import { makeStyles } from "@material-ui/core/styles";
 import format from "date-fns/format";
 // import FormControl from '@material-ui/core/FormControl'
 // import { useForm } from 'react-hook-form'
-import { GlobalContext } from "../../context/GlobalState";
+//import { GlobalContext } from "../../context/GlobalState";
 import { currentPatientState } from "../../context/RecoilStore";
 //import { useRecoilState } from "recoil";
 

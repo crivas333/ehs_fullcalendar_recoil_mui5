@@ -5,6 +5,7 @@ import React from "react";
 //import PropTypes from "prop-types";
 //import { useTheme } from "@material-ui/core/styles";
 //import Box from "@material-ui/core/Box";
+import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -116,79 +117,88 @@ const EnhancedTable = ({
 
   // Render the UI for your table
   return (
-    <TableContainer>
-      <TableToolbar
-        addEventHandler={addEventHandler}
-        preGlobalFilteredRows={preGlobalFilteredRows}
-        setGlobalFilter={setGlobalFilter}
-        globalFilter={globalFilter}
-      />
-      <Table {...getTableProps()} size="small">
-        <TableHead>
-          {headerGroups.map((headerGroup) => (
-            <TableRow {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column, _i) => (
-                <TableCell
-                  {...(column.id === "actions"
-                    ? column.getHeaderProps()
-                    : column.getHeaderProps(column.getSortByToggleProps()))}
-                >
-                  {column.render("Header")}
-                  {column.id !== "actions" ? (
-                    <TableSortLabel
-                      active={column.isSorted}
-                      // react-table has a unsorted state which is not treated here
-                      direction={column.isSortedDesc ? "desc" : "asc"}
-                    />
-                  ) : null}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableHead>
-        <TableBody {...getTableBodyProps()}>
-          {page.map((row) => {
-            prepareRow(row);
-            return (
-              <TableRow hover {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <TableCell
-                      {...cell.getCellProps()}
-                      //className={classes.cellBody}
-                    >
-                      {cell.render("Cell")}
-                    </TableCell>
-                  );
-                })}
+    <Paper sx={{ width: "100%", overflow: "auto" }}>
+      <TableContainer>
+        <TableToolbar
+          addEventHandler={addEventHandler}
+          preGlobalFilteredRows={preGlobalFilteredRows}
+          setGlobalFilter={setGlobalFilter}
+          globalFilter={globalFilter}
+        />
+        <Table {...getTableProps()} size="small" sx={{ minWidth: 650 }}>
+          <TableHead>
+            {headerGroups.map((headerGroup) => (
+              <TableRow {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column, _i) => (
+                  <TableCell
+                    {...(column.id === "actions"
+                      ? column.getHeaderProps()
+                      : column.getHeaderProps(column.getSortByToggleProps()))}
+                  >
+                    {column.render("Header")}
+                    {column.id !== "actions" ? (
+                      <TableSortLabel
+                        active={column.isSorted}
+                        // react-table has a unsorted state which is not treated here
+                        direction={column.isSortedDesc ? "asc" : "desc"}
+                        // direction={
+                        //   column.isSorted
+                        //     ? column.isSortedDesc
+                        //       ? " (DESC)"
+                        //       : " (ASC)"
+                        //     : "()"
+                        // }
+                      />
+                    ) : null}
+                  </TableCell>
+                ))}
               </TableRow>
-            );
-          })}
-        </TableBody>
+            ))}
+          </TableHead>
+          <TableBody {...getTableBodyProps()}>
+            {page.map((row) => {
+              prepareRow(row);
+              return (
+                <TableRow hover {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <TableCell
+                        {...cell.getCellProps()}
+                        //className={classes.cellBody}
+                      >
+                        {cell.render("Cell")}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
+          </TableBody>
 
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[
-                5, 10, 25,
-                //{ label: "All", value: data.length }, //this cause warning of duplicated key '5'
-              ]}
-              colSpan={3}
-              count={data.length}
-              rowsPerPage={pageSize}
-              page={pageIndex}
-              SelectProps={{
-                inputProps: { "aria-label": "rows per page" },
-                native: true,
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[
+                  5, 10, 25,
+                  //{ label: "All", value: data.length }, //this cause warning of duplicated key '5'
+                ]}
+                colSpan={3}
+                count={data.length}
+                rowsPerPage={pageSize}
+                page={pageIndex}
+                SelectProps={{
+                  inputProps: { "aria-label": "rows per page" },
+                  native: true,
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
+    </Paper>
   );
 };
 

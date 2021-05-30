@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
   //RecoilRoot,
   //atom,
@@ -9,7 +9,7 @@ import {
 } from "recoil";
 import AsyncSelect from "react-select/async";
 import request from "graphql-request";
-import { GlobalContext } from "../../../context/GlobalState";
+//import { GlobalContext } from "../../../context/GlobalState";
 //import { currentPatientState } from "../../../context/RecoilStore";
 import {
   SEARCH_PATIENT_BY_LASTNAME,
@@ -17,7 +17,7 @@ import {
 } from "../../../graphqlClient/gqlQueries";
 import {
   currentPatientState,
-  getPatientByIdFamSel,
+  //getPatientByIdFamSel,
 } from "../../../context/RecoilStore";
 import "./asyncSelect.css";
 

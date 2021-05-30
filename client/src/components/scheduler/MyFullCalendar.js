@@ -309,119 +309,116 @@ export default function MayFullCalendar() {
 
   return (
     <div>
-      {/*{this.renderSidebar()}*/}
-      <div>
-        <FullCalendar
-          //slotMinHeight={50} //done in CSS
-          //eventMinHeight={15} //ignored due to slotMinHeight setting in CSS
-          ref={calendarRef}
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          contentHeight="auto"
-          views={{
-            dayGridMonth: {
-              titleFormat: {
-                year: "numeric",
-                //month: "2-digit",
-                month: "short",
-                //day: "2-digit",
-              },
+      <FullCalendar
+        //slotMinHeight={50} //done in CSS
+        //eventMinHeight={15} //ignored due to slotMinHeight setting in CSS
+        ref={calendarRef}
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        contentHeight="auto"
+        views={{
+          dayGridMonth: {
+            titleFormat: {
+              year: "numeric",
+              //month: "2-digit",
+              month: "short",
+              //day: "2-digit",
             },
-            timeGridWeek: {
-              titleFormat: {
-                //year: "numeric",
-                //month: "2-digit",
-                month: "short",
-                day: "2-digit",
-              },
+          },
+          timeGridWeek: {
+            titleFormat: {
+              //year: "numeric",
+              //month: "2-digit",
+              month: "short",
+              day: "2-digit",
             },
-            timeGridWeekDays: {
-              type: "timeGrid",
-              //duration: { days: 7 },
-              hiddenDays: [0, 6],
-              duration: { days: 7 },
-              buttonText: "5-Day",
+          },
+          timeGridWeekDays: {
+            type: "timeGrid",
+            //duration: { days: 7 },
+            hiddenDays: [0, 6],
+            duration: { days: 7 },
+            buttonText: "5-Day",
+          },
+          timeGridDay: {
+            titleFormat: {
+              year: "numeric",
+              month: "short",
+              day: "2-digit",
             },
-            timeGridDay: {
-              titleFormat: {
-                year: "numeric",
-                month: "short",
-                day: "2-digit",
-              },
+          },
+          // timeGridDay: {
+          //   titleFormat: {
+          //     year: "numeric",
+          //     month: "2-digit",
+          //     day: "2-digit",
+          //   },
+          // },
+        }}
+        headerToolbar={{
+          left: "prev,next today",
+          center: "title",
+          //right: "dayGridMonth,timeGridWeek,timeGridDay,timeGridWeekDays",
+          right:
+            "dayGridMonth,timeGridWeek,timeGridDay timeGridWeekDays,shiftButton,",
+        }}
+        customButtons={{
+          // weekendsButton: {
+          //   text: "[5]-[7]",
+          //   click: function () {
+          //     setWeekends((prev) => !prev);
+          //   },
+          // },
+          shiftButton: {
+            text: "[1]-[1/2]",
+            click: function () {
+              if (shift === "07:00:00") setShift("13:00:00");
+              if (shift === "13:00:00") setShift("07:00:00");
             },
-            // timeGridDay: {
-            //   titleFormat: {
-            //     year: "numeric",
-            //     month: "2-digit",
-            //     day: "2-digit",
-            //   },
-            // },
-          }}
-          headerToolbar={{
-            left: "prev,next today",
-            center: "title",
-            //right: "dayGridMonth,timeGridWeek,timeGridDay,timeGridWeekDays",
-            right:
-              "dayGridMonth,timeGridWeek,timeGridDay timeGridWeekDays,shiftButton,",
-          }}
-          customButtons={{
-            // weekendsButton: {
-            //   text: "[5]-[7]",
-            //   click: function () {
-            //     setWeekends((prev) => !prev);
-            //   },
-            // },
-            shiftButton: {
-              text: "[1]-[1/2]",
-              click: function () {
-                if (shift === "07:00:00") setShift("13:00:00");
-                if (shift === "13:00:00") setShift("07:00:00");
-              },
-            },
-          }}
-          //weekends={weekends}
-          initialView="timeGridWeekDays"
-          //selectHelper={true}
-          allDaySlot={false}
-          slotDuration={"00:20:00"}
-          //slotMinTime={"07:00:00"}
-          slotMinTime={shift}
-          firstDay={1} //Monday
-          //eventMaxStack={3}
-          nowIndicator={true}
-          //eventLimit={true}
-          editable={true}
-          selectable={true}
-          selectMirror={true}
-          dayMaxEvents={true}
-          select={handleDateSelect}
-          eventColor="Tile"
-          eventContent={renderEventContent} // custom render function
-          eventClick={handleEventClick}
-          eventsSet={handleEvents} // called after events are initialized/added/changed/removed
-          //eventAdd={eventAdding}
-          eventChange={eventChanging}
-          //eventRemove={eventRemoving}
-          //eventChange={(txt) => console.log("eventChanged: ", txt)}
-          //dateClick={this.handleDateClick}
-          events={"/api/v1/fullCalendar/getDataFull"} //!!!!!!!!!!!!!!!!!!! ok
-          //lazyFetching={false}
-          //datesSet={formatEvents111}
-          //locale={"es-PE"}
-          locale={"es"}
-          //timezone='America/Lima'
-          //eventDidMount={handleEventDidMount}
-        />
+          },
+        }}
+        //weekends={weekends}
+        initialView="timeGridWeekDays"
+        //selectHelper={true}
+        allDaySlot={false}
+        slotDuration={"00:20:00"}
+        //slotMinTime={"07:00:00"}
+        slotMinTime={shift}
+        firstDay={1} //Monday
+        //eventMaxStack={3}
+        nowIndicator={true}
+        //eventLimit={true}
+        editable={true}
+        selectable={true}
+        selectMirror={true}
+        dayMaxEvents={true}
+        select={handleDateSelect}
+        eventColor="Tile"
+        eventContent={renderEventContent} // custom render function
+        eventClick={handleEventClick}
+        eventsSet={handleEvents} // called after events are initialized/added/changed/removed
+        //eventAdd={eventAdding}
+        eventChange={eventChanging}
+        //eventRemove={eventRemoving}
+        //eventChange={(txt) => console.log("eventChanged: ", txt)}
+        //dateClick={this.handleDateClick}
+        events={"/api/v1/fullCalendar/getDataFull"} //!!!!!!!!!!!!!!!!!!! ok
+        //lazyFetching={false}
+        //datesSet={formatEvents111}
+        //locale={"es-PE"}
+        locale={"es"}
+        //timezone='America/Lima'
+        //eventDidMount={handleEventDidMount}
+      />
 
-        <EventDialog
-          show={openEventDialog}
-          isEditing={isEditing}
-          evt={evt}
-          closeDialog={handleCloseDialog}
-          handleAddingEvt={handleAddingEvt}
-          handleChangingEvt={handleChangingEvt}
-          handleRemovingEvt={handleRemovingEvt}
-        />
-      </div>
+      <EventDialog
+        show={openEventDialog}
+        isEditing={isEditing}
+        evt={evt}
+        closeDialog={handleCloseDialog}
+        handleAddingEvt={handleAddingEvt}
+        handleChangingEvt={handleChangingEvt}
+        handleRemovingEvt={handleRemovingEvt}
+      />
     </div>
   );
 }

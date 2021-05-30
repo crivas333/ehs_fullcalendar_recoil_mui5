@@ -1,8 +1,9 @@
 import React from "react";
 
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import DailyAppointments from "../components/appointments/Appointments";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,12 +23,18 @@ export default function Appointment() {
 
   // {params.isCreating && <Backdrop />}
   return (
-    <div className={classes.root}>
+    <Box
+      sx={{
+        flexDirection: "row",
+        overflow: "auto",
+        //overflow: "hidden",
+      }}
+    >
       <Grid container spacing={3}>
         <Grid container item xs={12}>
           <DailyAppointments />
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 }

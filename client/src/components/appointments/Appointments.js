@@ -2,9 +2,12 @@ import React, { useState } from "react";
 //import clsx from 'clsx';
 import { useQueryClient, useQuery, useMutation } from "react-query";
 import request from "graphql-request";
+import format from "date-fns/format";
 //import { makeStyles } from '@material-ui/core/styles'
 //import Grid from "@material-ui/core/Grid";
 //import { GlobalContext } from "../../context/GlobalState";
+//import DateTimePicker from "@material-ui/lab/DateTimePicker";
+import Box from "@material-ui/core/Box";
 import Notify from "../notification/Notify";
 import TableOfAppointments from "./TableOfAppointments";
 import EditIcon from "@material-ui/icons/Edit";
@@ -57,19 +60,6 @@ export default function DailyAppointments(props) {
   const [evt, setEvt] = useState(initialEvt);
   const queryClient = useQueryClient();
   //const classes = useStyles()
-  // const {
-  //   //currentPatient,
-  //   //applicationFields,
-  //   //dataExam,
-  //   //rowExam,
-  //   //actionExam,
-  //   //updateRowExam_APOLLO,
-  //   //updateEditingRowExam,
-  //   //updateActionExam,
-  //   //getExamByPatientID_APOLLO,
-  //   //addExamDataAPOLLO,
-  //   //deleteApplicationFieldsAPOLLO,
-  // } = useContext(GlobalContext);
 
   const editRow = (data) => {
     //console.log("Exam - editRow: ", data)
@@ -100,11 +90,11 @@ export default function DailyAppointments(props) {
       // },
 
       {
-        Header: "Nro. Historia",
+        Header: "HISTORIA",
         accessor: "historyId",
       },
       {
-        Header: "Paciente",
+        Header: "PACIENTE",
         accessor: "fullName",
       },
       {
@@ -120,8 +110,36 @@ export default function DailyAppointments(props) {
         accessor: "status",
       },
       {
-        Header: "FECHA",
+        Header: "INICIO",
         accessor: "start",
+        // Cell: (props) => {
+        //   return (
+        //     <span>
+        //       {format(new Date(props.row.original.start), [
+        //         "dd/MM/yyyy HH:mm a",
+        //       ])}
+        //     </span>
+        //   );
+        // },
+        // Cell: ({ cell: { value } }) => (
+        //   <div>{format(new Date(value), ["dd/MM/yyyy HH:mm a"])}</div>
+        // ),
+        Cell: ({ cell: { value } }) =>
+          format(new Date(value), ["dd/MM/yyyy HH:mm a"]),
+        //Cell: ({ cell: { value } }) => value.toLocaleDateString(),
+        //sortMethod: (x, y) => (x > y ? x : y),
+        //sortType: "datetime",
+      },
+      {
+        Header: "FIN",
+        accessor: "end",
+        Cell: (props) => {
+          return (
+            <span>
+              {format(new Date(props.row.original.end), ["dd/MM/yyyy HH:mm a"])}
+            </span>
+          );
+        },
       },
       {
         Header: "ACCIONES",
@@ -155,15 +173,17 @@ export default function DailyAppointments(props) {
         end: new Date(new Date().setHours(24, 0, 0, 0)).toISOString(),
       });
       //return data.getAppointmentsByTimeframe;
-      //console.log(data.getAppointmentsByTimeframe);
+      console.log(res.getAppointmentsByTimeframe);
       if (res && res.getAppointmentsByTimeframe) {
         return res.getAppointmentsByTimeframe.map((a) => ({
           id: a.id,
           historyId: a.patientId !== null ? a.patientId.historyId : "",
           fullName: a.patientId !== null ? a.patientId.fullName : "",
           notRegistered: a.notRegistered,
-          start: new Date(parseInt(a.start)).toISOString(),
-          end: new Date(parseInt(a.end)).toISOString(),
+          //start: new Date(parseInt(a.start)).toISOString(),
+          //end: new Date(parseInt(a.end)).toISOString(),
+          start: new Date(a.start).toISOString(),
+          end: new Date(a.end).toISOString(),
           status: a.status,
           type: a.type,
           appointmentId: a.appointmentId,
@@ -329,7 +349,16 @@ export default function DailyAppointments(props) {
     setOpenDeleteEventDialog(false);
   };
   return (
-    <div>
+    <Box
+      overflow="scroll"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        //p: theme.spacing(1, 0),
+        //paddingTop: 1, //padding
+        //mt: 1, //margig top - works
+      }}
+    >
       <TableOfAppointments
         columns={columns}
         data={data}
@@ -349,7 +378,7 @@ export default function DailyAppointments(props) {
         closeDialog={handleClosedeleteDialog}
         handleRemovingEvt={handleRemovingEvt}
       />
-    </div>
+    </Box>
   );
 }
 

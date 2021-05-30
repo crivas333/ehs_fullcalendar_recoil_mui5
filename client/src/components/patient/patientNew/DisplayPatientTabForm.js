@@ -8,8 +8,6 @@ import { useTheme } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-//import TabPanel from '@material-ui/lab/TabPanel'
-//import { makeStyles } from "@material-ui/core/styles";
 
 import { DisplayPatientTab1 } from "./DisplayPatientTab1";
 import { DisplayPatientTab2 } from "./DisplayPatientTab2";
