@@ -105,8 +105,12 @@ export default function SiteLayout(props) {
     setSideDrawerOpen(false);
   };
   // className={`${classes.content} ${classes.toolbar}`}
+  //<Box overflow="auto" sx={{ display: "flex", height: "100%" }}></Box>
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box
+      overflow="auto" //allows dialogs to open in fullscreen mode (only within the display)
+      sx={{ display: "flex", height: "100%" }}
+    >
       <CssBaseline />
       <MyBar
         drawerOpen={sideDrawerOpen}
@@ -121,7 +125,7 @@ export default function SiteLayout(props) {
 
       <Main
         open={sideDrawerOpen}
-        component="main"
+        //component="main"
         // sx={{
         //   flexGrow: 1,
         //   //overflow: "auto",
@@ -134,7 +138,7 @@ export default function SiteLayout(props) {
           sx={{
             display: "flex",
             flex: "1 1 auto",
-            //overflow: "scroll",
+            //overflow: "auto",
           }}
         >
           {props.children}

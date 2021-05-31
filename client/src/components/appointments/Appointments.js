@@ -349,16 +349,7 @@ export default function DailyAppointments(props) {
     setOpenDeleteEventDialog(false);
   };
   return (
-    <Box
-      overflow="scroll"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        //p: theme.spacing(1, 0),
-        //paddingTop: 1, //padding
-        //mt: 1, //margig top - works
-      }}
-    >
+    <div>
       <TableOfAppointments
         columns={columns}
         data={data}
@@ -378,7 +369,7 @@ export default function DailyAppointments(props) {
         closeDialog={handleClosedeleteDialog}
         handleRemovingEvt={handleRemovingEvt}
       />
-    </Box>
+    </div>
   );
 }
 

@@ -23,18 +23,10 @@ export default function Appointment() {
 
   // {params.isCreating && <Backdrop />}
   return (
-    <Box
-      sx={{
-        flexDirection: "row",
-        overflow: "auto",
-        //overflow: "hidden",
-      }}
-    >
-      <Grid container spacing={3}>
-        <Grid container item xs={12}>
-          <DailyAppointments />
-        </Grid>
+    <Grid container spacing={3}>
+      <Grid container item xs={12}>
+        <DailyAppointments />
       </Grid>
-    </Box>
+    </Grid>
   );
 }

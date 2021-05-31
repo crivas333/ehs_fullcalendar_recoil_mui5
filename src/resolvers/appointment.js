@@ -10,7 +10,7 @@ export default {
       // TODO: projection, pagination
       // console.log('patients')
       console.log("appointment: ", args);
-      return Appointment.find({});
+      return await Appointment.find({}).exec();
     },
     getAppointmentsByTimeframe: async (root, args, context, info) => {
       // TODO: projection, pagination
@@ -19,7 +19,9 @@ export default {
         const doc = await Appointment.find({
           start: { $gte: args.start },
           end: { $lte: args.end },
-        }).exec();
+        })
+          .sort({ start: "asc" })
+          .exec();
         //console.log(doc);
         return doc;
       } catch (err) {
