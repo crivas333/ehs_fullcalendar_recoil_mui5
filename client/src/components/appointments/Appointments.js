@@ -2,12 +2,16 @@ import React, { useState } from "react";
 //import clsx from 'clsx';
 import { useQueryClient, useQuery, useMutation } from "react-query";
 import request from "graphql-request";
+import addDays from "date-fns/addDays";
 import format from "date-fns/format";
-//import { makeStyles } from '@material-ui/core/styles'
-//import Grid from "@material-ui/core/Grid";
-//import { GlobalContext } from "../../context/GlobalState";
+import {
+  //selector,
+  useRecoilState,
+  //useRecoilValue,
+  //useSetRecoilState,
+} from "recoil";
 //import DateTimePicker from "@material-ui/lab/DateTimePicker";
-import Box from "@material-ui/core/Box";
+//import Box from "@material-ui/core/Box";
 import Notify from "../notification/Notify";
 import TableOfAppointments from "./TableOfAppointments";
 import EditIcon from "@material-ui/icons/Edit";
@@ -20,6 +24,7 @@ import {
   DELETE_APPOINTMENT,
   GET_APPOINTMENTS_BY_TIMEFRAME,
 } from "../../graphqlClient/gqlQueries";
+import { searchDateState } from "../../context/RecoilStore";
 
 const initialEvt = {
   id: null, //will store MongoDB id
@@ -55,9 +60,11 @@ async function deleteHelper(data) {
 }
 export default function DailyAppointments(props) {
   //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const [searchDate, setSearchDate] = useRecoilState(searchDateState);
   const [openEventDialog, setOpenEventDialog] = useState(false);
   const [openDeleteEventDialog, setOpenDeleteEventDialog] = useState(false);
   const [evt, setEvt] = useState(initialEvt);
+
   const queryClient = useQueryClient();
   //const classes = useStyles()
 
@@ -165,12 +172,15 @@ export default function DailyAppointments(props) {
     ],
     []
   );
+  React.useEffect(() => {
+    console.log(searchDate);
+  }, [searchDate]);
   const { isLoading, isError, data, error } = useQuery(
-    "appointments",
+    ["appointments", searchDate],
     async () => {
       const res = await request("/graphql", GET_APPOINTMENTS_BY_TIMEFRAME, {
-        start: new Date(new Date().setHours(0, 0, 0, 0)).toISOString(),
-        end: new Date(new Date().setHours(24, 0, 0, 0)).toISOString(),
+        start: searchDate.toDateString(),
+        end: addDays(searchDate, 1),
       });
       //return data.getAppointmentsByTimeframe;
       console.log(res.getAppointmentsByTimeframe);

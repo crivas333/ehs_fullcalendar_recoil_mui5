@@ -8,7 +8,7 @@ import {
 //import { appoEvtState } from "../../context/recoilStore";
 import * as appointmentService from "../../services/configService";
 import { GlobalContext } from "../../context/GlobalState";
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 //import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Button from "@material-ui/core/Button";
@@ -22,47 +22,47 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
+//import Box from "@material-ui/core/Box";
 import AsyncSelectForFullCalendar from "../patient/patientSearch/AsyncSelectForFullCalendar";
 import { Span } from "../reusableForms/reusableComponents";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(1),
-    display: "flex",
-    flexDirection: "column",
-    //alignItems: 'center'
-  },
-  button: {
-    margin: theme.spacing(1),
-    [theme.breakpoints.down("sm")]: {
-      minWidth: 32,
-      paddingLeft: 8,
-      paddingRight: 8,
-      "& .MuiButton-startIcon": {
-        margin: 0,
-      },
-    },
-  },
-  buttonText: {
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   paper: {
+//     marginTop: theme.spacing(1),
+//     display: "flex",
+//     flexDirection: "column",
+//     //alignItems: 'center'
+//   },
+//   button: {
+//     margin: theme.spacing(1),
+//     [theme.breakpoints.down("sm")]: {
+//       minWidth: 32,
+//       paddingLeft: 8,
+//       paddingRight: 8,
+//       "& .MuiButton-startIcon": {
+//         margin: 0,
+//       },
+//     },
+//   },
+//   buttonText: {
+//     [theme.breakpoints.down("sm")]: {
+//       display: "none",
+//     },
+//   },
+//   closeButton: {
+//     position: "absolute",
+//     right: theme.spacing(1),
+//     top: theme.spacing(1),
+//     color: theme.palette.grey[500],
+//   },
+// }));
 
 export default function EventDialog(props) {
   //const theme = useTheme();
   //const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const matches = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
-  const classes = useStyles();
+  //const classes = useStyles();
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const { applicationFields } = useContext(GlobalContext);
   const { evt, closeDialog, handleChangingEvt, handleRemovingEvt } = props;
@@ -177,7 +177,7 @@ export default function EventDialog(props) {
   };
   //<div className={classes.paper}></div>
   return (
-    <div>
+    <>
       <Dialog
         fullScreen={matches}
         open={props.show}
@@ -358,7 +358,7 @@ export default function EventDialog(props) {
           </Grid>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }
 

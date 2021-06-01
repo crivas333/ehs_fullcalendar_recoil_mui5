@@ -25,6 +25,10 @@ export const currentPatientState = atom({
   key: "currentPatientState",
   default: [],
 });
+export const searchDateState = atom({
+  key: "searchDateState",
+  default: new Date(),
+});
 async function requestPatientById(id) {
   try {
     const res = await request("/graphql", SEARCH_PATIENT_BY_ID, {

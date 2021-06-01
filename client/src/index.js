@@ -35,21 +35,21 @@ const theme = createTheme({
   typography: {
     fontSize: 12,
   },
-  palette: {
-    primary: {
-      main: "#556cd6",
-    },
-    secondary: {
-      main: "#19857b",
-    },
-    error: {
-      //main: red.A400,
-      main: "#19857b",
-    },
-    background: {
-      default: "#fff",
-    },
-  },
+  // palette: {
+  //   primary: {
+  //     main: "#556cd6",
+  //   },
+  //   secondary: {
+  //     main: "#19857b",
+  //   },
+  //   error: {
+  //     //main: red.A400,
+  //     main: "#19857b",
+  //   },
+  //   background: {
+  //     default: "#fff",
+  //   },
+  // },
 });
 //request(endpoint, query, variables).then((data) => console.log(data))
 async function checkLoggedIn() {

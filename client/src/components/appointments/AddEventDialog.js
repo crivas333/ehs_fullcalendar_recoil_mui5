@@ -9,8 +9,8 @@ import {
 //import { appoEvtState } from "../../context/recoilStore";
 import * as appointmentService from "../../services/configService";
 import { GlobalContext } from "../../context/GlobalState";
-import { makeStyles } from "@material-ui/styles";
-import { useTheme } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/styles";
+//import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Button from "@material-ui/core/Button";
 //import FormControl from "@material-ui/core/FormControl";
@@ -27,38 +27,39 @@ import Grid from "@material-ui/core/Grid";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import AsyncSelectForFullCalendar from "../patient/patientSearch/AsyncSelectForFullCalendar";
+import { Span } from "../reusableForms/reusableComponents";
 //import { ADD_APPOINTMENT } from "../../graphqlClient/gqlQueries";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(1),
-    display: "flex",
-    flexDirection: "column",
-    //alignItems: 'center'
-  },
-  button: {
-    margin: theme.spacing(1),
-    [theme.breakpoints.down("sm")]: {
-      minWidth: 32,
-      paddingLeft: 8,
-      paddingRight: 8,
-      "& .MuiButton-startIcon": {
-        margin: 0,
-      },
-    },
-  },
-  buttonText: {
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
-  closeButton: {
-    position: "absolute",
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   paper: {
+//     marginTop: theme.spacing(1),
+//     display: "flex",
+//     flexDirection: "column",
+//     //alignItems: 'center'
+//   },
+//   button: {
+//     margin: theme.spacing(1),
+//     [theme.breakpoints.down("sm")]: {
+//       minWidth: 32,
+//       paddingLeft: 8,
+//       paddingRight: 8,
+//       "& .MuiButton-startIcon": {
+//         margin: 0,
+//       },
+//     },
+//   },
+//   buttonText: {
+//     [theme.breakpoints.down("sm")]: {
+//       display: "none",
+//     },
+//   },
+//   closeButton: {
+//     position: "absolute",
+//     right: theme.spacing(1),
+//     top: theme.spacing(1),
+//     color: theme.palette.grey[500],
+//   },
+// }));
 
 const initialEvt = {
   id: null, //will store MongoDB id
@@ -75,9 +76,10 @@ const initialEvt = {
 };
 
 export default function EventDialog(props) {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
-  const classes = useStyles();
+  //const theme = useTheme();
+  //const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const matches = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  //const classes = useStyles();
   const [open, setOpen] = useState(false);
 
   const { applicationFields } = useContext(GlobalContext);
@@ -190,19 +192,28 @@ export default function EventDialog(props) {
   };
 
   return (
-    <div className={classes.paper}>
+    <>
       <Tooltip title="Añadir Cita">
         <IconButton aria-label="add" onClick={handleClickOpen}>
           <AddIcon />
         </IconButton>
       </Tooltip>
-      <Dialog fullScreen={!matches} open={open} onClose={handleDialogClose}>
+      <Dialog
+        fullScreen={matches}
+        open={open}
+        //onClose={handleDialogClose}
+        onClose={(event, reason) => {
+          if (reason !== "backdropClick") {
+            handleDialogClose(event, reason);
+          }
+        }}
+      >
         <DialogTitle>
           <Grid
             container
             direction="row"
-            justify="space-between"
-            alignItems="center"
+            justifyContent="space-between"
+            //alignItems="center"
           >
             <span>Añadir Cita</span>
 
@@ -306,12 +317,12 @@ export default function EventDialog(props) {
               //variant="contained"
               startIcon={<SaveIcon />}
             >
-              <span className={classes.buttonText}>Guardar</span>
+              <Span show={matches}>Guardar</Span>
             </Button>
           </>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }
 

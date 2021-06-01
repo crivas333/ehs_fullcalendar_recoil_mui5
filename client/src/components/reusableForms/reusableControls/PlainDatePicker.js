@@ -41,6 +41,8 @@ export default function PlainDatePicker(props) {
           margin="dense"
           size="small"
           label={label}
+          fullWidth
+          //helperText={null}
         />
       )}
       showTodayButton

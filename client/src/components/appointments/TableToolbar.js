@@ -1,15 +1,25 @@
 import React from "react";
-
+import {
+  //RecoilRoot,
+  //atom,
+  //selector,
+  useRecoilState,
+  //useRecoilValue,
+  //useSetRecoilState,
+} from "recoil";
 import AddEventDialogAppo from "./AddEventDialog";
 import clsx from "clsx";
 //import DeleteIcon from "@material-ui/icons/Delete";
 import GlobalFilter from "./GlobalFilter";
 //import IconButton from "@material-ui/core/IconButton";
-import { lighten, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
+import { lighten } from "@material-ui/core/styles/";
 //import PropTypes from 'prop-types'
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-//import Tooltip from "@material-ui/core/Tooltip";
+import DatePicker from "@material-ui/lab/DatePicker";
+import TextField from "@material-ui/core/TextField";
+import { searchDateState } from "../../context/RecoilStore";
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +30,8 @@ const useToolbarStyles = makeStyles((theme) => ({
     theme.palette.type === "light"
       ? {
           color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+          //backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+          backgroundColor: lighten(theme.palette.secondary.light, 0.75),
         }
       : {
           color: theme.palette.text.primary,
@@ -33,6 +44,8 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const TableToolbar = (props) => {
   const classes = useToolbarStyles();
+  const [searchDate, setSearchDate] = useRecoilState(searchDateState);
+  //const [value, setValue] = React.useState(new Date().toISOString());
   const {
     //numSelected,
     addEventHandler,
@@ -41,23 +54,55 @@ const TableToolbar = (props) => {
     setGlobalFilter,
     globalFilter,
   } = props;
+
+  const onChange = (val) => {
+    console.log(val);
+    //console.log(val.target.value);
+    //setValue(val);
+    setSearchDate(val);
+  };
   return (
     <Toolbar
       className={clsx(classes.root, {
         //[classes.highlight]: numSelected > 0,
-        [classes.highlight]: true,
+        [classes.highlight]: false,
       })}
     >
       <AddEventDialogAppo addEventHandler={addEventHandler} />
       <Typography className={classes.title} variant="h6" id="tableTitle">
-        Cita
+        Nueva Cita
       </Typography>
+      <DatePicker
+        renderInput={(props) => (
+          <TextField
+            {...props}
+            variant="standard"
+            margin="dense"
+            size="small"
+            label="Fecha de Búsqueda"
+            fullWidth
+            helperText={null}
+          />
+        )}
+        allowSameDateSelection={true}
+        //readOnly={true}
+        autoOk={true}
+        showTodayButton
+        todayText="hoy"
+        value={searchDate}
+        //onChange={(val) => setValue(val)}
+        onChange={onChange}
+        minDate={new Date("1900-01-01")}
+        //disableFuture={disableFuture}
+        //disablePast={disablePast}
+        //readOnly={readOnly}
+        onError={console.log}
+      />
       <GlobalFilter
         preGlobalFilteredRows={preGlobalFilteredRows}
         globalFilter={globalFilter}
         setGlobalFilter={setGlobalFilter}
       />
-      )
     </Toolbar>
   );
 };
