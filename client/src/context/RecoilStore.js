@@ -1,18 +1,11 @@
-import { atom, selector } from "recoil";
-import request from "graphql-request";
-import intervalToDuration from "date-fns/intervalToDuration";
-import { SEARCH_PATIENT_BY_ID } from "../graphqlClient/gqlQueries";
+import {
+  atom,
+  //selector
+} from "recoil";
+//import request from "graphql-request";
+//import intervalToDuration from "date-fns/intervalToDuration";
+//import { SEARCH_PATIENT_BY_ID } from "../graphqlClient/gqlQueries";
 
-// const appoEvtState = atom({
-//   key: "appEvtState", // unique ID (with respect to other atoms/selectors)
-//   default: {
-//     appointmentType: "CONSULTA",
-//     appointmentStatus: "PROGRAMADA",
-//     start: "",
-//     end: "",
-//     fullname: "",
-//   }, // default value (aka initial value)
-// });
 export const isAuthState = atom({
   key: "isAuthState",
   default: false,
@@ -37,45 +30,46 @@ export const searchDateState = atom({
 
 //     return;
 //   },
+//   set: ({set}, newValue) => set(currentPatientState, (newValue ))
 // });
 
-async function requestPatientById(id) {
-  try {
-    const res = await request("/graphql", SEARCH_PATIENT_BY_ID, {
-      id: id,
-    });
-    //console.log("GlobalState - getPatientByIdAPOLLO - res: ", res);
-    let tempPatient = {};
-    let dt = null;
-    if (res.patient.birthDay) {
-      dt = new Date(parseInt(res.patient.birthDay)); //to local time from UTC milliseconds
-      //console.log("getPatientByIdAPOLLO - dob: ",dt);
-      const duration = intervalToDuration({
-        start: new Date(),
-        end: dt, //convert UTC to LocalTime
-      });
-      const newPatient = Object.keys(res.patient).reduce((object, key) => {
-        if (key === "birthDay") {
-          object[key] = dt;
-        } else {
-          object[key] = res.patient[key];
-        }
-        return object;
-      }, {});
-      //tempPatient={...res.data.patient, dt, age_years:duration.years, age_months:duration.months}
-      tempPatient = {
-        ...newPatient,
-        age_years: duration.years,
-        age_months: duration.months,
-      };
-    } else {
-      tempPatient = { ...res.patient, age_years: "", age_months: "" };
-    }
-    return tempPatient;
-  } catch (err) {
-    console.log("getPatientByIdAPOLLO-err: ", err);
-  }
-}
+// async function requestPatientById(id) {
+//   try {
+//     const res = await request("/graphql", SEARCH_PATIENT_BY_ID, {
+//       id: id,
+//     });
+//     //console.log("GlobalState - getPatientByIdAPOLLO - res: ", res);
+//     let tempPatient = {};
+//     let dt = null;
+//     if (res.patient.birthDay) {
+//       dt = new Date(parseInt(res.patient.birthDay)); //to local time from UTC milliseconds
+//       //console.log("getPatientByIdAPOLLO - dob: ",dt);
+//       const duration = intervalToDuration({
+//         start: new Date(),
+//         end: dt, //convert UTC to LocalTime
+//       });
+//       const newPatient = Object.keys(res.patient).reduce((object, key) => {
+//         if (key === "birthDay") {
+//           object[key] = dt;
+//         } else {
+//           object[key] = res.patient[key];
+//         }
+//         return object;
+//       }, {});
+//       //tempPatient={...res.data.patient, dt, age_years:duration.years, age_months:duration.months}
+//       tempPatient = {
+//         ...newPatient,
+//         age_years: duration.years,
+//         age_months: duration.months,
+//       };
+//     } else {
+//       tempPatient = { ...res.patient, age_years: "", age_months: "" };
+//     }
+//     return tempPatient;
+//   } catch (err) {
+//     console.log("getPatientByIdAPOLLO-err: ", err);
+//   }
+// }
 
 // export const getPatientByIdFamSel = selectorFamily({
 //   key: "PatientId",

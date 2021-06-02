@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 
 //import { GlobalContext } from "../../../context/GlobalState";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import Button from "@material-ui/core/Button";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -29,9 +29,8 @@ const MyBox = styled("div")(({ theme }) => ({
 export const UpdatePatientTabForm = (props) => {
   //const classes = useStyles();
   //const { currentPatient } = useContext(GlobalContext);
-  const [currentPatient, setCurrentPatient] =
-    useRecoilState(currentPatientState);
-  //const { register, handleSubmit, setValue, errors, control} = useForm()
+  const currentPatient = useRecoilValue(currentPatientState);
+
   const initialFValues = {
     idType: "DNI",
     idTypeNo: "",
@@ -54,8 +53,7 @@ export const UpdatePatientTabForm = (props) => {
     religion: "",
     referral: "",
   };
-  //const [ values, setValues ] = useState(initialFValues)
-  //const [ values1, setValues1 ] = useState({})
+
   //tabs
   const indexToTabName = {
     Datos: 0,
@@ -111,91 +109,34 @@ export const UpdatePatientTabForm = (props) => {
     e.preventDefault();
     //console.log("UpdatePatientTabForm: ", values);
     if (validate()) {
-      //console.log('validation')
-      const newData = {
-        //dni: parseInt(values.dni),
-        id: values.id,
-        idType: values.idType,
-        idTypeNo: values.idTypeNo.toUpperCase(),
-        firstName: values.firstName.toUpperCase(),
-        lastName: values.lastName.toUpperCase(),
-        lastName2: values.lastName2.toUpperCase(),
-        //birthDay: (data.currPatient.birthDay||''),
-        //birthDay: (data.currPatient.birthDay), //null
-        birthDay: values.birthDay,
-        sex: values.sex,
-        phone1: values.phone1,
-        phone2: values.phone2,
-        email: values.email.toUpperCase(),
-        address: values.address.toUpperCase(),
-        gName: values.gName.toUpperCase(),
-        gPhone1: values.gPhone1,
-        gPhone2: values.gPhone2,
-        gRelation: values.gRelation.toUpperCase(),
-        bloodType: values.bloodType,
-        marital: values.marital,
-        occupation: values.occupation.toUpperCase(),
-        religion: values.religion.toUpperCase(),
-        referral: values.referral.toUpperCase(),
-      };
-      // props.createPatient({ variables: { dni: newData.dni, firstName: newData.firstName, lastName: newData.lastName, email: newData.email } })
-      //props.createPatient({ variables: { patientInput: {dni: newData.dni, firstName: newData.firstName, lastName: newData.lastName, lastName2: newData.lastName2, birthDay:newData.birthDay, sex: newData.sex, email: newData.email }} })
       //props.updatePatient({ variables: { id:newData.id, patientInput: {
       props.updatePatient.mutate({
         variables: {
-          id: newData.id,
+          id: values.id,
           patientInput: {
-            idType: newData.idType,
-            idTypeNo: newData.idTypeNo,
-            firstName: newData.firstName,
-            lastName: newData.lastName,
-            lastName2: newData.lastName2,
-            birthDay: newData.birthDay,
-            sex: newData.sex,
-            phone1: newData.phone1,
-            phone2: newData.phone2,
-            email: newData.email,
-            address: newData.address,
-            gName: newData.gName,
-            gPhone1: newData.gPhone1,
-            gPhone2: newData.gPhone2,
-            gRelation: newData.gRelation,
-            bloodType: newData.bloodType,
-            marital: newData.marital,
-            occupation: newData.occupation,
-            religion: newData.religion,
-            referral: newData.referral,
+            idType: values.idType,
+            idTypeNo: values.idTypeNo.toUpperCase(),
+            firstName: values.firstName.toUpperCase(),
+            lastName: values.lastName.toUpperCase(),
+            lastName2: values.lastName2.toUpperCase(),
+            birthDay: values.birthDay || null,
+            sex: values.sex,
+            phone1: values.phone1,
+            phone2: values.phone2,
+            email: values.email.toUpperCase(),
+            address: values.address.toUpperCase(),
+            gName: values.gName.toUpperCase(),
+            gPhone1: values.gPhone1,
+            gPhone2: values.gPhone2,
+            gRelation: values.gRelation.toUpperCase(),
+            bloodType: values.bloodType,
+            marital: values.marital,
+            occupation: values.occupation.toUpperCase(),
+            religion: values.religion.toUpperCase(),
+            referral: values.referral.toUpperCase(),
           },
         },
       });
-      // props.updatePatient.mutate({
-      //   id: newData.id,
-      //   patientInput: {
-      //     idType: newData.idType,
-      //     idTypeNo: newData.idTypeNo,
-      //     firstName: newData.firstName,
-      //     lastName: newData.lastName,
-      //     lastName2: newData.lastName2,
-      //     birthDay: newData.birthDay,
-      //     sex: newData.sex,
-      //     phone1: newData.phone1,
-      //     phone2: newData.phone2,
-      //     email: newData.email,
-      //     address: newData.address,
-      //     gName: newData.gName,
-      //     gPhone1: newData.gPhone1,
-      //     gPhone2: newData.gPhone2,
-      //     gRelation: newData.gRelation,
-      //     bloodType: newData.bloodType,
-      //     marital: newData.marital,
-      //     occupation: newData.occupation,
-      //     religion: newData.religion,
-      //     referral: newData.referral,
-      //   },
-      // });
-
-      //resetForm()
-      //Notify('Datos de Paciente actualizados');
     }
   };
 

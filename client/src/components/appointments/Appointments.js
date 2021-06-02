@@ -6,7 +6,7 @@ import addDays from "date-fns/addDays";
 import format from "date-fns/format";
 import {
   //selector,
-  useRecoilState,
+  useRecoilValue,
   //useRecoilValue,
   //useSetRecoilState,
 } from "recoil";
@@ -60,7 +60,7 @@ async function deleteHelper(data) {
 }
 export default function DailyAppointments(props) {
   //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const [searchDate, setSearchDate] = useRecoilState(searchDateState);
+  const searchDate = useRecoilValue(searchDateState);
   const [openEventDialog, setOpenEventDialog] = useState(false);
   const [openDeleteEventDialog, setOpenDeleteEventDialog] = useState(false);
   const [evt, setEvt] = useState(initialEvt);
