@@ -1,4 +1,4 @@
-import { atom, selectorFamily } from "recoil";
+import { atom, selector } from "recoil";
 import request from "graphql-request";
 import intervalToDuration from "date-fns/intervalToDuration";
 import { SEARCH_PATIENT_BY_ID } from "../graphqlClient/gqlQueries";
@@ -29,6 +29,16 @@ export const searchDateState = atom({
   key: "searchDateState",
   default: new Date(),
 });
+
+// export const reloadCurrentPatient = selector({
+//   key: "currentPatientState",
+//   get: ({ get }) => {
+//     //const loading = get(loadingState);
+
+//     return;
+//   },
+// });
+
 async function requestPatientById(id) {
   try {
     const res = await request("/graphql", SEARCH_PATIENT_BY_ID, {
@@ -67,17 +77,17 @@ async function requestPatientById(id) {
   }
 }
 
-export const getPatientByIdFamSel = selectorFamily({
-  key: "PatientId",
-  get: (id) => async () => {
-    const response = await requestPatientById({ id });
-    console.log("RecoilStore-response: ", response);
-    if (response.error) {
-      throw response.error;
-    }
-    return response.name;
-  },
-});
+// export const getPatientByIdFamSel = selectorFamily({
+//   key: "PatientId",
+//   get: (id) => async () => {
+//     const response = await requestPatientById({ id });
+//     console.log("RecoilStore-response: ", response);
+//     if (response.error) {
+//       throw response.error;
+//     }
+//     return response.name;
+//   },
+// });
 /*
   currentPatient: {
     id: "",

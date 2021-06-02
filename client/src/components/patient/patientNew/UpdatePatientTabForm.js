@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 
-import { GlobalContext } from "../../../context/GlobalState";
-
+//import { GlobalContext } from "../../../context/GlobalState";
+import { useRecoilState } from "recoil";
 import Button from "@material-ui/core/Button";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -12,6 +12,7 @@ import { UpdatePatientTab1 } from "./UpdatePatientTab1";
 import { UpdatePatientTab2 } from "./UpdatePatientTab2";
 import { UpdatePatientTab3 } from "./UpdatePatientTab3";
 import { useReusableForm } from "../../reusableForms/useReusableForm";
+import { currentPatientState } from "../../../context/RecoilStore";
 
 //import Notify from '../../notification/Notify';
 
@@ -27,7 +28,9 @@ const MyBox = styled("div")(({ theme }) => ({
 
 export const UpdatePatientTabForm = (props) => {
   //const classes = useStyles();
-  const { currentPatient } = useContext(GlobalContext);
+  //const { currentPatient } = useContext(GlobalContext);
+  const [currentPatient, setCurrentPatient] =
+    useRecoilState(currentPatientState);
   //const { register, handleSubmit, setValue, errors, control} = useForm()
   const initialFValues = {
     idType: "DNI",

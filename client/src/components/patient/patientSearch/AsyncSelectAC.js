@@ -40,10 +40,6 @@ const loadOptions = async (input, cb) => {
     return [];
   }
   try {
-    // const res = await client.query({
-    //   query: SEARCH_PATIENT_BY_LASTNAME,
-    //   variables: { lastName: input },
-    // });
     const res = await request("/graphql", SEARCH_PATIENT_BY_LASTNAME, {
       lastName: input,
     });
@@ -117,7 +113,7 @@ export default function AsyncSelectAC() {
         //components={{ Input }}
         formatOptionLabel={formatOptionLabel}
         //className='boxSize'
-        placeholder="Search by Last Name"
+        placeholder="Busque por A. Paterno"
         //className="select"
         //cacheOptions
         //defaultOptions

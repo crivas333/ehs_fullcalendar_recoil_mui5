@@ -74,9 +74,9 @@ export const DisplayPatientTabForm = (props) => {
 
   useEffect(() => {
     if (currPatient !== null) {
-      //setValue('currPatient', { ...currentPatient })
+      //setValue("currPatient", { ...currentPatient });
       setValues(currPatient);
-      //console.log('DisplayPatientTabForm-currentPatient: ',currentPatient)
+      console.log("DisplayPatientTabForm-currentPatient: ", currPatient);
       //values=currentPatient
     }
   }, [currPatient]);

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 
 //import { useMutation } from '@apollo/client'
+import { useRecoilState } from "recoil";
 import { useMutation } from "react-query";
 import request from "graphql-request";
 import {
@@ -21,6 +22,7 @@ import { DisplayPatientTabForm } from "../components/patient/patientNew/DisplayP
 import { NewPatientTabForm } from "../components/patient/patientNew/NewPatientTabForm";
 import { UpdatePatientTabForm } from "../components/patient/patientNew/UpdatePatientTabForm";
 import { GlobalContext } from "../context/GlobalState";
+import { currentPatientState } from "../context/RecoilStore";
 import Notify from "../components/notification/Notify";
 
 // const useStyles = makeStyles((theme) => ({
@@ -64,8 +66,11 @@ async function deleteHelper(data) {
 export default function Paciente() {
   //const classes = useStyles();
 
-  const { currentPatient, clearCurrentPatient, reloadCurrentPatient } =
-    useContext(GlobalContext);
+  //const { currentPatient, clearCurrentPatient, reloadCurrentPatient } =
+  //  useContext(GlobalContext);
+  const { clearCurrentPatient } = useContext(GlobalContext);
+  const [currentPatient, setCurrentPatient] =
+    useRecoilState(currentPatientState);
   const [action, setAction] = useState(SEARCH);
 
   const createPatient = useMutation(createHelper, {
@@ -74,7 +79,8 @@ export default function Paciente() {
       //console.log("onSuccess:", data);
       Notify({ message: "Datos de Paciente ingresados", status: "success" });
       setAction(SEARCH);
-      reloadCurrentPatient(data);
+      //reloadCurrentPatient(data);
+      setCurrentPatient(data);
     },
     onMutate: (data) => {
       //console.log("onMutate:", data);
@@ -99,7 +105,8 @@ export default function Paciente() {
       //console.log("onSuccess:", data);
       Notify({ message: "Datos de Paciente actualizados", status: "success" });
       setAction(SEARCH);
-      reloadCurrentPatient(data);
+      //reloadCurrentPatient(data);
+      setCurrentPatient(data);
     },
     onMutate: (data) => {
       //console.log("onMutate:", data);

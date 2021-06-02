@@ -32,8 +32,8 @@ const selectStyles = {
   //   padding: 100,
   // }),
 };
-const formatOptionLabel = ({ historyId, lastName, lastName2, firstName }) => (
-  <span>{`${historyId} - ${lastName} ${lastName2}, ${firstName}`}</span>
+const formatOptionLabel = ({ historyId, fullName }) => (
+  <span>{`${historyId} - ${fullName}`}</span>
 );
 const loadPatient = async (input) => {
   try {
@@ -69,9 +69,10 @@ const loadOptions = async (input, cb) => {
       return res.searchPatientsByLastName.map((a) => ({
         id: a.id,
         historyId: a.historyId,
-        lastName: a.lastName,
-        lastName2: a.lastName2,
-        firstName: a.firstName,
+        //lastName: a.lastName,
+        //lastName2: a.lastName2,
+        //firstName: a.firstName,
+        fullName: a.fullName,
       }));
     }
     return [];

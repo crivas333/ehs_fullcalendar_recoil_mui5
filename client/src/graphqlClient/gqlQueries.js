@@ -127,7 +127,10 @@ export const SEARCH_PATIENT_BY_ID = gql`
       firstName
       lastName
       lastName2
+      fullName
       birthDay
+      age_years
+      age_months
       sex
       phone1
       phone2
@@ -142,8 +145,6 @@ export const SEARCH_PATIENT_BY_ID = gql`
       occupation
       religion
       referral
-      age_years
-      age_months
     }
   }
 `;
@@ -158,7 +159,10 @@ export const CREATE_PATIENT = gql`
       firstName
       lastName
       lastName2
+      fullName
       birthDay
+      age_years
+      age_months
       sex
       phone1
       phone2
@@ -187,7 +191,10 @@ export const UPDATE_PATIENT = gql`
       firstName
       lastName
       lastName2
+      fullName
       birthDay
+      age_years
+      age_months
       sex
       phone1
       phone2

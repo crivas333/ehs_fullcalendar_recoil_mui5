@@ -71,7 +71,7 @@ export default {
         });
         const result = await patient.save();
         // createdEvent = transformEvent(result);
-        // console.log('createPatient: ',result)
+        console.log("createPatient: ", result);
         return result;
       } catch (err) {
         console.log(err);
