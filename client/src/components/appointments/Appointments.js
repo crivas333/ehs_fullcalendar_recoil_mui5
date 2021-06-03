@@ -175,6 +175,7 @@ export default function DailyAppointments(props) {
   React.useEffect(() => {
     console.log(searchDate);
   }, [searchDate]);
+
   const { isLoading, isError, data, error } = useQuery(
     ["appointments", searchDate],
     async () => {

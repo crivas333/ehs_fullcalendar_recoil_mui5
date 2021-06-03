@@ -20,7 +20,7 @@ import Pages from "./pages";
 
 //import { GlobalContext } from "./context/GlobalState";
 import { isAuthState, currentUserState } from "./context/RecoilStore";
-import ScrollToTop from "./layouts/ScrollToTop";
+//import ScrollToTop from "./layouts/ScrollToTop";
 import "./App.css";
 
 function App() {
@@ -58,7 +58,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ScrollToTop />
       <Routes>
         {!isAuth && <Route path="/*" element={<LandingPage />} />}
         {isAuth && <Route path="/*" element={<Pages />} />}
@@ -69,3 +68,16 @@ function App() {
 }
 
 export default App;
+
+/*
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        {!isAuth && <Route path="/*" element={<LandingPage />} />}
+        {isAuth && <Route path="/*" element={<Pages />} />}
+      </Routes>
+      <Notifier />
+    </BrowserRouter>
+  );
+*/

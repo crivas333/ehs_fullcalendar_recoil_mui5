@@ -76,7 +76,7 @@ export const DisplayPatientTabForm = (props) => {
     if (currPatient !== null) {
       //setValue("currPatient", { ...currentPatient });
       setValues(currPatient);
-      console.log("DisplayPatientTabForm-currentPatient: ", currPatient);
+      //console.log("DisplayPatientTabForm-currentPatient: ", currPatient);
       //values=currentPatient
     }
   }, [currPatient]);

@@ -90,6 +90,9 @@ export default function PatientSummary(props) {
       ${currPatient.idType}: ${currPatient.idTypeNo}  -  F. Nacimiento: ${dob} (${age} años)  -  Sexo: ${currPatient.sex}
       Teléfono: ${currPatient.phone1}  -  Email: ${currPatient.email}`;
       setTextPC(line2);
+    } else {
+      setTextMobile("");
+      setTextPC("");
     }
   }, [currPatient]);
 

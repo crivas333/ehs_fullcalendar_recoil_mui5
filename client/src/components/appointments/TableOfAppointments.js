@@ -110,8 +110,6 @@ const EnhancedTable = ({
   };
 
   const addEventHandler = (data) => {
-    // const newData = data.concat([user]);
-    // setData(newData);
     handleAddEvt(data);
   };
 
@@ -140,13 +138,6 @@ const EnhancedTable = ({
                       active={column.isSorted}
                       // react-table has a unsorted state which is not treated here
                       direction={column.isSortedDesc ? "asc" : "desc"}
-                      // direction={
-                      //   column.isSorted
-                      //     ? column.isSortedDesc
-                      //       ? " (DESC)"
-                      //       : " (ASC)"
-                      //     : "()"
-                      // }
                     />
                   ) : null}
                 </TableCell>
@@ -178,7 +169,7 @@ const EnhancedTable = ({
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[
-                5, 10, 25,
+                5, 10, 25, 50,
                 //{ label: "All", value: data.length }, //this cause warning of duplicated key '5'
               ]}
               colSpan={4}

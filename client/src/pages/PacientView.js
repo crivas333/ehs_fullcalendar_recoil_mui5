@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 
 //import { useMutation } from '@apollo/client'
 import { useRecoilState } from "recoil";
@@ -21,7 +21,7 @@ import AsyncSelectAC from "../components/patient/patientSearch/AsyncSelectAC";
 import { DisplayPatientTabForm } from "../components/patient/patientNew/DisplayPatientTabForm";
 import { NewPatientTabForm } from "../components/patient/patientNew/NewPatientTabForm";
 import { UpdatePatientTabForm } from "../components/patient/patientNew/UpdatePatientTabForm";
-import { GlobalContext } from "../context/GlobalState";
+//import { GlobalContext } from "../context/GlobalState";
 import { currentPatientState } from "../context/RecoilStore";
 import Notify from "../components/notification/Notify";
 
@@ -68,7 +68,7 @@ export default function Paciente() {
 
   //const { currentPatient, clearCurrentPatient, reloadCurrentPatient } =
   //  useContext(GlobalContext);
-  const { clearCurrentPatient } = useContext(GlobalContext);
+  //const { clearCurrentPatient } = useContext(GlobalContext);
   const [currentPatient, setCurrentPatient] =
     useRecoilState(currentPatientState);
   const [action, setAction] = useState(SEARCH);
@@ -127,17 +127,17 @@ export default function Paciente() {
 
   const deletePatient = useMutation(deleteHelper, {
     onSuccess: (data, variables) => {
-      // I will fire first
       //console.log("onSuccess:", data);
-      Notify({ message: "Datos de Paciente borrados", status: "success" });
+
       //setAction(SEARCH);
-      clearCurrentPatient();
+      //clearCurrentPatient();
+      setCurrentPatient([]);
+      Notify({ message: "Datos de Paciente borrados", status: "success" });
     },
     onMutate: (data) => {
       //console.log("onMutate:", data);
     },
     onError: (error, variables, context) => {
-      // I will fire first
       console.log("onError");
       Notify({
         message: "Error: Datos de Paciente NO borrados",
@@ -145,7 +145,6 @@ export default function Paciente() {
       });
     },
     onSettled: (data, error, variables, context) => {
-      // I will fire first
       //console.log("onSettled");
     },
   });
@@ -156,7 +155,8 @@ export default function Paciente() {
   };
 
   const handleCreatePatient = () => {
-    clearCurrentPatient();
+    //clearCurrentPatient();
+    setCurrentPatient([]);
     setAction(CREATE);
   };
 
