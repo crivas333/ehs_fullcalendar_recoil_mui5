@@ -18,7 +18,12 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(4),
   },
 }));
-
+const initialFormState = {
+  id: null,
+  fieldView: "",
+  fieldType: "",
+  fieldData: "",
+};
 //export default function Appointment () {
 export default function AppointmentControlCfg(props) {
   const classes = useStyles();
@@ -30,18 +35,14 @@ export default function AppointmentControlCfg(props) {
     updateApplicationFieldAPOLLO,
     deleteApplicationFieldAPOLLO,
   } = useContext(GlobalContext);
-  const initialFormState = {
-    id: null,
-    fieldView: "",
-    fieldType: "",
-    fieldData: "",
-  };
+
   // Setting state
   const [chosenField, setChosenField] = useState("Tipo de Cita");
   const [fieldType, setFieldType] = useState("appointmentType");
 
   const [editingArray, setEditingArray] = useState(initialFormState);
   const [editingFlag, setEditingFlag] = useState(false);
+  const { addField, updateField, deleteField } = props;
 
   const onViewFieldChange = (event) => {
     //console.log('SystemConfig: ',event.target.value)
@@ -67,19 +68,24 @@ export default function AppointmentControlCfg(props) {
       fieldType: fieldType,
       fieldData: fd,
     };
-    addApplicationFieldAPOLLO(data);
+    //addApplicationFieldAPOLLO(data);
+    addField.mutate(data);
   };
   const updateFieldData = (updatedValue) => {
     setEditingFlag(false);
-    //console.log('updatedField: ',updatedField)
+    //console.log("editingArray: ", editingArray);
     const fd = updatedValue.toUpperCase();
     const data = { ...editingArray, fieldData: fd };
-    updateApplicationFieldAPOLLO(data);
+    //updateApplicationFieldAPOLLO(data);
+    //console.log("data: ", data);
+    updateField.mutate({ id: data.id, fieldData: data.fieldData });
+    //updateField.mutate(data);
   };
   const deleteFieldData = (id) => {
     setEditingFlag(false);
     //console.log(id)
-    deleteApplicationFieldAPOLLO(id);
+    //deleteApplicationFieldAPOLLO(id);
+    deleteField.mutate({ id: id });
   };
 
   const editRow = (data) => {
