@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+//import { QueryClient } from "react-query";
 import { Grid } from "@material-ui/core";
 import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
 import {
@@ -6,7 +7,7 @@ import {
   ReusableForm,
 } from "../reusableForms/useReusableForm";
 import * as encounterService from "../../services/configService";
-import { GlobalContext } from "../../context/GlobalState";
+//import { GlobalContext } from "../../context/GlobalState";
 
 const initialFValues = {
   id: 0,
@@ -19,8 +20,9 @@ const initialFValues = {
   isPermanent: false,
 };
 
-export default function Encounter() {
-  const { applicationFields } = useContext(GlobalContext);
+export default function Encounter(props) {
+  //const { applicationFields } = useContext(GlobalContext);
+  const { applicationFields } = props;
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -152,16 +154,18 @@ export default function Encounter() {
           />
         </Grid>
         <Grid item xs={6}>
-          <div>
-            <ReusableControls.Button type="submit" text="Submit" />
-            <ReusableControls.Button
-              text="Reset"
-              color="default"
-              onClick={resetForm}
-            />
-          </div>
+          <div></div>
         </Grid>
       </Grid>
     </ReusableForm>
   );
 }
+
+/*
+     <ReusableControls.Button type="submit" text="Submit" />
+            <ReusableControls.Button
+              text="Reset"
+              color="default"
+              onClick={resetForm}
+            />
+*/

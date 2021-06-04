@@ -3,20 +3,20 @@ import AppReducer from "./AppReducer";
 //import formatISO from 'date-fns/formatISO'
 //import format from 'date-fns/format';//import axios from 'axios'
 //import fetch from 'cross-fetch'
-import intervalToDuration from "date-fns/intervalToDuration";
+//import intervalToDuration from "date-fns/intervalToDuration";
 //import { client } from "../graphqlClient/apolloClient";
 import request from "graphql-request";
 import {
-  SEARCH_PATIENT_BY_ID,
-  GET_PATIENTS,
+  // SEARCH_PATIENT_BY_ID,
+  // GET_PATIENTS,
   GET_EXAM_BY_PATIENT_ID,
   ADD_EXAMDATA,
   UPDATE_ROWEXAM,
   CREATE_ENCOUNTER,
-  GET_APPLICATIONSFIELDS,
-  ADD_APPLICATIONFIELDS,
-  UPDATE_APPLICATIONFIELDS,
-  DELETE_APPLICATIONFIELDS,
+  // GET_APPLICATIONSFIELDS,
+  // ADD_APPLICATIONFIELDS,
+  // UPDATE_APPLICATIONFIELDS,
+  // DELETE_APPLICATIONFIELDS,
 } from "../graphqlClient/gqlQueries";
 // import { object } from 'joi'
 // Initial state
@@ -100,55 +100,55 @@ export const GlobalProvider = ({ children }) => {
   //   }
   // }
 
-  function clearCurrentPatient() {
-    dispatch({
-      type: "CLEAR_PATIENTDATA",
-      // payload: [],
-      payload: {
-        id: "",
-        historyId: "",
-        dni: "",
-        firstName: "",
-        lastName: "",
-        lastName2: "",
-        birthDay: null,
-        sex: "",
-        email: "",
-      },
-    });
-  }
+  // function clearCurrentPatient() {
+  //   dispatch({
+  //     type: "CLEAR_PATIENTDATA",
+  //     // payload: [],
+  //     payload: {
+  //       id: "",
+  //       historyId: "",
+  //       dni: "",
+  //       firstName: "",
+  //       lastName: "",
+  //       lastName2: "",
+  //       birthDay: null,
+  //       sex: "",
+  //       email: "",
+  //     },
+  //   });
+  // }
 
-  function reloadCurrentPatient(currPatient) {
-    let tempPatient = {};
-    let dt = null;
-    if (currPatient.birthDay) {
-      dt = new Date(parseInt(currPatient.birthDay)); //to local time from UTC milliseconds
-      const duration = intervalToDuration({
-        start: new Date(),
-        end: dt, //convert UTC to LocalTime
-      });
-      const newPatient = Object.keys(currPatient).reduce((object, key) => {
-        if (key === "birthDay") {
-          object[key] = dt;
-        } else {
-          object[key] = currPatient[key];
-        }
-        return object;
-      }, {});
-      tempPatient = {
-        ...newPatient,
-        age_years: duration.years,
-        age_months: duration.months,
-      };
-    } else {
-      tempPatient = currPatient;
-    }
-    dispatch({
-      type: "RELOAD_PATIENTDATA",
-      // payload: currPatient
-      payload: tempPatient,
-    });
-  }
+  // function reloadCurrentPatient(currPatient) {
+  //   let tempPatient = {};
+  //   let dt = null;
+  //   if (currPatient.birthDay) {
+  //     dt = new Date(parseInt(currPatient.birthDay)); //to local time from UTC milliseconds
+  //     const duration = intervalToDuration({
+  //       start: new Date(),
+  //       end: dt, //convert UTC to LocalTime
+  //     });
+  //     const newPatient = Object.keys(currPatient).reduce((object, key) => {
+  //       if (key === "birthDay") {
+  //         object[key] = dt;
+  //       } else {
+  //         object[key] = currPatient[key];
+  //       }
+  //       return object;
+  //     }, {});
+  //     tempPatient = {
+  //       ...newPatient,
+  //       age_years: duration.years,
+  //       age_months: duration.months,
+  //     };
+  //   } else {
+  //     tempPatient = currPatient;
+  //   }
+  //   dispatch({
+  //     type: "RELOAD_PATIENTDATA",
+  //     // payload: currPatient
+  //     payload: tempPatient,
+  //   });
+  // }
 
   async function createEncounterAPOLLO(appointmentId) {
     try {
@@ -301,142 +301,142 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
-  async function getPatientsAPOLLO() {
-    try {
-      //const res = await client.query({ query: GET_PATIENTS });
-      const res = await request("/graphql", GET_PATIENTS);
-      // console.log('getPatientsAPOLLO- res: ', res)
-      dispatch({
-        type: "GET_PATIENTSDATA_GQL",
-        payload: res.patients,
-      });
-    } catch (err) {
-      dispatch({
-        type: "TRANSACTION_ERROR",
-        payload: err.res.data.error,
-      });
-    }
-  }
+  // async function getPatientsAPOLLO() {
+  //   try {
+  //     //const res = await client.query({ query: GET_PATIENTS });
+  //     const res = await request("/graphql", GET_PATIENTS);
+  //     // console.log('getPatientsAPOLLO- res: ', res)
+  //     dispatch({
+  //       type: "GET_PATIENTSDATA_GQL",
+  //       payload: res.patients,
+  //     });
+  //   } catch (err) {
+  //     dispatch({
+  //       type: "TRANSACTION_ERROR",
+  //       payload: err.res.data.error,
+  //     });
+  //   }
+  // }
 
-  async function getApplicationFieldsAPOLLO() {
-    try {
-      //const res = await client.query({ query: GET_APPLICATIONSFIELDS });
-      const res = await request("/graphql", GET_APPLICATIONSFIELDS);
-      //console.log("getApplicationFieldsAPOLLO- res: ", res);
-      dispatch({
-        type: "GET_APPLICATIONFIELDS_GQL",
-        //payload: res.data.getApplicationFields,
-        payload: res.getApplicationFields,
-      });
-    } catch (err) {
-      console.log("GlobalState - getApplicationFieldsAPOLLO: ", err);
-      dispatch({
-        type: "TRANSACTION_ERROR",
-        payload: err,
-      });
-    }
-  }
-  async function addApplicationFieldAPOLLO(data) {
-    try {
-      console.log("GlobalState - addApplicationFieldAPOLLO: ", data);
-      //const res = await client.mutate({ mutation: UPDATE_APPLICATIONSFIELDS, variables: { id: data.id, fieldData: data.fieldData} })
-      // const res = await client.mutate({
-      //   mutation: ADD_APPLICATIONFIELDS,
-      //   variables: {
-      //     fieldView: data.fieldView,
-      //     fieldType: data.fieldType,
-      //     fieldData: data.fieldData,
-      //   },
-      // });
-      const res = await request("/graphql", ADD_APPLICATIONFIELDS, {
-        fieldView: data.fieldView,
-        fieldType: data.fieldType,
-        fieldData: data.fieldData,
-      });
-      //console.log('updateApplicationFieldsAPOLLO- res: ', res)
-      dispatch({
-        type: "ADD_APPLICATIONFIELD_GQL",
-        //payload: res.data.addApplicationFields,
-        payload: res.addApplicationFields,
-      });
-    } catch (err) {
-      dispatch({
-        type: "TRANSACTION_ERROR",
-        payload: err.res.data,
-      });
-    }
-  }
-  async function updateApplicationFieldAPOLLO(data) {
-    try {
-      console.log("GlobalState - updateCustomDateAPOLLO: ", data);
+  // async function getApplicationFieldsAPOLLO() {
+  //   try {
+  //     //const res = await client.query({ query: GET_APPLICATIONSFIELDS });
+  //     const res = await request("/graphql", GET_APPLICATIONSFIELDS);
+  //     //console.log("getApplicationFieldsAPOLLO- res: ", res);
+  //     dispatch({
+  //       type: "GET_APPLICATIONFIELDS_GQL",
+  //       //payload: res.data.getApplicationFields,
+  //       payload: res.getApplicationFields,
+  //     });
+  //   } catch (err) {
+  //     console.log("GlobalState - getApplicationFieldsAPOLLO: ", err);
+  //     dispatch({
+  //       type: "TRANSACTION_ERROR",
+  //       payload: err,
+  //     });
+  //   }
+  // }
+  // async function addApplicationFieldAPOLLO(data) {
+  //   try {
+  //     console.log("GlobalState - addApplicationFieldAPOLLO: ", data);
+  //     //const res = await client.mutate({ mutation: UPDATE_APPLICATIONSFIELDS, variables: { id: data.id, fieldData: data.fieldData} })
+  //     // const res = await client.mutate({
+  //     //   mutation: ADD_APPLICATIONFIELDS,
+  //     //   variables: {
+  //     //     fieldView: data.fieldView,
+  //     //     fieldType: data.fieldType,
+  //     //     fieldData: data.fieldData,
+  //     //   },
+  //     // });
+  //     const res = await request("/graphql", ADD_APPLICATIONFIELDS, {
+  //       fieldView: data.fieldView,
+  //       fieldType: data.fieldType,
+  //       fieldData: data.fieldData,
+  //     });
+  //     //console.log('updateApplicationFieldsAPOLLO- res: ', res)
+  //     dispatch({
+  //       type: "ADD_APPLICATIONFIELD_GQL",
+  //       //payload: res.data.addApplicationFields,
+  //       payload: res.addApplicationFields,
+  //     });
+  //   } catch (err) {
+  //     dispatch({
+  //       type: "TRANSACTION_ERROR",
+  //       payload: err.res.data,
+  //     });
+  //   }
+  // }
+  // async function updateApplicationFieldAPOLLO(data) {
+  //   try {
+  //     console.log("GlobalState - updateCustomDateAPOLLO: ", data);
 
-      //const res = await client.mutate({ mutation: UPDATE_APPLICATIONSFIELDS, variables: {id: data.id, fieldType: data.fieldType, fieldData: data.fieldData} })
-      // const res = await client.mutate({
-      //   mutation: UPDATE_APPLICATIONFIELDS,
-      //   variables: { id: data.id, fieldData: data.fieldData },
-      // });
-      const res = await request("/graphql", UPDATE_APPLICATIONFIELDS, {
-        id: data.id,
-        fieldData: data.fieldData,
-      });
-      //console.log('updateApplicationFieldsAPOLLO- res: ', res)
-      dispatch({
-        type: "UPDATE_CUSTOMDATA_GQL",
-        //payload: res.data.updateApplicationFields,
-        payload: res.updateApplicationFields,
-      });
-    } catch (err) {
-      dispatch({
-        type: "TRANSACTION_ERROR",
-        payload: err.res.data,
-      });
-    }
-  }
-  async function deleteApplicationFieldAPOLLO(id) {
-    try {
-      //console.log('deleteCustomDateAPOLLO: ',id)
-      // const res = await client.mutate({
-      //   mutation: DELETE_APPLICATIONFIELDS,
-      //   variables: { id: id },
-      // });
-      const res = await request("/graphql", DELETE_APPLICATIONFIELDS, {
-        id: id,
-      });
-      //console.log('updateApplicationFieldsAPOLLO- res: ', res)
-      dispatch({
-        type: "UPDATE_CUSTOMDATA_GQL",
-        //payload: res.data.deleteApplicationFields,
-        payload: res.deleteApplicationFields,
-      });
-    } catch (err) {
-      dispatch({
-        type: "TRANSACTION_ERROR",
-        payload: err.res.data,
-      });
-    }
-  }
+  //     //const res = await client.mutate({ mutation: UPDATE_APPLICATIONSFIELDS, variables: {id: data.id, fieldType: data.fieldType, fieldData: data.fieldData} })
+  //     // const res = await client.mutate({
+  //     //   mutation: UPDATE_APPLICATIONFIELDS,
+  //     //   variables: { id: data.id, fieldData: data.fieldData },
+  //     // });
+  //     const res = await request("/graphql", UPDATE_APPLICATIONFIELDS, {
+  //       id: data.id,
+  //       fieldData: data.fieldData,
+  //     });
+  //     //console.log('updateApplicationFieldsAPOLLO- res: ', res)
+  //     dispatch({
+  //       type: "UPDATE_CUSTOMDATA_GQL",
+  //       //payload: res.data.updateApplicationFields,
+  //       payload: res.updateApplicationFields,
+  //     });
+  //   } catch (err) {
+  //     dispatch({
+  //       type: "TRANSACTION_ERROR",
+  //       payload: err.res.data,
+  //     });
+  //   }
+  // }
+  // async function deleteApplicationFieldAPOLLO(id) {
+  //   try {
+  //     //console.log('deleteCustomDateAPOLLO: ',id)
+  //     // const res = await client.mutate({
+  //     //   mutation: DELETE_APPLICATIONFIELDS,
+  //     //   variables: { id: id },
+  //     // });
+  //     const res = await request("/graphql", DELETE_APPLICATIONFIELDS, {
+  //       id: id,
+  //     });
+  //     //console.log('updateApplicationFieldsAPOLLO- res: ', res)
+  //     dispatch({
+  //       type: "UPDATE_CUSTOMDATA_GQL",
+  //       //payload: res.data.deleteApplicationFields,
+  //       payload: res.deleteApplicationFields,
+  //     });
+  //   } catch (err) {
+  //     dispatch({
+  //       type: "TRANSACTION_ERROR",
+  //       payload: err.res.data,
+  //     });
+  //   }
+  // }
 
-  async function getPatientByIdAPOLLO(id) {
-    try {
-      const res = await request("/graphql", SEARCH_PATIENT_BY_ID, {
-        id: id,
-      });
-      console.log("GlobalState - getPatientByIdAPOLLO - res: ", res);
+  // async function getPatientByIdAPOLLO(id) {
+  //   try {
+  //     const res = await request("/graphql", SEARCH_PATIENT_BY_ID, {
+  //       id: id,
+  //     });
+  //     console.log("GlobalState - getPatientByIdAPOLLO - res: ", res);
 
-      dispatch({
-        type: "GET_PATIENTDATA",
-        payload: res.patient,
-        //payload: tempPatient,
-      });
-    } catch (err) {
-      console.log("getPatientByIdAPOLLO-err: ", err);
-      dispatch({
-        type: "TRANSACTION_ERROR",
-        // payload: err.res.data.error
-        payload: err,
-      });
-    }
-  }
+  //     dispatch({
+  //       type: "GET_PATIENTDATA",
+  //       payload: res.patient,
+  //       //payload: tempPatient,
+  //     });
+  //   } catch (err) {
+  //     console.log("getPatientByIdAPOLLO-err: ", err);
+  //     dispatch({
+  //       type: "TRANSACTION_ERROR",
+  //       // payload: err.res.data.error
+  //       payload: err,
+  //     });
+  //   }
+  // }
 
   return (
     <GlobalContext.Provider
@@ -456,20 +456,20 @@ export const GlobalProvider = ({ children }) => {
         updateActionExam,
         //updateCurrentUser,
         // updateCurrentPatient,
-        clearCurrentPatient,
-        reloadCurrentPatient,
-        getPatientByIdAPOLLO,
-        getPatientsAPOLLO,
+        // clearCurrentPatient,
+        // reloadCurrentPatient,
+        // getPatientByIdAPOLLO,
+        // getPatientsAPOLLO,
         updateRowExam_APOLLO,
         updateEditingRowExam,
         getExamByPatientID_APOLLO,
         addExamDataAPOLLO,
         //getPatientsFETCH,
         createEncounterAPOLLO,
-        getApplicationFieldsAPOLLO,
-        addApplicationFieldAPOLLO,
-        updateApplicationFieldAPOLLO,
-        deleteApplicationFieldAPOLLO,
+        // getApplicationFieldsAPOLLO,
+        // addApplicationFieldAPOLLO,
+        // updateApplicationFieldAPOLLO,
+        // deleteApplicationFieldAPOLLO,
       }}
     >
       {children}
