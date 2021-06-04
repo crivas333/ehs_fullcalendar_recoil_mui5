@@ -1,19 +1,29 @@
-import React from "react";
+import React, { Suspense } from "react";
 //import clsx from 'clsx';
-import { useMutation, useQueryClient } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import request from "graphql-request";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import EncounterControl from "../components/systemConfig/EncounterControl";
-import ExamControl from "../components/systemConfig/ExamControl";
-import AppointmentControl from "../components/systemConfig/AppointmentControl";
+// import EncounterControl from "../components/systemConfig/EncounterControl";
+// import ExamControl from "../components/systemConfig/ExamControl";
+// import AppointmentControl from "../components/systemConfig/AppointmentControl";
 import {
-  //GET_APPLICATIONSFIELDS,
+  GET_APPLICATIONSFIELDS,
   DELETE_APPLICATIONFIELDS,
   UPDATE_APPLICATIONFIELDS,
   ADD_APPLICATIONFIELDS,
 } from "../graphqlClient/gqlQueries";
 import Notify from "../components/notification/Notify";
+//const SiteLayout = React.lazy(() => import("../layouts/SiteLayout"));
+const EncounterControl = React.lazy(() =>
+  import("../components/systemConfig/EncounterControl")
+);
+const ExamControl = React.lazy(() =>
+  import("../components/systemConfig/ExamControl")
+);
+const AppointmentControl = React.lazy(() =>
+  import("../components/systemConfig/AppointmentControl")
+);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,6 +88,7 @@ export default function SystemConfig() {
   const updateField = useMutation(updateHelper, {
     onSuccess: (data, variables) => {
       //console.log("onSuccess:", data);
+      queryClient.invalidateQueries("applicationFields");
       Notify({ message: "Datos de Paciente actualizados", status: "success" });
       //setCurrentPatient(data);
     },
@@ -86,6 +97,7 @@ export default function SystemConfig() {
     },
     onError: (error, variables, context) => {
       console.log("onError");
+      queryClient.invalidateQueries("applicationFields");
       Notify({
         message: "Error: Datos de Paciente NO actualizadoss",
         status: "fail",
@@ -100,6 +112,7 @@ export default function SystemConfig() {
     onSuccess: (data, variables) => {
       //console.log("onSuccess:", data);
       //setCurrentPatient([]);
+      queryClient.invalidateQueries("applicationFields");
       Notify({ message: "Datos de Paciente borrados", status: "success" });
     },
     onMutate: (data) => {
@@ -117,31 +130,56 @@ export default function SystemConfig() {
     },
   });
 
+  const { isLoading, isError, data, error } = useQuery(
+    ["applicationFields"],
+    async () => {
+      const res = await request("/graphql", GET_APPLICATIONSFIELDS);
+      console.log(res.getApplicationFields);
+      if (res && res.getApplicationFields) {
+        return res.getApplicationFields;
+      } else {
+        throw new Error("Network response was not ok");
+      }
+    }
+  );
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
+
   return (
     <div className={classes.root}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <EncounterControl
-            addField={addField}
-            updateField={updateField}
-            deleteField={deleteField}
-          />
+      <Suspense fallback={<div>Suspense: Loading...</div>}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <EncounterControl
+              applicationFields={data}
+              addField={addField}
+              updateField={updateField}
+              deleteField={deleteField}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <ExamControl
+              applicationFields={data}
+              addField={addField}
+              updateField={updateField}
+              deleteField={deleteField}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <AppointmentControl
+              applicationFields={data}
+              addField={addField}
+              updateField={updateField}
+              deleteField={deleteField}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <ExamControl
-            addField={addField}
-            updateField={updateField}
-            deleteField={deleteField}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <AppointmentControl
-            addField={addField}
-            updateField={updateField}
-            deleteField={deleteField}
-          />
-        </Grid>
-      </Grid>
+      </Suspense>
     </div>
   );
 }

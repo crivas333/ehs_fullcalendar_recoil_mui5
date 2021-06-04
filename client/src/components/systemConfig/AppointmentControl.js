@@ -1,8 +1,8 @@
-import React, { useContext, useState, Fragment } from "react";
+import React, { useState } from "react";
 //import clsx from 'clsx';
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { GlobalContext } from "../../context/GlobalState";
+//import { GlobalContext } from "../../context/GlobalState";
 import ApplicationFieldsTable from "./ApplicationFieldsTable";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
@@ -29,12 +29,12 @@ export default function AppointmentControlCfg(props) {
   const classes = useStyles();
   //const { customData } = useContext(GlobalContext)
   //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const {
-    applicationFields,
-    addApplicationFieldAPOLLO,
-    updateApplicationFieldAPOLLO,
-    deleteApplicationFieldAPOLLO,
-  } = useContext(GlobalContext);
+  // const {
+  //   //applicationFields,
+  //   //addApplicationFieldAPOLLO,
+  //   updateApplicationFieldAPOLLO,
+  //   deleteApplicationFieldAPOLLO,
+  // } = useContext(GlobalContext);
 
   // Setting state
   const [chosenField, setChosenField] = useState("Tipo de Cita");
@@ -42,7 +42,7 @@ export default function AppointmentControlCfg(props) {
 
   const [editingArray, setEditingArray] = useState(initialFormState);
   const [editingFlag, setEditingFlag] = useState(false);
-  const { addField, updateField, deleteField } = props;
+  const { applicationFields, addField, updateField, deleteField } = props;
 
   const onViewFieldChange = (event) => {
     //console.log('SystemConfig: ',event.target.value)
@@ -125,18 +125,18 @@ export default function AppointmentControlCfg(props) {
         </Grid>
         <Grid item>
           {editingFlag ? (
-            <Fragment>
+            <>
               <EditForm
                 //editing={editingFlag}
                 setEditingFlag={setEditingFlag}
                 editingValue={editingArray.fieldData}
                 updateField={updateFieldData}
               />
-            </Fragment>
+            </>
           ) : (
-            <Fragment>
+            <>
               <AddForm addField={addFieldData} />
-            </Fragment>
+            </>
           )}
         </Grid>
       </Grid>

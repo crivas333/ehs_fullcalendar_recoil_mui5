@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import request from "graphql-request";
-import { useQuery } from "react-query";
+//import request from "graphql-request";
+//import { useQuery } from "react-query";
 //import SiteLayout from "../layouts/SiteLayout";
 import PatientView from "./PacientView";
 import CalendarView from "./Calendar";
@@ -10,9 +10,9 @@ import EncounterView from "./Encounter";
 import ExamsView from "./ExamView";
 import ReportsView from "./ReportsView";
 import SystemConfigView from "./SystemConfig";
-import { GET_APPLICATIONSFIELDS } from "../graphqlClient/gqlQueries";
+//import { GET_APPLICATIONSFIELDS } from "../graphqlClient/gqlQueries";
 
-import { GlobalContext } from "../context/GlobalState";
+//import { GlobalContext } from "../context/GlobalState";
 const SiteLayout = React.lazy(() => import("../layouts/SiteLayout"));
 // const PatientView = React.lazy(() => "./PacientView");
 // const CalendarView = React.lazy(() => "./Calendar");
@@ -33,18 +33,18 @@ export default function Pages() {
   //   //eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
-  const { isLoading, isError, data, error } = useQuery(
-    ["applicationFields"],
-    async () => {
-      const res = await request("/graphql", GET_APPLICATIONSFIELDS);
-      console.log(res.getApplicationFields);
-      if (res && res.getApplicationFields) {
-        return res.getApplicationFields;
-      } else {
-        throw new Error("Network response was not ok");
-      }
-    }
-  );
+  // const { isLoading, isError, data, error } = useQuery(
+  //   ["applicationFields"],
+  //   async () => {
+  //     const res = await request("/graphql", GET_APPLICATIONSFIELDS);
+  //     console.log(res.getApplicationFields);
+  //     if (res && res.getApplicationFields) {
+  //       return res.getApplicationFields;
+  //     } else {
+  //       throw new Error("Network response was not ok");
+  //     }
+  //   }
+  // );
 
   return (
     <>

@@ -1,8 +1,8 @@
-import React, { useContext, useState, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 //import clsx from 'clsx';
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { GlobalContext } from "../../context/GlobalState";
+//import { GlobalContext } from "../../context/GlobalState";
 import ApplicationFieldsTable from "./ApplicationFieldsTable";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
@@ -18,30 +18,31 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(4),
   },
 }));
-
+const initialFormState = {
+  id: null,
+  fieldView: "",
+  fieldType: "",
+  fieldData: "",
+};
 //export default function Appointment () {
 export default function EncounterControlCfg(props) {
   const classes = useStyles();
   //const { customData } = useContext(GlobalContext)
   //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const {
-    applicationFields,
-    addApplicationFieldAPOLLO,
-    updateApplicationFieldAPOLLO,
-    deleteApplicationFieldAPOLLO,
-  } = useContext(GlobalContext);
-  const initialFormState = {
-    id: null,
-    fieldView: "",
-    fieldType: "",
-    fieldData: "",
-  };
+  //const {
+  //   //applicationFields,
+  //   addApplicationFieldAPOLLO,
+  //   updateApplicationFieldAPOLLO,
+  //   deleteApplicationFieldAPOLLO,
+  // } = useContext(GlobalContext);
+
   // Setting state
   const [chosenField, setChosenField] = useState("Tipo de Examen");
   const [fieldType, setFieldType] = useState("examType");
 
   const [editingArray, setEditingArray] = useState(initialFormState);
   const [editingFlag, setEditingFlag] = useState(false);
+  const { applicationFields, addField, updateField, deleteField } = props;
 
   const onViewFieldChange = (event) => {
     //console.log('SystemConfig: ',event.target.value)
@@ -63,19 +64,22 @@ export default function EncounterControlCfg(props) {
     //console.log('customControl1: ',addedFieldData)
     const fd = addedFieldData.toUpperCase();
     const data = { fieldView: "examView", fieldType: fieldType, fieldData: fd };
-    addApplicationFieldAPOLLO(data);
+    //addApplicationFieldAPOLLO(data);
+    addField.mutate(data);
   };
   const updateFieldData = (updatedValue) => {
     setEditingFlag(false);
     //console.log('updatedField: ',updatedField)
     const fd = updatedValue.toUpperCase();
     const data = { ...editingArray, fieldData: fd };
-    updateApplicationFieldAPOLLO(data);
+    //updateApplicationFieldAPOLLO(data);
+    updateField.mutate({ id: data.id, fieldData: data.fieldData });
   };
   const deleteFieldData = (id) => {
     setEditingFlag(false);
     //console.log(id)
-    deleteApplicationFieldAPOLLO(id);
+    //deleteApplicationFieldAPOLLO(id);
+    deleteField.mutate({ id: id });
   };
 
   const editRow = (data) => {
