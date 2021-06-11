@@ -41,6 +41,7 @@ export default function PlainDateTimePicker(props) {
           size="small"
           margin="dense"
           label={label}
+          //helperText={null}
         />
       )}
       //inputFormat="dd/MM/yyyy hh:mm a"

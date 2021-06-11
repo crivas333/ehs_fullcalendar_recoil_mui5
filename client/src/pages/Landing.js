@@ -25,15 +25,11 @@ import {
 import Notify from "../components/notification/Notify";
 
 async function signInHelper(data) {
-  //console.log("addData: ", data);
-  //const res = await request("/graphql", UPDATE_PATIENT, data);
   const res = await request("/graphql", SIGNIN, data.variables);
   //console.log("addData-res:", res);
   return res.signIn;
 }
 async function signUpHelper(data) {
-  //console.log("addData: ", data);
-  //const res = await request("/graphql", UPDATE_PATIENT, data);
   const res = await request("/graphql", SIGNUP, data.variables);
   //console.log("addData-res:", res);
   return res.signUp;
@@ -47,23 +43,6 @@ export default function Landing() {
   //const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   const setCurrentUser = useSetRecoilState(currentUserState);
 
-  // const [signIn, { data: dataSignIn, error: errorSignIn }] = useMutation(SIGNIN,
-  //const [signIn, { error: errorSignIn }] = useMutation(SIGNIN,
-  // const [signIn] = useMutation(SIGNIN, {
-  //   onCompleted({ signIn }) {
-  //     // currSessionVar({session: signIn, loggedIn: true});
-  //     currSessionVar(signIn);
-  //     console.log("SignIn: ", currSessionVar());
-  //     // console.log('Data - SignIn: ', dataSignIn)
-  //     updateCurrentUser(signIn); // set isAuth: true
-  //     navigate("/paciente");
-  //   },
-  //   // onError (...errorSignIn) {
-  //   onError(errorSignIn) {
-  //     console.log("SignIn - onError: ", errorSignIn);
-  //   },
-  // });
-
   const signIn = useMutation(signInHelper, {
     onSuccess: (data, variables) => {
       //console.log("onSuccess:", data);
@@ -72,13 +51,12 @@ export default function Landing() {
       Notify({ message: "Login exitoso", status: "success" });
       //updateCurrentUser(signIn); // set isAuth: true
 
-      navigate("/paciente");
+      navigate("/Paciente");
     },
     onMutate: (data) => {
       //console.log("onMutate:", data);
     },
     onError: (error, variables, context) => {
-      // I will fire first
       console.log("onError");
       Notify({
         message: "Error: Login fallado",
@@ -86,23 +64,9 @@ export default function Landing() {
       });
     },
     onSettled: (data, error, variables, context) => {
-      // I will fire first
       //console.log("onSettled");
     },
   });
-
-  // const [signUp, { data: dataSignUp, error: errorSignUp }] = useMutation(SIGNUP,
-  // const [signUp] = useMutation(SIGNUP, {
-  //   onCompleted({ signUp }) {
-  //     // currSessionVar({session: signIn, loggedIn: true});
-  //     // currSessionVar(signUp)
-  //     setGotoSignUp(false);
-  //     console.log("Data - SignUp: ", signUp);
-  //   },
-  //   onError(...errorSignUp) {
-  //     console.log("SignUp - onError: ", { errorSignUp });
-  //   },
-  // });
 
   const signUp = useMutation(signUpHelper, {
     onSuccess: (data, variables) => {

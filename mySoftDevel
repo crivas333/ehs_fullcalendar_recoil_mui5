@@ -83,6 +83,12 @@ $gpasswd -a docker dala
 or
 $usermod -aG docker dala
 
+#OpenEMR
+$cd /home/dala/0_MY_FILES/myWebApp/MY_APPO/myOpenEMR/Docker/
+$docker-compose up&
+user: admin
+password: pass
+
 
 #DOCKER
 *)Install archlinux package: docker
@@ -103,6 +109,8 @@ $sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 $docker-compose --version
 -uninstallation:
 $sudo rm /usr/local/bin/docker-compose
+
+
 
 
 #REACT DEPLOYMENT
@@ -207,4 +215,14 @@ crivas333@outlook.com
 *)Mongodb-cluster
 crivas333@outlook.com
 123Chiki!
+
+*)code
+#Multiple selections (multi-cursor)#
+You can add secondary cursors (rendered thinner) with Alt+Click. 
+Each cursor operates independently based on the context it sits in. 
+A common way to add more cursors is with Shift+Alt+Down or Shift+Alt+Up that insert cursors below or above.
+
+#Tip: You can also add more cursors with Ctrl+Shift+L, 
+which will add a selection at each occurrence of the current selected text.
+
 

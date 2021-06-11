@@ -36,10 +36,13 @@ export const getIdTypeCollection = () => [
 
 export const getEncounterFieldsCollection = () => [
   { id: "1", field: "Tipo de Visita" },
-  { id: "2", field: "Tipo de Paciente" },
-  { id: "3", field: "Tipo de Atención" },
-  { id: "4", field: "Sensibilidad" },
-  { id: "5", field: "Paquete de Servicios" },
+  { id: "2", field: "Estado" },
+  { id: "3", field: "Tipo de Paciente" },
+  { id: "4", field: "Tipo de Atención" },
+  { id: "5", field: "Sensibilidad" },
+  { id: "6", field: "Paquete de Servicios" },
+  { id: "7", field: "Médico" },
+  { id: "8", field: "Centro" },
 ];
 export const getExamFieldsCollection = () => [
   { id: "1", field: "Tipo de Examen" },

@@ -27,14 +27,6 @@ const initialFormState = {
 //export default function Appointment () {
 export default function EncounterControlCfg(props) {
   const classes = useStyles();
-  //const { customData } = useContext(GlobalContext)
-  //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  // const {
-  //   applicationFields,
-  //   addApplicationFieldAPOLLO,
-  //   updateApplicationFieldAPOLLO,
-  //   deleteApplicationFieldAPOLLO,
-  // } = useContext(GlobalContext);
 
   // Setting state
   const [chosenField, setChosenField] = useState("Tipo de Visita");
@@ -51,6 +43,9 @@ export default function EncounterControlCfg(props) {
       case "Tipo de Visita":
         setFieldType("encounterType");
         break;
+      case "Estado":
+        setFieldType("encounterStatus");
+        break;
       case "Tipo de Paciente":
         setFieldType("patientType");
         break;
@@ -62,6 +57,12 @@ export default function EncounterControlCfg(props) {
         break;
       case "Paquete de Servicios":
         setFieldType("serviceBundle");
+        break;
+      case "Médico":
+        setFieldType("healthProf");
+        break;
+      case "Centro":
+        setFieldType("facility");
         break;
       default:
     }
@@ -110,7 +111,7 @@ export default function EncounterControlCfg(props) {
         <Grid item xs={12}>
           <ReusableControls.CustomSelect
             name="cfgCustData"
-            label="Configuración de Campos"
+            label="Consulta"
             value={chosenField}
             onChange={onViewFieldChange}
             options={getEncounterFieldsCollection()}

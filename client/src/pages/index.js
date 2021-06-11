@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import request from "graphql-request";
 import { useQuery } from "react-query";
@@ -6,7 +6,7 @@ import SiteLayout from "../layouts/SiteLayout";
 import PatientView from "./PacientView";
 import CalendarView from "./Calendar";
 import AppoitmentsView from "./Appointments";
-import EncounterView from "./Encounter";
+import EncounterView from "./EncounterView";
 import ExamsView from "./ExamView";
 import ReportsView from "./ReportsView";
 import SystemConfigView from "./SystemConfig";

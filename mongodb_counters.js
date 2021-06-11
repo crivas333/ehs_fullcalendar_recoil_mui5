@@ -11,23 +11,30 @@
 //>show collections
 
 //Create custom indexes
-db.createCollection("counters")
-db.counters.insert({_id:"historyId",sequence_value:100000})
-db.counters.insert({_id:"appointmentId",sequence_value:1000})
-db.counters.insert({_id:"examId",sequence_value:1000})
+db.createCollection("counters");
+db.counters.insert({ _id: "historyId", sequence_value: 100000 });
+db.counters.insert({ _id: "appointmentId", sequence_value: 1000 });
+db.counters.insert({ _id: "encounterId", sequence_value: 1000 });
+db.counters.insert({ _id: "examId", sequence_value: 1000 });
 
-db.createCollection('customdatas')
-db.customdatas.insert({fieldType:'encounterType', fieldData:'CONSULTA'})
-db.customdatas.insert({fieldType:'encounterType', fieldData:'CHEQUEO_MÉDICO'})
-db.customdatas.insert({fieldType:'encounterType', fieldData:'ATENCIÓN_PREVENTIVA'})
-db.customdatas.insert({fieldType:'patientType',fieldData:'NUEVO'})
-db.customdatas.insert({fieldType:'patientType',fieldData:'REGULAR'})
-db.customdatas.insert({fieldType:'serviceType',fieldData:'AMBULATORIA'})
-db.customdatas.insert({fieldType:'serviceType',fieldData:'INTERNAMIENTO'})
-db.customdatas.insert({fieldType:'sensibility',fieldData:'NORMAL'})
-db.customdatas.insert({fieldType:'sensibility',fieldData:'URGENTE'})
-db.customdatas.insert({fieldType:'serviceBundle',fieldData:'PAQUETE#1'})
-db.customdatas.insert({fieldType:'serviceBundle',fieldData:'PAQUETE#2'})
+db.createCollection("customdatas");
+db.customdatas.insert({ fieldType: "encounterType", fieldData: "CONSULTA" });
+db.customdatas.insert({
+  fieldType: "encounterType",
+  fieldData: "CHEQUEO_MÉDICO",
+});
+db.customdatas.insert({
+  fieldType: "encounterType",
+  fieldData: "ATENCIÓN_PREVENTIVA",
+});
+db.customdatas.insert({ fieldType: "patientType", fieldData: "NUEVO" });
+db.customdatas.insert({ fieldType: "patientType", fieldData: "REGULAR" });
+db.customdatas.insert({ fieldType: "serviceType", fieldData: "AMBULATORIA" });
+db.customdatas.insert({ fieldType: "serviceType", fieldData: "INTERNAMIENTO" });
+db.customdatas.insert({ fieldType: "sensibility", fieldData: "NORMAL" });
+db.customdatas.insert({ fieldType: "sensibility", fieldData: "URGENTE" });
+db.customdatas.insert({ fieldType: "serviceBundle", fieldData: "PAQUETE#1" });
+db.customdatas.insert({ fieldType: "serviceBundle", fieldData: "PAQUETE#2" });
 
 //Create options for SELECT control
 // db.createCollection('encounterType')
@@ -54,5 +61,3 @@ db.customdatas.insert({fieldType:'serviceBundle',fieldData:'PAQUETE#2'})
 // db.createCollection('servicesBundle')
 // db.servicesBundle.insert({_id:1,option:'PAQUETE#1'})
 // db.servicesBundle.insert({_id:2,option:'PAQUETE#2'})
-
-

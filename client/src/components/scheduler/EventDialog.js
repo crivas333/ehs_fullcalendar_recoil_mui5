@@ -1,5 +1,6 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 //import { Grid } from "@material-ui/core";
+import { useQueryClient } from "react-query";
 import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
 import {
   useReusableForm,
@@ -55,7 +56,9 @@ export default function EventDialog(props) {
   const matches = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   //const classes = useStyles();
   const [openConfirmation, setOpenConfirmation] = useState(false);
-  const { applicationFields } = useContext(GlobalContext);
+  //const { applicationFields } = useContext(GlobalContext);
+  const queryClient = useQueryClient();
+  const applicationFields = queryClient.getQueryData("applicationFields");
   const {
     evt,
     closeDialog,

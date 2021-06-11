@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 //import { QueryClient } from "react-query";
-import { Grid } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
 import {
   useReusableForm,
@@ -11,13 +12,12 @@ import * as encounterService from "../../services/configService";
 
 const initialFValues = {
   id: 0,
+  encounterDate: new Date(),
   encounterType: "CONSULTA",
   patientType: "NUEVO",
   serviceType: "AMBULATORIA",
   sensibility: "NORMAL",
   serviceBundle: "PAQUETE#1",
-  hireDate: new Date(),
-  isPermanent: false,
 };
 
 export default function Encounter(props) {
@@ -62,99 +62,101 @@ export default function Encounter(props) {
       resetForm();
     }
   };
-
+  //<Grid container>
   return (
     <ReusableForm onSubmit={handleSubmit}>
       <Grid container>
         <Grid item xs={12} sm={6}>
-          <ReusableControls.PlainDateTimePicker
-            inputVariant="outlined"
-            name="encounterDate"
-            label="Fecha de Consulta"
-            value={values.hireDate}
-            onChange={handleInputChange}
-          />
-          <ReusableControls.CustomSelect
-            variant="outlined"
-            name="encounterType"
-            label="Tipo de Consulta"
-            value={values.encounterType}
-            onChange={handleInputChange}
-            options={encounterService.getFieldsDataCollection(
-              applicationFields,
-              "encounterView",
-              "encounterType"
-            )}
-            error={errors.encounterType}
-          />
-          <ReusableControls.CustomSelect
-            variant="outlined"
-            name="patientType"
-            label="Tipo de Paciente"
-            value={values.patientType}
-            onChange={handleInputChange}
-            options={encounterService.getFieldsDataCollection(
-              applicationFields,
-              "encounterView",
-              "patientType"
-            )}
-            // options={ applicationFields.filter(item => item.fieldType ==='patientType')
-            //     .map((item) => ({
-            //         id: item.id,
-            //         field: item.fieldData
-            //     }))}
-            // error={errors.patientType}
-          />
+          <Box sx={{ display: "flex", direction: "row" }}>
+            <ReusableControls.PlainDatePicker
+              inputVariant="outlined"
+              name="encounterDate"
+              label="Fecha de Consulta"
+              value={values.encounterDate}
+              onChange={handleInputChange}
+            />
+            <ReusableControls.CustomSelect
+              variant="outlined"
+              name="encounterType"
+              label="Tipo de Consulta"
+              value={values.encounterType}
+              onChange={handleInputChange}
+              options={encounterService.getFieldsDataCollection(
+                applicationFields,
+                "encounterView",
+                "encounterType"
+              )}
+              error={errors.encounterType}
+            />
+          </Box>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <ReusableControls.CustomSelect
-            variant="outlined"
-            name="serviceType"
-            label="Tipo de Atención"
-            //value={values.departmentId}
-            value={values.serviceType}
-            onChange={handleInputChange}
-            options={applicationFields
-              .filter((item) => item.fieldType === "serviceType")
-              .map((item) => ({
-                id: item.id,
-                field: item.fieldData,
-              }))}
-            error={errors.serviceType}
-          />
-          <ReusableControls.CustomSelect
-            variant="outlined"
-            name="sensibility"
-            label="Sensibilidad"
-            value={values.sensibility}
-            onChange={handleInputChange}
-            //options={employeeService.getDepartmentCollection()}
-            options={applicationFields
-              .filter((item) => item.fieldType === "sensibility")
-              .map((item) => ({
-                id: item.id,
-                field: item.fieldData,
-              }))}
-            error={errors.sensibility}
-          />
-          <ReusableControls.CustomSelect
-            variant="outlined"
-            name="serviceBundle"
-            label="Paquetes de Servicio"
-            value={values.serviceBundle}
-            onChange={handleInputChange}
-            //options={employeeService.getDepartmentCollection()}
-            options={applicationFields
-              .filter((item) => item.fieldType === "serviceBundle")
-              .map((item) => ({
-                id: item.id,
-                field: item.fieldData,
-              }))}
-            error={errors.servicesBundle}
-          />
+          <Box sx={{ display: "flex", direction: "row" }}>
+            <ReusableControls.CustomSelect
+              variant="outlined"
+              name="encounterStatus"
+              label="Estado"
+              //value={values.departmentId}
+              value={values.encounterStatus || ""}
+              onChange={handleInputChange}
+              options={applicationFields
+                .filter((item) => item.fieldType === "encounterStatus")
+                .map((item) => ({
+                  id: item.id,
+                  field: item.fieldData,
+                }))}
+              error={errors.serviceType}
+            />
+            <ReusableControls.CustomSelect
+              variant="outlined"
+              name="serviceBundle"
+              label="Paquetes de Servicio"
+              value={values.serviceBundle || ""}
+              onChange={handleInputChange}
+              //options={employeeService.getDepartmentCollection()}
+              options={applicationFields
+                .filter((item) => item.fieldType === "serviceBundle")
+                .map((item) => ({
+                  id: item.id,
+                  field: item.fieldData,
+                }))}
+              error={errors.servicesBundle}
+            />
+          </Box>
         </Grid>
-        <Grid item xs={6}>
-          <div></div>
+        <Grid item xs>
+          <Box sx={{ display: "flex", direction: "row" }}>
+            <ReusableControls.CustomSelect
+              variant="outlined"
+              name="healthProf"
+              label="Médico"
+              //value={values.departmentId}
+              value={values.healthProf || ""}
+              onChange={handleInputChange}
+              options={applicationFields
+                .filter((item) => item.fieldType === "healthProf")
+                .map((item) => ({
+                  id: item.id,
+                  field: item.fieldData,
+                }))}
+              error={errors.serviceType}
+            />
+            <ReusableControls.CustomSelect
+              variant="outlined"
+              name="facility"
+              label="Centro"
+              value={values.facility || ""}
+              onChange={handleInputChange}
+              //options={employeeService.getDepartmentCollection()}
+              options={applicationFields
+                .filter((item) => item.fieldType === "facility")
+                .map((item) => ({
+                  id: item.id,
+                  field: item.fieldData,
+                }))}
+              error={errors.servicesBundle}
+            />
+          </Box>
         </Grid>
       </Grid>
     </ReusableForm>
