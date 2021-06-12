@@ -10,6 +10,7 @@ import { experimentalStyled as styled } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import MyBar from "../components/NavBar/MyBar";
 import MyDrawer from "../components/NavBar/MyDrawer";
+import MyDrawerRight from "../components/NavBar/MyDrawerRight";
 
 //import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
@@ -20,63 +21,37 @@ import Box from "@material-ui/core/Box";
 // import esLocale from "date-fns/locale/es";
 
 const drawerWidth = 240;
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     display: "flex",
-//     //the following was added for testing purposses
-//     height: "100%",
-//     width: "100%",
-//     overflow: "hidden",
-//   },
-//   // necessary for content to be below app bar
-//   toolbar: theme.mixins.toolbar,
-//   content: {
-//     //marginTop: '70px',
-//     flexGrow: 1,
-//     padding: theme.spacing(0.5),
-//     transition: theme.transitions.create("margin", {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.leavingScreen,
-//     }),
-//     marginLeft: -drawerWidth,
-//   },
-//   contentShift: {
-//     transition: theme.transitions.create("margin", {
-//       easing: theme.transitions.easing.easeOut,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//     marginLeft: 0,
-//   },
-//   wrapper: {
-//     display: "flex",
-//     flex: "1 1 auto",
-//     //overflow: 'hidden',
-//     //paddingTop: 64
-//     overflow: "auto",
-//   },
-// }));
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    //padding: theme.spacing(3),
-    padding: theme.spacing(1),
-    //overflow: "auto", //for testing
+//const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
+const Main = styled("main", {
+  shouldForwardProp: (prop) => prop !== "openLeft" && prop !== "openRight",
+})(({ theme, openLeft, openRight }) => ({
+  flexGrow: 1,
+  //padding: theme.spacing(3),
+  padding: theme.spacing(1),
+  //overflow: "auto", //for testing
 
+  transition: theme.transitions.create("margin", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  marginLeft: `-${drawerWidth}px`,
+  ...(openLeft && {
     transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
+    marginLeft: 0,
+  }),
+  marginRight: -drawerWidth,
+  ...(openRight && {
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
     }),
-  })
-);
+    marginRight: 0,
+  }),
+}));
 const DrawerHeader = styled("div")(({ theme }) => ({
   //display: "flex",
   //alignItems: "center",
@@ -87,22 +62,33 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function SiteLayout(props) {
-  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+  const [drawerLeftOpen, setDrawerLeftOpen] = useState(false);
+  const [drawerRightOpen, setDrawerRightOpen] = useState(false);
   //const classes = useStyles();
 
   // const handleDrawerToggle = () => {
   //   //console.log('click1')
   //   setSideDrawerOpen(!sideDrawerOpen)
   // }
-  const handleDrawerOpen = () => {
+  const handleDrawerLeftOpen = () => {
     // setMobileOpen(false);
-    setSideDrawerOpen(true);
+    setDrawerLeftOpen(true);
     //console.log('handleDrawerOpen: ',sideDrawerOpen)
   };
-  const handleDrawerClose = () => {
+  const handleDrawerRightOpen = () => {
+    // setMobileOpen(false);
+    setDrawerRightOpen(true);
+    //console.log('handleDrawerOpen: ',sideDrawerOpen)
+  };
+  const handleDrawerLeftClose = () => {
     // setMobileOpen(false);
     //console.log('click2')
-    setSideDrawerOpen(false);
+    setDrawerLeftOpen(false);
+  };
+  const handleDrawerRightClose = () => {
+    // setMobileOpen(false);
+    //console.log('click2')
+    setDrawerRightOpen(false);
   };
   // className={`${classes.content} ${classes.toolbar}`}
   //<Box overflow="auto" sx={{ display: "flex", height: "100%" }}></Box>
@@ -113,18 +99,21 @@ export default function SiteLayout(props) {
     >
       <CssBaseline />
       <MyBar
-        drawerOpen={sideDrawerOpen}
-        onClickHandleDrawerOpen={handleDrawerOpen}
-        onClickHandleDrawerClose={handleDrawerClose}
+        drawerLeftOpen={drawerLeftOpen}
+        drawerRightOpen={drawerRightOpen}
+        onClickHandleDrawerLeftOpen={handleDrawerLeftOpen}
+        onClickHandleDrawerLeftClose={handleDrawerLeftClose}
+        onClickHandleDrawerRightOpen={handleDrawerRightOpen}
+        onClickHandleDrawerRightClose={handleDrawerRightClose}
       />
       <MyDrawer
-        drawerOpen={sideDrawerOpen}
-        //onClickHandleDrawerToggle={handleDrawerClose}
-        onClickHandleDrawerClose={handleDrawerClose}
+        drawerOpen={drawerLeftOpen}
+        onClickHandleDrawerClose={handleDrawerLeftClose}
       />
 
       <Main
-        open={sideDrawerOpen}
+        openLeft={drawerLeftOpen}
+        openRight={drawerRightOpen}
         //component="main"
         // sx={{
         //   flexGrow: 1,
@@ -144,7 +133,11 @@ export default function SiteLayout(props) {
           {props.children}
         </Box>
       </Main>
-
+      <MyDrawerRight
+        drawerOpen={drawerRightOpen}
+        //onClickHandleDrawerToggle={handleDrawerClose}
+        onClickHandleDrawerClose={handleDrawerRightClose}
+      />
       {/*<Notifier />*/}
     </Box>
   );

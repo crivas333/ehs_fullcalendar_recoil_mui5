@@ -11,6 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 // import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import PatientIcon from "@material-ui/icons/PermContactCalendar";
 import Toolbar from "@material-ui/core/Toolbar";
 // import Typography from '@material-ui/core/Typography'
@@ -25,14 +26,7 @@ import { useNavigate } from "react-router-dom";
 import PatientSummary from "../patient/PatientSummary";
 import Notify from "../notification/Notify";
 import { isAuthState, currentUserState } from "../../context/RecoilStore";
-import {
-  //RecoilRoot,
-  //atom,
-  //selector,
-  //useRecoilState,
-  //useRecoilValue,
-  useSetRecoilState,
-} from "recoil";
+import { useSetRecoilState } from "recoil";
 
 const drawerWidth = 240;
 
@@ -95,13 +89,13 @@ const drawerWidth = 240;
 // }));
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
+  shouldForwardProp: (prop) => prop !== "openLeft" && prop !== "openRight",
+})(({ theme, openLeft, openRight }) => ({
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  ...(open && {
+  ...(openLeft && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
     transition: theme.transitions.create(["margin", "width"], {
@@ -109,6 +103,14 @@ const AppBar = styled(MuiAppBar, {
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
+  // ...(openRight && {
+  //   width: `calc(100%)`,
+  //   marginRight: 0,
+  //   transition: theme.transitions.create(["margin", "width"], {
+  //     easing: theme.transitions.easing.easeOut,
+  //     duration: theme.transitions.duration.enteringScreen,
+  //   }),
+  // }),
 }));
 
 async function signoutHelper() {
@@ -176,7 +178,8 @@ function ResponsiveAppBar(props) {
   return (
     <AppBar
       position="fixed"
-      open={props.drawerOpen}
+      openLeft={props.drawerLeftOpen}
+      openRight={props.drawerRightOpen}
       //position='sticky'
       //zIndex='theme.zIndex.drawer + 1'
 
@@ -190,8 +193,9 @@ function ResponsiveAppBar(props) {
           color="inherit"
           aria-label="open drawer"
           edge="start"
-          onClick={props.onClickHandleDrawerOpen}
-          sx={{ mr: 2, ...(props.drawerOpen && { display: "none" }) }}
+          onClick={props.onClickHandleDrawerLeftOpen}
+          //sx={{ mr: 2, ...(props.drawerOpen && { display: "none" }) }} //!!!!!!!!!!!!this was set
+
           //className={classes.menuButton}
           // className={clsx(
           //   classes.menuButton,
@@ -200,23 +204,39 @@ function ResponsiveAppBar(props) {
         >
           <MenuIcon />
         </IconButton>
-        <IconButton onClick={props.onClickHandleDrawerClose} color="inherit">
+        <IconButton
+          onClick={props.onClickHandleDrawerLeftClose}
+          color="inherit"
+        >
           <ChevronLeftIcon />
         </IconButton>
 
         <IconButton color="inherit" onClick={handelAccountCircleIcon}>
           <PatientIcon />
         </IconButton>
-        {/* <Typography variant="h6" noWrap component="div">
-            Persistent drawer
-          </Typography> */}
         <PatientSummary />
+        <IconButton
+          onClick={props.onClickHandleDrawerRightOpen}
+          color="inherit"
+        >
+          <ChevronLeftIcon />
+        </IconButton>
+        <IconButton
+          onClick={props.onClickHandleDrawerRightClose}
+          color="inherit"
+        >
+          <ChevronRightIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );
 }
 
 export default ResponsiveAppBar;
+
+/* <Typography variant="h6" noWrap component="div">
+            Persistent drawer
+          </Typography> */
 
 /*
  <div className={classes.root}>
