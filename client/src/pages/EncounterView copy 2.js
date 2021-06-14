@@ -43,24 +43,38 @@ export default function EncounterView() {
   const handleChangeTab = (event, newValue) => {
     setSelectedTab(newValue);
   };
-  const MyBox = <></>;
+  const MyBox = (
+    <>
+      <Switch
+        checked={checked}
+        onChange={handleChange}
+        name="checkedA"
+        inputProps={{ "aria-label": "secondary checkbox" }}
+      />
+      <AppBar position="static" color="default">
+        <Tabs
+          value={selectedTab}
+          onChange={handleChangeTab}
+          //style={{ maxHeight: "24px" }}
+        >
+          <Tab label="Buscar" />
+          <Tab label="Consulta" />
+        </Tabs>
+      </AppBar>
+    </>
+  );
   return (
     <Grid
       container
       direction="row"
+      //padding={theme.spacing(0, 1)}
+      //padding={theme.spacing(1, 0)}
+      //padding={theme.spacing(0, 0)}
+      //padding={theme.spacing(0)}
+      //spacing={1}
       sx={{ border: "1px solid green" }}
-      justifyContent="space-between"
     >
       <Grid item xs>
-        <Grid container direction="row" justifyContent="flex-end">
-          <Switch
-            size="small"
-            checked={checked}
-            onChange={handleChange}
-            name="checkedA"
-            inputProps={{ "aria-label": "secondary checkbox" }}
-          />
-        </Grid>
         <AppBar position="static" color="default">
           <Tabs
             value={selectedTab}
@@ -75,31 +89,8 @@ export default function EncounterView() {
         {/* {selectedTab === 1 && <Encounters applicationFields={data} />} */}
       </Grid>
 
-      <Collapse
-        in={checked}
-        orientation="horizontal"
-        //collapsedSize={30}
-      >
-        <Box paddingTop={3} paddingLeft={1}>
-          {/* <Switch
-            size="small"
-            checked={checked}
-            onChange={handleChange}
-            name="checkedA"
-            inputProps={{ "aria-label": "secondary checkbox" }}
-          /> */}
-          <AppBar position="static" color="default">
-            <Tabs
-              value={selectedTab}
-              onChange={handleChangeTab}
-              //style={{ maxHeight: "24px" }}
-            >
-              <Tab label="Buscar" />
-              <Tab label="Consulta" />
-              <Tab label="Consulta2" />
-            </Tabs>
-          </AppBar>
-        </Box>
+      <Collapse in={checked} orientation="horizontal" collapsedSize={50}>
+        {MyBox}
       </Collapse>
     </Grid>
   );

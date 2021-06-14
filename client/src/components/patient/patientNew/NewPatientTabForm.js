@@ -179,33 +179,6 @@ export const NewPatientTabForm = (props) => {
           },
         },
       });
-      // props.createPatient.mutate({
-      //   patientInput: {
-      //     idType: newData.idType,
-      //     idTypeNo: newData.idTypeNo,
-      //     firstName: newData.firstName,
-      //     lastName: newData.lastName,
-      //     lastName2: newData.lastName2,
-      //     birthDay: newData.birthDay,
-      //     sex: newData.sex,
-      //     phone1: newData.phone1,
-      //     phone2: newData.phone2,
-      //     email: newData.email,
-      //     address: newData.address,
-      //     gName: newData.gName,
-      //     gPhone1: newData.gPhone1,
-      //     gPhone2: newData.gPhone2,
-      //     gRelation: newData.gRelation,
-      //     bloodType: newData.bloodType,
-      //     marital: newData.marital,
-      //     occupation: newData.occupation,
-      //     religion: newData.religion,
-      //     referral: newData.referral,
-      //   },
-      // });
-
-      //resetForm();
-      //props.handleAction(0)
     }
   };
 

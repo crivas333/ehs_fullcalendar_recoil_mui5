@@ -8,6 +8,8 @@ import {
   ReusableForm,
 } from "../reusableForms/useReusableForm";
 import * as encounterService from "../../services/configService";
+import { Stack } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
 //import { GlobalContext } from "../../context/GlobalState";
 
 const initialFValues = {
@@ -22,6 +24,7 @@ const initialFValues = {
 
 export default function Encounter(props) {
   //const { applicationFields } = useContext(GlobalContext);
+  const theme = useTheme();
   const { applicationFields } = props;
 
   const validate = (fieldValues = values) => {
@@ -65,6 +68,124 @@ export default function Encounter(props) {
   //<Grid container>
   return (
     <ReusableForm onSubmit={handleSubmit}>
+      <Grid
+        container
+        //style={{ border: "1px solid red" }}
+        sx={{ border: "1px solid red" }}
+        //t r b l
+        padding={theme.spacing(0, 0, 0, 0)}
+      >
+        <Grid
+          item
+          container
+          sm={6}
+          //style={{ border: "1px solid blue" }}
+          padding={theme.spacing(0, 2, 0, 0)}
+        >
+          <Grid item xs={6} sm={6} padding={theme.spacing(0)}>
+            <ReusableControls.PlainDatePicker
+              inputVariant="outlined"
+              name="encounterDate"
+              label="Fecha de Consulta"
+              value={values.encounterDate}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={6} sm={6}>
+            <ReusableControls.CustomSelect
+              variant="outlined"
+              name="encounterType"
+              label="Tipo de Consulta"
+              value={values.encounterType}
+              onChange={handleInputChange}
+              options={encounterService.getFieldsDataCollection(
+                applicationFields,
+                "encounterView",
+                "encounterType"
+              )}
+              error={errors.encounterType}
+            />
+          </Grid>
+        </Grid>
+        <Grid item container sm={6} padding={theme.spacing(0, 2, 0, 0)}>
+          <Grid item xs={6} sm={6}>
+            <ReusableControls.CustomSelect
+              variant="outlined"
+              name="encounterStatus"
+              label="Estado"
+              //value={values.departmentId}
+              value={values.encounterStatus || ""}
+              onChange={handleInputChange}
+              options={applicationFields
+                .filter((item) => item.fieldType === "encounterStatus")
+                .map((item) => ({
+                  id: item.id,
+                  field: item.fieldData,
+                }))}
+              error={errors.serviceType}
+            />
+          </Grid>
+          <Grid item xs={6} sm={6}>
+            <ReusableControls.CustomSelect
+              variant="outlined"
+              name="serviceBundle"
+              label="Paquetes de Servicio"
+              value={values.serviceBundle || ""}
+              onChange={handleInputChange}
+              //options={employeeService.getDepartmentCollection()}
+              options={applicationFields
+                .filter((item) => item.fieldType === "serviceBundle")
+                .map((item) => ({
+                  id: item.id,
+                  field: item.fieldData,
+                }))}
+              error={errors.servicesBundle}
+            />
+          </Grid>
+        </Grid>
+        <Grid item container xs padding={theme.spacing(0, 2, 0, 0)}>
+          <Grid item xs={12} sm={6}>
+            <ReusableControls.CustomSelect
+              variant="outlined"
+              name="healthProf"
+              label="Médico"
+              //value={values.departmentId}
+              value={values.healthProf || ""}
+              onChange={handleInputChange}
+              options={applicationFields
+                .filter((item) => item.fieldType === "healthProf")
+                .map((item) => ({
+                  id: item.id,
+                  field: item.fieldData,
+                }))}
+              error={errors.serviceType}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <ReusableControls.CustomSelect
+              variant="outlined"
+              name="facility"
+              label="Centro"
+              value={values.facility || ""}
+              onChange={handleInputChange}
+              //options={employeeService.getDepartmentCollection()}
+              options={applicationFields
+                .filter((item) => item.fieldType === "facility")
+                .map((item) => ({
+                  id: item.id,
+                  field: item.fieldData,
+                }))}
+              error={errors.servicesBundle}
+            />
+          </Grid>
+        </Grid>
+      </Grid>
+    </ReusableForm>
+  );
+}
+
+/*
+ <ReusableForm onSubmit={handleSubmit}>
       <Grid container>
         <Grid item xs={12} sm={6}>
           <Box sx={{ display: "flex", direction: "row" }}>
@@ -160,9 +281,7 @@ export default function Encounter(props) {
         </Grid>
       </Grid>
     </ReusableForm>
-  );
-}
-
+*/
 /*
      <ReusableControls.Button type="submit" text="Submit" />
             <ReusableControls.Button

@@ -169,11 +169,13 @@ export default function Paciente() {
   //<Grid item xs={8}></Grid>
   return (
     <Box
-      sx={{
-        flexDirection: "row",
-        //overflow: 'auto'
-        //overflow: "hidden",
-      }}
+      sx={
+        {
+          //flexDirection: "row",
+          //overflow: 'auto'
+          //overflow: "hidden",
+        }
+      }
     >
       <Grid container direction="column" spacing={2}>
         <Grid item xs={12}>

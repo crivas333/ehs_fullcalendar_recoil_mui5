@@ -13,22 +13,16 @@ import Typography from "@material-ui/core/Typography";
 import Add from "@material-ui/icons/Add";
 //import Close from "@material-ui/icons/Close";
 import Box from "@material-ui/core/Box";
-import Collapse from "@material-ui/core/Collapse";
-import Switch from "@material-ui/core/Switch";
-import Slide from "@material-ui/core/Slide";
-import { useTheme } from "@material-ui/core/styles";
 
 //import { GET_APPLICATIONSFIELDS } from "../graphqlClient/gqlQueries";
 import { queryClient } from "../graphqlClient/reactQueryClient";
 import Encounter from "../components/encounter/Encounter";
 import Encounters from "../components/encounter/Encounters";
-import { ThemeProvider } from "@material-ui/core";
 //import CustomTab from "../components/reusableForms/reusableTab";
 //const Encounter = React.lazy(() => import("../components/encounter/Encounter"));
 
 export default function EncounterView() {
   //const queryClient = useQueryClient();
-  const theme = useTheme();
   const data = queryClient.getQueryData("applicationFields");
   const indexToTabName = {
     Datos: 0,
@@ -36,31 +30,23 @@ export default function EncounterView() {
     Misc: 2,
   };
   const [selectedTab, setSelectedTab] = useState(indexToTabName["Datos"]);
-  const [checked, setChecked] = React.useState(false);
-  const handleChange = () => {
-    setChecked((prev) => !prev);
-  };
+  const [showThirdTab, setShowThirdTab] = React.useState(false);
+
   const handleChangeTab = (event, newValue) => {
     setSelectedTab(newValue);
   };
-  const MyBox = <></>;
+  const deleteTab = (e) => {
+    e.stopPropagation();
+  };
+  const ButtonInTabs = ({ className, onClick, children }) => {
+    return (
+      <Button className={className} onClick={onClick} children={children} />
+    );
+  };
+  // <Box sx={{ width: "100%" }}>
   return (
-    <Grid
-      container
-      direction="row"
-      sx={{ border: "1px solid green" }}
-      justifyContent="space-between"
-    >
+    <Grid container direction="row">
       <Grid item xs>
-        <Grid container direction="row" justifyContent="flex-end">
-          <Switch
-            size="small"
-            checked={checked}
-            onChange={handleChange}
-            name="checkedA"
-            inputProps={{ "aria-label": "secondary checkbox" }}
-          />
-        </Grid>
         <AppBar position="static" color="default">
           <Tabs
             value={selectedTab}
@@ -72,70 +58,21 @@ export default function EncounterView() {
           </Tabs>
         </AppBar>
         {selectedTab === 0 && <Encounter applicationFields={data} />}
-        {/* {selectedTab === 1 && <Encounters applicationFields={data} />} */}
+        {selectedTab === 1 && <Encounters applicationFields={data} />}
       </Grid>
 
-      <Collapse
-        in={checked}
-        orientation="horizontal"
-        //collapsedSize={30}
+      <Box
+        component={Grid}
+        //</Grid>className={classes.gridItem}
+        item
+        //xs={3}
+        display={{ xs: "none", sm: "block" }}
       >
-        <Box paddingTop={3} paddingLeft={1}>
-          {/* <Switch
-            size="small"
-            checked={checked}
-            onChange={handleChange}
-            name="checkedA"
-            inputProps={{ "aria-label": "secondary checkbox" }}
-          /> */}
-          <AppBar position="static" color="default">
-            <Tabs
-              value={selectedTab}
-              onChange={handleChangeTab}
-              //style={{ maxHeight: "24px" }}
-            >
-              <Tab label="Buscar" />
-              <Tab label="Consulta" />
-              <Tab label="Consulta2" />
-            </Tabs>
-          </AppBar>
-        </Box>
-      </Collapse>
+        <span>YY</span>
+      </Box>
     </Grid>
   );
 }
-
-/*
-   <Grid
-        item
-        //container //!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!doesnt work
-        //padding={theme.spacing(0, 0, 0, 1)}
-        //paddingLeft={theme.spacing(1)} // !!!!!!working
-        //margingLeft={theme.spacing(1)}
-        sx={{ border: "1px solid green" }}
-      >
-        <Collapse in={checked} orientation="horizontal" collapsedSize={50}>
-          {MyBox}
-        </Collapse>
-      </Grid>
-*/
-
-/*
- <Collapse in={checked} orientation="horizontal" collapsedSize={50}>
-          {MyBox}
-        </Collapse>
-*/
-/*
- <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
-        {MyBox}
-      </Slide>
-*/
-
-/*
- <Collapse in={checked} orientation="horizontal" collapsedSize={50}>
-        {MyBox}
-      </Collapse>
-*/
 //
 /*
  <Grid item xs={12} md={8} lg={9}>
