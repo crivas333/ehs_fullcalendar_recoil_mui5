@@ -308,9 +308,9 @@ export const DELETE_APPOINTMENT = gql`
   }
 `;
 
-export const CREATE_ENCOUNTER = gql`
-  mutation createEncounter($encounterInput: EncounterInput) {
-    createEncounter(encounterInput: $encounterInput) {
+export const ADD_ENCOUNTER = gql`
+  mutation addEncounter($encounterInput: EncounterInput) {
+    addEncounter(encounterInput: $encounterInput) {
       id
     }
   }

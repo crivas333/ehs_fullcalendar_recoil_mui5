@@ -1,5 +1,6 @@
 import {
   atom,
+  //selectorFamily,
   //selector
 } from "recoil";
 //import request from "graphql-request";
@@ -20,17 +21,19 @@ export const currentPatientState = atom({
 });
 export const searchDateState = atom({
   key: "searchDateState",
+  //default: new Date().toISOString(),
   default: new Date(),
+  //default: new Date().toDateString(),
 });
 
-// export const reloadCurrentPatient = selector({
+// export const getCurrentPatient = selectorFamily({
 //   key: "currentPatientState",
-//   get: ({ get }) => {
-//     //const loading = get(loadingState);
-
+//   get: (id) => async () => {
+//     const currPatient = getPatientById(id);
+//     console.log(currPatient);
 //     return;
 //   },
-//   set: ({set}, newValue) => set(currentPatientState, (newValue ))
+//   set: ({ set }, newValue) => set(currentPatientState, newValue),
 // });
 
 // async function requestPatientById(id) {

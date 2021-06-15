@@ -4,16 +4,18 @@ import { useQueryClient, useQuery, useMutation } from "react-query";
 import request from "graphql-request";
 import addDays from "date-fns/addDays";
 import format from "date-fns/format";
+import { useNavigate } from "react-router-dom";
 import {
   //selector,
   useRecoilValue,
   //useRecoilValue,
-  //useSetRecoilState,
+  useSetRecoilState,
 } from "recoil";
 //import DateTimePicker from "@material-ui/lab/DateTimePicker";
 //import Box from "@material-ui/core/Box";
 import Notify from "../notification/Notify";
 import TableOfAppointments from "./TableOfAppointments";
+import AssignmentIcon from "@material-ui/icons/Assignment";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditEventDialog from "./EditEventDialog";
@@ -23,8 +25,12 @@ import {
   UPDATE_APPOINTMENT,
   DELETE_APPOINTMENT,
   GET_APPOINTMENTS_BY_TIMEFRAME,
+  SEARCH_PATIENT_BY_ID,
 } from "../../graphqlClient/gqlQueries";
-import { searchDateState } from "../../context/RecoilStore";
+import {
+  currentPatientState,
+  searchDateState,
+} from "../../context/RecoilStore";
 
 const initialEvt = {
   id: null, //will store MongoDB id
@@ -58,15 +64,95 @@ async function deleteHelper(data) {
   //console.log("addData-res:", res);
   return res.deleteAppointment;
 }
+async function getPatientById(id) {
+  try {
+    const res = await request("/graphql", SEARCH_PATIENT_BY_ID, {
+      id: id,
+    });
+    if (res && res.patient) {
+      return res.patient;
+    }
+  } catch (err) {
+    console.log("getPatientByIdAPOLLO-err: ", err);
+    return null;
+  }
+}
 export default function DailyAppointments(props) {
   //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const navigate = useNavigate();
   const searchDate = useRecoilValue(searchDateState);
+  const setCurrentPatient = useSetRecoilState(currentPatientState);
   const [openEventDialog, setOpenEventDialog] = useState(false);
   const [openDeleteEventDialog, setOpenDeleteEventDialog] = useState(false);
   const [evt, setEvt] = useState(initialEvt);
-
   const queryClient = useQueryClient();
   //const classes = useStyles()
+  const addAppointment = useMutation(createHelper, {
+    onSuccess: (data, variables) => {
+      //console.log("onSuccess:", data);
+      queryClient.invalidateQueries("appointments");
+      Notify({ message: "Cita añadida", status: "success" });
+      //reloadCurrentPatient(data);
+    },
+    onMutate: (data) => {
+      //console.log("onMutate:", data);
+    },
+    onError: (error, variables, context) => {
+      console.log("onError");
+      Notify({
+        message: "Error: Cita NO añadida",
+        status: "fail",
+      });
+    },
+    onSettled: (data, error, variables, context) => {
+      // I will fire first
+      //console.log("onSettled");
+    },
+  });
+  const updateAppointment = useMutation(updateHelper, {
+    onSuccess: (data, variables) => {
+      //console.log("onSuccess:", data);
+      queryClient.invalidateQueries("appointments");
+      Notify({ message: "Cita actualizada", status: "success" });
+      //reloadCurrentPatient(data);
+    },
+    onMutate: (data) => {
+      //console.log("onMutate:", data);
+    },
+    onError: (error, variables, context) => {
+      console.log("onError");
+      Notify({
+        message: "Error: Cita NO actualizada",
+        status: "fail",
+      });
+    },
+    onSettled: (data, error, variables, context) => {
+      // I will fire first
+      //console.log("onSettled");
+    },
+  });
+  const deleteAppointment = useMutation(deleteHelper, {
+    onSuccess: (data, variables) => {
+      //console.log("onSuccess:", data);
+      queryClient.invalidateQueries("appointments");
+      Notify({ message: "Cita borrada", status: "success" });
+      //reloadCurrentPatient(data);
+    },
+    onMutate: (data) => {
+      //console.log("onMutate:", data);
+    },
+    onError: (error, variables, context) => {
+      console.log("onError");
+      Notify({
+        message: "Error: Cita NO borrada",
+        status: "fail",
+      });
+    },
+    onSettled: (data, error, variables, context) => {
+      // I will fire first
+      //console.log("onSettled");
+    },
+  });
 
   const editRow = (data) => {
     //console.log("Exam - editRow: ", data)
@@ -88,6 +174,17 @@ export default function DailyAppointments(props) {
     //console.log("Exam - editRow: ", data);
     setEvt(data);
     setOpenDeleteEventDialog(true);
+  };
+  const openVisit = (data) => {
+    if (data.historyId === "") {
+      console.log("Not Registered");
+      Notify({ message: "Paciente NO registrado", status: "fail" });
+      return;
+    } else {
+      //console.log(data.patientId);
+      getPatientById(data.patientId).then((res) => setCurrentPatient(res));
+      navigate("/Consulta");
+    }
   };
   const columns = React.useMemo(
     () => [
@@ -164,6 +261,10 @@ export default function DailyAppointments(props) {
                 cursor="pointer"
                 onClick={() => deleteRow(rowIdx)}
               ></DeleteIcon>
+              <AssignmentIcon
+                cursor="pointer"
+                onClick={() => openVisit(rowIdx)}
+              ></AssignmentIcon>
             </div>
           );
         },
@@ -174,14 +275,19 @@ export default function DailyAppointments(props) {
   );
   React.useEffect(() => {
     console.log(searchDate);
+    console.log(addDays(searchDate, 1));
   }, [searchDate]);
 
+  // const { isLoading, isError, data, error } = useQuery(
+  //   ["appointments", searchDate],
   const { isLoading, isError, data, error } = useQuery(
-    ["appointments", searchDate],
+    ["appointments"],
     async () => {
       const res = await request("/graphql", GET_APPOINTMENTS_BY_TIMEFRAME, {
+        //start: searchDate,
+        //end: addDays(searchDate, 1),
         start: searchDate.toDateString(),
-        end: addDays(searchDate, 1),
+        end: addDays(searchDate, 1).toDateString(),
       });
       //return data.getAppointmentsByTimeframe;
       console.log(res.getAppointmentsByTimeframe);
@@ -206,73 +312,6 @@ export default function DailyAppointments(props) {
       }
     }
   );
-
-  const addAppointment = useMutation(createHelper, {
-    onSuccess: (data, variables) => {
-      //console.log("onSuccess:", data);
-      queryClient.invalidateQueries("appointments");
-      Notify({ message: "Cita añadida", status: "success" });
-      //reloadCurrentPatient(data);
-    },
-    onMutate: (data) => {
-      //console.log("onMutate:", data);
-    },
-    onError: (error, variables, context) => {
-      console.log("onError");
-      Notify({
-        message: "Error: Cita NO añadida",
-        status: "fail",
-      });
-    },
-    onSettled: (data, error, variables, context) => {
-      // I will fire first
-      //console.log("onSettled");
-    },
-  });
-  const updateAppointment = useMutation(updateHelper, {
-    onSuccess: (data, variables) => {
-      //console.log("onSuccess:", data);
-      queryClient.invalidateQueries("appointments");
-      Notify({ message: "Cita actualizada", status: "success" });
-      //reloadCurrentPatient(data);
-    },
-    onMutate: (data) => {
-      //console.log("onMutate:", data);
-    },
-    onError: (error, variables, context) => {
-      console.log("onError");
-      Notify({
-        message: "Error: Cita NO actualizada",
-        status: "fail",
-      });
-    },
-    onSettled: (data, error, variables, context) => {
-      // I will fire first
-      //console.log("onSettled");
-    },
-  });
-  const deleteAppointment = useMutation(deleteHelper, {
-    onSuccess: (data, variables) => {
-      //console.log("onSuccess:", data);
-      queryClient.invalidateQueries("appointments");
-      Notify({ message: "Cita borrada", status: "success" });
-      //reloadCurrentPatient(data);
-    },
-    onMutate: (data) => {
-      //console.log("onMutate:", data);
-    },
-    onError: (error, variables, context) => {
-      console.log("onError");
-      Notify({
-        message: "Error: Cita NO borrada",
-        status: "fail",
-      });
-    },
-    onSettled: (data, error, variables, context) => {
-      // I will fire first
-      //console.log("onSettled");
-    },
-  });
 
   if (isLoading) {
     return <span>Loading...</span>;

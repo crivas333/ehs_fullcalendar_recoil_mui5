@@ -54,7 +54,7 @@ export default function PatientSummary(props) {
   }, []);
 
   useEffect(() => {
-    console.log("PatientSummary-currentPatient: ", currPatient);
+    //console.log("PatientSummary-currentPatient: ", currPatient);
     let line1 = "";
     let line2 = "";
     let dob = "";
@@ -65,7 +65,7 @@ export default function PatientSummary(props) {
       currPatient !== undefined &&
       currPatient.length !== 0
     ) {
-      console.log("PatientSummary - useEffect: currentPatient: ", currPatient);
+      //console.log("PatientSummary - useEffect: currentPatient: ", currPatient);
       if (currPatient.birthDay !== null) {
         // dob = format(new Date(parseInt(currentPatient.birthDay)), [
         //   "dd/MM/yyyy",

@@ -1,25 +1,29 @@
 import React from "react";
 //import { QueryClient } from "react-query";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
+//import Box from "@material-ui/core/Box";
 import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
 import {
   useReusableForm,
   ReusableForm,
 } from "../reusableForms/useReusableForm";
 import * as encounterService from "../../services/configService";
-import { Stack } from "@material-ui/core";
+//import { Stack } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
+import { ADD_ENCOUNTER } from "../../graphqlClient/gqlQueries";
 //import { GlobalContext } from "../../context/GlobalState";
 
 const initialFValues = {
   id: 0,
   encounterDate: new Date(),
   encounterType: "CONSULTA",
+  encounterStatus: "INICIADA",
+  serviceBundle: "PAQUETE#1",
+  healthProf: "MALLAUPOMA POVEZ, SONIA",
+  facility: "EL DORADO",
   patientType: "NUEVO",
   serviceType: "AMBULATORIA",
   sensibility: "NORMAL",
-  serviceBundle: "PAQUETE#1",
 };
 
 export default function Encounter(props) {
@@ -61,7 +65,18 @@ export default function Encounter(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      //employeeService.insertEmployee(values)
+      props.addEncounter.mutate({
+        variables: {
+          encounterInput: {
+            encounterDate: values.encounterDate,
+            encounterType: values.encounterType,
+            encounterStatus: values.encounterStatus,
+            serviceBundle: values.serviceBundle,
+            healthProf: values.healthProf,
+            facility: values.facilityy,
+          },
+        },
+      });
       resetForm();
     }
   };
@@ -70,18 +85,10 @@ export default function Encounter(props) {
     <ReusableForm onSubmit={handleSubmit}>
       <Grid
         container
-        //style={{ border: "1px solid red" }}
         sx={{ border: "1px solid red" }}
-        //t r b l
-        padding={theme.spacing(0, 0, 0, 0)}
+        padding={theme.spacing(0, 0, 0, 0)} //t r b l
       >
-        <Grid
-          item
-          container
-          sm={6}
-          //style={{ border: "1px solid blue" }}
-          padding={theme.spacing(0, 2, 0, 0)}
-        >
+        <Grid item container sm={6} padding={theme.spacing(0, 2, 0, 0)}>
           <Grid item xs={6} sm={6} padding={theme.spacing(0)}>
             <ReusableControls.PlainDatePicker
               inputVariant="outlined"

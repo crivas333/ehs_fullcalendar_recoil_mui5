@@ -16,12 +16,12 @@ export default {
       // TODO: projection, pagination
       console.log("getAppointmentsByTimeframe: ", args);
       try {
+        //const doc = await Appointment.find({}).sort({ start: "asc" }).exec();
         const doc = await Appointment.find({
           start: { $gte: args.start },
           end: { $lte: args.end },
-        })
-          .sort({ start: "asc" })
-          .exec();
+        });
+
         //console.log(doc);
         return doc;
       } catch (err) {

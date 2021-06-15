@@ -37,7 +37,7 @@ export default function Pages() {
     ["applicationFields"],
     async () => {
       const res = await request("/graphql", GET_APPLICATIONSFIELDS);
-      console.log(res.getApplicationFields);
+      //console.log(res.getApplicationFields);
       if (res && res.getApplicationFields) {
         return res.getApplicationFields;
       } else {

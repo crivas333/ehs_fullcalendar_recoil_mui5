@@ -12,7 +12,7 @@ import {
   GET_EXAM_BY_PATIENT_ID,
   ADD_EXAMDATA,
   UPDATE_ROWEXAM,
-  CREATE_ENCOUNTER,
+  //CREATE_ENCOUNTER,
   // GET_APPLICATIONSFIELDS,
   // ADD_APPLICATIONFIELDS,
   // UPDATE_APPLICATIONFIELDS,
@@ -150,28 +150,28 @@ export const GlobalProvider = ({ children }) => {
   //   });
   // }
 
-  async function createEncounterAPOLLO(appointmentId) {
-    try {
-      // const res = await client.query({
-      //   query: CREATE_ENCOUNTER,
-      //   variables: { appointmentId: appointmentId },
-      // });
-      const res = await request("/graphql", CREATE_ENCOUNTER, {
-        appointmentId: appointmentId,
-      });
-      // console.log('getPatientsAPOLLO- res: ', res)
-      dispatch({
-        type: "CREATE_ENCOUNTER",
-        //payload: res.data.patients,
-        payload: res.patients,
-      });
-    } catch (err) {
-      dispatch({
-        type: "TRANSACTION_ERROR",
-        payload: err.res.data.error,
-      });
-    }
-  }
+  // async function createEncounterAPOLLO(appointmentId) {
+  //   try {
+  //     // const res = await client.query({
+  //     //   query: CREATE_ENCOUNTER,
+  //     //   variables: { appointmentId: appointmentId },
+  //     // });
+  //     const res = await request("/graphql", CREATE_ENCOUNTER, {
+  //       appointmentId: appointmentId,
+  //     });
+  //     // console.log('getPatientsAPOLLO- res: ', res)
+  //     dispatch({
+  //       type: "CREATE_ENCOUNTER",
+  //       //payload: res.data.patients,
+  //       payload: res.patients,
+  //     });
+  //   } catch (err) {
+  //     dispatch({
+  //       type: "TRANSACTION_ERROR",
+  //       payload: err.res.data.error,
+  //     });
+  //   }
+  // }
 
   async function getExamByPatientID_APOLLO(id) {
     try {
@@ -465,7 +465,7 @@ export const GlobalProvider = ({ children }) => {
         getExamByPatientID_APOLLO,
         addExamDataAPOLLO,
         //getPatientsFETCH,
-        createEncounterAPOLLO,
+        //createEncounterAPOLLO,
         // getApplicationFieldsAPOLLO,
         // addApplicationFieldAPOLLO,
         // updateApplicationFieldAPOLLO,

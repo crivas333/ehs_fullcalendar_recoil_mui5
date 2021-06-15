@@ -28,9 +28,6 @@ const selectStyles = {
   }),
 };
 
-// const formatOptionLabel = ({ historyId, lastName, lastName2, firstName }) => (
-//   <span>{`${historyId} - ${lastName} ${lastName2}, ${firstName}`}</span>
-// );
 const formatOptionLabel = ({ historyId, fullName }) => (
   <span>{`${historyId} - ${fullName}`}</span>
 );
@@ -43,17 +40,10 @@ const loadOptions = async (input, cb) => {
     const res = await request("/graphql", SEARCH_PATIENT_BY_LASTNAME, {
       lastName: input,
     });
-    //console.log("loadOptions-res:", res.searchPatientsByLastName);
-    //if (res.data && res.data.searchPatientsByLastName) {
     if (res && res.searchPatientsByLastName) {
-      //console.log('res:',res.data.searchPatientsByLastName)
-      //return res.data.searchPatientsByLastName.map((a) => ({
       return res.searchPatientsByLastName.map((a) => ({
         id: a.id,
         historyId: a.historyId,
-        //lastName: a.lastName,
-        //lastName2: a.lastName2,
-        //firstName: a.firstName,
         fullName: a.fullName,
       }));
     }
@@ -68,7 +58,6 @@ async function getPatientById(id) {
     const res = await request("/graphql", SEARCH_PATIENT_BY_ID, {
       id: id,
     });
-    //console.log("GlobalState - getPatientByIdAPOLLO - res: ", res);
     if (res && res.patient) {
       return res.patient;
     }
@@ -81,7 +70,6 @@ export default function AsyncSelectAC() {
   const setCurrentPatient = useSetRecoilState(currentPatientState);
   //const patientId = useRecoilValue(getPatientByIdFamSel(currentPatient.id));
   //const setCurrentUser = useSetRecoilState(currentUserState);
-  //const { getPatientByIdAPOLLO, updateActionExam } = useContext(GlobalContext);
   const [selectedValue, setSelectedValue] = useState(null);
 
   // handle input change event
@@ -92,8 +80,6 @@ export default function AsyncSelectAC() {
   // handle selection
   const handleChange = (inputValue) => {
     if (inputValue) {
-      //getPatientByIdAPOLLO(inputValue.id);
-
       //updateActionExam(0);
       //const res = getPatientById(inputValue.id);
       getPatientById(inputValue.id).then((res) => setCurrentPatient(res));

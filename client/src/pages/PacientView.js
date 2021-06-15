@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-//import { useMutation } from '@apollo/client'
 import { useRecoilState } from "recoil";
 import { useMutation } from "react-query";
 import request from "graphql-request";
@@ -14,29 +13,15 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Grid from "@material-ui/core/Grid";
 //import Paper from '@material-ui/core/Paper'
-//import { makeStyles } from "@material-ui/styles";
 import Box from "@material-ui/core/Box";
 
 import AsyncSelectAC from "../components/patient/patientSearch/AsyncSelectAC";
 import { DisplayPatientTabForm } from "../components/patient/patientNew/DisplayPatientTabForm";
 import { NewPatientTabForm } from "../components/patient/patientNew/NewPatientTabForm";
 import { UpdatePatientTabForm } from "../components/patient/patientNew/UpdatePatientTabForm";
-//import { GlobalContext } from "../context/GlobalState";
 import { currentPatientState } from "../context/RecoilStore";
 import Notify from "../components/notification/Notify";
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexGrow: 1,
-//     //overflow: 'auto'
-//     overflow: "hidden",
-//   },
-//   paper: {
-//     padding: theme.spacing(1),
-//     textAlign: "center",
-//     color: theme.palette.text.secondary,
-//   },
-// }));
 const SEARCH = 0;
 const CREATE = 1;
 const UPDATE = 2;

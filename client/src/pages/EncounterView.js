@@ -1,6 +1,11 @@
 import React, { useState } from "react";
-//import { useQuery, useQueryClient } from "react-query";
-//import request from "graphql-request";
+import { useMutation } from "react-query";
+import request from "graphql-request";
+import {
+  ADD_ENCOUNTER,
+  //UPDATE_PATIENT,
+  //DELETE_PATIENT,
+} from "../graphqlClient/gqlQueries";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Grid from "@material-ui/core/Grid";
@@ -15,7 +20,6 @@ import Add from "@material-ui/icons/Add";
 import Box from "@material-ui/core/Box";
 import Collapse from "@material-ui/core/Collapse";
 import Switch from "@material-ui/core/Switch";
-import Slide from "@material-ui/core/Slide";
 import { useTheme } from "@material-ui/core/styles";
 
 //import { GET_APPLICATIONSFIELDS } from "../graphqlClient/gqlQueries";
@@ -23,27 +27,57 @@ import { queryClient } from "../graphqlClient/reactQueryClient";
 import Encounter from "../components/encounter/Encounter";
 import Encounters from "../components/encounter/Encounters";
 import { ThemeProvider } from "@material-ui/core";
-//import CustomTab from "../components/reusableForms/reusableTab";
-//const Encounter = React.lazy(() => import("../components/encounter/Encounter"));
+import Notify from "../components/notification/Notify";
+
+async function addHelper(data) {
+  //console.log("addData: ", data);
+  const res = await request("/graphql", ADD_ENCOUNTER, data);
+  //console.log("addData-res:", res);
+  return res.addEncounter;
+}
+
+const indexToTabName = {
+  Datos: 0,
+  Contacto: 1,
+  Misc: 2,
+};
 
 export default function EncounterView() {
   //const queryClient = useQueryClient();
   const theme = useTheme();
   const data = queryClient.getQueryData("applicationFields");
-  const indexToTabName = {
-    Datos: 0,
-    Contacto: 1,
-    Misc: 2,
-  };
+
   const [selectedTab, setSelectedTab] = useState(indexToTabName["Datos"]);
   const [checked, setChecked] = React.useState(false);
+
+  const addEncounter = useMutation(addHelper, {
+    onSuccess: (data, variables) => {
+      //console.log("onSuccess:", data);
+      Notify({ message: "Consulta creada", status: "success" });
+      //setCurrentPatient(data);
+    },
+    onMutate: (data) => {
+      //console.log("onMutate:", data);
+    },
+    onError: (error, variables, context) => {
+      console.log("onError");
+      Notify({
+        message: "Error: Consulta NO creada",
+        status: "fail",
+      });
+    },
+    onSettled: (data, error, variables, context) => {
+      //console.log("onSettled");
+    },
+  });
+
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
   const handleChangeTab = (event, newValue) => {
     setSelectedTab(newValue);
   };
-  const MyBox = <></>;
+
   return (
     <Grid
       container
@@ -71,8 +105,10 @@ export default function EncounterView() {
             <Tab label="Consulta" />
           </Tabs>
         </AppBar>
-        {selectedTab === 0 && <Encounter applicationFields={data} />}
-        {/* {selectedTab === 1 && <Encounters applicationFields={data} />} */}
+        {selectedTab === 0 && (
+          <Encounter applicationFields={data} addEncounter={addEncounter} />
+        )}
+        {selectedTab === 1 && <Encounters applicationFields={data} />}
       </Grid>
 
       <Collapse
@@ -81,19 +117,8 @@ export default function EncounterView() {
         //collapsedSize={30}
       >
         <Box paddingTop={3} paddingLeft={1}>
-          {/* <Switch
-            size="small"
-            checked={checked}
-            onChange={handleChange}
-            name="checkedA"
-            inputProps={{ "aria-label": "secondary checkbox" }}
-          /> */}
           <AppBar position="static" color="default">
-            <Tabs
-              value={selectedTab}
-              onChange={handleChangeTab}
-              //style={{ maxHeight: "24px" }}
-            >
+            <Tabs value={selectedTab} onChange={handleChangeTab}>
               <Tab label="Buscar" />
               <Tab label="Consulta" />
               <Tab label="Consulta2" />
