@@ -183,7 +183,8 @@ export default function DailyAppointments(props) {
     } else {
       //console.log(data.patientId);
       getPatientById(data.patientId).then((res) => setCurrentPatient(res));
-      navigate("/Consulta");
+      //navigate("/Consulta/");
+      navigate("/consultas/consulta");
     }
   };
   const columns = React.useMemo(

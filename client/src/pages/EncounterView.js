@@ -6,6 +6,9 @@ import {
   //UPDATE_PATIENT,
   //DELETE_PATIENT,
 } from "../graphqlClient/gqlQueries";
+//import { MemoryRouter, Route, Link, useRouteMatch } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
+
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Grid from "@material-ui/core/Grid";
@@ -28,6 +31,7 @@ import Encounter from "../components/encounter/Encounter";
 import Encounters from "../components/encounter/Encounters";
 import { ThemeProvider } from "@material-ui/core";
 import Notify from "../components/notification/Notify";
+import { useRecoilTransactionObserver_UNSTABLE } from "recoil";
 
 async function addHelper(data) {
   //console.log("addData: ", data);
@@ -42,13 +46,19 @@ const indexToTabName = {
   Misc: 2,
 };
 
+function Test() {
+  return <div>test</div>;
+}
 export default function EncounterView() {
   //const queryClient = useQueryClient();
   const theme = useTheme();
   const data = queryClient.getQueryData("applicationFields");
 
-  const [selectedTab, setSelectedTab] = useState(indexToTabName["Datos"]);
+  //const [selectedTab, setSelectedTab] = useState(indexToTabName["Datos"]);
+  const [selectedTab, setSelectedTab] = useState(indexToTabName.Datos);
   const [checked, setChecked] = React.useState(false);
+  const routeMatch = useLocation(["/consulta", "/consulta/buscar"]);
+  const currentTab = routeMatch?.pathname;
 
   const addEncounter = useMutation(addHelper, {
     onSuccess: (data, variables) => {
@@ -71,10 +81,25 @@ export default function EncounterView() {
     },
   });
 
+  React.useEffect(() => {
+    console.log(currentTab);
+    switch (routeMatch.pathname) {
+      case "/consultas":
+        setSelectedTab(0);
+        break;
+      case "/consultas/consulta":
+        setSelectedTab(1);
+        break;
+    }
+    return () => {
+      //cleanup
+    };
+  }, [selectedTab]);
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
-  const handleChangeTab = (event, newValue) => {
+  //const handleChangeTab = (event, newValue) => {
+  const handleChangeTab = (newValue) => {
     setSelectedTab(newValue);
   };
 
@@ -96,19 +121,15 @@ export default function EncounterView() {
           />
         </Grid>
         <AppBar position="static" color="default">
-          <Tabs
-            value={selectedTab}
-            onChange={handleChangeTab}
-            //style={{ maxHeight: "24px" }}
-          >
-            <Tab label="Buscar" />
-            <Tab label="Consulta" />
+          <Tabs value={selectedTab} onChange={handleChangeTab}>
+            <Tab label="buscar" to={"/consultas"} component={Link} />
+            <Tab label="consulta" to={"/consultas/consulta"} component={Link} />
           </Tabs>
         </AppBar>
-        {selectedTab === 0 && (
+        {selectedTab === 0 && <Test />}
+        {selectedTab === 1 && (
           <Encounter applicationFields={data} addEncounter={addEncounter} />
         )}
-        {selectedTab === 1 && <Encounters applicationFields={data} />}
       </Grid>
 
       <Collapse
@@ -129,7 +150,7 @@ export default function EncounterView() {
     </Grid>
   );
 }
-
+//{selectedTab === 0 && <Encounters applicationFields={data} />}
 /*
    <Grid
         item

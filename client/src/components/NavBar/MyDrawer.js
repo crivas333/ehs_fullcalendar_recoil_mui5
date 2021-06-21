@@ -131,10 +131,10 @@ function ResponsiveDrawer(props) {
               button
               onClick={props.clickDrawerClose}
               //className={classes.nested}
-              key="Paciente"
+              key="paciente"
               component={NavLink}
-              to="/Paciente"
-              selected={location.pathname === "/Paciente"}
+              to="/paciente"
+              selected={location.pathname === "/paciente"}
             >
               <ListItemText primary="Ingreso de Pacientes" />
             </ListItem>
@@ -142,10 +142,10 @@ function ResponsiveDrawer(props) {
               button
               onClick={props.clickDrawerClose}
               //className={classes.nested}
-              key="Agendamiento"
+              key="agendamiento"
               component={NavLink}
-              to="/Agendamiento"
-              selected={location.pathname === "/Agendamiento"}
+              to="/agendamiento"
+              selected={location.pathname === "/agendamiento"}
             >
               <ListItemText primary="Agendamiento" />
             </ListItem>
@@ -153,10 +153,10 @@ function ResponsiveDrawer(props) {
               button
               onClick={props.clickDrawerClose}
               //className={classes.nested}
-              key="Citas"
+              key="citas"
               component={NavLink}
-              to="/Citas"
-              selected={location.pathname === "/Citas"}
+              to="/citas"
+              selected={location.pathname === "/citas"}
             >
               <ListItemText primary="Citas del Día" />
             </ListItem>
@@ -173,10 +173,11 @@ function ResponsiveDrawer(props) {
               button
               onClick={props.clickDrawerClose}
               //className={classes.nested}
-              key="Consulta"
+              key="consultas"
               component={NavLink}
-              to="/Consulta"
-              selected={location.pathname === "/Encounter"}
+              to="/consultas"
+              //selected={location.pathname === "/Encounter"}
+              selected={location.pathname === "/consultas"}
             >
               <ListItemText primary="Situación Actual" />
             </ListItem>
@@ -195,10 +196,10 @@ function ResponsiveDrawer(props) {
               button
               onClick={props.clickDrawerClose}
               //className={classes.nested}
-              key="Examenes"
+              key="examenes"
               component={NavLink}
-              to="/Examenes"
-              selected={location.pathname === "/Examenes"}
+              to="/examenes"
+              selected={location.pathname === "/examenes"}
             >
               <ListItemText primary="Exámenes" />
             </ListItem>
@@ -206,10 +207,10 @@ function ResponsiveDrawer(props) {
               button
               onClick={props.clickDrawerClose}
               //className={classes.nested}
-              key="Informes"
+              key="informes"
               component={NavLink}
-              to="/Informes"
-              selected={location.pathname === "/Reports"}
+              to="/informes"
+              selected={location.pathname === "/informes"}
             >
               <ListItemText primary="Informes" />
             </ListItem>

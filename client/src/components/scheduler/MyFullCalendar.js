@@ -401,7 +401,14 @@ export default function MayFullCalendar() {
         //eventRemove={eventRemoving}
         //eventChange={(txt) => console.log("eventChanged: ", txt)}
         //dateClick={this.handleDateClick}
-        events={"/api/v1/fullCalendar/getDataFull"} //!!!!!!!!!!!!!!!!!!! ok
+
+        //events={"/api/v1/fullCalendar/getDataFull"} //!!!!!!!!!!!!!!!!!!! ok
+        eventSources={[
+          {
+            id: 1,
+            url: "/api/v1/fullCalendar/getDataFull",
+          },
+        ]} //!!!!!!!!!!!! this works
         //lazyFetching={false}
         //datesSet={formatEvents111}
         //locale={"es-PE"}

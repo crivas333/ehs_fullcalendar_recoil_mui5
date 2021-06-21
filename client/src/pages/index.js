@@ -11,7 +11,8 @@ import ExamsView from "./ExamView";
 import ReportsView from "./ReportsView";
 import SystemConfigView from "./SystemConfig";
 import { GET_APPLICATIONSFIELDS } from "../graphqlClient/gqlQueries";
-
+import Encounter from "../components/encounter/Encounter";
+import Encounters from "../components/encounter/Encounters";
 //import { GlobalContext } from "../context/GlobalState";
 //const SiteLayout = React.lazy(() => import("../layouts/SiteLayout"));
 // const PatientView = React.lazy(() => "./PacientView");
@@ -58,14 +59,17 @@ export default function Pages() {
     <>
       <SiteLayout>
         <Routes>
-          <Route path="/Config" element={<SystemConfigView />} />
-          <Route path="/Paciente" element={<PatientView />} />
-          <Route path="/Agendamiento" element={<CalendarView />} />
-          <Route path="/Citas" element={<AppoitmentsView />} />
-          <Route path="/Consulta" element={<EncounterView />} />
-          <Route path="/Examenes" element={<ExamsView />} />
+          <Route path="/config" element={<SystemConfigView />} />
+          <Route path="/paciente" element={<PatientView />} />
+          <Route path="/agendamiento" element={<CalendarView />} />
+          <Route path="/citas" element={<AppoitmentsView />} />
+          <Route path="/consultas" element={<EncounterView />}>
+            <Route path="/" element={<Encounter />} />
+            <Route path="consulta" element={<Encounters />} />
+          </Route>
+          <Route path="/examenes" element={<ExamsView />} />
 
-          <Route path="/Informes" element={<ReportsView />} />
+          <Route path="/informes" element={<ReportsView />} />
         </Routes>
       </SiteLayout>
     </>

@@ -2,7 +2,7 @@ import React from "react";
 import { TextField } from "@material-ui/core";
 //import FormControl from '@material-ui/core/FormControl'
 //import InputLabel from '@material-ui/core/InputLabel'
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
   textField: {

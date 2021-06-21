@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
 //import FormControl from '@material-ui/core/FormControl'
 //import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -7,7 +7,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 //import DeleteIcon from "@material-ui/icons/Clear";
 import ClearIcon from "@material-ui/icons/Clear";
 import IconButton from "@material-ui/core/IconButton";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
