@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 //import clsx from 'clsx';
-import { useQueryClient, useQuery, useMutation } from "react-query";
+import { useQueryClient, useQuery } from "react-query";
 import request from "graphql-request";
 import addDays from "date-fns/addDays";
 
@@ -12,8 +12,8 @@ import {
 } from "recoil";
 //import DateTimePicker from "@material-ui/lab/DateTimePicker";
 //import Box from "@material-ui/core/Box";
-import Notify from "../notification/Notify";
-import Table from "./TableFiltered";
+//import Notify from "../notification/Notify";
+//import Table from "./TableFiltered";
 
 import { GET_ENCOUNTERS_BY_PATIENT_ID } from "../../graphqlClient/gqlQueries";
 import { searchDateState } from "../../context/RecoilStore";

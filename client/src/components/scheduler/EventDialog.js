@@ -9,7 +9,7 @@ import {
 //import { useRecoilState } from "recoil";
 //import { appoEvtState } from "../../context/recoilStore";
 import * as appointmentService from "../../services/configService";
-import { GlobalContext } from "../../context/GlobalState";
+//import { GlobalContext } from "../../context/GlobalState";
 //import { makeStyles } from "@material-ui/styles";
 //import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";

@@ -1,6 +1,6 @@
 import React from "react";
 //import clsx from 'clsx';
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import request from "graphql-request";
 import { makeStyles } from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
@@ -8,7 +8,7 @@ import EncounterControl from "../components/systemConfig/EncounterControl";
 import ExamControl from "../components/systemConfig/ExamControl";
 import AppointmentControl from "../components/systemConfig/AppointmentControl";
 import {
-  GET_APPLICATIONSFIELDS,
+  //GET_APPLICATIONSFIELDS,
   DELETE_APPLICATIONFIELDS,
   UPDATE_APPLICATIONFIELDS,
   ADD_APPLICATIONFIELDS,

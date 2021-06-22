@@ -12,26 +12,26 @@ import { useLocation, Link } from "react-router-dom";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import IconAdd from "@material-ui/icons/Add";
+//import Button from "@material-ui/core/Button";
+//import IconAdd from "@material-ui/icons/Add";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Close from "@material-ui/icons/Close";
-import Typography from "@material-ui/core/Typography";
-import Add from "@material-ui/icons/Add";
+//import Toolbar from "@material-ui/core/Toolbar";
+//import Close from "@material-ui/icons/Close";
+//import Typography from "@material-ui/core/Typography";
+//import Add from "@material-ui/icons/Add";
 //import Close from "@material-ui/icons/Close";
 import Box from "@material-ui/core/Box";
 import Collapse from "@material-ui/core/Collapse";
 import Switch from "@material-ui/core/Switch";
-import { useTheme } from "@material-ui/core/styles";
+//import { useTheme } from "@material-ui/core/styles";
 
 //import { GET_APPLICATIONSFIELDS } from "../graphqlClient/gqlQueries";
 import { queryClient } from "../graphqlClient/reactQueryClient";
 import Encounter from "../components/encounter/Encounter";
-import Encounters from "../components/encounter/Encounters";
-import { ThemeProvider } from "@material-ui/core";
+//import Encounters from "../components/encounter/Encounters";
+//import { ThemeProvider } from "@material-ui/core";
 import Notify from "../components/notification/Notify";
-import { useRecoilTransactionObserver_UNSTABLE } from "recoil";
+//import { useRecoilTransactionObserver_UNSTABLE } from "recoil";
 
 async function addHelper(data) {
   //console.log("addData: ", data);
@@ -51,14 +51,14 @@ function Test() {
 }
 export default function EncounterView() {
   //const queryClient = useQueryClient();
-  const theme = useTheme();
+  //const theme = useTheme();
   const data = queryClient.getQueryData("applicationFields");
 
   //const [selectedTab, setSelectedTab] = useState(indexToTabName["Datos"]);
   const [selectedTab, setSelectedTab] = useState(indexToTabName.Datos);
   const [checked, setChecked] = React.useState(false);
   const routeMatch = useLocation(["/consulta", "/consulta/buscar"]);
-  const currentTab = routeMatch?.pathname;
+  //const currentTab = routeMatch?.pathname;
 
   const addEncounter = useMutation(addHelper, {
     onSuccess: (data, variables) => {
@@ -82,7 +82,7 @@ export default function EncounterView() {
   });
 
   React.useEffect(() => {
-    console.log(currentTab);
+    //console.log(currentTab);
     switch (routeMatch.pathname) {
       case "/consultas":
         setSelectedTab(0);
@@ -90,16 +90,19 @@ export default function EncounterView() {
       case "/consultas/consulta":
         setSelectedTab(1);
         break;
+      default:
+        break;
     }
     return () => {
       //cleanup
     };
-  }, [selectedTab]);
+  }, [routeMatch]);
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
-  //const handleChangeTab = (event, newValue) => {
-  const handleChangeTab = (newValue) => {
+  const handleChangeTab = (_event, newValue) => {
+    //const handleChangeTab = (newValue) => {
+    console.log("handleChangeTab: ", newValue);
     setSelectedTab(newValue);
   };
 

@@ -10,7 +10,7 @@ import {
 import * as encounterService from "../../services/configService";
 //import { Stack } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-import { ADD_ENCOUNTER } from "../../graphqlClient/gqlQueries";
+//import { ADD_ENCOUNTER } from "../../graphqlClient/gqlQueries";
 //import { GlobalContext } from "../../context/GlobalState";
 
 const initialFValues = {

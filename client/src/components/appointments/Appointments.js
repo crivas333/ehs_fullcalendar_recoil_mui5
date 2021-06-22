@@ -270,8 +270,7 @@ export default function DailyAppointments(props) {
           );
         },
       },
-      //eslint-disable-next-line react-hooks/exhaustive-deps
-    ],
+    ], //eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
   React.useEffect(() => {

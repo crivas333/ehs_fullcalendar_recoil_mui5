@@ -34,7 +34,8 @@ export default function Pages() {
   //   //eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
-  const { isLoading, isError, data, error } = useQuery(
+  //const { isLoading, isError, data, error } = useQuery(
+  const { isLoading, isError, error } = useQuery(
     ["applicationFields"],
     async () => {
       const res = await request("/graphql", GET_APPLICATIONSFIELDS);
