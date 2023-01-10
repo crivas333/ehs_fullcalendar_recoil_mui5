@@ -8,7 +8,8 @@ import React from "react";
 // import Button from '@material-ui/core/Button'
 
 //import Grid from '@material-ui/core/Grid'
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 // import Paper from '@material-ui/core/Paper'
 // import Scrollbar from 'rmw-shell/lib/components/Scrollbar'
 // import { Scrollbars } from 'react-custom-scrollbars'

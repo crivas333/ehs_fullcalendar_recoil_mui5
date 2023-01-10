@@ -12,8 +12,8 @@ import {
 } from "recoil";
 //import DateTimePicker from "@material-ui/lab/DateTimePicker";
 //import Box from "@material-ui/core/Box";
-import Notify from "../notification/Notify";
-import Table from "./TableFiltered";
+//import Notify from "../notification/Notify";
+//import Table from "./TableFiltered";
 
 import { GET_ENCOUNTERS_BY_PATIENT_ID } from "../../graphqlClient/gqlQueries";
 import { searchDateState } from "../../context/RecoilStore";

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 //import clsx from 'clsx';
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+//import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
+import Grid from "@mui/material/Grid";
 //import { GlobalContext } from "../../context/GlobalState";
 import ApplicationFieldsTable from "./ApplicationFieldsTable";
 import AddForm from "./AddForm";

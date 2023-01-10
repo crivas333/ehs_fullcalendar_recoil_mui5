@@ -3,9 +3,9 @@ import AppBar from "@material-ui/core/AppBar";
 
 //import { GlobalContext } from "../../../context/GlobalState";
 import { useRecoilValue } from "recoil";
-import Button from "@material-ui/core/Button";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import Button from "@mui/material/Button";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import { experimentalStyled as styled } from "@material-ui/core/styles";
 
 import { UpdatePatientTab1 } from "./UpdatePatientTab1";

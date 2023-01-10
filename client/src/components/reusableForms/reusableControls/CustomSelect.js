@@ -1,12 +1,12 @@
 import React from "react";
 //import { makeStyles } from "@material-ui/core/styles";
 //' Select as MuiSelect, MenuItem, FormHelperText } from '@material-ui/core';
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 //import {Select as MuiSelect} from '@material-ui/core/'
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
 
 // const useStyles = makeStyles((theme) => ({
 //   formControl: {

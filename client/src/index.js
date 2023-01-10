@@ -3,10 +3,18 @@ import ReactDOM from "react-dom";
 import { RecoilRoot } from "recoil";
 import { request } from "graphql-request";
 
-import { ThemeProvider, StyledEngineProvider } from "@material-ui/core/styles";
-import { createTheme } from "@material-ui/core/styles";
-//import ThemeProvider from '@material-ui/core/styles/MuiThemeProvider' //it does not work
+//import { ThemeProvider, StyledEngineProvider } from "@material-ui/core/styles";
+//import { createTheme } from "@material-ui/core/styles";
+//////import ThemeProvider from '@material-ui/core/styles/MuiThemeProvider' //it does not work
 //import fetch from 'cross-fetch'
+
+import {
+  createTheme,
+  ThemeProvider,
+  StyledEngineProvider,
+  //} from "@mui/material/styles";
+} from "@mui/material";
+
 import App from "./App";
 import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
 import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
@@ -17,6 +25,7 @@ import { queryClient } from "./graphqlClient/reactQueryClient";
 import { IS_THERE_OPEN_SESSION } from "./graphqlClient/gqlQueries";
 //import {IS_THERE_OPEN_SESSION_FETCH } from './apolloConfig/gqlQueries-fetch'
 //import Notify from './components/notification/Notify';
+const theme = createTheme();
 
 //const theme = createMuiTheme({
 // const theme = unstable_createMuiStrictModeTheme({
@@ -31,26 +40,38 @@ import { IS_THERE_OPEN_SESSION } from "./graphqlClient/gqlQueries";
 //     },
 //   },
 // });
-const theme = createTheme({
-  typography: {
-    fontSize: 12,
-  },
-  // palette: {
-  //   primary: {
-  //     main: "#556cd6",
-  //   },
-  //   secondary: {
-  //     main: "#19857b",
-  //   },
-  //   error: {
-  //     //main: red.A400,
-  //     main: "#19857b",
-  //   },
-  //   background: {
-  //     default: "#fff",
-  //   },
-  // },
-});
+// const theme = createTheme({
+//   typography: {
+//     fontSize: 12,
+//   },
+//   // palette: {
+//   //   primary: {
+//   //     main: "#556cd6",
+//   //   },
+//   //   secondary: {
+//   //     main: "#19857b",
+//   //   },
+//   //   error: {
+//   //     //main: red.A400,
+//   //     main: "#19857b",
+//   //   },
+//   //   background: {
+//   //     default: "#fff",
+//   //   },
+//   // },
+// });
+
+// const theme = createTheme({
+//   palette: {
+//     primary: {
+//       main: "#006400",
+//     },
+//     secondary: {
+//       main: "#ffa500",
+//     },
+//   },
+// });
+
 //request(endpoint, query, variables).then((data) => console.log(data))
 async function checkLoggedIn() {
   //request('/graphql', IS_THERE_OPEN_SESSION).then((res) => console.log('res:',res.openSession))

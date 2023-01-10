@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import Tab from "@material-ui/core/Tab";
-import Tabs from "@material-ui/core/Tabs";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import IconAdd from "@material-ui/icons/Add";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Close from "@material-ui/icons/Close";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+// import Grid from "@mui/core/Grid";
+// import Button from "@material-ui/core/Button";
+// import IconAdd from "@material-ui/icons/Add";
+// import AppBar from "@material-ui/core/AppBar";
+// import Toolbar from "@material-ui/core/Toolbar";
+// import Close from "@material-ui/icons/Close";
+// import Typography from "@material-ui/core/Typography";
+import Box from "@mui/material/Box";
 import { makeStyles } from "@material-ui/styles";
 
 // I was stuck at deleting Tab, however, I found this thread from Rahul-RB on git

@@ -1,6 +1,7 @@
 import React from "react";
 
-import { makeStyles } from "@material-ui/styles";
+//import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@mui/styles";
 import MyFullCalendar from "../components/scheduler/MyFullCalendar";
 
 const useStyles = makeStyles((theme) => ({

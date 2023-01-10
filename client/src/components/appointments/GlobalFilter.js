@@ -2,9 +2,9 @@ import React from "react";
 
 import InputBase from "@material-ui/core/InputBase";
 import { makeStyles } from "@material-ui/styles";
-import { alpha } from "@material-ui/core/styles";
+import { alpha } from "@mui/material/styles";
 //import PropTypes from 'prop-types'
-import SearchIcon from "@material-ui/icons/Search";
+import SearchIcon from "@mui/icons-material/Search";
 
 const useStyles = makeStyles((theme) => ({
   search: {

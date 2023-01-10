@@ -5,15 +5,23 @@ import {
 } from "@material-ui/core/styles";
 //import clsx from "clsx";
 //import AppBar from "@material-ui/core/AppBar";
-import MuiAppBar from "@material-ui/core/AppBar";
+//import MuiAppBar from "@material-ui/core/AppBar";
+import MuiAppBar from "@mui/material/AppBar";
 //import CssBaseline from "@material-ui/core/CssBaseline";
-import IconButton from "@material-ui/core/IconButton";
+//import IconButton from "@material-ui/core/IconButton";
+import IconButton from "@mui/material/IconButton"; //Container
+
 // import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import PatientIcon from "@material-ui/icons/PermContactCalendar";
-import Toolbar from "@material-ui/core/Toolbar";
+//import MenuIcon from "@material-ui/icons/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+//import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+//import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+//import PatientIcon from "@material-ui/icons/PermContactCalendar";
+import PatientIcon from "@mui/icons-material/PermContactCalendar";
+//import Toolbar from "@material-ui/core/Toolbar";
+import Toolbar from "@mui/material/Toolbar";
 // import Typography from '@material-ui/core/Typography'
 //import { makeStyles } from "@material-ui/styles";
 

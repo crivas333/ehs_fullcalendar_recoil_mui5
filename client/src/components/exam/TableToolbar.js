@@ -2,15 +2,15 @@ import React from "react";
 
 import AddUserDialog from "./AddUserDialog";
 import clsx from "clsx";
-import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteIcon from "@mui/icons-material/Delete";
 import GlobalFilter from "./GlobalFilter";
-import IconButton from "@material-ui/core/IconButton";
-import { makeStyles } from "@material-ui/styles";
-import { lighten } from "@material-ui/core/styles";
+import IconButton from "@mui/material/IconButton";
+import { makeStyles } from "@mui/styles";
+import { lighten } from "@mui/material/styles";
 //import PropTypes from 'prop-types'
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Tooltip from "@material-ui/core/Tooltip";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {

@@ -6,14 +6,14 @@ import React, { useState } from "react";
 //   experimentalStyled as styled,
 //   useTheme,
 // } from "@material-ui/core/styles";
-import { experimentalStyled as styled } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { experimentalStyled as styled } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 import MyBar from "../components/NavBar/MyBar";
 import MyDrawer from "../components/NavBar/MyDrawer";
 import MyDrawerRight from "../components/NavBar/MyDrawerRight";
 
 //import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
+import Box from "@mui/material/Box";
 //import { Container } from "@material-ui/core";
 //import Notifier from '../components/notification/Notifier'; //!!!!!!!this works
 // import LocalizationProvider from "@material-ui/lab/LocalizationProvider";

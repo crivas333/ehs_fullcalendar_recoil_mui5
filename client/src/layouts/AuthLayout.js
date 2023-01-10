@@ -1,7 +1,7 @@
 // import Head from "next/head";
-import React from 'react'
+import React from "react";
 // import Navbar from "./Navigation/MainNavigation";
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from "@mui/styles";
 // import SideBar from "./SideBar";
 
 // const Layout = (props) => (
@@ -14,15 +14,13 @@ import { makeStyles } from '@material-ui/core/styles'
 // export default Layout;
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex'
-  }
-}))
+    display: "flex",
+  },
+}));
 
-export default function AuthLayout (props) {
-  const classes = useStyles()
-  return (
-    <div className='container'>{props.children}</div>
-  )
+export default function AuthLayout(props) {
+  const classes = useStyles();
+  return <div className="container">{props.children}</div>;
 }
 
 /*

@@ -10,12 +10,12 @@ import {
   DELETE_PATIENT,
 } from "../graphqlClient/gqlQueries";
 
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import Grid from "@material-ui/core/Grid";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Grid from "@mui/material/Grid";
 //import Paper from '@material-ui/core/Paper'
 //import { makeStyles } from "@material-ui/styles";
-import Box from "@material-ui/core/Box";
+import Box from "@mui/material/Box";
 
 import AsyncSelectAC from "../components/patient/patientSearch/AsyncSelectAC";
 import { DisplayPatientTabForm } from "../components/patient/patientNew/DisplayPatientTabForm";

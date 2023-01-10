@@ -14,8 +14,10 @@ import {
 //import Box from "@material-ui/core/Box";
 import Notify from "../notification/Notify";
 import TableOfAppointments from "./TableOfAppointments";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
+//import EditIcon from "@material-ui/icons/Edit";
+//import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import EditEventDialog from "./EditEventDialog";
 import DeleteEventDialog from "./DeleteEventDialog";
 import {

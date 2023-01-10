@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 
 import { GlobalContext } from "../../../context/GlobalState";
-import { experimentalStyled as styled } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import { experimentalStyled as styled } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 //import TabPanel from '@material-ui/lab/TabPanel'
 //import { makeStyles } from "@material-ui/core/styles";
 

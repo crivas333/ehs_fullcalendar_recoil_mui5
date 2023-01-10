@@ -3,14 +3,14 @@ import React, { useContext, useEffect, Fragment } from "react";
 //import {useQuery} from '@apollo/client'
 //import { makeStyles } from '@material-ui/core/styles'
 
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import { GlobalContext } from "../../context/GlobalState";
 //import ExamTable from './ExamTableMUI'
 import AddExamForm from "./AddExamForm";
 import EditExamForm from "./EditExamForm";
 import ExamTable from "./ReactTable";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Exam(props) {
   //const classes = useStyles()
