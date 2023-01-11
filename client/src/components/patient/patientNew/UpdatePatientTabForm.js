@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import AppBar from "@material-ui/core/AppBar";
+import AppBar from "@mui/material/AppBar";
 
 //import { GlobalContext } from "../../../context/GlobalState";
 import { useRecoilValue } from "recoil";
 import Button from "@mui/material/Button";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { experimentalStyled as styled } from "@material-ui/core/styles";
+import { experimentalStyled as styled } from "@mui/material/styles";
 
 import { UpdatePatientTab1 } from "./UpdatePatientTab1";
 import { UpdatePatientTab2 } from "./UpdatePatientTab2";

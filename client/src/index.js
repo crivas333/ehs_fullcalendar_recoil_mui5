@@ -16,8 +16,10 @@ import {
 } from "@mui/material";
 
 import App from "./App";
-import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
-import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
+//import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+//import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import esLocale from "date-fns/locale/es";
 import { GlobalProvider } from "./context/GlobalState";
 import { QueryClientProvider } from "react-query";

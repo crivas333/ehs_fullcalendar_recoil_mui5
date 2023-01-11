@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AppBar from "@material-ui/core/AppBar";
+import AppBar from "@mui/material/AppBar";
 
 //import { GlobalContext } from "../../../context/GlobalState";
 import { useRecoilValue } from "recoil";

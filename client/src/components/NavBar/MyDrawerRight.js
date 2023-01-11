@@ -2,9 +2,9 @@ import React from "react";
 //import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 //import CssBaseline from "@material-ui/core/CssBaseline";
-import Divider from "@material-ui/core/Divider";
-import Drawer from "@material-ui/core/Drawer";
-import Box from "@material-ui/core/Box";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import Box from "@mui/material/Box";
 //import { useTheme } from "@material-ui/styles";
 // import ListSubheader from "@material-ui/core/ListSubheader";
 // import List from "@material-ui/core/List";

@@ -1,7 +1,8 @@
 import React from "react";
 
-import InputBase from "@material-ui/core/InputBase";
-import { makeStyles } from "@material-ui/styles";
+//import InputBase from "@material-ui/core/InputBase";
+import InputBase from "@mui/material/InputBase";
+import { makeStyles } from "@mui/styles";
 import { alpha } from "@mui/material/styles";
 //import PropTypes from 'prop-types'
 import SearchIcon from "@mui/icons-material/Search";

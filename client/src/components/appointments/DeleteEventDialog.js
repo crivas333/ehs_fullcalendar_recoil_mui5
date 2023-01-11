@@ -20,7 +20,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from "@mui/icons-material/Close";
 //import IconButton from "@material-ui/core/IconButton";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import { Span } from "../reusableForms/reusableComponents";
 //import AsyncSelectForFullCalendar from "../patient/patientSearch/AsyncSelectForFullCalendar";
 
