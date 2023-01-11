@@ -15,8 +15,10 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import TableHead from "@mui/material/TableHead";
 import TableSortLabel from "@mui/material/TableSortLabel";
-import TablePaginationActions from "./AppointmentTablePaginationActions";
 //import { makeStyles } from "@material-ui/styles";
+
+import TablePaginationActions from "./AppointmentTablePaginationActions";
+
 import TableToolbar from "./TableToolbar";
 import {
   useGlobalFilter,
@@ -48,7 +50,8 @@ import {
 //   },
 // }));
 
-const EnhancedTable = ({
+//const EnhancedTable = ({
+const TableComponent = ({
   columns,
   data,
   setData,
@@ -116,6 +119,14 @@ const EnhancedTable = ({
   // Render the UI for your table
   return (
     <TableContainer>
+      {/*
+      <TableToolbar
+        addEventHandler={addEventHandler}
+        preGlobalFilteredRows={preGlobalFilteredRows}
+        setGlobalFilter={setGlobalFilter}
+        globalFilter={globalFilter}
+      />
+      */}
       <TableToolbar
         addEventHandler={addEventHandler}
         preGlobalFilteredRows={preGlobalFilteredRows}
@@ -191,7 +202,7 @@ const EnhancedTable = ({
   );
 };
 
-export default EnhancedTable;
+export default TableComponent;
 
 //{...row.getRowProps(getRowProps(row))}
 //{...row.getRowProps()}

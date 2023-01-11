@@ -49,15 +49,17 @@ const GlobalFilter = ({
   globalFilter,
   setGlobalFilter,
 }) => {
-  const classes = useStyles();
+  //const classes = useStyles();
   const count = preGlobalFilteredRows.length;
   // Global filter only works with pagination from the first page.
   // This may not be a problem for server side pagination when
   // only the current page is downloaded.
 
   return (
-    <div className={classes.search}>
-      <div className={classes.searchIcon}>
+    <div //className={classes.search}
+    >
+      <div //className={classes.searchIcon}
+      >
         <SearchIcon />
       </div>
 
@@ -67,10 +69,10 @@ const GlobalFilter = ({
           setGlobalFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
         }}
         placeholder={`${count} citas...`}
-        classes={{
-          root: classes.inputRoot,
-          input: classes.inputInput,
-        }}
+        //classes={{
+        //root: classes.inputRoot,
+        //input: classes.inputInput,
+        //}}
         inputProps={{ "aria-label": "search" }}
       />
     </div>

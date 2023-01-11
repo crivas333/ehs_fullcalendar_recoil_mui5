@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
     "@fullcalendar/daygrid": "^5.7.0",
     "@fullcalendar/interaction": "^5.7.0",
     "@fullcalendar/react": "^5.7.0",

@@ -44,7 +44,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 }));
 
 const TableToolbar = (props) => {
-  const classes = useToolbarStyles();
+  //const classes = useToolbarStyles();
   const [searchDate, setSearchDate] = useRecoilState(searchDateState);
   //const [value, setValue] = React.useState(new Date().toISOString());
   const {
@@ -64,10 +64,84 @@ const TableToolbar = (props) => {
   };
   return (
     <Toolbar
+    //className={clsx(classes.root, {
+    //[classes.highlight]: numSelected > 0,
+    //[classes.highlight]: false,
+    //})}
+    >
+      <AddEventDialogAppo addEventHandler={addEventHandler} />
+      <Typography
+        //className={classes.title}
+        variant="h6"
+        id="tableTitle"
+      >
+        Nueva Cita
+      </Typography>
+      <DatePicker
+        renderInput={(props) => (
+          <TextField
+            {...props}
+            variant="standard"
+            margin="dense"
+            size="small"
+            label="Fecha de Búsqueda"
+            fullWidth
+            helperText={null}
+          />
+        )}
+        allowSameDateSelection={true}
+        //readOnly={true}
+        autoOk={true}
+        showTodayButton
+        todayText="hoy"
+        value={searchDate}
+        //onChange={(val) => setValue(val)}
+        onChange={onChange}
+        minDate={new Date("1900-01-01")}
+        //disableFuture={disableFuture}
+        //disablePast={disablePast}
+        //readOnly={readOnly}
+        onError={console.log}
+      />
+      <GlobalFilter
+        preGlobalFilteredRows={preGlobalFilteredRows}
+        globalFilter={globalFilter}
+        setGlobalFilter={setGlobalFilter}
+      />
+    </Toolbar>
+  );
+};
+
+export default TableToolbar;
+
+/*
+const TableToolbar = (props) => {
+  //const classes = useToolbarStyles();
+  const [searchDate, setSearchDate] = useRecoilState(searchDateState);
+  //const [value, setValue] = React.useState(new Date().toISOString());
+  const {
+    //numSelected,
+    addEventHandler,
+    //deleteUserHandler,
+    preGlobalFilteredRows,
+    setGlobalFilter,
+    globalFilter,
+  } = props;
+
+  const onChange = (val) => {
+    console.log(val);
+    //console.log(val.target.value);
+    //setValue(val);
+    setSearchDate(val);
+  };
+  return (
+    <Toolbar
+      
       className={clsx(classes.root, {
         //[classes.highlight]: numSelected > 0,
         [classes.highlight]: false,
       })}
+      
     >
       <AddEventDialogAppo addEventHandler={addEventHandler} />
       <Typography className={classes.title} variant="h6" id="tableTitle">
@@ -109,3 +183,5 @@ const TableToolbar = (props) => {
 };
 
 export default TableToolbar;
+
+*/

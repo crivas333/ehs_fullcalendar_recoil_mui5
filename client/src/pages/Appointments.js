@@ -25,6 +25,7 @@ export default function Appointment() {
   return (
     <Grid container spacing={3}>
       <Grid container item xs={12}>
+        {/*<DailyAppointments/> */}
         <DailyAppointments />
       </Grid>
     </Grid>
