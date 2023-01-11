@@ -1,19 +1,10 @@
 import React from "react";
-//import { makeStyles } from "@material-ui/core/styles";
-//import { experimentalStyled as styled } from "@material-ui/core/styles";
-import { experimentalStyled as styled } from "@mui/material/styles";
+
+import { styled } from "@mui/material/styles";
 import ReusableControls from "../../reusableForms/reusableControls/ReusableControls";
 //import {getSexCollection, getIdTypeCollection} from '../../../services/employeeService'
 //import * as employeeService from "../../../services/employeeService";
 
-// const useStyles = makeStyles((theme) => ({
-//   paper: {
-//     marginTop: theme.spacing(1),
-//     display: "flex",
-//     flexDirection: "column",
-//     //alignItems: 'center'
-//   },
-// }));
 const MyBox = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",

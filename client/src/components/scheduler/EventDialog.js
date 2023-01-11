@@ -10,48 +10,20 @@ import {
 //import { appoEvtState } from "../../context/recoilStore";
 import * as appointmentService from "../../services/configService";
 //import { GlobalContext } from "../../context/GlobalState";
-//import { makeStyles } from "@material-ui/styles";
-//import { useTheme } from "@material-ui/core/styles";
-//import useMediaQuery from "@material-ui/core/useMediaQuery";
 import useMediaQuery from "@mui/material/useMediaQuery";
 //import Button from "@material-ui/core/Button";
 import Button from "@mui/material/Button";
-//import Dialog from "@material-ui/core/Dialog";
-//import DialogActions from "@material-ui/core/DialogActions";
-//import DialogContent from "@material-ui/core/DialogContent";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-
-//import DialogTitle from "@material-ui/core/DialogTitle";
-//import SaveIcon from "@material-ui/icons/Save";
-//import DeleteIcon from "@material-ui/icons/Delete";
-//import CloseIcon from "@material-ui/icons/Close";
-//import IconButton from "@material-ui/core/IconButton";
 import DialogTitle from "@mui/material/DialogTitle";
 import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
-//import Grid from "@material-ui/core/Grid";
 import Grid from "@mui/material/Grid";
-import { experimentalStyled as styled } from "@mui/material/styles";
-//import { styled } from "@material-ui/styles";
+import { styled } from "@mui/material/styles";
 import AsyncSelectForFullCalendar from "../patient/patientSearch/AsyncSelectForFullCalendar";
-
-// const useStyles = makeStyles((theme) => ({
-//   paper: {
-//     marginTop: theme.spacing(1),
-//     display: "flex",
-//     flexDirection: "column",
-//     //alignItems: 'center'
-//   },
-//   buttonText: {
-//     [theme.breakpoints.down("sm")]: {
-//       display: "none",
-//     },
-//   },
-// }));
 
 const Span = styled("span", {
   shouldForwardProp: (prop) => prop !== "show",

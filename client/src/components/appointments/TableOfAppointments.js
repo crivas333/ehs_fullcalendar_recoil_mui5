@@ -15,7 +15,6 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import TableHead from "@mui/material/TableHead";
 import TableSortLabel from "@mui/material/TableSortLabel";
-//import { makeStyles } from "@material-ui/styles";
 
 import TablePaginationActions from "./AppointmentTablePaginationActions";
 
@@ -28,29 +27,6 @@ import {
   useTable,
 } from "react-table";
 
-//import { findBreakingChanges } from 'graphql'
-
-// const useStyles = makeStyles((theme) => ({
-//   selected: {
-//     backgroundColor: "green !important",
-//     "&:hover": {
-//       backgroundColor: "green !important",
-//     },
-//   },
-//   cellHeader: {
-//     width: "10%",
-//     //fontSize: '08pt',
-//     fontSize: "12px",
-//     backgroundColor: "grey",
-//   },
-//   cellBody: {
-//     width: "10%",
-//     fontSize: "12px",
-//     //backgroundColor: 'green'
-//   },
-// }));
-
-//const EnhancedTable = ({
 const TableComponent = ({
   columns,
   data,

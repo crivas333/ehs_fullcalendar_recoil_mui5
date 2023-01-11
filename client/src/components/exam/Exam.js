@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, Fragment } from "react";
 //import clsx from 'clsx';
 //import {useQuery} from '@apollo/client'
-//import { makeStyles } from '@material-ui/core/styles'
 
 import Grid from "@mui/material/Grid";
 import { GlobalContext } from "../../context/GlobalState";
@@ -13,7 +12,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Exam(props) {
-  //const classes = useStyles()
   const {
     currentPatient,
     applicationFields,

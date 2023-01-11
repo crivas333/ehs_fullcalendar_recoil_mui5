@@ -12,8 +12,8 @@ import {
   createTheme,
   ThemeProvider,
   StyledEngineProvider,
-  //} from "@mui/material/styles";
-} from "@mui/material";
+} from "@mui/material/styles";
+//} from "@mui/material";
 
 import App from "./App";
 //import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
@@ -27,7 +27,12 @@ import { queryClient } from "./graphqlClient/reactQueryClient";
 import { IS_THERE_OPEN_SESSION } from "./graphqlClient/gqlQueries";
 //import {IS_THERE_OPEN_SESSION_FETCH } from './apolloConfig/gqlQueries-fetch'
 //import Notify from './components/notification/Notify';
-const theme = createTheme();
+//const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    fontSize: 12,
+  },
+});
 
 //const theme = createMuiTheme({
 // const theme = unstable_createMuiStrictModeTheme({
@@ -75,6 +80,7 @@ const theme = createTheme();
 // });
 
 //request(endpoint, query, variables).then((data) => console.log(data))
+
 async function checkLoggedIn() {
   //request('/graphql', IS_THERE_OPEN_SESSION).then((res) => console.log('res:',res.openSession))
   try {

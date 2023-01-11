@@ -9,31 +9,16 @@ import {
 //import { appoEvtState } from "../../context/recoilStore";
 import * as appointmentService from "../../services/configService";
 import { GlobalContext } from "../../context/GlobalState";
-//import { makeStyles } from "@material-ui/styles";
-//import { useTheme } from "@material-ui/core/styles";
-//import useMediaQuery from "@material-ui/core/useMediaQuery";
+
 import useMediaQuery from "@mui/material/useMediaQuery";
-//import Button from "@material-ui/core/Button";
 import Button from "@mui/material/Button";
-//import FormControl from "@material-ui/core/FormControl";
-//import Dialog from "@material-ui/core/Dialog";
 import Dialog from "@mui/material/Dialog";
-//import DialogActions from "@material-ui/core/DialogActions";
 import DialogActions from "@mui/material/DialogActions";
-//import DialogContent from "@material-ui/core/DialogContent";
 import DialogContent from "@mui/material/DialogContent";
-//import DialogContentText from "@material-ui/core/DialogContentText";
-//import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogTitle from "@mui/material/DialogTitle";
-//import SaveIcon from "@material-ui/icons/Save";
-//import AddIcon from "@material-ui/icons/Add";
-//import CloseIcon from "@material-ui/icons/Close";
 import SaveIcon from "@mui/icons-material/Save";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
-//import IconButton from "@material-ui/core/IconButton";
-//import Grid from "@material-ui/core/Grid";
-//import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import Tooltip from "@mui/material/Tooltip";
@@ -41,37 +26,6 @@ import Tooltip from "@mui/material/Tooltip";
 import AsyncSelectForFullCalendar from "../patient/patientSearch/AsyncSelectForFullCalendar";
 import { Span } from "../reusableForms/reusableComponents";
 //import { ADD_APPOINTMENT } from "../../graphqlClient/gqlQueries";
-
-// const useStyles = makeStyles((theme) => ({
-//   paper: {
-//     marginTop: theme.spacing(1),
-//     display: "flex",
-//     flexDirection: "column",
-//     //alignItems: 'center'
-//   },
-//   button: {
-//     margin: theme.spacing(1),
-//     [theme.breakpoints.down("sm")]: {
-//       minWidth: 32,
-//       paddingLeft: 8,
-//       paddingRight: 8,
-//       "& .MuiButton-startIcon": {
-//         margin: 0,
-//       },
-//     },
-//   },
-//   buttonText: {
-//     [theme.breakpoints.down("sm")]: {
-//       display: "none",
-//     },
-//   },
-//   closeButton: {
-//     position: "absolute",
-//     right: theme.spacing(1),
-//     top: theme.spacing(1),
-//     color: theme.palette.grey[500],
-//   },
-// }));
 
 const initialEvt = {
   id: null, //will store MongoDB id

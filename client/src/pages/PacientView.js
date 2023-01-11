@@ -13,8 +13,7 @@ import {
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Grid from "@mui/material/Grid";
-//import Paper from '@material-ui/core/Paper'
-//import { makeStyles } from "@material-ui/styles";
+
 import Box from "@mui/material/Box";
 
 import AsyncSelectAC from "../components/patient/patientSearch/AsyncSelectAC";
@@ -25,18 +24,6 @@ import { UpdatePatientTabForm } from "../components/patient/patientNew/UpdatePat
 import { currentPatientState } from "../context/RecoilStore";
 import Notify from "../components/notification/Notify";
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexGrow: 1,
-//     //overflow: 'auto'
-//     overflow: "hidden",
-//   },
-//   paper: {
-//     padding: theme.spacing(1),
-//     textAlign: "center",
-//     color: theme.palette.text.secondary,
-//   },
-// }));
 const SEARCH = 0;
 const CREATE = 1;
 const UPDATE = 2;

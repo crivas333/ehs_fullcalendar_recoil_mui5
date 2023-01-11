@@ -1,8 +1,6 @@
 import React from "react";
-//import clsx from 'clsx';
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import request from "graphql-request";
-//import { makeStyles } from "@material-ui/core/styles";
 import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 import EncounterControl from "../components/systemConfig/EncounterControl";

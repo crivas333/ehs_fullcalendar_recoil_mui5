@@ -1,24 +1,10 @@
 import React from "react";
 
 import Grid from "@mui/material/Grid";
-//import { makeStyles } from "@material-ui/styles";
 import DailyAppointments from "../components/appointments/Appointments";
 //import Box from "@material-ui/core/Box";
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-//   paper: {
-//     padding: theme.spacing(1),
-//     textAlign: "center",
-//     color: theme.palette.text.secondary,
-//     maxHeight: 550,
-//   },
-// }));
-
 export default function Appointment() {
-  //const classes = useStyles();
   //const { currentPatient } = useContext(GlobalContext)
 
   // {params.isCreating && <Backdrop />}

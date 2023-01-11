@@ -4,14 +4,6 @@ import ReusableControls from "../../reusableForms/reusableControls/ReusableContr
 //import {getMaritalCollection} from '../../../services/employeeService'
 //import * as employeeService from "../../../services/employeeService";
 
-// const useStyles = makeStyles((theme) => ({
-//   paper: {
-//     marginTop: theme.spacing(1),
-//     display: "flex",
-//     flexDirection: "column",
-//     //alignItems: 'center'
-//   },
-// }));
 const MyBox = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",

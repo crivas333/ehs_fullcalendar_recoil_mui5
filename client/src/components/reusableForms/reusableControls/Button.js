@@ -1,18 +1,8 @@
 import React from "react";
 import Button from "@mui/material/Button";
 
-// const useStyles = makeStyles(theme => ({
-//     root: {
-//         margin: theme.spacing(0.5)
-//     },
-//     label: {
-//         textTransform: 'none'
-//     }
-// }))
-
 export default function CustomButton(props) {
   const { text, size, color, variant, onClick, ...other } = props;
-  //const classes = useStyles();
 
   return (
     <Button

@@ -5,10 +5,6 @@ import React from "react";
 //import DisplayPatientData from '../components/patientData/DisplayPatientData'
 //import PatientSummary from '../components/patientData/PatientSummary'
 
-// import Button from '@material-ui/core/Button'
-
-//import Grid from '@material-ui/core/Grid'
-//import { makeStyles } from "@material-ui/core/styles";
 import { makeStyles } from "@mui/styles";
 // import Paper from '@material-ui/core/Paper'
 // import Scrollbar from 'rmw-shell/lib/components/Scrollbar'
@@ -17,8 +13,6 @@ import { makeStyles } from "@mui/styles";
 //import { GlobalContext } from '../context/GlobalState'
 //import { PatientList } from '../components/patientData/PatientList'
 //import Report from "../components/report/Report";
-//import AutoCompleteSF from "../components/patient/patientSearch/AutoCompleteSF";
-// import "./styles.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {

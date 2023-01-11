@@ -1,29 +1,22 @@
 import React from "react";
-import {
-  experimentalStyled as styled,
-  //useTheme,
-} from "@mui/material/styles";
+
+import { styled } from "@mui/material/styles";
 //import clsx from "clsx";
-//import AppBar from "@material-ui/core/AppBar";
-//import MuiAppBar from "@material-ui/core/AppBar";
+
 import MuiAppBar from "@mui/material/AppBar";
 //import CssBaseline from "@material-ui/core/CssBaseline";
-//import IconButton from "@material-ui/core/IconButton";
+
 import IconButton from "@mui/material/IconButton"; //Container
 
 // import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 //import MenuIcon from "@material-ui/icons/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-//import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-//import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-//import PatientIcon from "@material-ui/icons/PermContactCalendar";
 import PatientIcon from "@mui/icons-material/PermContactCalendar";
-//import Toolbar from "@material-ui/core/Toolbar";
+
 import Toolbar from "@mui/material/Toolbar";
 // import Typography from '@material-ui/core/Typography'
-//import { makeStyles } from "@material-ui/styles";
 
 import { SIGNOUT } from "../../graphqlClient/gqlQueries";
 //import { useMutation } from "@apollo/client";
@@ -37,64 +30,6 @@ import { isAuthState, currentUserState } from "../../context/RecoilStore";
 import { useSetRecoilState } from "recoil";
 
 const drawerWidth = 240;
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     display: "flex",
-//   },
-//   appBar: {
-//     zIndex: 1000, // Syncfusion Quick Popup z-Index: 1001
-//     transition: theme.transitions.create(["margin", "width"], {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.leavingScreen,
-//     }),
-//   },
-//   appBarShift: {
-//     width: `calc(100% - ${drawerWidth}px)`,
-//     marginLeft: drawerWidth,
-//     transition: theme.transitions.create(["margin", "width"], {
-//       easing: theme.transitions.easing.easeOut,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//   },
-//   menuButton: {
-//     marginRight: theme.spacing(0),
-//   },
-//   hide: {
-//     display: "none",
-//   },
-//   // drawer: {
-//   //   width: drawerWidth,
-//   //   flexShrink: 0,
-//   // },
-//   // drawerPaper: {
-//   //   width: drawerWidth,
-//   // },
-//   // drawerHeader: {
-//   //   display: "flex",
-//   //   alignItems: "center",
-//   //   padding: theme.spacing(0, 1),
-//   //   // necessary for content to be below app bar
-//   //   ...theme.mixins.toolbar,
-//   //   justifyContent: "flex-end",
-//   // },
-//   content: {
-//     flexGrow: 1,
-//     padding: theme.spacing(1),
-//     transition: theme.transitions.create("margin", {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.leavingScreen,
-//     }),
-//     marginLeft: -drawerWidth,
-//   },
-//   contentShift: {
-//     transition: theme.transitions.create("margin", {
-//       easing: theme.transitions.easing.easeOut,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//     marginLeft: 0,
-//   },
-// }));
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "openLeft" && prop !== "openRight",

@@ -9,13 +9,6 @@ import LastPageIcon from "@mui/icons-material/LastPage";
 import { useTheme } from "@mui/material/styles";
 import PropTypes from "prop-types";
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexShrink: 0,
-//     marginLeft: theme.spacing(2.5),
-//   },
-// }));
-
 export default function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;

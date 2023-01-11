@@ -1,16 +1,12 @@
 import React from "react";
 //import useMediaQuery from "@material-ui/core/useMediaQuery";
-//import Paper from "@material-ui/core/Paper";
-// import PropTypes from "prop-types";
-// import AppBar from "@material-ui/core/AppBar";
+
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 //import Hidden from "@material-ui/core/Hidden";
 
-//import { makeStyles, useTheme } from "@material-ui/styles";
-//import { useTheme } from "@material-ui/styles";
 // import ListSubheader from "@material-ui/core/ListSubheader";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -26,72 +22,6 @@ import { NavLink, useLocation } from "react-router-dom";
 import Profile from "./Profile";
 
 const drawerWidth = 240;
-
-// const useStyles = makeStyles((theme) => ({
-//   // root: {
-//   //   display: "flex",
-//   // },
-//   // appBar: {
-//   //   transition: theme.transitions.create(["margin", "width"], {
-//   //     easing: theme.transitions.easing.sharp,
-//   //     duration: theme.transitions.duration.leavingScreen,
-//   //   }),
-//   // },
-//   // appBarShift: {
-//   //   width: `calc(100% - ${drawerWidth}px)`,
-//   //   marginLeft: drawerWidth,
-//   //   transition: theme.transitions.create(["margin", "width"], {
-//   //     easing: theme.transitions.easing.easeOut,
-//   //     duration: theme.transitions.duration.enteringScreen,
-//   //   }),
-//   // },
-//   // menuButton: {
-//   //   marginRight: theme.spacing(0),
-//   // },
-//   // hide: {
-//   //   display: "none",
-//   // },
-//   // drawerMobile: {
-//   //   [theme.breakpoints.up("sm")]: {
-//   //     width: drawerWidth,
-//   //     flexShrink: 0,
-//   //   },
-//   // },
-//   // drawerPaperMobile: {
-//   //   width: drawerWidth,
-//   // },
-//   // drawer: {
-//   //   width: drawerWidth,
-//   //   flexShrink: 0,
-//   // },
-//   // drawerPaper: {
-//   //   width: drawerWidth,
-//   // },
-//   // drawerHeader: {
-//   //   display: "flex",
-//   //   alignItems: "center",
-//   //   padding: theme.spacing(0, 1),
-//   //   // necessary for content to be below app bar
-//   //   ...theme.mixins.toolbar,
-//   //   justifyContent: "flex-end",
-//   // },
-//   // content: {
-//   //   flexGrow: 1,
-//   //   padding: theme.spacing(0),
-//   //   transition: theme.transitions.create("margin", {
-//   //     easing: theme.transitions.easing.sharp,
-//   //     duration: theme.transitions.duration.leavingScreen,
-//   //   }),
-//   //   marginLeft: -drawerWidth,
-//   // },
-//   // contentShift: {
-//   //   transition: theme.transitions.create("margin", {
-//   //     easing: theme.transitions.easing.easeOut,
-//   //     duration: theme.transitions.duration.enteringScreen,
-//   //   }),
-//   //   marginLeft: 0,
-//   // },
-// }));
 
 function ResponsiveDrawer(props) {
   const { window } = props;
