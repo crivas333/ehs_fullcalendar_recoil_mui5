@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from "react";
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 //import { GlobalContext } from "../../context/GlobalState";
 import ApplicationFieldsTable from "./ApplicationFieldsTable";
@@ -8,15 +8,15 @@ import EditForm from "./EditForm";
 import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
 import { getExamFieldsCollection } from "../../services/configService";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     flexGrow: 1,
+//   },
+//   container: {
+//     paddingTop: theme.spacing(4),
+//     paddingBottom: theme.spacing(4),
+//   },
+// }));
 const initialFormState = {
   id: null,
   fieldView: "",
@@ -25,7 +25,7 @@ const initialFormState = {
 };
 //export default function Appointment () {
 export default function EncounterControlCfg(props) {
-  const classes = useStyles();
+  //const classes = useStyles();
   //const { customData } = useContext(GlobalContext)
   //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   //const {
@@ -92,7 +92,9 @@ export default function EncounterControlCfg(props) {
   };
 
   return (
-    <div className={classes.root}>
+    <div
+    //className={classes.root}
+    >
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <ReusableControls.CustomSelect

@@ -2,27 +2,27 @@ import React, { useContext } from "react";
 
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 import Exam from "../components/exam/Exam";
 import { GlobalContext } from "../context/GlobalState";
 //import TableExams from '../components/exams/TableExams'
 //import AutoCompleteSF from '../components/patient/patientSearch/AutoCompleteSF'
 // import "./styles.css";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     flexGrow: 1,
+//   },
+//   paper: {
+//     padding: theme.spacing(1),
+//     textAlign: "center",
+//     color: theme.palette.text.secondary,
+//   },
+// }));
 
 //export default function Appointment () {
 export default function ExamView() {
-  const classes = useStyles();
+  //const classes = useStyles();
   //const { currentPatient } = useContext(GlobalContext)
   const { loadedConfigData } = useContext(GlobalContext);
 
@@ -35,8 +35,10 @@ export default function ExamView() {
   // <Container maxWidth="lg" className={classes.container}>
   // <Grid item xs={12} md={8} lg={9}>
   return (
-    <div className={classes.root}>
-      <Container className={classes.container}>
+    <div //className={classes.root}
+    >
+      <Container //className={classes.container}
+      >
         <Grid container spacing={3}>
           <Grid item xs={12}>
             {loadedConfigData && <Exam />}

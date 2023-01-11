@@ -6,18 +6,18 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import { useTheme } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 //import PropTypes from "prop-types";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexShrink: 0,
-    marginLeft: theme.spacing(2.5),
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     flexShrink: 0,
+//     marginLeft: theme.spacing(2.5),
+//   },
+// }));
 
 const TablePaginationActions = (props) => {
-  const classes = useStyles();
+  //const classes = useStyles();
   const theme = useTheme();
   const { count, page, rowsPerPage, myChangePage } = props;
 
@@ -38,7 +38,8 @@ const TablePaginationActions = (props) => {
   };
 
   return (
-    <div className={classes.root}>
+    <div //className={classes.root}
+    >
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}

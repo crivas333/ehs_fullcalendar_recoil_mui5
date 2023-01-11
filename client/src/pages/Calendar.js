@@ -1,24 +1,29 @@
 import React from "react";
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 import MyFullCalendar from "../components/scheduler/MyFullCalendar";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     flexGrow: 1,
+//   },
+//   paper: {
+//     padding: theme.spacing(1),
+//     textAlign: "center",
+//     color: theme.palette.text.secondary,
+//   },
+// }));
 
 //export default function Appointment () {
 export default function Calendar() {
-  const classes = useStyles();
+  //const classes = useStyles();
   //const { currentPatient } = useContext(GlobalContext)
 
-  return <div className={classes.root}>{<MyFullCalendar />}</div>;
+  return (
+    <div //className={classes.root}
+    >
+      {<MyFullCalendar />}
+    </div>
+  );
 }
 // <AutoCompleteSF />
 /*

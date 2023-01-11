@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 //import CssBaseline from '@material-ui/core/CssBaseline'
 //import Container from '@material-ui/core/Container'
 import Button from "@mui/material/Button";
@@ -14,27 +14,27 @@ import {
 import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
 import { getFieldsDataCollection } from "../../services/configService";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      //width: '25ch',
-      width: "100%", // Fix IE 11 issue.
-    },
-  },
-  input: {
-    textTransform: "uppercase",
-    // autoComplete: 'off'
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-    color: purple,
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     "& .MuiTextField-root": {
+//       margin: theme.spacing(1),
+//       //width: '25ch',
+//       width: "100%", // Fix IE 11 issue.
+//     },
+//   },
+//   input: {
+//     textTransform: "uppercase",
+//     // autoComplete: 'off'
+//   },
+//   form: {
+//     width: "100%", // Fix IE 11 issue.
+//     marginTop: theme.spacing(1),
+//     color: purple,
+//   },
+// }));
 
 const EditExamForm = (props) => {
-  const classes = useStyles();
+  //const classes = useStyles();
 
   const validate = (fieldValues = values) => {
     //console.log('EditExampleForm - validate')
@@ -81,7 +81,10 @@ const EditExamForm = (props) => {
   //<ReusableForm onSubmit={handleSubmit} >
   return (
     <ReusableForm onSubmit={handleSubmit}>
-      <Grid container className={classes.form}>
+      <Grid
+        container
+        //className={classes.form}
+      >
         <Grid item xs={12} sm={6}>
           <ReusableControls.CustomInput
             name="historyId"
@@ -124,7 +127,7 @@ const EditExamForm = (props) => {
           //fullWidth
           variant="contained"
           color="primary"
-          className={classes.button}
+          //className={classes.button}
         >
           ENVIAR
         </Button>

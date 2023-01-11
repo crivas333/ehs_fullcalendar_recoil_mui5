@@ -5,7 +5,7 @@ import React from "react";
 //import DisplayPatientData from '../components/patientData/DisplayPatientData'
 //import PatientSummary from '../components/patientData/PatientSummary'
 
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 // import Paper from '@material-ui/core/Paper'
 // import Scrollbar from 'rmw-shell/lib/components/Scrollbar'
 // import { Scrollbars } from 'react-custom-scrollbars'
@@ -14,23 +14,26 @@ import { makeStyles } from "@mui/styles";
 //import { PatientList } from '../components/patientData/PatientList'
 //import Report from "../components/report/Report";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     flexGrow: 1,
+//   },
+//   paper: {
+//     padding: theme.spacing(1),
+//     textAlign: "center",
+//     color: theme.palette.text.secondary,
+//   },
+// }));
 
 //export default function Appointment () {
 export default function Reports() {
-  const classes = useStyles();
+  //const classes = useStyles();
   //const { currentPatient } = useContext(GlobalContext)
 
-  return <div className={classes.root}></div>;
+  return (
+    <div //className={classes.root}
+    ></div>
+  );
 }
 // <AutoCompleteSF />
 /*

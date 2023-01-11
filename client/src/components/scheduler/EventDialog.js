@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-//import { Grid } from "@material-ui/core";
 import { useQueryClient } from "react-query";
 import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
 import {
@@ -11,7 +10,6 @@ import {
 import * as appointmentService from "../../services/configService";
 //import { GlobalContext } from "../../context/GlobalState";
 import useMediaQuery from "@mui/material/useMediaQuery";
-//import Button from "@material-ui/core/Button";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -37,7 +35,7 @@ export default function EventDialog(props) {
   //const matches = useMediaQuery(theme.breakpoints.up("sm"));
   //const theme = useTheme();
   const matches = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-  //const classes = useStyles();
+
   const [openConfirmation, setOpenConfirmation] = useState(false);
   //const { applicationFields } = useContext(GlobalContext);
   const queryClient = useQueryClient();
@@ -368,126 +366,3 @@ export default function EventDialog(props) {
   );
 }
 //<span style={{ display: matches ? "inline" : "none" }}>
-//<span className={classes.buttonText}>Guardar</span>
-/*
-const useStyles = makeStyles((theme) => ({
-  buttonText: {
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
-}));
-*/
-
-/*
- <DialogTitle>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-          >
-            {isEditing ? (
-              <span>Actualizar Cita</span>
-            ) : (
-              <span>Añadir Cita</span>
-            )}
-            <IconButton aria-label="close" onClick={handleDialogClose}>
-              <CloseIcon />
-            </IconButton>
-          </Grid>
-        </DialogTitle>
-*/
-/*
- <Button
-                onClick={handleDialogClose}
-                color="primary"
-                //variant="outlined"
-              >
-                Cancelar
-              </Button>
-*/
-/*
-<DialogTitle id="form-dialog-title">
-          {isEditing ? <span>Actualizar Cita</span> : <span>Añadir Cita</span>}
-          <IconButton>
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-*/
-
-/*
- <Grid container>
-              <Grid item xs={12}>
-                <AsyncSelectForFullCalendar
-                  onValChange={onAutoCompleteChange}
-                />
-                <ReusableControls.CustomInputIconDelete
-                  name="fullName"
-                  label="Seleccione Paciente Registrado"
-                  value={values.fullName}
-                  error={errors.fullName}
-                  handleIconClick={handleIconFullName}
-                  readOnly={true}
-                  variante="outlined"
-                />
-                <ReusableControls.CustomInputIconEdit
-                  name="notRegistered"
-                  label="Paciente No Registrado"
-                  value={values.notRegistered}
-                  onChange={handleInputChange}
-                  error={errors.notRegistered}
-                  handleIconClick={handleIconNotRegistered}
-                />
-
-                <ReusableControls.CustomSelect
-                  name="appointmentType"
-                  label="Tipo de Cita"
-                  value={values.appointmentType}
-                  onChange={handleInputChange}
-                  options={appointmentService.getFieldsDataCollection(
-                    applicationFields,
-                    "appointmentView",
-                    "appointmentType"
-                  )}
-                  error={errors.appointmentType}
-                />
-                <ReusableControls.CustomSelect
-                  name="appointmentStatus"
-                  label="Estado de la Cita"
-                  value={values.appointmentStatus}
-                  onChange={handleInputChange}
-                  options={appointmentService.getFieldsDataCollection(
-                    applicationFields,
-                    "appointmentView",
-                    "appointmentStatus"
-                  )}
-                />
-                <ReusableControls.PlainDateTimePicker
-                  name="start"
-                  label="Fecha de Inicio de Cita"
-                  value={values.start}
-                  onChange={handleInputChange}
-                  error={errors.start}
-                />
-                <ReusableControls.PlainDateTimePicker
-                  name="end"
-                  label="Fecha de Fin de Cita"
-                  value={values.end}
-                  onChange={handleInputChange}
-                  error={errors.end}
-                />
-              </Grid>
-            </Grid>
-*/
-/*
- <Button
-                type="submit"
-                //fullWidth
-                variant="contained"
-                color="primary"
-                //className={classes.button}
-              >
-                ENVIAR
-              </Button>
-*/

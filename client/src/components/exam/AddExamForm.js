@@ -1,13 +1,9 @@
 import React from "react";
-import { makeStyles } from "@mui/styles";
-//import CssBaseline from '@material-ui/core/CssBaseline'
-//import Container from '@material-ui/core/Container'
-//import CssBaseline from '@material-ui/core/CssBaseline'
-//import Container from '@material-ui/core/Container'
+//import { makeStyles } from "@mui/styles";
+
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-//import FormControl from '@material-ui/core/FormControl'
-//import InputLabel from '@material-ui/core/InputLabel'
+
 import {
   useReusableForm,
   ReusableForm,
@@ -17,36 +13,36 @@ import { getFieldsDataCollection } from "../../services/configService";
 //import {getExamFieldsDataCollection} from '../../services/configService'
 //import { GlobalContext } from '../../context/GlobalState'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      //width: '25ch',
-      width: "100%", // Fix IE 11 issue.
-    },
-  },
-  input: {
-    textTransform: "uppercase",
-    // autoComplete: 'off'
-  },
-  paper: {
-    marginTop: theme.spacing(1),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     "& .MuiTextField-root": {
+//       margin: theme.spacing(1),
+//       //width: '25ch',
+//       width: "100%", // Fix IE 11 issue.
+//     },
+//   },
+//   input: {
+//     textTransform: "uppercase",
+//     // autoComplete: 'off'
+//   },
+//   paper: {
+//     marginTop: theme.spacing(1),
+//     display: "flex",
+//     flexDirection: "column",
+//     alignItems: "center",
+//   },
 
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  button: {
-    marginTop: "10px",
-  },
-}));
+//   form: {
+//     width: "100%", // Fix IE 11 issue.
+//     marginTop: theme.spacing(1),
+//   },
+//   button: {
+//     marginTop: "10px",
+//   },
+// }));
 
 const AddExamForm = (props) => {
-  const classes = useStyles();
+  //const classes = useStyles();
   //const {applicationFields } = useContext(GlobalContext)
 
   const initialFValues = {
@@ -138,7 +134,7 @@ const AddExamForm = (props) => {
           //fullWidth
           variant="contained"
           color="primary"
-          className={classes.button}
+          //className={classes.button}
         >
           ENVIAR
         </Button>

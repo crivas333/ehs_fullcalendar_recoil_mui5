@@ -1,7 +1,7 @@
 // import Head from "next/head";
 import React from "react";
 // import Navbar from "./Navigation/MainNavigation";
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 // import SideBar from "./SideBar";
 
 // const Layout = (props) => (
@@ -12,15 +12,21 @@ import { makeStyles } from "@mui/styles";
 // );
 
 // export default Layout;
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     display: "flex",
+//   },
+// }));
 
 export default function AuthLayout(props) {
-  const classes = useStyles();
-  return <div className="container">{props.children}</div>;
+  //const classes = useStyles();
+  return (
+    <div
+    //className="container"
+    >
+      {props.children}
+    </div>
+  );
 }
 
 /*

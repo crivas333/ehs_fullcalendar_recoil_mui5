@@ -8,11 +8,8 @@ import {
   //useSetRecoilState,
 } from "recoil";
 import AddEventDialogAppo from "./AddEventDialog";
-import clsx from "clsx";
-//import DeleteIcon from "@material-ui/icons/Delete";
 import GlobalFilter from "./GlobalFilter";
-//import IconButton from "@material-ui/core/IconButton";
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 import { lighten } from "@mui/material/styles/";
 //import PropTypes from 'prop-types'
 import Toolbar from "@mui/material/Toolbar";
@@ -23,26 +20,26 @@ import TextField from "@mui/material/TextField";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { searchDateState } from "../../context/RecoilStore";
 
-const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-  },
-  highlight:
-    theme.palette.type === "light"
-      ? {
-          color: theme.palette.secondary.main,
-          //backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-          backgroundColor: lighten(theme.palette.secondary.light, 0.75),
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
-  title: {
-    flex: "1 1 100%",
-  },
-}));
+// const useToolbarStyles = makeStyles((theme) => ({
+//   root: {
+//     paddingLeft: theme.spacing(2),
+//     paddingRight: theme.spacing(1),
+//   },
+//   highlight:
+//     theme.palette.type === "light"
+//       ? {
+//           color: theme.palette.secondary.main,
+//           //backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+//           backgroundColor: lighten(theme.palette.secondary.light, 0.75),
+//         }
+//       : {
+//           color: theme.palette.text.primary,
+//           backgroundColor: theme.palette.secondary.dark,
+//         },
+//   title: {
+//     flex: "1 1 100%",
+//   },
+// }));
 
 const TableToolbar = (props) => {
   //const classes = useToolbarStyles();
