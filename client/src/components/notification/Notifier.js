@@ -1,5 +1,6 @@
 import React from "react";
 //import Button from '@material-ui/core/Button';
+import { useTheme } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import SnackbarContent from "@mui/material/SnackbarContent";
 import IconButton from "@mui/material/IconButton";
@@ -30,13 +31,15 @@ let openSnackbarFn;
 //   console.log('openSnackbarExported: ',{notificationObj})
 //   openSnackbarFn({notificationObj} );
 // }
+
 function openSnackbarExported({ message, status }) {
   console.log("openSnackbarExported: ", { message, status });
   openSnackbarFn({ message, status });
 }
 
 function Notifier(props) {
-  const classes = useStyles();
+  //const classes = useStyles();
+  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [status, setStatus] = React.useState("");
@@ -82,11 +85,18 @@ function Notifier(props) {
       >
         <SnackbarContent
           //className={classes.content_success}
-          className={
-            status === "success"
-              ? classes.content_success
-              : classes.content_error
-          }
+          // className={
+          //   status === "success"
+          //     ? classes.content_success
+          //     : classes.content_error
+          // }
+
+          sx={{
+            backgroundColor:
+              status === "success"
+                ? theme.palette.success.main
+                : theme.palette.error.main,
+          }}
           message={message}
           action={
             <IconButton
