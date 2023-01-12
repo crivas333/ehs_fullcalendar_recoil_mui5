@@ -13,7 +13,7 @@ import TablePaginationActions from "./ExamTablePaginationActions";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 import TableToolbar from "./TableToolbar";
 import {
   useGlobalFilter,
@@ -24,25 +24,25 @@ import {
 } from "react-table";
 //import { findBreakingChanges } from 'graphql'
 
-const useStyles = makeStyles((theme) => ({
-  selected: {
-    backgroundColor: "green !important",
-    "&:hover": {
-      backgroundColor: "green !important",
-    },
-  },
-  cellHeader: {
-    width: "10%",
-    //fontSize: '08pt',
-    fontSize: "12px",
-    backgroundColor: "grey",
-  },
-  cellBody: {
-    width: "10%",
-    fontSize: "12px",
-    backgroundColor: "green",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   selected: {
+//     backgroundColor: "green !important",
+//     "&:hover": {
+//       backgroundColor: "green !important",
+//     },
+//   },
+//   cellHeader: {
+//     width: "10%",
+//     //fontSize: '08pt',
+//     fontSize: "12px",
+//     backgroundColor: "grey",
+//   },
+//   cellBody: {
+//     width: "10%",
+//     fontSize: "12px",
+//     backgroundColor: "green",
+//   },
+// }));
 
 const EnhancedTable = ({
   columns,
@@ -93,7 +93,7 @@ const EnhancedTable = ({
     }
   );
 
-  const classes = useStyles();
+  //const classes = useStyles();
   const handleChangePage = (newPage) => {
     gotoPage(newPage);
   };
@@ -161,7 +161,7 @@ const EnhancedTable = ({
                   return (
                     <TableCell
                       {...cell.getCellProps()}
-                      className={classes.cellBody}
+                      //className={classes.cellBody}
                     >
                       {cell.render("Cell")}
                     </TableCell>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import request from "graphql-request";
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 import EncounterControl from "../components/systemConfig/EncounterControl";
 import ExamControl from "../components/systemConfig/ExamControl";
@@ -24,20 +24,20 @@ import Notify from "../components/notification/Notify";
 //   import("../components/systemConfig/AppointmentControl")
 // );
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-  container: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(4),
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     flexGrow: 1,
+//   },
+//   paper: {
+//     padding: theme.spacing(1),
+//     textAlign: "center",
+//     color: theme.palette.text.secondary,
+//   },
+//   container: {
+//     paddingTop: theme.spacing(2),
+//     paddingBottom: theme.spacing(4),
+//   },
+// }));
 
 async function addHelper(data) {
   console.log("addHelper: ", data);
@@ -59,7 +59,7 @@ async function deleteHelper(data) {
 }
 
 export default function SystemConfig() {
-  const classes = useStyles();
+  //const classes = useStyles();
   //const { customData } = useContext(GlobalContext)
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData("applicationFields");
@@ -151,7 +151,8 @@ export default function SystemConfig() {
   // }
 
   return (
-    <div className={classes.root}>
+    <div //className={classes.root}
+    >
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <EncounterControl

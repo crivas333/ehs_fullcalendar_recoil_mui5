@@ -7,17 +7,17 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 //import MuiAlert from '@material-ui/lab/Alert';
 
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles((theme) => ({
-  content_success: {
-    //backgroundColor: theme.palette.success.light
-    backgroundColor: theme.palette.success.main,
-  },
-  content_error: {
-    backgroundColor: theme.palette.error.main,
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   content_success: {
+//     //backgroundColor: theme.palette.success.light
+//     backgroundColor: theme.palette.success.main,
+//   },
+//   content_error: {
+//     backgroundColor: theme.palette.error.main,
+//   },
+// }));
 // function Alert(props) {
 //   return <MuiAlert elevation={6} variant="filled" {...props} />;
 // }

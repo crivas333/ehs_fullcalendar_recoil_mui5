@@ -9,7 +9,7 @@ import Tabs from "@mui/material/Tabs";
 // import Close from "@material-ui/icons/Close";
 // import Typography from "@material-ui/core/Typography";
 import Box from "@mui/material/Box";
-import { makeStyles } from "@material-ui/styles";
+//import { makeStyles } from "@material-ui/styles";
 
 // I was stuck at deleting Tab, however, I found this thread from Rahul-RB on git
 // https://gist.github.com/Rahul-RB/273dbb24faf411fa6cc37488e1af2415

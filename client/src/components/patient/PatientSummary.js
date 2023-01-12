@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 import format from "date-fns/format";
 // import FormControl from '@material-ui/core/FormControl'
 // import { useForm } from 'react-hook-form'
 //import { GlobalContext } from "../../context/GlobalState";
+import Box from "@mui/material/Box";
 import { currentPatientState } from "../../context/RecoilStore";
 //import { useRecoilState } from "recoil";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    //marginTop: theme.spacing(0),
-    display: "flex",
-    flexDirection: "column",
-  },
-  // spanMobile:{
-  //   //whiteSpace:'pre-wrap',
-  //   lineHeight: '14px',
-  // }
-}));
+// const useStyles = makeStyles((theme) => ({
+//   paper: {
+//     //marginTop: theme.spacing(0),
+//     display: "flex",
+//     flexDirection: "column",
+//   },
+//   // spanMobile:{
+//   //   //whiteSpace:'pre-wrap',
+//   //   lineHeight: '14px',
+//   // }
+// }));
 
 //const nbsp = '\u00A0';
 //const breakline = '\u000A';
@@ -32,7 +33,7 @@ function NewlineText(props) {
 }
 
 export default function PatientSummary(props) {
-  const classes = useStyles();
+  //const classes = useStyles();
   //const { currentPatient } = useContext(GlobalContext);
   const currPatient = useRecoilValue(currentPatientState);
   const [textMobile, setTextMobile] = useState("");
@@ -98,18 +99,42 @@ export default function PatientSummary(props) {
 
   if (isMobile) {
     return (
-      <div className={classes.paper}>
+      <div //className={classes.paper}
+      >
         <span style={{ lineHeight: "14px" }}>{textMobile}</span>
       </div>
     );
   } else {
     return (
-      <div className={classes.paper}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          //fontWeight: "bold",
+          //mx: 0.5,
+          //fontSize: 14,
+        }}
+      >
         <NewlineText text={textPC}></NewlineText>
-      </div>
+      </Box>
     );
   }
 }
+
+/*
+ <div //className={classes.paper}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          //fontWeight: "bold",
+          //mx: 0.5,
+          //fontSize: 14,
+        }}
+      >
+        <NewlineText text={textPC}></NewlineText>
+      </div>
+
+*/
 
 /*
  <div className={classes.paper}>  

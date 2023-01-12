@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from "react";
 
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import ButtonGroup from "@mui/material/ButtonGroup";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      //width: '25ch',
-      width: "100%", // Fix IE 11 issue.
-    },
-  },
-  input: {
-    textTransform: "uppercase",
-    // autoComplete: 'off'
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     "& .MuiTextField-root": {
+//       margin: theme.spacing(1),
+//       //width: '25ch',
+//       width: "100%", // Fix IE 11 issue.
+//     },
+//   },
+//   input: {
+//     textTransform: "uppercase",
+//     // autoComplete: 'off'
+//   },
+// }));
 
 const EditFieldForm = (props) => {
-  const classes = useStyles();
+  //const classes = useStyles();
   const [data, setData] = useState(props.editingValue);
   //const [ data, setData ] = useState('')
   useEffect(() => {
@@ -38,7 +38,7 @@ const EditFieldForm = (props) => {
 
   return (
     <form
-      className={classes.root}
+      //className={classes.root}
       onSubmit={(event) => {
         event.preventDefault();
         props.updateField(data);
@@ -47,7 +47,7 @@ const EditFieldForm = (props) => {
     >
       <div>
         <TextField
-          inputProps={{ className: classes.input }}
+          //inputProps={{ className: classes.input }}
           label="Campo"
           variant="outlined"
           size="small"
@@ -63,7 +63,7 @@ const EditFieldForm = (props) => {
           type="submit"
           variant="contained"
           color="primary"
-          className={classes.submit}
+          //className={classes.submit}
         >
           ACTUALIZAR
         </Button>

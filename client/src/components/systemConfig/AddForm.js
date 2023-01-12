@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { makeStyles } from "@mui/styles";
+//import { makeStyles } from "@mui/styles";
 //import CssBaseline from '@material-ui/core/CssBaseline'
 
 import Button from "@mui/material/Button";
@@ -8,22 +8,22 @@ import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 //import InputLabel from '@material-ui/core/InputLabel'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      //width: '25ch',
-      width: "100%", // Fix IE 11 issue.
-    },
-  },
-  input: {
-    textTransform: "uppercase",
-    // autoComplete: 'off'
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     "& .MuiTextField-root": {
+//       margin: theme.spacing(1),
+//       //width: '25ch',
+//       width: "100%", // Fix IE 11 issue.
+//     },
+//   },
+//   input: {
+//     textTransform: "uppercase",
+//     // autoComplete: 'off'
+//   },
+// }));
 
 const AddUserForm = (props) => {
-  const classes = useStyles();
+  //const classes = useStyles();
   const [data, setData] = useState("");
   const handleInputChange = (event) => {
     //const { name, value } = event.target
@@ -33,7 +33,7 @@ const AddUserForm = (props) => {
 
   return (
     <form
-      className={classes.root}
+      //className={classes.root}
       onSubmit={(event) => {
         event.preventDefault();
         if (!data) return;
@@ -42,9 +42,10 @@ const AddUserForm = (props) => {
       }}
     >
       <div>
-        <FormControl className={classes.formControl}>
+        <FormControl //className={classes.formControl}
+        >
           <TextField
-            inputProps={{ className: classes.input }}
+            //inputProps={{ className: classes.input }}
             label="Campo"
             variant="outlined"
             type="text"
@@ -60,7 +61,7 @@ const AddUserForm = (props) => {
         type="submit"
         variant="contained"
         color="primary"
-        className={classes.submit}
+        //className={classes.submit}
       >
         AÑADIR
       </Button>
