@@ -25,7 +25,63 @@ const selectStyles = {
   menu: (base) => ({
     ...base,
     zIndex: 100,
+    //textTransform: "uppercase",
   }),
+  // control: (baseStyles, state) => ({
+  //   ...baseStyles,
+  //   borderColor: state.isFocused ? "violet" : "red",
+  //}),
+  // input: (styles) => ({
+  //   ...styles,
+  //   color: "green",
+  //   //margin: 100,
+  // }),
+  // input: (provided) => ({
+  //   ...provided,
+  //   color: "red",
+  //   ":before": {
+  //     textTransform: "uppercase",
+  //   },
+  // }),
+  // input: (provided) => ({
+  //   ...provided,
+  //   color: "red",
+  //   textTransform: "uppercase",
+  // }),
+  input: (base) => ({
+    ...base,
+    color: "red",
+    textTransform: "uppercase",
+  }),
+  // input: () => ({
+  //   color: "violet",
+  //   textTransform: "uppercase",
+  // }),
+  // input: (style) => ({
+  //   ...style,
+  //   //color: "red",
+  //   textTransform: "uppercase",
+  // }),
+  // valueContainer: (styles) => ({
+  //   ...styles,
+  //   textTransform: "uppercase",
+  //   borderInlineStartColor: "lavender",
+  // }),
+  // indicatorContainer: (styles) => ({
+  //   ...styles,
+  //   textTransform: "uppercase",
+  //   borderInlineStartColor: "lavender",
+  // }),
+  //singleValue: (styles) => ({ ...styles, textTransform: "uppercase" }),
+  // input: (base) => ({
+  //   ...base,
+  //   textTransform: "uppercase",
+  // }),
+  // control: (baseStyles, state) => ({
+  //   ...baseStyles,
+  //   transform: "uppercase",
+  // }),
+  //placeholder: (styles) => ({ ...styles, textTransform: "lowercase" }),
 };
 
 // const formatOptionLabel = ({ historyId, lastName, lastName2, firstName }) => (
@@ -63,6 +119,7 @@ const loadOptions = async (input, cb) => {
     console.log(err);
   }
 };
+
 async function getPatientById(id) {
   try {
     const res = await request("/graphql", SEARCH_PATIENT_BY_ID, {
@@ -84,8 +141,13 @@ export default function AsyncSelectAC() {
   //const { getPatientByIdAPOLLO, updateActionExam } = useContext(GlobalContext);
   const [selectedValue, setSelectedValue] = useState(null);
 
+  const handleOnKeyDown = (e) => {
+    //console.log(e.key.toUpperCase());
+    console.log(e.key);
+  };
   // handle input change event
   const handleInputChange = (inputValue) => {
+    //console.log("AsyncSelect-inputValue: ", inputValue.toUpperCase());
     return inputValue.toUpperCase();
   };
 
@@ -109,10 +171,12 @@ export default function AsyncSelectAC() {
         autoFocus
         isClearable
         //styles={customStyles}
-        //style={{width:"300px"}}
+        //style={{ width: "100px" }}
         //components={{ Input }}
         formatOptionLabel={formatOptionLabel}
-        //className='boxSize'
+        //className="boxSize"
+
+        //className="inputText" //works on options
         placeholder="Busque por A. Paterno"
         //className="select"
         //cacheOptions
@@ -123,7 +187,7 @@ export default function AsyncSelectAC() {
         loadOptions={loadOptions}
         onInputChange={handleInputChange}
         onChange={handleChange}
-        //onChange={opt => setArtist(opt)}
+        onKeyDown={handleOnKeyDown}
         //formatGroupLabel={formatGroupLabel}
       />
     </div>
