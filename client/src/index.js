@@ -1,5 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import { request } from "graphql-request";
 
@@ -126,72 +127,10 @@ const renderApp = (currSession) => {
     </RecoilRoot>
   );
 
-  ReactDOM.render(RootApp(App), document.getElementById("root"));
+  //ReactDOM.render(RootApp(App), document.getElementById("root"));
+  const container = document.getElementById("root");
+  const root = createRoot(container); // createRoot(container!) if you use TypeScript
+  root.render(RootApp(App));
 };
 
 (async () => renderApp(await checkLoggedIn()))();
-
-//ReactDOM.render(ApolloApp(App), document.getElementById('root'))
-
-/*
-  const ApolloApp = (AppComponent) => (
-    <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <ApolloProvider client={client}>
-          <GlobalProvider>
-            <React.StrictMode>
-              <AppComponent />
-            </React.StrictMode>
-          </GlobalProvider>
-        </ApolloProvider>
-      </QueryClientProvider>
-    </ThemeProvider>
-  );
-
-*/
-// async function checkLoggedIn111 (currSession) {
-//   const requestBody = {
-//     query: IS_THERE_OPEN_SESSION_FETCH
-//   }
-//   // const requestBody = {
-//   //   query: `
-//   //   query{
-//   //     openSession{
-//   //       id
-//   //       firstName
-//   //       lastName
-//   //       userName
-//   //       email
-//   //     }
-//   //   }
-//   // `
-//   // }
-
-//   // currSession = await fetch('http://localhost:4000/graphql', {
-//   currSession = await fetch('/graphql', {
-//     method: 'POST',
-//     credentials: 'same-origin',
-//     // credentials: 'include',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(requestBody)
-//   })
-//     .then(res => {
-//       if (res.status !== 200 && res.status !== 201) {
-//         throw new Error('Failed!')
-//       }
-//       return res.json()
-//     })
-//     .then(resData => {
-//       // const events = resData.data;
-//       // console.log("fetch: ",resData.data);
-//       const currentSession = resData.data.openSession
-//       return (currentSession)
-//     })
-//     .catch(err => {
-//       console.log(err)
-//     })
-//     // console.log("currSession: ",currSession);
-//   return (currSession)
-// }
