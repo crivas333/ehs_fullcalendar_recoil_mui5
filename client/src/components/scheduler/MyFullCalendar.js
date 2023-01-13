@@ -5,10 +5,14 @@ import React, { useState } from "react";
 import Tooltip from "@mui/material/Tooltip";
 //import Typography from "@material-ui/core/Typography";
 import FullCalendar from "@fullcalendar/react";
+//import { CalendarOptions } from '@fullcalendar/core'
 //import { formatDate } from '@fullcalendar/react';
+//import { formatDate } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+//import listPlugin from "@fullcalendar/list";
+
 import request from "graphql-request";
 
 import EventDialog from "./EventDialog";
