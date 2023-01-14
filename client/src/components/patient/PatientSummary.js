@@ -4,7 +4,6 @@ import { useRecoilValue } from "recoil";
 //import { makeStyles } from "@mui/styles";
 import format from "date-fns/format";
 // import FormControl from '@material-ui/core/FormControl'
-// import { useForm } from 'react-hook-form'
 //import { GlobalContext } from "../../context/GlobalState";
 import Box from "@mui/material/Box";
 import { currentPatientState } from "../../context/RecoilStore";

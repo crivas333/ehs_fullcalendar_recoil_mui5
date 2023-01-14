@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 
-//import { useMutation } from '@apollo/client'
 import { useRecoilState } from "recoil";
 import { useMutation } from "react-query";
 import request from "graphql-request";
-import {
-  CREATE_PATIENT,
-  UPDATE_PATIENT,
-  DELETE_PATIENT,
-} from "../graphqlClient/gqlQueries";
 
+import AsyncSelectAC from "../components/patient/patientSearch/AsyncSelectAC";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Grid from "@mui/material/Grid";
 
 import Box from "@mui/material/Box";
 
-import AsyncSelectAC from "../components/patient/patientSearch/AsyncSelectAC";
+import {
+  CREATE_PATIENT,
+  UPDATE_PATIENT,
+  DELETE_PATIENT,
+} from "../graphqlClient/gqlQueries_patient";
+
 import { DisplayPatientTabForm } from "../components/patient/patientNew/DisplayPatientTabForm";
 import { NewPatientTabForm } from "../components/patient/patientNew/NewPatientTabForm";
 import { UpdatePatientTabForm } from "../components/patient/patientNew/UpdatePatientTabForm";

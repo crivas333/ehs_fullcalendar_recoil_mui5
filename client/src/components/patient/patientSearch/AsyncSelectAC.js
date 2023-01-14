@@ -14,7 +14,7 @@ import request from "graphql-request";
 import {
   SEARCH_PATIENT_BY_LASTNAME,
   SEARCH_PATIENT_BY_ID,
-} from "../../../graphqlClient/gqlQueries";
+} from "../../../graphqlClient/gqlQueries_patient";
 import {
   currentPatientState,
   //getPatientByIdFamSel,

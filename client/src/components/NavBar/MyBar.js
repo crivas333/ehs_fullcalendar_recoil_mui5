@@ -18,7 +18,7 @@ import PatientIcon from "@mui/icons-material/PermContactCalendar";
 import Toolbar from "@mui/material/Toolbar";
 // import Typography from '@material-ui/core/Typography'
 
-import { SIGNOUT } from "../../graphqlClient/gqlQueries";
+import { SIGNOUT } from "../../graphqlClient/gqlQueries_sessions";
 //import { useMutation } from "@apollo/client";
 import { useMutation } from "react-query";
 import request from "graphql-request";

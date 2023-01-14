@@ -1,5 +1,5 @@
 import React from "react";
-import { experimentalStyled as styled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import ReusableControls from "../../reusableForms/reusableControls/ReusableControls";
 import {
   getSexCollection,

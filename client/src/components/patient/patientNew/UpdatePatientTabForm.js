@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import Button from "@mui/material/Button";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { experimentalStyled as styled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 
 import { UpdatePatientTab1 } from "./UpdatePatientTab1";
 import { UpdatePatientTab2 } from "./UpdatePatientTab2";

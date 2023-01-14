@@ -1,13 +1,12 @@
 import React from "react";
 import AsyncSelect from "react-select/async";
 //import {components} from 'react-select';
-//import { client } from "../../../graphqlClient/apolloClient";
 import request from "graphql-request";
 //import { GlobalContext } from "../../../context/GlobalState";
 import {
   AUTOCOMPLETE_SEARCH_PATIENT_BY_ID,
   SEARCH_PATIENT_BY_LASTNAME,
-} from "../../../graphqlClient/gqlQueries";
+} from "../../../graphqlClient/gqlQueries_patient";
 import "./asyncSelect.css";
 const selectStyles = {
   menu: (base) => ({

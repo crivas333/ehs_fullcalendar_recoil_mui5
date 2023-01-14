@@ -10,17 +10,14 @@ import {
   //useRecoilValue,
   //useSetRecoilState,
 } from "recoil";
-//import DateTimePicker from "@material-ui/lab/DateTimePicker";
-//import Box from "@material-ui/core/Box";
-import Notify from "../notification/Notify";
 
-//import EditIcon from "@material-ui/icons/Edit";
-//import DeleteIcon from "@material-ui/icons/Delete";
+//import Box from "@material-ui/core/Box";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Notify from "../notification/Notify";
+
 import EditEventDialog from "./EditEventDialog";
 import DeleteEventDialog from "./DeleteEventDialog";
-
 import TableOfAppointments from "./TableOfAppointments";
 
 import {
@@ -28,7 +25,7 @@ import {
   UPDATE_APPOINTMENT,
   DELETE_APPOINTMENT,
   GET_APPOINTMENTS_BY_TIMEFRAME,
-} from "../../graphqlClient/gqlQueries";
+} from "../../graphqlClient/gqlQueries_appointments";
 import { searchDateState } from "../../context/RecoilStore";
 
 const initialEvt = {

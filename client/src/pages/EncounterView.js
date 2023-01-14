@@ -7,12 +7,6 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 //import IconAdd from "@material-ui/icons/Add";
 import AppBar from "@mui/material/AppBar";
-// import Toolbar from "@material-ui/core/Toolbar";
-// import Close from "@material-ui/icons/Close";
-// import Typography from "@material-ui/core/Typography";
-// import Add from "@material-ui/icons/Add";
-//import Close from "@material-ui/icons/Close";
-//import Box from "@material-ui/core/Box";
 
 //import { GET_APPLICATIONSFIELDS } from "../graphqlClient/gqlQueries";
 import { queryClient } from "../graphqlClient/reactQueryClient";

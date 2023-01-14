@@ -24,7 +24,7 @@ import {
   UPDATE_APPOINTMENT,
   DELETE_APPOINTMENT,
   //GET_APPOINTMENTS_BY_TIMEFRAME,
-} from "../../graphqlClient/gqlQueries";
+} from "../../graphqlClient/gqlQueries_appointments";
 //import { id } from "date-fns/locale";
 
 // id: id,

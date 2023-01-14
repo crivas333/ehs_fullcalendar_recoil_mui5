@@ -1,19 +1,13 @@
 import React, { useState } from "react";
-// import { CustomPatient } from "../components/CustomPatient";
-// import { PatientForm } from "../components/PatientForm";
-// import { BuilderForm } from "../components/BuilderForm";
-//import { useMutation } from "@apollo/client";
 import { useMutation } from "react-query";
 import request from "graphql-request";
-import { SIGNIN, SIGNUP } from "../graphqlClient/gqlQueries";
-// import { IS_USER_LOGGED_IN, ME } from "../apolloConfig/gqlQueries";
-// import {client} from '../apolloConfig/apolloClient';
-//import { currSessionVar } from "../graphqlClient/apolloClient";
+
 import { SignInForm } from "../components/landing/SignInForm";
 import { SignUpForm } from "../components/landing/SignUpForm";
 import { useNavigate } from "react-router-dom";
 //import { GlobalContext } from "../context/GlobalState";
 import { isAuthState, currentUserState } from "../context/RecoilStore";
+import { SIGNIN, SIGNUP } from "../graphqlClient/gqlQueries_sessions";
 import {
   //RecoilRoot,
   //atom,

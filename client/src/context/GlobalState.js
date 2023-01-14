@@ -7,17 +7,11 @@ import AppReducer from "./AppReducer";
 //import { client } from "../graphqlClient/apolloClient";
 import request from "graphql-request";
 import {
-  // SEARCH_PATIENT_BY_ID,
-  // GET_PATIENTS,
   GET_EXAM_BY_PATIENT_ID,
   ADD_EXAMDATA,
   UPDATE_ROWEXAM,
-  CREATE_ENCOUNTER,
-  // GET_APPLICATIONSFIELDS,
-  // ADD_APPLICATIONFIELDS,
-  // UPDATE_APPLICATIONFIELDS,
-  // DELETE_APPLICATIONFIELDS,
-} from "../graphqlClient/gqlQueries";
+} from "../graphqlClient/gqlQueries_exams";
+import { CREATE_ENCOUNTER } from "../graphqlClient/gqlQueries_encounters";
 // import { object } from 'joi'
 // Initial state
 var initialState = {

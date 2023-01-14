@@ -10,14 +10,13 @@ import {
 import AddEventDialogAppo from "./AddEventDialog";
 import GlobalFilter from "./GlobalFilter";
 //import { makeStyles } from "@mui/styles";
-import { lighten } from "@mui/material/styles/";
+//import { lighten } from "@mui/material/styles/";
 //import PropTypes from 'prop-types'
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-
-//import DatePicker from "@material-ui/lab/DatePicker";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+
 import { searchDateState } from "../../context/RecoilStore";
 
 // const useToolbarStyles = makeStyles((theme) => ({

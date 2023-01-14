@@ -10,7 +10,7 @@ import EncounterView from "./EncounterView";
 import ExamsView from "./ExamView";
 import ReportsView from "./ReportsView";
 import SystemConfigView from "./SystemConfig";
-import { GET_APPLICATIONSFIELDS } from "../graphqlClient/gqlQueries";
+import { GET_APPLICATIONSFIELDS } from "../graphqlClient/gqlQueries_sysconf";
 
 //import { GlobalContext } from "../context/GlobalState";
 //const SiteLayout = React.lazy(() => import("../layouts/SiteLayout"));

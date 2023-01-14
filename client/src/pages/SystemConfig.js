@@ -1,17 +1,18 @@
 import React from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import request from "graphql-request";
-//import { makeStyles } from "@mui/styles";
+
 import Grid from "@mui/material/Grid";
+
 import EncounterControl from "../components/systemConfig/EncounterControl";
 import ExamControl from "../components/systemConfig/ExamControl";
 import AppointmentControl from "../components/systemConfig/AppointmentControl";
 import {
-  GET_APPLICATIONSFIELDS,
+  //GET_APPLICATIONSFIELDS,
   DELETE_APPLICATIONFIELDS,
   UPDATE_APPLICATIONFIELDS,
   ADD_APPLICATIONFIELDS,
-} from "../graphqlClient/gqlQueries";
+} from "../graphqlClient/gqlQueries_sysconf";
 import Notify from "../components/notification/Notify";
 //const SiteLayout = React.lazy(() => import("../layouts/SiteLayout"));
 // const EncounterControl = React.lazy(() =>
@@ -23,21 +24,6 @@ import Notify from "../components/notification/Notify";
 // const AppointmentControl = React.lazy(() =>
 //   import("../components/systemConfig/AppointmentControl")
 // );
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-//   paper: {
-//     padding: theme.spacing(1),
-//     textAlign: "center",
-//     color: theme.palette.text.secondary,
-//   },
-//   container: {
-//     paddingTop: theme.spacing(2),
-//     paddingBottom: theme.spacing(4),
-//   },
-// }));
 
 async function addHelper(data) {
   console.log("addHelper: ", data);

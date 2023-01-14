@@ -17,15 +17,13 @@ import {
 //} from "@mui/material";
 
 import App from "./App";
-//import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-//import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import esLocale from "date-fns/locale/es";
 import { GlobalProvider } from "./context/GlobalState";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "./graphqlClient/reactQueryClient";
-import { IS_THERE_OPEN_SESSION } from "./graphqlClient/gqlQueries";
+import { IS_THERE_OPEN_SESSION } from "./graphqlClient/gqlQueries_sessions";
 //import {IS_THERE_OPEN_SESSION_FETCH } from './apolloConfig/gqlQueries-fetch'
 //import Notify from './components/notification/Notify';
 //const theme = createTheme();
@@ -127,9 +125,6 @@ const renderApp = (currSession) => {
     </RecoilRoot>
   );
 
-  //ReactDOM.render(RootApp(App), document.getElementById("root"));
-  //const container = document.getElementById("root");
-  //const root = createRoot(container); // createRoot(container!) if you use TypeScript
   const root = createRoot(document.getElementById("root"));
   root.render(RootApp(App));
 };

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 
 import { GlobalContext } from "../../../context/GlobalState";
-import { experimentalStyled as styled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";

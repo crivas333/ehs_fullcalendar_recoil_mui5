@@ -15,7 +15,7 @@ import {
 //import Notify from "../notification/Notify";
 //import Table from "./TableFiltered";
 
-import { GET_ENCOUNTERS_BY_PATIENT_ID } from "../../graphqlClient/gqlQueries";
+import { GET_ENCOUNTERS_BY_PATIENT_ID } from "../../graphqlClient/gqlQueries_encounters";
 import { searchDateState } from "../../context/RecoilStore";
 
 const initialEvt = {
