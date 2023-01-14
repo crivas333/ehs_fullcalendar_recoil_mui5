@@ -114,7 +114,7 @@ const renderApp = (currSession) => {
             <GlobalProvider>
               <LocalizationProvider
                 dateAdapter={AdapterDateFns}
-                locale={esLocale}
+                adapterLocale={esLocale}
               >
                 <React.StrictMode>
                   <AppComponent />
@@ -128,8 +128,9 @@ const renderApp = (currSession) => {
   );
 
   //ReactDOM.render(RootApp(App), document.getElementById("root"));
-  const container = document.getElementById("root");
-  const root = createRoot(container); // createRoot(container!) if you use TypeScript
+  //const container = document.getElementById("root");
+  //const root = createRoot(container); // createRoot(container!) if you use TypeScript
+  const root = createRoot(document.getElementById("root"));
   root.render(RootApp(App));
 };
 
