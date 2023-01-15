@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 
 //import { GET_APPLICATIONSFIELDS } from "../graphqlClient/gqlQueries";
-import { queryClient } from "../graphqlClient/reactQueryClient";
+import { queryClient } from "../graphqlClient/TSreactQueryClient";
 import Encounter from "../components/encounter/Encounter";
 import Encounters from "../components/encounter/Encounters";
 //import CustomTab from "../components/reusableForms/reusableTab";

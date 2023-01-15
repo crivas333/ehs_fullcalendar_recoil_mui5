@@ -8,7 +8,7 @@ import { request } from "graphql-request";
 //import { createTheme } from "@material-ui/core/styles";
 //////import ThemeProvider from '@material-ui/core/styles/MuiThemeProvider' //it does not work
 //import fetch from 'cross-fetch'
-
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   createTheme,
   ThemeProvider,
@@ -21,8 +21,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import esLocale from "date-fns/locale/es";
 import { GlobalProvider } from "./context/GlobalState";
-import { QueryClientProvider } from "react-query";
-import { queryClient } from "./graphqlClient/reactQueryClient";
+
+//import { QueryClientProvider } from "react-query";
+//import { queryClient } from "./graphqlClient/reactQueryClient";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./graphqlClient/TSreactQueryClient";
 import { IS_THERE_OPEN_SESSION } from "./graphqlClient/gqlQueries_sessions";
 //import {IS_THERE_OPEN_SESSION_FETCH } from './apolloConfig/gqlQueries-fetch'
 //import Notify from './components/notification/Notify';
@@ -84,7 +87,7 @@ async function checkLoggedIn() {
   //request('/graphql', IS_THERE_OPEN_SESSION).then((res) => console.log('res:',res.openSession))
   try {
     const res = await request("/graphql", IS_THERE_OPEN_SESSION);
-    //console.log('IS THERE OPEN SESSION:', res)
+    console.log("IS THERE OPEN SESSION:", res);
     // if (res.status !== 200 && res.status !== 201) {
     //   throw new Error('Failed!');}
     if (res !== null) return res.openSession;
@@ -98,7 +101,7 @@ async function checkLoggedIn() {
 }
 
 const renderApp = (currSession) => {
-  //console.log('currSession: ', currSession)
+  console.log("renderApp-currSession: ", currSession);
 
   sessionStorage.setItem("currSession", JSON.stringify(currSession));
   //var obj = JSON.parse(sessionStorage.getItem('currSession')); // An object :
@@ -119,6 +122,7 @@ const renderApp = (currSession) => {
                 </React.StrictMode>
               </LocalizationProvider>
             </GlobalProvider>
+            <ReactQueryDevtools initialIsOpen={true} />
           </QueryClientProvider>
         </ThemeProvider>
       </StyledEngineProvider>

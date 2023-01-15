@@ -1,7 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import request from "graphql-request";
-import { useQuery } from "react-query";
+//import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import SiteLayout from "../layouts/SiteLayout";
 import PatientView from "./PacientView";
 import CalendarView from "./Calendar";
@@ -33,21 +34,24 @@ export default function Pages() {
   //   //eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
-  const { isLoading, isError, data, error } = useQuery(
-    ["applicationFields"],
-    async () => {
+  //const { isLoading, isError, data, error } = useQuery({
+  const { isInitialLoading, isError, data, error } = useQuery({
+    queryKey: ["applicationFields"],
+    queryFn: async () => {
       const res = await request("/graphql", GET_APPLICATIONSFIELDS);
-      console.log(res.getApplicationFields);
+      console.log("Index-ApplicationsFields: ", res.getApplicationFields);
       if (res && res.getApplicationFields) {
         return res.getApplicationFields;
       } else {
         throw new Error("Network response was not ok");
       }
     },
-    { refetchOnWindowFocus: false }
-  );
-  if (isLoading) {
-    return <span>Loading</span>;
+    refetchOnWindowFocus: false,
+  });
+
+  //if (isLoading) {
+  if (isInitialLoading) {
+    return <span>Loading...</span>;
   }
 
   if (isError) {
@@ -72,6 +76,21 @@ export default function Pages() {
   );
 }
 
+/*
+const { isLoading, isError, data, error } = useQuery(
+    ["applicationFields"],
+    async () => {
+      const res = await request("/graphql", GET_APPLICATIONSFIELDS);
+      console.log("appFields: ", res.getApplicationFields);
+      if (res && res.getApplicationFields) {
+        return res.getApplicationFields;
+      } else {
+        throw new Error("Network response was not ok");
+      }
+    },
+    { refetchOnWindowFocus: false }
+  );
+*/
 /*
   return (
     <>

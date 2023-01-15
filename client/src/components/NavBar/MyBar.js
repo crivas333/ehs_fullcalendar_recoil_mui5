@@ -19,8 +19,9 @@ import Toolbar from "@mui/material/Toolbar";
 // import Typography from '@material-ui/core/Typography'
 
 import { SIGNOUT } from "../../graphqlClient/gqlQueries_sessions";
-//import { useMutation } from "@apollo/client";
-import { useMutation } from "react-query";
+
+//import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import request from "graphql-request";
 import { useNavigate } from "react-router-dom";
 //import { GlobalContext } from "../../context/GlobalState";
@@ -99,7 +100,7 @@ function ResponsiveAppBar(props) {
     },
     onError: (error, variables, context) => {
       // I will fire first
-      console.log("onError");
+      console.log("onError11111111111111111111111");
       Notify({
         message: "Error: Terminó la sessión",
         status: "fail",

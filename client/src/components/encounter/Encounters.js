@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 //import clsx from 'clsx';
-import { useQueryClient, useQuery, useMutation } from "react-query";
+import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import request from "graphql-request";
 import addDays from "date-fns/addDays";
 

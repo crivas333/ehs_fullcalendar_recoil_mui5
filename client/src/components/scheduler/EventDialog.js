@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import ReusableControls from "../reusableForms/reusableControls/ReusableControls";
 import {
   useReusableForm,
@@ -38,8 +38,11 @@ export default function EventDialog(props) {
 
   const [openConfirmation, setOpenConfirmation] = useState(false);
   //const { applicationFields } = useContext(GlobalContext);
+  //const queryClient = useQueryClient();
   const queryClient = useQueryClient();
-  const applicationFields = queryClient.getQueryData("applicationFields");
+  //const applicationFields = queryClient.getQueryData("applicationFields");
+  const applicationFields = queryClient.getQueryData(["applicationFields"]);
+
   const {
     evt,
     closeDialog,
@@ -104,6 +107,7 @@ export default function EventDialog(props) {
 
   useEffect(() => {
     //console.log("EventDialog-evt: ", evt);
+    //console.log("EventDialog: ", applicationFields);
     setValues(evt);
     return () => {};
   }, [evt, setValues]);
