@@ -7,7 +7,8 @@ import {
   AUTOCOMPLETE_SEARCH_PATIENT_BY_ID,
   SEARCH_PATIENT_BY_LASTNAME,
 } from "../../../graphqlClient/gqlQueries_patient";
-import "./asyncSelect.css";
+
+//import "./asyncSelect.css"; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 const selectStyles = {
   menu: (base) => ({
     ...base,

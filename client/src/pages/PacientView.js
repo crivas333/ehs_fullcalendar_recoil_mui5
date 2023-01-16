@@ -57,19 +57,19 @@ export default function Paciente() {
 
   const createPatient = useMutation(createHelper, {
     onSuccess: (data, variables) => {
-      // I will fire first
       //console.log("onSuccess:", data);
-      Notify({ message: "Datos de Paciente ingresados", status: "success" });
-      setAction(SEARCH);
+      //Notify({ message: "Datos de Paciente ingresados", status: "success" });
+      //setAction(SEARCH);
       //reloadCurrentPatient(data);
       setCurrentPatient(data);
+      setAction(SEARCH);
+      Notify({ message: "Datos de Paciente ingresados", status: "success" });
     },
     onMutate: (data) => {
       //console.log("onMutate:", data);
     },
     onError: (error, variables, context) => {
-      // I will fire first
-      console.log("onError");
+      //console.log("onError");
       Notify({
         message: "Error: Datos de Paciente NO ingresados",
         status: "fail",
@@ -85,10 +85,12 @@ export default function Paciente() {
     onSuccess: (data, variables) => {
       // I will fire first
       //console.log("onSuccess:", data);
-      Notify({ message: "Datos de Paciente actualizados", status: "success" });
-      setAction(SEARCH);
+      //Notify({ message: "Datos de Paciente actualizados", status: "success" });
+      //setAction(SEARCH);
       //reloadCurrentPatient(data);
       setCurrentPatient(data);
+      setAction(SEARCH);
+      Notify({ message: "Datos de Paciente actualizados", status: "success" });
     },
     onMutate: (data) => {
       //console.log("onMutate:", data);

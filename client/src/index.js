@@ -13,6 +13,7 @@ import {
   createTheme,
   ThemeProvider,
   StyledEngineProvider,
+  //responsiveFontSizes,
 } from "@mui/material/styles";
 //} from "@mui/material";
 
@@ -29,12 +30,26 @@ import { queryClient } from "./graphqlClient/TSreactQueryClient";
 import { IS_THERE_OPEN_SESSION } from "./graphqlClient/gqlQueries_sessions";
 //import {IS_THERE_OPEN_SESSION_FETCH } from './apolloConfig/gqlQueries-fetch'
 //import Notify from './components/notification/Notify';
-//const theme = createTheme();
-const theme = createTheme({
-  typography: {
-    fontSize: 12,
-  },
-});
+//let theme = createTheme();
+//theme = responsiveFontSizes(theme);
+const theme = createTheme();
+// const theme = createTheme({
+//   typography: {
+//     fontSize: 12,
+//     //fontSize: 13,
+//   },
+// });
+// const theme = createTheme();
+
+// theme.typography.h4 = {
+//   fontSize: 12,
+//   "@media (min-width:600px)": {
+//     fontSize: 12,
+//   },
+//   [theme.breakpoints.down("md")]: {
+//     fontSize: 13,
+//   },
+// };
 
 //const theme = createMuiTheme({
 // const theme = unstable_createMuiStrictModeTheme({
@@ -122,7 +137,7 @@ const renderApp = (currSession) => {
                 </React.StrictMode>
               </LocalizationProvider>
             </GlobalProvider>
-            <ReactQueryDevtools initialIsOpen={true} />
+            {/*<ReactQueryDevtools initialIsOpen={true} />*/}
           </QueryClientProvider>
         </ThemeProvider>
       </StyledEngineProvider>

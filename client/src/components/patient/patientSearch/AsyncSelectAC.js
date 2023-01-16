@@ -19,7 +19,8 @@ import {
   currentPatientState,
   //getPatientByIdFamSel,
 } from "../../../context/RecoilStore";
-import "./asyncSelect.css";
+
+import "./asyncSelect.css"; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 const selectStyles = {
   menu: (base) => ({
@@ -137,14 +138,13 @@ async function getPatientById(id) {
 export default function AsyncSelectAC() {
   const setCurrentPatient = useSetRecoilState(currentPatientState);
   //const patientId = useRecoilValue(getPatientByIdFamSel(currentPatient.id));
-  //const setCurrentUser = useSetRecoilState(currentUserState);
-  //const { getPatientByIdAPOLLO, updateActionExam } = useContext(GlobalContext);
+
   const [selectedValue, setSelectedValue] = useState(null);
 
-  const handleOnKeyDown = (e) => {
-    //console.log(e.key.toUpperCase());
-    console.log(e.key);
-  };
+  // const handleOnKeyDown = (e) => {
+  //   //console.log(e.key.toUpperCase());
+  //   console.log(e.key);
+  // };
   // handle input change event
   const handleInputChange = (inputValue) => {
     //console.log("AsyncSelect-inputValue: ", inputValue.toUpperCase());
@@ -154,8 +154,6 @@ export default function AsyncSelectAC() {
   // handle selection
   const handleChange = (inputValue) => {
     if (inputValue) {
-      //getPatientByIdAPOLLO(inputValue.id);
-
       //updateActionExam(0);
       //const res = getPatientById(inputValue.id);
       getPatientById(inputValue.id).then((res) => setCurrentPatient(res));
@@ -187,7 +185,7 @@ export default function AsyncSelectAC() {
         loadOptions={loadOptions}
         onInputChange={handleInputChange}
         onChange={handleChange}
-        onKeyDown={handleOnKeyDown}
+        //onKeyDown={handleOnKeyDown}
         //formatGroupLabel={formatGroupLabel}
       />
     </div>

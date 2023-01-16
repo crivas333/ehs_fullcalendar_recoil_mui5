@@ -35,7 +35,8 @@ export default function Pages() {
   // }, []);
 
   //const { isLoading, isError, data, error } = useQuery({
-  const { isInitialLoading, isError, data, error } = useQuery({
+  //const { isInitialLoading, isError, data, error } = useQuery({
+  const { isInitialLoading, isError, error } = useQuery({
     queryKey: ["applicationFields"],
     queryFn: async () => {
       const res = await request("/graphql", GET_APPLICATIONSFIELDS);
@@ -62,13 +63,12 @@ export default function Pages() {
     <>
       <SiteLayout>
         <Routes>
-          <Route path="/Config" element={<SystemConfigView />} />
           <Route path="/Paciente" element={<PatientView />} />
           <Route path="/Agendamiento" element={<CalendarView />} />
           <Route path="/Citas" element={<AppoitmentsView />} />
           <Route path="/Consulta" element={<EncounterView />} />
           <Route path="/Examenes" element={<ExamsView />} />
-
+          <Route path="/Config" element={<SystemConfigView />} />
           <Route path="/Informes" element={<ReportsView />} />
         </Routes>
       </SiteLayout>
