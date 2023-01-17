@@ -77,7 +77,6 @@ export default function EncounterControlCfg(props) {
       fieldType: fieldType,
       fieldData: fd,
     };
-    //addApplicationFieldAPOLLO(data);
     addField.mutate(data);
   };
   const updateFieldData = (updatedValue) => {

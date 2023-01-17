@@ -18,6 +18,7 @@ import {
   ADD_APPLICATIONFIELDS,
 } from "../graphqlClient/gqlQueries_sysconf";
 import Notify from "../components/notification/Notify";
+
 //const SiteLayout = React.lazy(() => import("../layouts/SiteLayout"));
 // const EncounterControl = React.lazy(() =>
 //   import("../components/systemConfig/EncounterControl")
@@ -57,7 +58,9 @@ export default function SystemConfig() {
   const addField = useMutation(addHelper, {
     onSuccess: (data, variables) => {
       //console.log("onSuccess:", data);
-      queryClient.invalidateQueries("applicationFields");
+      //force loading: "[ApplicationFields]"
+      //Notify({ message: "Campo Ingresado", status: "success" });
+      queryClient.invalidateQueries({ queryKey: ["applicationFields"] });
       Notify({ message: "Datos de Paciente ingresados", status: "success" });
       //setCurrentPatient(data);
     },
@@ -79,7 +82,7 @@ export default function SystemConfig() {
   const updateField = useMutation(updateHelper, {
     onSuccess: (data, variables) => {
       //console.log("onSuccess:", data);
-      queryClient.invalidateQueries("applicationFields");
+      queryClient.invalidateQueries(["applicationFields"]);
       Notify({ message: "Datos de Paciente actualizados", status: "success" });
       //setCurrentPatient(data);
     },
@@ -101,7 +104,7 @@ export default function SystemConfig() {
 
   const deleteField = useMutation(deleteHelper, {
     onSuccess: (data, variables) => {
-      queryClient.invalidateQueries("applicationFields");
+      queryClient.invalidateQueries(["applicationFields"]);
       Notify({ message: "Datos de Paciente borrados", status: "success" });
     },
     onMutate: (data) => {

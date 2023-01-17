@@ -138,6 +138,7 @@ const renderApp = (currSession) => {
               </LocalizationProvider>
             </GlobalProvider>
             {/*<ReactQueryDevtools initialIsOpen={true} />*/}
+            <ReactQueryDevtools initialIsOpen={true} />
           </QueryClientProvider>
         </ThemeProvider>
       </StyledEngineProvider>
