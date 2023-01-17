@@ -10,7 +10,7 @@ import AppoitmentsView from "./Appointments";
 import EncounterView from "./EncounterView";
 import ExamsView from "./ExamView";
 import ReportsView from "./ReportsView";
-import SystemConfigView from "./SystemConfig";
+import SystemConfigView from "./SystemConfigView";
 import { GET_APPLICATIONSFIELDS } from "../graphqlClient/gqlQueries_sysconf";
 
 //import { GlobalContext } from "../context/GlobalState";
@@ -34,9 +34,9 @@ export default function Pages() {
   //   //eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
-  //const { isLoading, isError, data, error } = useQuery({
-  //const { isInitialLoading, isError, data, error } = useQuery({
-  const { isInitialLoading, isError, error } = useQuery({
+  const { isLoading, isError, data, error } = useQuery({
+    //const { isInitialLoading, isError, data, error } = useQuery({
+    //const { isInitialLoading, isError, error } = useQuery({
     queryKey: ["applicationFields"],
     queryFn: async () => {
       const res = await request("/graphql", GET_APPLICATIONSFIELDS);
@@ -50,8 +50,8 @@ export default function Pages() {
     refetchOnWindowFocus: false,
   });
 
-  //if (isLoading) {
-  if (isInitialLoading) {
+  if (isLoading) {
+    //if (isInitialLoading) {
     return <span>Loading...</span>;
   }
 

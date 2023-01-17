@@ -46,7 +46,7 @@ const AddUserForm = (props) => {
         >
           <TextField
             //inputProps={{ className: classes.input }}
-            label="Campo"
+            label="Nuevo Campo"
             variant="outlined"
             type="text"
             size="small"
@@ -54,6 +54,7 @@ const AddUserForm = (props) => {
             name="fieldData"
             value={data}
             onChange={handleInputChange}
+            inputProps={{ style: { textTransform: "uppercase" } }}
           />
         </FormControl>
       </div>

@@ -1,4 +1,4 @@
-import { experimentalStyled as styled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 
 export const Span = styled("span", {
   shouldForwardProp: (prop) => prop !== "show",

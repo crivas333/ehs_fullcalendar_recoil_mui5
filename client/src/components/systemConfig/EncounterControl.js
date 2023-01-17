@@ -105,7 +105,50 @@ export default function EncounterControlCfg(props) {
   };
   //appFields={ applicationFields.filter(item => item.fieldType ===fieldType)}
   return (
-    <div //className={classes.root}
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <ReusableControls.CustomSelect
+          name="cfgCustData"
+          label="Conf. de Consulta"
+          value={chosenField}
+          onChange={onViewFieldChange}
+          options={getEncounterFieldsCollection()}
+          //error={errors.sex}
+        />
+      </Grid>
+
+      <Grid item>
+        <ApplicationFieldsTable
+          appFields={applicationFields.filter(
+            (item) =>
+              item.fieldView === "encounterView" && item.fieldType === fieldType
+          )}
+          editRow={editRow}
+          deleteUser={deleteFieldData}
+        />
+      </Grid>
+      <Grid item>
+        {editingFlag ? (
+          <Fragment>
+            <EditForm
+              //editing={editingFlag}
+              setEditingFlag={setEditingFlag}
+              editingValue={editingArray.fieldData}
+              updateField={updateFieldData}
+            />
+          </Fragment>
+        ) : (
+          <Fragment>
+            <AddForm addField={addFieldData} />
+          </Fragment>
+        )}
+      </Grid>
+    </Grid>
+  );
+}
+
+/*
+<div //className={classes.root}
     >
       <Grid container spacing={3}>
         <Grid item xs={12}>
@@ -148,8 +191,8 @@ export default function EncounterControlCfg(props) {
         </Grid>
       </Grid>
     </div>
-  );
-}
+
+*/
 
 /*
 return (

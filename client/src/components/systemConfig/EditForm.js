@@ -48,7 +48,7 @@ const EditFieldForm = (props) => {
       <div>
         <TextField
           //inputProps={{ className: classes.input }}
-          label="Campo"
+          label="Editar Campo"
           variant="outlined"
           size="small"
           autoComplete="off"
@@ -56,6 +56,7 @@ const EditFieldForm = (props) => {
           name="fieldData"
           value={data}
           onChange={handleInputChange}
+          inputProps={{ style: { textTransform: "uppercase" } }}
         />
       </div>
       <ButtonGroup variant="contained">

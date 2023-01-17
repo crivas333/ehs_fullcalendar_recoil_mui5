@@ -7,6 +7,7 @@ import {
 import request from "graphql-request";
 
 import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 
 import EncounterControl from "../components/systemConfig/EncounterControl";
 import ExamControl from "../components/systemConfig/ExamControl";
@@ -148,28 +149,46 @@ export default function SystemConfig() {
     >
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <EncounterControl
-            applicationFields={data}
-            addField={addField}
-            updateField={updateField}
-            deleteField={deleteField}
-          />
+          <Paper
+            variant="outlined"
+            elevation={4}
+            sx={{ borderColor: "primary.main" }}
+          >
+            <EncounterControl
+              applicationFields={data}
+              addField={addField}
+              updateField={updateField}
+              deleteField={deleteField}
+            />
+          </Paper>
         </Grid>
         <Grid item xs={12}>
-          <ExamControl
-            applicationFields={data}
-            addField={addField}
-            updateField={updateField}
-            deleteField={deleteField}
-          />
+          <Paper
+            variant="outlined"
+            elevation={4}
+            sx={{ borderColor: "primary.main" }}
+          >
+            <ExamControl
+              applicationFields={data}
+              addField={addField}
+              updateField={updateField}
+              deleteField={deleteField}
+            />
+          </Paper>
         </Grid>
         <Grid item xs={12}>
-          <AppointmentControl
-            applicationFields={data}
-            addField={addField}
-            updateField={updateField}
-            deleteField={deleteField}
-          />
+          <Paper
+            variant="outlined"
+            elevation={4}
+            sx={{ borderColor: "primary.main" }}
+          >
+            <AppointmentControl
+              applicationFields={data}
+              addField={addField}
+              updateField={updateField}
+              deleteField={deleteField}
+            />
+          </Paper>
         </Grid>
       </Grid>
     </div>
