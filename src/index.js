@@ -42,6 +42,7 @@ const IN_PROD = process.env.NODE_ENV === "production" ? true : false;
       )
       .then((m) => m.connection.getClient());
 
+    //Required logic for integrating with Express
     const app = express();
     if (process.env.NODE_ENV === "development") {
       app.use(morgan("dev"));
@@ -86,34 +87,37 @@ const IN_PROD = process.env.NODE_ENV === "production" ? true : false;
       app.set("trust proxy", 1); // trust first proxy
     }
 
-    const server = new ApolloServer({
+    const appolloserver = new ApolloServer({
       typeDefs,
       resolvers,
       schemaDirectives,
-      // playground: IN_PROD
-      //   ? false
-      //   : {
-      //       settings: {
-      //         "request.credentials": "include",
-      //       },
-      //     },
-      //context: async ({ req, res }) => ({ req, res }),
+      //plugins: [], //plugins go here
+      //plugins: [process.env.NODE_ENV === 'production' ? ApolloServerPluginLandingPageProductionDefault() : ApolloServerPluginLandingPageLocalDefault({ embed: false })],
     });
-    await server.start(); //new
+    // Ensure we wait for our server to start
+    await appolloserver.start(); //await is a must
 
-    //server.applyMiddleware({ app, cors: false });
+    //server.applyMiddleware({ app, cors: false }); //Appollo V3
+
+    // Set up our Express middleware to handle CORS, body parsing,
+    // and our expressMiddleware function.
+    //using ApolloServer<BaseContext>
     app.use(
-      "/graphql",
+      //"/graphql", // Appollo V3
+      "/",
       //cors({ origin: ['https://www.your-app.example', 'https://studio.apollographql.com'] }),
       cors(), //works with and without
+      // 50mb is the limit that `startStandaloneServer` uses, but you may configure this to suit your needs
+      //bodyParser.json({ limit: '50mb' }),
       json(),
-      expressMiddleware(server, {
+      expressMiddleware(appolloserver, {
         context: async ({ req, res }) => ({ req, res }), //works
-        //context: ({ req, res }) => ({ req, res }),      //works
+        //context: ({ req, res }) => ({ req, res }), //works
       })
     );
-    new Promise((resolve) => app.listen({ port: 4000 }, resolve));
-    console.log(`Server ready at http://localhost:4000/graphql`);
+    await new Promise((resolve) => app.listen({ port: 4000 }, resolve));
+    //console.log(`Server ready at http://localhost:4000/graphql`);
+    console.log(`Server ready at http://localhost:4000/`);
 
     // if (process.env.NODE_ENV === "production") {
     //   console.log("we are on production: ", process.env.SESS_SECRET);
