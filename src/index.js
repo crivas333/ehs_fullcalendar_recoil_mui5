@@ -98,8 +98,8 @@ const IN_PROD = process.env.NODE_ENV === "production" ? true : false;
     });
 
     server.applyMiddleware({ app, cors: false });
-    //server.applyMiddleware({ app, cors: true })
-    //server.applyMiddleware({ app })
+    //server.applyMiddleware({ app, cors: true });
+    //server.applyMiddleware({ app });
 
     if (process.env.NODE_ENV === "production") {
       console.log("we are on production: ", process.env.SESS_SECRET);

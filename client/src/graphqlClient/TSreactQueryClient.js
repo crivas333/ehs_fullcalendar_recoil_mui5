@@ -6,9 +6,9 @@ import { QueryClient } from "@tanstack/react-query";
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: Infinity,
+      //staleTime: Infinity,
       //refetchOnWindowFocus: false, // default: true
-      //refetchOnMount:
+      refetchOnWindowFocus: "always",
     },
   },
 });

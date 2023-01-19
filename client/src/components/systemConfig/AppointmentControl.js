@@ -101,7 +101,8 @@ export default function AppointmentControlCfg(props) {
 
   return (
     <div
-    //className={classes.root}
+      style={{ width: "100%" }}
+      //className={classes.root}
     >
       <Grid container spacing={3}>
         <Grid item xs={12}>

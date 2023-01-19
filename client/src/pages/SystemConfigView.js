@@ -151,7 +151,21 @@ export default function SystemConfig() {
         <Grid item xs={12}>
           <Paper
             variant="outlined"
-            elevation={4}
+            //elevation={4} //no effect when variante: outlined
+            sx={{ borderColor: "primary.main" }}
+          >
+            <AppointmentControl
+              applicationFields={data}
+              addField={addField}
+              updateField={updateField}
+              deleteField={deleteField}
+            />
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper
+            variant="outlined"
+            //elevation={4} //no effect when variante: outlined
             sx={{ borderColor: "primary.main" }}
           >
             <EncounterControl
@@ -165,24 +179,10 @@ export default function SystemConfig() {
         <Grid item xs={12}>
           <Paper
             variant="outlined"
-            elevation={4}
+            //elevation={4} //no effect when variante: outlined
             sx={{ borderColor: "primary.main" }}
           >
             <ExamControl
-              applicationFields={data}
-              addField={addField}
-              updateField={updateField}
-              deleteField={deleteField}
-            />
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper
-            variant="outlined"
-            elevation={4}
-            sx={{ borderColor: "primary.main" }}
-          >
-            <AppointmentControl
               applicationFields={data}
               addField={addField}
               updateField={updateField}

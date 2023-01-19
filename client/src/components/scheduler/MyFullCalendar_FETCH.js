@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 //import { useRecoilState } from "recoil";
 //import { appoEvtState } from "../../context/recoilStore";
 //import Tooltip from "@material-ui/core/Tooltip";
@@ -59,22 +58,9 @@ const getEvents = (info, successCallback) => {
     successCallback(events);
   });
 };
-async function getCalendarEvents111(start, end) {
-  const res = await axios.get(
-    //"http://localhost:4000/api/v1/fullCalendar/getDataFull",
-    "http://192.168.8.103:4000/api/v1/fullCalendar/getDataFull",
-    {
-      params: { start: start, end: end },
-    }
-  );
-  console.log("res-events: ", res.data);
-  return res.data;
-}
 async function getCalendarEvents(start, end) {
   const res = await fetch(
-    //`http://localhost:4000/api/v1/fullCalendar/getDataFull?start=${start}&end=${end}`,
-    //`http://192.168.8.103:4000/api/v1/fullCalendar/getDataFull?start=${start}&end=${end}`
-    `/api/v1/fullCalendar/getDataFull?start=${start}&end=${end}`
+    `http://localhost:4000/api/v1/fullCalendar/getDataFull?start=${start}&end=${end}`
   );
   if (!res.ok) {
     throw new Error(`HTTP error! status: ${res.status}`);
@@ -460,31 +446,6 @@ export default function MayFullCalendar() {
     </div>
   );
 }
-/*
-async function getCalendarEvents(start, end) {
-  const res = await fetch(
-    `http://localhost:4000/api/v1/fullCalendar/getDataFull?start=${start}&end=${end}`,
-    {
-      //mode: "cors", // no-cors, *cors, same-origin
-      credentials: "same-origin",
-      //credentials: "include",
-      headers: {
-        //"Content-Type": "application/json",
-        //"Content-Type": "application/x-www-form-urlencoded",
-        //accept: "application/json",
-        "Content-Type": "application/json;charset=utf-8",
-        //"Content-Type": "application/json",
-      },
-    }
-  );
-  if (!res.ok) {
-    throw new Error(`HTTP error! status: ${res.status}`);
-  }
-  const events = await res.json();
-  //console.log("async: ", events);
-  return events;
-}
-*/
 /*
 async function getCalendarEvents(start, end) {
   const res = await fetch(

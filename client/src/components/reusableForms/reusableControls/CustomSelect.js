@@ -30,6 +30,7 @@ export default function CustomSelect(props) {
   // >
   return (
     <FormControl
+      fullWidth // this cause effect
       variant={variant}
       size="small"
       margin="dense"

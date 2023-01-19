@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 //import { useRecoilState } from "recoil";
 //import { appoEvtState } from "../../context/recoilStore";
 //import Tooltip from "@material-ui/core/Tooltip";
@@ -52,37 +51,6 @@ const initialEvt = {
   description: "",
   backgroundColor: "",
 };
-
-const getEvents = (info, successCallback) => {
-  getCalendarEvents(info.startStr, info.endStr).then((events) => {
-    //console.log("events: ", events);
-    successCallback(events);
-  });
-};
-async function getCalendarEvents111(start, end) {
-  const res = await axios.get(
-    //"http://localhost:4000/api/v1/fullCalendar/getDataFull",
-    "http://192.168.8.103:4000/api/v1/fullCalendar/getDataFull",
-    {
-      params: { start: start, end: end },
-    }
-  );
-  console.log("res-events: ", res.data);
-  return res.data;
-}
-async function getCalendarEvents(start, end) {
-  const res = await fetch(
-    //`http://localhost:4000/api/v1/fullCalendar/getDataFull?start=${start}&end=${end}`,
-    //`http://192.168.8.103:4000/api/v1/fullCalendar/getDataFull?start=${start}&end=${end}`
-    `/api/v1/fullCalendar/getDataFull?start=${start}&end=${end}`
-  );
-  if (!res.ok) {
-    throw new Error(`HTTP error! status: ${res.status}`);
-  }
-  const events = await res.json();
-  //console.log("async: ", events);
-  return events;
-}
 
 function renderEventContent(eventInfo) {
   //console.log("renderEventContent", eventInfo);
@@ -438,8 +406,7 @@ export default function MayFullCalendar() {
         //eventRemove={eventRemoving}
         //eventChange={(txt) => console.log("eventChanged: ", txt)}
         //dateClick={this.handleDateClick}
-        //events={"/api/v1/fullCalendar/getDataFull"} //!!!!!!!!!!!!!!!!!!! ok
-        events={(info, successCallback) => getEvents(info, successCallback)}
+        events={"/api/v1/fullCalendar/getDataFull"} //!!!!!!!!!!!!!!!!!!! ok
         //lazyFetching={false}
         //datesSet={formatEvents111}
         //locale={"es-PE"}
@@ -460,49 +427,7 @@ export default function MayFullCalendar() {
     </div>
   );
 }
-/*
-async function getCalendarEvents(start, end) {
-  const res = await fetch(
-    `http://localhost:4000/api/v1/fullCalendar/getDataFull?start=${start}&end=${end}`,
-    {
-      //mode: "cors", // no-cors, *cors, same-origin
-      credentials: "same-origin",
-      //credentials: "include",
-      headers: {
-        //"Content-Type": "application/json",
-        //"Content-Type": "application/x-www-form-urlencoded",
-        //accept: "application/json",
-        "Content-Type": "application/json;charset=utf-8",
-        //"Content-Type": "application/json",
-      },
-    }
-  );
-  if (!res.ok) {
-    throw new Error(`HTTP error! status: ${res.status}`);
-  }
-  const events = await res.json();
-  //console.log("async: ", events);
-  return events;
-}
-*/
-/*
-async function getCalendarEvents(start, end) {
-  const res = await fetch(
-    "http://localhost:4000/api/v1/fullCalendar/getDataFull?",
-    {
-      method: "POST",
-      mode: "cors",
-      body: JSON.stringify({
-        start: start,
-        end: end,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    }
-  );
 
-*/
 // const fetchEvents = (fetchInfo, successCallback, failureCallback) => {
 //   console.log("fetchEvents: ", fetchInfo);
 //   formatEvents111(fetchInfo)
