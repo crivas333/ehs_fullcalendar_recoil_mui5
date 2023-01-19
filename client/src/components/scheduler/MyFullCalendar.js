@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
+//import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 //import { useRecoilState } from "recoil";
 //import { appoEvtState } from "../../context/recoilStore";
 //import Tooltip from "@material-ui/core/Tooltip";
@@ -53,23 +54,23 @@ const initialEvt = {
   backgroundColor: "",
 };
 
-const getEvents = (info, successCallback) => {
-  getCalendarEvents(info.startStr, info.endStr).then((events) => {
-    //console.log("events: ", events);
-    successCallback(events);
-  });
-};
-async function getCalendarEvents111(start, end) {
-  const res = await axios.get(
-    //"http://localhost:4000/api/v1/fullCalendar/getDataFull",
-    "http://192.168.8.103:4000/api/v1/fullCalendar/getDataFull",
-    {
-      params: { start: start, end: end },
-    }
-  );
-  console.log("res-events: ", res.data);
-  return res.data;
-}
+// const getEventsFunction = (info, successCallback) => {
+//   getCalendarEvents(info.startStr, info.endStr).then((events) => {
+//     //console.log("events: ", events);
+//     successCallback(events);
+//   });
+// };
+// async function getCalendarEvents111(start, end) {
+//   const res = await axios.get(
+//     //"http://localhost:4000/api/v1/fullCalendar/getDataFull",
+//     "http://192.168.8.103:4000/api/v1/fullCalendar/getDataFull",
+//     {
+//       params: { start: start, end: end },
+//     }
+//   );
+//   console.log("res-events: ", res.data);
+//   return res.data;
+// }
 async function getCalendarEvents(start, end) {
   const res = await fetch(
     //`http://localhost:4000/api/v1/fullCalendar/getDataFull?start=${start}&end=${end}`,
@@ -132,12 +133,50 @@ function renderEventContent(eventInfo) {
 
 export default function MayFullCalendar() {
   const [openEventDialog, setOpenEventDialog] = useState(false);
+  const [events, setEvents] = useState([]);
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [evt, setEvt] = useState(initialEvt);
   //const [weekends, setWeekends] = useState(false);
   const [shift, setShift] = useState("13:00:00");
   const calendarRef = React.useRef(null);
 
+  React.useEffect(() => {
+    //const calendarApi = calendarRef.current.getApi();
+    console.log("useEffect-FC-start: ", start);
+    if (start !== "" && typeof start === "string") {
+      //if (start || typeof start !== "string") {
+      //getCalendarEvents(start, end).then((response) => {
+      //console.log(response);
+      getCalendarEvents(start, end).then((response) => {
+        setEvents(response);
+      });
+    }
+  }, [start, end]);
+  //}, []);
+
+  // const { isLoading, isError, data, error } = useQuery({
+  //   queryKey: ["events"],
+  //   queryFn: async () => {
+  //     const res = await fetch(
+  //       `/api/v1/fullCalendar/getDataFull?start=${start}&end=${end}`
+  //     );
+  //   },
+  // });
+  const handleDatesSet = (info) => {
+    //console.log("handleDateSet: ", info.view);
+    //console.log("handleDateSet: ", info.startStr);
+    //console.log("handleDateSet: ", info.start);
+    console.log("handleDateSet-start: ", info.startStr);
+    setStart(info.startStr);
+    setEnd(info.endStr);
+    //setStart(info.start);
+    //setEnd(info.end);
+    // getCalendarEvents(start, end).then((response) => {
+    //   setEvents(response);
+    // });
+  };
   const handleCloseDialog = () => {
     setOpenEventDialog(false);
   };
@@ -439,9 +478,10 @@ export default function MayFullCalendar() {
         //eventChange={(txt) => console.log("eventChanged: ", txt)}
         //dateClick={this.handleDateClick}
         //events={"/api/v1/fullCalendar/getDataFull"} //!!!!!!!!!!!!!!!!!!! ok
-        events={(info, successCallback) => getEvents(info, successCallback)}
+        //events={(info, successCallback) => getEvents(info, successCallback)}
+        events={events}
         //lazyFetching={false}
-        //datesSet={formatEvents111}
+        datesSet={handleDatesSet}
         //locale={"es-PE"}
         locale={"es"}
         //timezone='America/Lima'
