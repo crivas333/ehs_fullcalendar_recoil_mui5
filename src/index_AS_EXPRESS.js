@@ -2,10 +2,7 @@ import mongoose from "mongoose";
 import express from "express";
 // import bodyParser from 'body-parser'
 import cors from "cors";
-//import { ApolloServer } from "apollo-server-express";
-import { ApolloServer } from "@apollo/server";
-import { expressMiddleware } from "@apollo/server/express4";
-import { json } from "body-parser";
+import { ApolloServer } from "apollo-server-express";
 import typeDefs from "./typeDefs";
 import resolvers from "./resolvers";
 import schemaDirectives from "./directives";
@@ -48,7 +45,8 @@ const IN_PROD = process.env.NODE_ENV === "production" ? true : false;
     }
     // for fetch - it can be used cors or Access-Control-Allow-Origin
     // Allow cross-origin
-    //app.use(cors()); //configured below
+    app.use(cors());
+    // app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
     app.disable("x-powered-by");
 
     app.use(
@@ -73,8 +71,7 @@ const IN_PROD = process.env.NODE_ENV === "production" ? true : false;
         },
       })
     );
-    //app.use(express.json());
-
+    app.use(express.json());
     // app.use(express.urlencoded({extended:false})) //for FORMS processing
     app.use("/api/v1/appointments", schedulerRoutes);
     app.use("/api/v1/dataGrid", dataGridRoutes);
@@ -90,46 +87,35 @@ const IN_PROD = process.env.NODE_ENV === "production" ? true : false;
       typeDefs,
       resolvers,
       schemaDirectives,
-      // playground: IN_PROD
-      //   ? false
-      //   : {
-      //       settings: {
-      //         "request.credentials": "include",
-      //       },
-      //     },
-      //context: async ({ req, res }) => ({ req, res }),
+      playground: IN_PROD
+        ? false
+        : {
+            settings: {
+              "request.credentials": "include",
+            },
+          },
+      context: ({ req, res }) => ({ req, res }),
     });
-    await server.start(); //new
 
-    //server.applyMiddleware({ app, cors: false });
-    app.use(
-      "/graphql",
-      //cors({ origin: ['https://www.your-app.example', 'https://studio.apollographql.com'] }),
-      cors(), //works with and without
-      json(),
-      expressMiddleware(server, {
-        context: async ({ req, res }) => ({ req, res }), //works
-        //context: ({ req, res }) => ({ req, res }),      //works
-      })
-    );
-    new Promise((resolve) => app.listen({ port: 4000 }, resolve));
-    console.log(`Server ready at http://localhost:4000/graphql`);
+    server.applyMiddleware({ app, cors: false });
+    //server.applyMiddleware({ app, cors: true });
+    //server.applyMiddleware({ app });
 
-    // if (process.env.NODE_ENV === "production") {
-    //   console.log("we are on production: ", process.env.SESS_SECRET);
-    //   app.use(express.static("client/build"));
-    //   app.get("/*", (req, res) => {
-    //     res.sendFile(
-    //       path.resolve(__dirname, "../client", "build", "index.html")
-    //     );
-    //   });
-    // }
+    if (process.env.NODE_ENV === "production") {
+      console.log("we are on production: ", process.env.SESS_SECRET);
+      app.use(express.static("client/build"));
+      app.get("/*", (req, res) => {
+        res.sendFile(
+          path.resolve(__dirname, "../client", "build", "index.html")
+        );
+      });
+    }
 
-    // const PORT = process.env.PORT || 4000;
-    // app.listen({ port: PORT }, () => {
-    //   console.log(`http://localhost:${PORT}${server.graphqlPath}`);
-    //   console.log("process.env.SESS_NAME: ", process.env.SESS_NAME);
-    // });
+    const PORT = process.env.PORT || 4000;
+    app.listen({ port: PORT }, () => {
+      console.log(`http://localhost:${PORT}${server.graphqlPath}`);
+      console.log("process.env.SESS_NAME: ", process.env.SESS_NAME);
+    });
   } catch (e) {
     console.error("server errors: ", e);
   }
